@@ -1,0 +1,57 @@
+<!doctype html>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+	<link rel='shortcut icon' href='img/cloud.jpg'>
+	<title>HAPPY BIRTHDAY YY LOGIN</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="htmleaf-container">
+	<div class="wrapper">
+		<div class="container">
+			<h1>Welcome</h1>
+			
+			<form class="form">
+				<input type="password" id="psd" placeholder="Password">
+				<button type="submit" id="login-button">Login</button>
+			</form>
+		</div>
+		
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</div>
+<script src="js/notie.js"></script>
+<script>
+	function confirm() {
+		notie.confirm('你真的是我可爱又迷人的云云小宝贝吗？Σ(っ°Д°;)っ<br><b>操作好像不对诶ᓫ(°⌑°)ǃ</b>', '<b>Yeah 就是我! φ(>ω<*)</b>', '不是ヾ(>Д<;))))..... 逃~~', function() {
+			notie.alert(1, '亲爱的,密码输错了哦(*/ω＼*)', 2);
+		});
+	}
+	
+	$("#login-button").click(function (event) {
+		if(document.getElementById("psd").value == "150927"){
+			event.preventDefault();
+			$('form').fadeOut(500);
+			$('.wrapper').addClass('form-success');
+			setTimeout("window.location='index2.html'",1700);
+		}else{
+			event.preventDefault();
+			confirm();
+		}
+	});
+</script>
+</body>
+</html>
