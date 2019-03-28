@@ -78,16 +78,16 @@
 
 
 
-<meta name="description" content="欢迎来到，多多指教">
+<meta name="description" content="一、问题描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode——1. Two Sum">
 <meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode——1-Two-Sum/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="欢迎来到，多多指教">
-<meta property="og:updated_time" content="2019-03-28T08:42:04.989Z">
+<meta property="og:description" content="一、问题描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target.">
+<meta property="og:updated_time" content="2019-03-28T10:38:52.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode——1. Two Sum">
-<meta name="twitter:description" content="欢迎来到，多多指教">
+<meta name="twitter:description" content="一、问题描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target.">
 
 
 
@@ -327,7 +327,29 @@
       
 
       
-        
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given an array of integers, return <strong>indices</strong> of the two numbers such that they add up to a specific target.<br><a id="more"></a><br>You may assume that each input would have <strong>exactly</strong> one solution, and you may not use the same element twice.</p>
+</blockquote>
+<h5 id="Example1"><a href="#Example1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>给定一个数组，和一个目标数target，要求数组中，和为target的两个数的下标。<br>想到的方法是暴力求法，即直接逐个遍历数组，找出满足要求的两个数。尽管这种方法能成功AC,但显然效率不高，这种方法比较耗时。需要寻找更加优化的算法。<br>查阅资料和题解思路得知，更加优化的方法是使用哈希表，这是一种通过以空间换取速度的方式，我们可以将查找时间从 O(n)降低到 O(1)。主要有以下两种：</p>
+<blockquote>
+<p>1.两遍哈希表<br>一个简单的实现使用了两次迭代。在第一次迭代中，我们将每个元素的值和它的索引添加到表中。然后，在第二次迭代中，我们将检查每个元素所对应的目标元素（target - nums[i]）是否存在于表中。</p>
+<p>2.一遍哈希表<br>更优化的方法是，我们可以一次完成计算。在进行迭代并将元素插入到表中的同时，我们还会回过头来检查表中是否已经存在当前元素所对应的目标元素。如果它存在，那我们已经找到了对应解，并立即将其返回。</p>
+</blockquote>
+<p>这里将这两种方法都实现了一遍。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
+<li><p>解法1 暴力求法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; indices;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size()<span class="number">-1</span>;i++)</div><div class="line">        &#123;</div><div class="line">            indices.push_back(i);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.size();j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(nums[j]==target-nums[i])</div><div class="line">                &#123;</div><div class="line">                    indices.push_back(j);</div><div class="line">                    <span class="keyword">return</span> indices;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            indices.pop_back();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>解法2 两遍哈希表</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;  indices;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</div><div class="line">        &#123;</div><div class="line">            hash[nums[i]]=i;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> complement = target - nums[i];</div><div class="line">            <span class="keyword">if</span> (hash.count(complement) &amp;&amp; hash[complement] != i)</div><div class="line">            &#123;</div><div class="line">                indices.push_back(i);</div><div class="line">                indices.push_back(hash[complement]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>一遍哈希表</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;  indices;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> complement = target - nums[i];</div><div class="line">            <span class="keyword">if</span> (hash.count(complement))</div><div class="line">            &#123;</div><div class="line">                indices.push_back(i);</div><div class="line">                indices.push_back(hash[complement]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            hash[nums[i]]=i;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></li>
+</ol>
+
       
     </div>
     
@@ -415,8 +437,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -434,7 +465,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -484,6 +515,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example1:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

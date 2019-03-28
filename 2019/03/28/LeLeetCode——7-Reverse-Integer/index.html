@@ -78,16 +78,16 @@
 
 
 
-<meta name="description" content="欢迎来到，多多指教">
+<meta name="description" content="一、问题描述 Given a 32-bit signed integer, reverse digits of an integer..">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeLeetCode——7. Reverse Integer">
 <meta property="og:url" content="http://wuyujie.top/2019/03/28/LeLeetCode——7-Reverse-Integer/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="欢迎来到，多多指教">
-<meta property="og:updated_time" content="2019-03-28T09:52:20.443Z">
+<meta property="og:description" content="一、问题描述 Given a 32-bit signed integer, reverse digits of an integer..">
+<meta property="og:updated_time" content="2019-03-28T10:08:28.003Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeLeetCode——7. Reverse Integer">
-<meta name="twitter:description" content="欢迎来到，多多指教">
+<meta name="twitter:description" content="一、问题描述 Given a 32-bit signed integer, reverse digits of an integer..">
 
 
 
@@ -327,7 +327,23 @@
       
 
       
-        
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given a 32-bit signed integer, reverse digits of an integer..<br><a id="more"></a></p>
+</blockquote>
+<h5 id="Example1"><a href="#Example1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p>Input: 123<br>Output: 321</p>
+</blockquote>
+<h5 id="Example1-1"><a href="#Example1-1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p>Input: -123<br>Output: -321</p>
+</blockquote>
+<h5 id="Example1-2"><a href="#Example1-2" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p>Input: 120<br>Output: 21</p>
+</blockquote>
+<h5 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h5><blockquote>
+<p>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−2^31,  2^31 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>问题很简单，即将一个int型整数逆序。这里需要注意的是，int的表示范围是[−2^31,  2^31 − 1]，所以若逆序后的数在这个范围之外，即溢出的时候，直接输出0。<br>我的想法是，用一个更大的类型，即<strong>long</strong>来存储转化结果，然后判断结果在不在int的表示范围内，对计算结果进行处理。对比评论区，发现思路大致相同，这貌似就是最优的方法，还以为又会有啥逻辑上的转换。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">long</span> MAX=<span class="number">2147483647</span>;</div><div class="line">    <span class="keyword">long</span> MIN=<span class="number">-2147483648</span>;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> result=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x!=<span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            result=result*<span class="number">10</span>+x%<span class="number">10</span>;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(result&gt;MAX||result&lt;MIN)</div><div class="line">        &#123;</div><div class="line">            result=<span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -360,6 +376,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/28/LeetCode——5-Longest-Palindromic-Substring/" rel="prev" title="LeetCode——5. Longest Palindromic Substring">
+                LeetCode——5. Longest Palindromic Substring <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -411,8 +431,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -430,7 +459,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -480,6 +509,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1-1"><span class="nav-number">1.0.2.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1-2"><span class="nav-number">1.0.3.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Note"><span class="nav-number">1.0.4.</span> <span class="nav-text">Note:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
