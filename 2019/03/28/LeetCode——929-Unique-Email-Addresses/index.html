@@ -78,16 +78,16 @@
 
 
 
-<meta name="description" content="一、问题描述">
+<meta name="description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode——771. Jewels and Stones">
-<meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode——771-Jewels-and-Stones/index.html">
+<meta property="og:title" content="LeetCode——929. Unique Email Addresses">
+<meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述">
-<meta property="og:updated_time" content="2019-03-28T08:03:36.242Z">
+<meta property="og:description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
+<meta property="og:updated_time" content="2019-03-28T08:39:25.053Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode——771. Jewels and Stones">
-<meta name="twitter:description" content="一、问题描述">
+<meta name="twitter:title" content="LeetCode——929. Unique Email Addresses">
+<meta name="twitter:description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="http://wuyujie.top/2019/03/28/LeetCode——771-Jewels-and-Stones/"/>
+  <link rel="canonical" href="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/"/>
 
 
 
 
 
-  <title>LeetCode——771. Jewels and Stones | WuYJ's Blog</title>
+  <title>LeetCode——929. Unique Email Addresses | WuYJ's Blog</title>
   
 
 
@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/03/28/LeetCode——771-Jewels-and-Stones/">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wuyunjie">
@@ -277,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode——771. Jewels and Stones</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode——929. Unique Email Addresses</h1>
         
 
         <div class="post-meta">
@@ -289,7 +289,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T15:26:09+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T16:09:35+08:00">
                 2019-03-28
               </time>
             
@@ -327,31 +327,36 @@
       
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><a id="more"></a>
-<blockquote>
-<p>You’re given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.<br>The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so “a” is considered a different type of stone from “A”.</p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Every email consists of a local name and a domain name, separated by the @ sign.</p>
+<p>For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.<br><a id="more"></a><br>Besides lowercase letters, these emails may contain ‘.’s or ‘+’s.</p>
+<p>If you add periods (‘.’) between some characters in the local name part of an email address, mail sent there will be forwarded to the same address without dots in the local name.  For example, “alice.z@leetcode.com” and “alicez@leetcode.com” forward to the same email address.  (Note that this rule does not apply for domain names.)</p>
+<p>If you add a plus (‘+’) in the local name, everything after the first plus sign will be ignored. This allows certain emails to be filtered, for example m.y+name@email.com will be forwarded to my@email.com.  (Again, this rule does not apply for domain names.)</p>
+<p>It is possible to use both of these rules at the same time.</p>
+<p>Given a list of emails, we send one email to each address in the list.  How many different addresses actually receive mails? </p>
 </blockquote>
 <h5 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h5><blockquote>
-<p>Input: J = “aA”, S = “aAAbbbb”<br>Output: 3</p>
+<p>Input: <code>{&quot;test.email+alex@leetcode.com&quot;,&quot;test.e.mail+bob.cathy@leetcode.com&quot;,&quot;testemail+david@lee.tcode.com&quot;}</code><br>Output: <strong>2</strong></p>
 </blockquote>
-<h5 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h5><blockquote>
-<p>Input: J = “z”, S = “ZZ”<br>Output: 0</p>
+<p>Explanation: “testemail@leetcode.com” and “testemail@lee.tcode.com” actually receive mails</p>
+<h5 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h5><ul>
+<li>1 &lt;= emails[i].length &lt;= 100</li>
+<li>1 &lt;= emails.length &lt;= 100</li>
+<li>Each emails[i] contains exactly one ‘@’ character.</li>
+</ul>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目的意思是，邮箱作为一个字符串，在字符”@”前面的部分：</p>
+<blockquote>
+<p>1.若出现字符’.’，则可以去掉该’.’;<br>2.若出现’+’，则从’+’到’@’的字符串都可去掉。</p>
 </blockquote>
-<h5 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h5><blockquote>
+<p>根据这样的规则，判断总共有多少个不同的邮箱。思路很明确，只需要将每一个邮箱转换为其最简单的形式，然后去除其中重复的字符串，计算最终剩下的字符串个数即可。<br>首先联想到的是在每次处理完字符串后，将处理过的字符串放入一个set中，由于set内不含重复元素，所以自然就可以去重。但是vector有没有什么直接去重的方法呢？查阅资料后发现还真有，在vector类型中，有一种去重的方法是：先在vector内对向量进行排序，然后用erase加unique函数即可实现去除重复元素。</p>
+<blockquote>
 <ul>
-<li>S and J will consist of letters and have length at most 50.</li>
-<li>The characters in J are distinct.</li>
+<li>unique函数是一个去重函数，去除相邻中的重复元素（只留一个）。其中，最关键的是：并不是把重复的元素删除，而是全部放倒数组的后面。</li>
+<li>由于unique只是去除（相邻）的重复元素，因此，为了去除重复的元素，应该，首先对数组Vector进行排序，这样保证重复元素在相邻的位置。</li>
+<li>unique函数，返回的是去重后的尾地址。因此对于一个内容为{2, 2, 5, 5, 6}的vector，执行unique函数以后，vector大小并没有改变，只不过顺序变成了{2, 5, 6, 2, 5}，并且函数的返回值为:3。此时需要删除重复元素，只需要将后面的数据全部删除即可。</li>
 </ul>
 </blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>1.这是一道很简单的题，只需要逐个判断字符串 <strong>S</strong> 中的每个字符,是否在字符串 <strong>J</strong> 中出现过。设置一个计数器count，每次判断后更新该计数器，带遍历完整个字符串，即可得出最终结果。比较字符串的过程中，应用了string库里的find()函数。<br>2.在看别人提交的解法中，看见了另外一种比较有趣的方法，建立了一个与字符ASCII码大小相同的数组，每次判断字符是否存在，只需直接在数组内查看该字符ASCII码对应的位置是否为1，这是一种空间换时间的方法。</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
-<li>解法1 </li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;S.length();i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(J.find(S[i]) != J.npos)</div><div class="line">            &#123;</div><div class="line">                ++count;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> count;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ol>
-<li>解法2</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> exist[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;; </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; J.length();i++) &#123;</div><div class="line">            exist[J.at(i)] = <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; S.length();i++) &#123;</div><div class="line">            <span class="keyword">if</span> (exist[S.at(i)]) &#123;</div><div class="line">                num++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> num;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numUniqueEmails</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; emails)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;::iterator email=emails.begin();email&lt;emails.end();email++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(*email).find(<span class="string">'@'</span>);i++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>((*email)[i]==<span class="string">'.'</span>)  (*email).erase(i,<span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((*email)[i]==<span class="string">'+'</span>)</div><div class="line">                &#123;</div><div class="line">                    (*email).erase(i,(*email).find(<span class="string">'@'</span>)-i);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        sort(emails.begin(),emails.end());</div><div class="line">        emails.erase(unique(emails.begin(), emails.end()), emails.end());</div><div class="line">        <span class="keyword">return</span> emails.size();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -375,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/21/My-new-Post/" rel="next" title="My new Post">
-                <i class="fa fa-chevron-left"></i> My new Post
+              <a href="/2019/03/28/LeetCode——709-To-Lower-Case/" rel="next" title="LeetCode——709. To Lower Case">
+                <i class="fa fa-chevron-left"></i> LeetCode——709. To Lower Case
               </a>
             
           </div>
@@ -385,8 +390,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/28/LeetCode——709-To-Lower-Case/" rel="prev" title="LeetCode——709. To Lower Case">
-                LeetCode——709. To Lower Case <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/28/LeetCode——1-Two-Sum/" rel="prev" title="LeetCode——1. Two Sum">
+                LeetCode——1. Two Sum <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -527,7 +532,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-2"><span class="nav-number">1.0.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Note"><span class="nav-number">1.0.3.</span> <span class="nav-text">Note:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Note"><span class="nav-number">1.0.2.</span> <span class="nav-text">Note:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
             
 
           </div>
