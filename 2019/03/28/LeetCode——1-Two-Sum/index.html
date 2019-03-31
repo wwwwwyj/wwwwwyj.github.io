@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode——1-Two-Sum/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="一、问题描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target.">
-<meta property="og:updated_time" content="2019-03-28T10:38:52.033Z">
+<meta property="og:updated_time" content="2019-03-31T03:57:12.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode——1. Two Sum">
 <meta name="twitter:description" content="一、问题描述 Given an array of integers, return indices of the two numbers such that they add up to a specific target.">
@@ -97,7 +97,7 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
@@ -330,7 +330,8 @@
         <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
 <p>Given an array of integers, return <strong>indices</strong> of the two numbers such that they add up to a specific target.<br><a id="more"></a><br>You may assume that each input would have <strong>exactly</strong> one solution, and you may not use the same element twice.</p>
 </blockquote>
-<h5 id="Example1"><a href="#Example1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p><strong>Example1:</strong></p>
+<blockquote>
 <p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
 </blockquote>
 <h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>给定一个数组，和一个目标数target，要求数组中，和为target的两个数的下标。<br>想到的方法是暴力求法，即直接逐个遍历数组，找出满足要求的两个数。尽管这种方法能成功AC,但显然效率不高，这种方法比较耗时。需要寻找更加优化的算法。<br>查阅资料和题解思路得知，更加优化的方法是使用哈希表，这是一种通过以空间换取速度的方式，我们可以将查找时间从 O(n)降低到 O(1)。主要有以下两种：</p>
@@ -347,7 +348,27 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;  indices;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</div><div class="line">        &#123;</div><div class="line">            hash[nums[i]]=i;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> complement = target - nums[i];</div><div class="line">            <span class="keyword">if</span> (hash.count(complement) &amp;&amp; hash[complement] != i)</div><div class="line">            &#123;</div><div class="line">                indices.push_back(i);</div><div class="line">                indices.push_back(hash[complement]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </li>
 <li><p>一遍哈希表</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;  indices;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> complement = target - nums[i];</div><div class="line">            <span class="keyword">if</span> (hash.count(complement))</div><div class="line">            &#123;</div><div class="line">                indices.push_back(i);</div><div class="line">                indices.push_back(hash[complement]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            hash[nums[i]]=i;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></li>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hash;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;  indices;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> complement = target - nums[i];</div><div class="line">            <span class="keyword">if</span> (hash.count(complement))</div><div class="line">            &#123;</div><div class="line">                indices.push_back(i);</div><div class="line">                indices.push_back(hash[complement]);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            hash[nums[i]]=i;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> indices;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<p>更新：map与unordered_map区别<br>原文：<a href="https://blog.csdn.net/BillCYJ/article/details/78985895" target="_blank" rel="external">https://blog.csdn.net/BillCYJ/article/details/78985895</a><br><strong>1.内部实现机理不同</strong><br><strong>map</strong>： map内部实现了一个红黑树（红黑树是非严格平衡二叉搜索树，而AVL是严格平衡二叉搜索树），红黑树具有自动排序的功能，因此map内部的所有元素都是有序的，红黑树的每一个节点都代表着map的一个元素。</p>
+<p><strong>unordered_map</strong>: unordered_map内部实现了一个哈希表（也叫散列表，通过把关键码值映射到Hash表中一个位置来访问记录，查找的时间复杂度可达到O(1)，其在海量数据处理中有着广泛应用）。因此，其元素的排列顺序是无序的。</p>
+<p><strong>2.优缺点以及适用处</strong><br><strong>map：</strong><br>优点：</p>
+<ol>
+<li>有序性，这是map结构最大的优点，其元素的有序性在很多应用中都会简化很多的操作</li>
+<li>红黑树，内部实现一个红黑书使得map的很多操作在lgn的时间复杂度下就可以实现，因此效率非常的高</li>
+</ol>
+<p>缺点：<br>空间占用率高，因为map内部实现了红黑树，虽然提高了运行效率，但是因为每一个节点都需要额外保存父节点、孩子节点和红/黑性质，使得每一个节点都占用大量的空间</p>
+<p>适用处：对于那些有顺序要求的问题，用map会更高效一些</p>
+<p><strong>unordered_map：</strong><br>优点： 因为内部实现了哈希表，因此其查找速度非常的快</p>
+<p>缺点： 哈希表的建立比较耗费时间</p>
+<p>适用处：对于查找问题，unordered_map会更加高效一些，因此遇到查找问题，常会考虑一下用unordered_map</p>
+<p><strong>总结：</strong></p>
+<ol>
+<li>内存占有率的问题就转化成红黑树 VS hash表 , 还是unorder_map占用的内存要高。</li>
+<li>但是unordered_map执行效率要比map高很多</li>
+<li>对于unordered_map或unordered_set容器，其遍历顺序与创建该容器时输入的顺序不一定相同，因为遍历是按照哈希表从前往后依次遍历的</li>
 </ol>
 
       
@@ -525,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example1:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
             
 
           </div>

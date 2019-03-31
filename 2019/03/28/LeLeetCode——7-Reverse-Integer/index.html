@@ -84,7 +84,7 @@
 <meta property="og:url" content="http://wuyujie.top/2019/03/28/LeLeetCode——7-Reverse-Integer/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="一、问题描述 Given a 32-bit signed integer, reverse digits of an integer..">
-<meta property="og:updated_time" content="2019-03-28T10:50:42.716Z">
+<meta property="og:updated_time" content="2019-03-31T04:06:16.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode——7. Reverse Integer">
 <meta name="twitter:description" content="一、问题描述 Given a 32-bit signed integer, reverse digits of an integer..">
@@ -97,7 +97,7 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
@@ -330,20 +330,28 @@
         <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
 <p>Given a 32-bit signed integer, reverse digits of an integer..<br><a id="more"></a></p>
 </blockquote>
-<h5 id="Example1"><a href="#Example1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p><strong>Example1:</strong></p>
+<blockquote>
 <p>Input: 123<br>Output: 321</p>
 </blockquote>
-<h5 id="Example1-1"><a href="#Example1-1" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p><strong>Example1:</strong></p>
+<blockquote>
 <p>Input: -123<br>Output: -321</p>
 </blockquote>
-<h5 id="Example1-2"><a href="#Example1-2" class="headerlink" title="Example1:"></a>Example1:</h5><blockquote>
+<p><strong>Example1:</strong></p>
+<blockquote>
 <p>Input: 120<br>Output: 21</p>
 </blockquote>
-<h5 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h5><blockquote>
+<p><strong>Note:</strong></p>
+<blockquote>
 <p>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−2^31,  2^31 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.</p>
 </blockquote>
 <h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>问题很简单，即将一个int型整数逆序。这里需要注意的是，int的表示范围是[−2^31,  2^31 − 1]，所以若逆序后的数在这个范围之外，即溢出的时候，直接输出0。<br>我的想法是，用一个更大的类型，即<strong>long</strong>来存储转化结果，然后判断结果在不在int的表示范围内，对计算结果进行处理。对比评论区，发现思路大致相同，这貌似就是最优的方法，还以为又会有啥逻辑上的转换。</p>
 <h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">long</span> MAX=<span class="number">2147483647</span>;</div><div class="line">    <span class="keyword">long</span> MIN=<span class="number">-2147483648</span>;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">long</span> result=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x!=<span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            result=result*<span class="number">10</span>+x%<span class="number">10</span>;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(result&gt;MAX||result&lt;MIN)</div><div class="line">        &#123;</div><div class="line">            result=<span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<hr>
+<p>据说出题人想考的是溢出判断，不能用long，只用Int的实现如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">long</span> MAX=<span class="number">2147483647</span>;</div><div class="line">    <span class="keyword">long</span> MIN=<span class="number">-2147483648</span>;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x!=<span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(result&gt;MAX/<span class="number">10</span>||result&lt;MIN/<span class="number">10</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            result=result*<span class="number">10</span>+x%<span class="number">10</span>;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>也就是计算结果的时候，先判断这次计算会不会溢出，溢出就直接返回0</p>
+
       
     </div>
     
@@ -519,7 +527,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1-1"><span class="nav-number">1.0.2.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example1-2"><span class="nav-number">1.0.3.</span> <span class="nav-text">Example1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Note"><span class="nav-number">1.0.4.</span> <span class="nav-text">Note:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
             
 
           </div>
