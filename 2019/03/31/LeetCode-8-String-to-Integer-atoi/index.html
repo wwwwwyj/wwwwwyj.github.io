@@ -78,17 +78,17 @@
 
 
 
-<meta name="description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
+<meta name="description" content="一、问题描述 Implement atoi which converts a string to an integer.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode——929. Unique Email Addresses">
-<meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/index.html">
+<meta property="og:title" content="LeetCode--8. String to Integer (atoi)">
+<meta property="og:url" content="http://wuyujie.top/2019/03/31/LeetCode-8-String-to-Integer-atoi/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
-<meta property="og:updated_time" content="2019-03-31T07:05:47.413Z">
+<meta property="og:description" content="一、问题描述 Implement atoi which converts a string to an integer.">
+<meta property="og:updated_time" content="2019-04-01T06:20:13.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode——929. Unique Email Addresses">
-<meta name="twitter:description" content="一、问题描述 Every email consists of a local name and a domain name, separated by the @ sign. For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.">
+<meta name="twitter:title" content="LeetCode--8. String to Integer (atoi)">
+<meta name="twitter:description" content="一、问题描述 Implement atoi which converts a string to an integer.">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/"/>
+  <link rel="canonical" href="http://wuyujie.top/2019/03/31/LeetCode-8-String-to-Integer-atoi/"/>
 
 
 
 
 
-  <title>LeetCode——929. Unique Email Addresses | WuYJ's Blog</title>
+  <title>LeetCode--8. String to Integer (atoi) | WuYJ's Blog</title>
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/03/28/LeetCode——929-Unique-Email-Addresses/">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/03/31/LeetCode-8-String-to-Integer-atoi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wuyunjie">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode——929. Unique Email Addresses</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode--8. String to Integer (atoi)</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T16:09:35+08:00">
-                2019-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T17:23:46+08:00">
+                2019-03-31
               </time>
             
 
@@ -351,37 +351,46 @@
 
       
         <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>Every email consists of a local name and a domain name, separated by the @ sign.</p>
-<p>For example, in alice@leetcode.com, alice is the local name, and leetcode.com is the domain name.<br><a id="more"></a><br>Besides lowercase letters, these emails may contain ‘.’s or ‘+’s.</p>
-<p>If you add periods (‘.’) between some characters in the local name part of an email address, mail sent there will be forwarded to the same address without dots in the local name.  For example, “alice.z@leetcode.com” and “alicez@leetcode.com” forward to the same email address.  (Note that this rule does not apply for domain names.)</p>
-<p>If you add a plus (‘+’) in the local name, everything after the first plus sign will be ignored. This allows certain emails to be filtered, for example m.y+name@email.com will be forwarded to my@email.com.  (Again, this rule does not apply for domain names.)</p>
-<p>It is possible to use both of these rules at the same time.</p>
-<p>Given a list of emails, we send one email to each address in the list.  How many different addresses actually receive mails? </p>
+<p>Implement <strong>atoi</strong> which converts a string to an integer.<br><a id="more"></a><br>The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them as a numerical value.</p>
+<p>The string can contain additional characters after those that form the integral number, which are ignored and have no effect on the behavior of this function.</p>
+<p>If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.</p>
+<p>If no valid conversion could be performed, a zero value is returned.</p>
 </blockquote>
-<p><strong>Example 1:</strong></p>
-<blockquote>
-<p>Input: <code>{&quot;test.email+alex@leetcode.com&quot;,&quot;test.e.mail+bob.cathy@leetcode.com&quot;,&quot;testemail+david@lee.tcode.com&quot;}</code><br>Output: <strong>2</strong></p>
-</blockquote>
-<p>Explanation: “testemail@leetcode.com” and “testemail@lee.tcode.com” actually receive mails</p>
 <p><strong>Note:</strong></p>
 <ul>
-<li>1 &lt;= emails[i].length &lt;= 100</li>
-<li>1 &lt;= emails.length &lt;= 100</li>
-<li>Each emails[i] contains exactly one ‘@’ character.</li>
+<li>Only the space character ‘ ‘ is considered as whitespace character.</li>
+<li>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.</li>
 </ul>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目的意思是，邮箱作为一个字符串，在字符”@”前面的部分：</p>
+<p><strong>Example1:</strong></p>
 <blockquote>
-<p>1.若出现字符’.’，则可以去掉该’.’;<br>2.若出现’+’，则从’+’到’@’的字符串都可去掉。</p>
+<p>Input: “42”<br>Output: 42</p>
 </blockquote>
-<p>根据这样的规则，判断总共有多少个不同的邮箱。思路很明确，只需要将每一个邮箱转换为其最简单的形式，然后去除其中重复的字符串，计算最终剩下的字符串个数即可。<br>首先联想到的是在每次处理完字符串后，将处理过的字符串放入一个set中，由于set内不含重复元素，所以自然就可以去重。但是vector有没有什么直接去重的方法呢？查阅资料后发现还真有，在vector类型中，有一种去重的方法是：先在vector内对向量进行排序，然后用erase加unique函数即可实现去除重复元素。</p>
+<p><strong>Example2:</strong></p>
 <blockquote>
-<ul>
-<li>unique函数是一个去重函数，去除相邻中的重复元素（只留一个）。其中，最关键的是：并不是把重复的元素删除，而是全部放倒数组的后面。</li>
-<li>由于unique只是去除（相邻）的重复元素，因此，为了去除重复的元素，应该，首先对数组Vector进行排序，这样保证重复元素在相邻的位置。</li>
-<li>unique函数，返回的是去重后的尾地址。因此对于一个内容为{2, 2, 5, 5, 6}的vector，执行unique函数以后，vector大小并没有改变，只不过顺序变成了{2, 5, 6, 2, 5}，并且函数的返回值为:3。此时需要删除重复元素，只需要将后面的数据全部删除即可。</li>
-</ul>
+<p>Input: “   -42”<br>Output: -42<br>Explanation: The first non-whitespace character is ‘-‘, which is the minus sign.Then take as many numerical digits as possible, which gets 42.</p>
 </blockquote>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numUniqueEmails</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; emails)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;::iterator email=emails.begin();email&lt;emails.end();email++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;(*email).find(<span class="string">'@'</span>);i++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>((*email)[i]==<span class="string">'.'</span>)  (*email).erase(i,<span class="number">1</span>);</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>((*email)[i]==<span class="string">'+'</span>)</div><div class="line">                &#123;</div><div class="line">                    (*email).erase(i,(*email).find(<span class="string">'@'</span>)-i);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        sort(emails.begin(),emails.end());</div><div class="line">        emails.erase(unique(emails.begin(), emails.end()), emails.end());</div><div class="line">        <span class="keyword">return</span> emails.size();</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>Example3:</strong></p>
+<blockquote>
+<p>Input: “4193 with words”<br>Output: 4193<br>Explanation: Conversion stops at digit ‘3’ as the next character is not a numerical digit.</p>
+</blockquote>
+<p><strong>Example4:</strong></p>
+<blockquote>
+<p>Input: “words and 987”<br>Output: 0<br>Explanation: The first non-whitespace character is ‘w’, which is not a numerical digit or a +/- sign. Therefore no valid conversion could be performed.</p>
+</blockquote>
+<p><strong>Example5:</strong></p>
+<blockquote>
+<p>Input: “-91283472332”<br>Output: -2147483648<br>Explanation: The number “-91283472332” is out of the range of a 32-bit signed integer. Thefore INT_MIN (−231) is returned.</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目大致意思是：将一个字符串转换成一个数，这个字符串有很多种情况需要考虑：</p>
+<ol>
+<li>忽略字符串头部的空白(只把” “当做空白)</li>
+<li>数字可能带正负号</li>
+<li>若数字超过INT表示范围，则若上溢，返回INT最大值；若下溢，返回INT最小值</li>
+<li>如果除1,2情况外，第一个字符不是数字，视为无效值，返回0</li>
+<li>如果数字后出现非数字，则截断，不考虑后面的字符。</li>
+</ol>
+<p>所以，只需要将这些情况考虑进来，把字符串进行直接处理即可。判断溢出时，可以用long来保存结果，最后再判断值是否溢出；也可以直接计算过程中对INT进行判断。这里用的后一种方法。这道题在判断溢出时，思路类似于[7.Reverse Integer]这道题。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i,sign=<span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="comment">//去空格</span></div><div class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;str[i]==<span class="string">' '</span>;i++);</div><div class="line">        <span class="comment">//取符号</span></div><div class="line">        <span class="keyword">if</span>(str[i]==<span class="string">'-'</span>)</div><div class="line">        &#123;</div><div class="line">            sign=<span class="number">1</span>;i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'+'</span>)</div><div class="line">        &#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(str[i]&gt;=<span class="string">'0'</span>&amp;&amp;str[i]&lt;=<span class="string">'9'</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(sign==<span class="number">0</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MAX;</div><div class="line">            <span class="keyword">if</span>(sign==<span class="number">1</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MIN;</div><div class="line">            </div><div class="line">            result=result*<span class="number">10</span>+(str[i]-<span class="string">'0'</span>);</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(sign) result=-result;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -411,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/28/LeetCode——709-To-Lower-Case/" rel="next" title="LeetCode——709. To Lower Case">
-                <i class="fa fa-chevron-left"></i> LeetCode——709. To Lower Case
+              <a href="/2019/03/31/LeetCode-4-Median-of-Two-Sorted-Arrays/" rel="next" title="LeetCode--4. Median of Two Sorted Arrays">
+                <i class="fa fa-chevron-left"></i> LeetCode--4. Median of Two Sorted Arrays
               </a>
             
           </div>
@@ -421,8 +430,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/28/LeetCode——1-Two-Sum/" rel="prev" title="LeetCode——1. Two Sum">
-                LeetCode——1. Two Sum <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/01/LeetCode——6-ZigZag-Conversion/" rel="prev" title="LeetCode——6. ZigZag Conversion">
+                LeetCode——6. ZigZag Conversion <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
