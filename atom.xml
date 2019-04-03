@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2019-04-01T06:56:34.627Z</updated>
+  <updated>2019-04-03T12:05:37.267Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
@@ -15,6 +15,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第二周LeetCode</title>
+    <link href="http://wuyujie.top/2019/04/03/%E7%AC%AC%E4%BA%8C%E5%91%A8LeetCode/"/>
+    <id>http://wuyujie.top/2019/04/03/第二周LeetCode/</id>
+    <published>2019-04-03T12:05:37.000Z</published>
+    <updated>2019-04-03T12:05:37.267Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode--9. Palindrome Number</title>
+    <link href="http://wuyujie.top/2019/04/02/LeetCode-9-Palindrome-Number/"/>
+    <id>http://wuyujie.top/2019/04/02/LeetCode-9-Palindrome-Number/</id>
+    <published>2019-04-02T05:16:53.000Z</published>
+    <updated>2019-04-02T05:57:22.013Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote><p>Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.<br><a id="more"></a></p></blockquote><p><strong>Example 1:</strong></p><blockquote><p>Input: 121<br>Output: true</p></blockquote><p><strong>Example 2:</strong></p><blockquote><p>Input: -121<br>Output: false<br>Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.</p></blockquote><p><strong>Example 3:</strong></p><blockquote><p>Input: 10<br>Output: false<br>Explanation: Reads 01 from right to left. Therefore it is not a palindrome.</p></blockquote><h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目让判断一个数整数是不是一个回文，其中定义所有负数都不是回文。解题想法是</p><blockquote><ol><li>首先判断这个数是不是负数，或者是不是0~9的数(只有一位肯定是回文)。</li><li>然后将数字转化为一个字符串，从中心开始向两边扩展判断是不是回文。</li></ol></blockquote><p>这里判断回文的思路和前面做到的一道题很类似，但是这个题要更简单一点。后来才发现题目要求里面有，<strong>不能使用把数转化为字符串</strong>。<br>前面有道题是可以把一个数反转，那么可以直接把数反转后，看看两个数是否相等即可判断。但是把数反转后有可能导致数字大于int表示范围，还需要额外处理溢出的情况。一种优化的方法是，可以<strong>只反转int数字的一半</strong>，如果该数字是回文，其后半部分反转后应该与原始数字的前半部分相同。例如，输入 1221，我们可以将数字“1221”的后半部分从“21”反转为“12”，并将其与前半部分“12”进行比较，因为二者相同，我们得知数字 1221 是回文。这里还需要对一些特殊情况进行处理，比如数字是奇数长，或者10^n时，需要额外判断。</p><h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="转化为字符串的解法"><a href="#转化为字符串的解法" class="headerlink" title="转化为字符串的解法"></a>转化为字符串的解法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToStr</span><span class="params">(<span class="keyword">int</span> x)</span></span></div><div class="line">    &#123; </div><div class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</div><div class="line">        <span class="keyword">while</span>(x&gt;<span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">char</span> tmp = (x%<span class="number">10</span>)+<span class="string">'0'</span>;</div><div class="line">            res = tmp + res;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(x&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        <span class="keyword">if</span>(x&gt;=<span class="number">0</span>&amp;&amp;x&lt;<span class="number">10</span>) <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        </div><div class="line">        <span class="built_in">string</span> num = intToStr(x);</div><div class="line">        <span class="keyword">int</span> i,j;</div><div class="line">        <span class="keyword">if</span>(num.length()%<span class="number">2</span>==<span class="number">0</span>)</div><div class="line">        &#123;</div><div class="line">            i=num.length()/<span class="number">2</span><span class="number">-1</span>;</div><div class="line">            j=num.length()/<span class="number">2</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            i=num.length()/<span class="number">2</span><span class="number">-1</span>;</div><div class="line">            j=num.length()/<span class="number">2</span>+<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&gt;=<span class="number">0</span>&amp;&amp;j&lt;=num.length())</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(num[i]!=num[j]) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">            i--;j++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure><h4 id="不转化解法"><a href="#不转化解法" class="headerlink" title="不转化解法"></a>不转化解法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(x&lt;<span class="number">0</span> || (x!=<span class="number">0</span> &amp;&amp; x%<span class="number">10</span>==<span class="number">0</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> revertedNumber = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x &gt; revertedNumber)</div><div class="line">        &#123;</div><div class="line">            revertedNumber = revertedNumber*<span class="number">10</span>+x%<span class="number">10</span>;</div><div class="line">            x/=<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> x==(revertedNumber/<span class="number">10</span>) || x==revertedNumber;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述&quot;&gt;&lt;/a&gt;一、问题描述&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://wuyujie.top/categories/LeetCode/"/>
+    
+    
+      <category term="LeetCode" scheme="http://wuyujie.top/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode——6. ZigZag Conversion</title>
