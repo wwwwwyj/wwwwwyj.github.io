@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="LeetCode," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="一、问题描述 Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum">
+<meta name="keywords" content="LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode--18. 4Sum">
+<meta property="og:url" content="http://wuyujie.top/2019/04/10/LeetCode-18-4Sum/index.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="一、问题描述 Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum">
+<meta property="og:updated_time" content="2019-04-10T10:16:10.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode--18. 4Sum">
+<meta name="twitter:description" content="一、问题描述 Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wuyujie.top/2019/04/10/LeetCode-18-4Sum/"/>
+
+
+
+
+
+  <title>LeetCode--18. 4Sum | WuYJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">HELLO WORLD</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/04/10/LeetCode-18-4Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wuyunjie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LeetCode--18. 4Sum</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T16:56:21+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given an array <code>nums</code> of n integers and an integer <code>target</code>, are there elements a, b, c, and d in <code>nums</code> such that a + b + c + d = <code>target</code>? Find all unique quadruplets in the array which gives the sum of <code>target</code>.<br><a id="more"></a></p>
+</blockquote>
+<p><strong>Note :</strong></p>
+<blockquote>
+<p>The solution set must not contain duplicate quadruplets.</p>
+</blockquote>
+<p><strong>Example :</strong></p>
+<blockquote>
+<p>Given array nums = [1, 0, -1, 0, -2, 2], and target = 0.</p>
+<p>A solution set is:<br>[<br>  [-1,  0, 0, 1],<br>  [-2, -1, 1, 2],<br>  [-2,  0, 0, 2]<br>]</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这道题和前面几道关于数字之和的题应该是同一个系列(<a href="http://wuyunjie.top/2019/03/28/LeetCode%E2%80%94%E2%80%941-Two-Sum/" title="Two Sum" target="_blank" rel="external">Two Sum</a>，<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" title="3Sum" target="_blank" rel="external">3Sum</a>，<a href="http://wuyunjie.top/2019/04/09/LeetCode-16-3Sum-Closest/" title="3Sum Closest" target="_blank" rel="external">3Sum Closest</a>)。尽管难度有所提升，但是解题的思想和算法实际上都一致，其实也就是多了层循环。比如四个数a,b,c,d，我们可以先固定数a，然后寻找b,c,d，这就转换成了三数和的问题。</p>
+<p>现在遇到了许多类似的问题，而且可以看出他们的解决方法具有一定规律，可以进行拓展。那么是不是可以找到一种泛化的方法计算KSUM，使得我们以后遇到5sum, 6sum…等等类似的问题时，不必再去重写这些算法，只用一个泛化的算法就可以搞定这一些。翻看评论区后，发现已经有人实现了这样的算法，主要是通过递归DFS实现的。每次先固定一个数，然后递归找到K-1SUM的结果。依次类推，直到找到2SUM返回最终结果，开始回溯。代码实现如下。</p>
+<p>参考文献：<br><a href="https://leetcode.com/problems/4sum/discuss/8641/12ms-KSum-c%2B%2B-code" title="12ms KSum, c++ code" target="_blank" rel="external">[1] 12ms KSum, c++ code</a><br><a href="https://leetcode.com/problems/4sum/discuss/163559/C%2B%2B-solution-for-all-Ksum-question" title="[1] C++ solution for all Ksum question" target="_blank" rel="external">[2] C++ solution for all Ksum question</a></p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="4SUM"><a href="#4SUM" class="headerlink" title="4SUM"></a>4SUM</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; fourSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</div><div class="line">        sort(nums.begin(),nums.end());</div><div class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">3</span> || (nums.front() &gt; target &amp;&amp; nums.front() &gt; <span class="number">0</span>) || (nums.back() &lt; target &amp;&amp; nums.back() &lt; <span class="number">0</span>))</div><div class="line">            <span class="keyword">return</span> res;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> n = nums.size();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n - <span class="number">3</span>; i++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span>(nums[i]+nums[i+<span class="number">1</span>]+nums[i+<span class="number">2</span>]+nums[i+<span class="number">3</span>]&gt;target) <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</div><div class="line">            <span class="keyword">if</span>(nums[i]+nums[n<span class="number">-3</span>]+nums[n<span class="number">-2</span>]+nums[n<span class="number">-1</span>]&lt;target) <span class="keyword">continue</span>;</div><div class="line">            </div><div class="line">            <span class="keyword">int</span> tmp_target = target - nums[i];</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; n <span class="number">-2</span>  ; j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(nums[i]+nums[j]+nums[j+<span class="number">1</span>]+nums[j+<span class="number">2</span>]&gt;target) <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">if</span>(j&gt;i+<span class="number">1</span>&amp;&amp;nums[j]==nums[j<span class="number">-1</span>]) <span class="keyword">continue</span>;</div><div class="line">                <span class="keyword">if</span>(nums[i]+nums[j]+nums[n<span class="number">-2</span>]+nums[n<span class="number">-1</span>]&lt;target) <span class="keyword">continue</span>;</div><div class="line">                </div><div class="line">                <span class="keyword">int</span> low = j+<span class="number">1</span>,high = n<span class="number">-1</span>;</div><div class="line">                </div><div class="line">                <span class="keyword">while</span>( low &lt; high)</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">int</span> sum = nums[j] + nums[low] + nums[high];</div><div class="line">                    <span class="keyword">if</span>(sum == tmp_target)</div><div class="line">                    &#123;</div><div class="line">                        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tuple = &#123;nums[i], nums[j], nums[low], nums[high]&#125;;</div><div class="line">                        res.push_back(tuple);</div><div class="line">                        <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[low] == nums[++low] );</div><div class="line">                        <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[high] == nums[--high] );</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; tmp_target) high--;</div><div class="line">                    <span class="keyword">else</span> low++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="KSUM"><a href="#KSUM" class="headerlink" title="KSUM"></a>KSUM</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="comment">// Valid for K &gt;= 2</span></div><div class="line">    <span class="comment">// k表示求ksum,nums是目标数组,l,r分别是左右游标</span></div><div class="line">    <span class="comment">// target是当前目标数, retVal是最终结果, cur是当前阶段的中间结果</span></div><div class="line">    <span class="comment">// ci表示当前是正在求第ci个数</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">KSum</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; retVal, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cur, <span class="keyword">int</span> ci )</span> </span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> mn, mx; <span class="comment">//mn表示当前最小的数，mx表示当前最大的数</span></div><div class="line">        <span class="keyword">int</span> km1 = k - <span class="number">1</span>; </div><div class="line"></div><div class="line">        <span class="keyword">if</span> ( r-l+<span class="number">1</span> &lt; k ) <span class="keyword">return</span>; <span class="comment">//若剩余的数比K小，已经无法找到结果，结束递归</span></div><div class="line">        </div><div class="line">        <span class="keyword">while</span> ( l &lt; r )</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//更新当前最小数和最大数</span></div><div class="line">            mn = nums[l];</div><div class="line">            mx = nums[r];</div><div class="line">            </div><div class="line">            <span class="comment">// 若mn + (k-1)*mx &lt; target，mn太小，l右移</span></div><div class="line">            <span class="keyword">if</span> ( ( mn + km1*mx ) &lt; target ) l++;</div><div class="line">            <span class="comment">// 若(k-1)*mn + mx &gt; target，mx太大，r左移</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ( ( km1*mn + mx ) &gt; target ) r--;</div><div class="line">            </div><div class="line">            <span class="comment">// K=2,直接求出最终结果，其中包括去重操作</span></div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ( k == <span class="number">2</span> )</div><div class="line">            &#123;</div><div class="line">                cur[ci] = mn;</div><div class="line">                cur[ci+<span class="number">1</span>] = mx;</div><div class="line">                retVal.push_back( cur );</div><div class="line">                l++;</div><div class="line">                <span class="keyword">while</span> ( ( l &lt; r ) &amp;&amp; ( nums[l] == mn ) ) l++;</div><div class="line">                r--;</div><div class="line">                <span class="keyword">while</span> ( ( l &lt; r ) &amp;&amp; ( nums[r] == mx ) ) r--;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">// 否者，递归转化为k-1 Sum的问题，递归求解</span></div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                cur[ci] = mn; <span class="comment">//记录下当前可能的第ci个数</span></div><div class="line">                <span class="comment">//递归求解k-1 Sum</span></div><div class="line">                KSum( km1, nums, ++l, r, target - mn, retVal, cur, ci+<span class="number">1</span> );</div><div class="line">                <span class="comment">// 去重</span></div><div class="line">                <span class="keyword">while</span> ( ( l &lt; r ) &amp;&amp; ( nums[l] == nums[l<span class="number">-1</span>] ) ) l++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; fourSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) </div><div class="line">    &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; RetVal;</div><div class="line">        <span class="comment">//初始化中间结果向量</span></div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur(<span class="number">4</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line">        <span class="comment">// 排序，用于后面去重</span></div><div class="line">        sort( nums.begin(), nums.end() );</div><div class="line">        </div><div class="line">        KSum( <span class="number">4</span>, nums, <span class="number">0</span>, nums.size()<span class="number">-1</span>, target, RetVal, cur, <span class="number">0</span> );</div><div class="line"></div><div class="line">        <span class="keyword">return</span> RetVal;        </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/10/LeetCode-17-Letter-Combinations-of-a-Phone-Number/" rel="next" title="LeetCode--17. Letter Combinations of a Phone Number">
+                <i class="fa fa-chevron-left"></i> LeetCode--17. Letter Combinations of a Phone Number
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/header.jpg"
+              alt="Wuyunjie" />
+          
+            <p class="site-author-name" itemprop="name">Wuyunjie</p>
+            <p class="site-description motion-element" itemprop="description">欢迎来到，多多指教</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wwwwwyj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://wuyunjie.top/myloving/happy-birthday" target="_blank" title="Loving">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4SUM"><span class="nav-number">3.1.</span> <span class="nav-text">4SUM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KSUM"><span class="nav-number">3.2.</span> <span class="nav-text">KSUM</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuyunjie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
