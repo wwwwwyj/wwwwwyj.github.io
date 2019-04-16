@@ -78,17 +78,17 @@
 
 
 
-<meta name="description" content="一、问题描述 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta name="description" content="一、问题描述 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode--12. Integer to Roman">
-<meta property="og:url" content="http://wuyujie.top/2019/04/03/LeetCode-12-Integer-to-Roman/index.html">
+<meta property="og:title" content="LeetCode--25. Reverse Nodes in k-Group">
+<meta property="og:url" content="http://wuyujie.top/2019/04/16/LeetCode-25-Reverse-Nodes-in-k-Group/index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
-<meta property="og:updated_time" content="2019-04-03T12:56:21.693Z">
+<meta property="og:description" content="一、问题描述 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.">
+<meta property="og:updated_time" content="2019-04-16T07:54:41.610Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode--12. Integer to Roman">
-<meta name="twitter:description" content="一、问题描述 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.">
+<meta name="twitter:title" content="LeetCode--25. Reverse Nodes in k-Group">
+<meta name="twitter:description" content="一、问题描述 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://wuyujie.top/2019/04/03/LeetCode-12-Integer-to-Roman/"/>
+  <link rel="canonical" href="http://wuyujie.top/2019/04/16/LeetCode-25-Reverse-Nodes-in-k-Group/"/>
 
 
 
 
 
-  <title>LeetCode--12. Integer to Roman | WuYJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>LeetCode--25. Reverse Nodes in k-Group | WuYJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/04/03/LeetCode-12-Integer-to-Roman/">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/04/16/LeetCode-25-Reverse-Nodes-in-k-Group/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wuyunjie">
@@ -278,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LeetCode--12. Integer to Roman</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode--25. Reverse Nodes in k-Group</h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T20:29:16+08:00">
-                2019-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T15:13:58+08:00">
+                2019-04-16
               </time>
             
 
@@ -351,44 +351,29 @@
 
       
         <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Symbol       Value</div><div class="line">I             1</div><div class="line">V             5</div><div class="line">X             10</div><div class="line">L             50</div><div class="line">C             100</div><div class="line">D             500</div><div class="line">M             1000</div></pre></td></tr></table></figure></p>
-<p>For example, two is written as II in Roman numeral, just two one’s added together. Twelve is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, which is XX + V + II.</p>
-<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:</p>
+<p>Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.<br><a id="more"></a><br>k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.</p>
+</blockquote>
+<p><strong>Example :</strong></p>
+<blockquote>
+<p>Given this linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5</p>
+<p>For k = 2, you should return: 2-&gt;1-&gt;4-&gt;3-&gt;5</p>
+<p>For k = 3, you should return: 3-&gt;2-&gt;1-&gt;4-&gt;5</p>
+</blockquote>
+<p><strong>Note :</strong></p>
 <ul>
-<li>I can be placed before V (5) and X (10) to make 4 and 9. </li>
-<li>X can be placed before L (50) and C (100) to make 40 and 90. </li>
-<li>C can be placed before D (500) and M (1000) to make 400 and 900.</li>
+<li>Only constant extra memory is allowed.</li>
+<li>You may not alter the values in the list’s nodes, only nodes itself may be changed.</li>
 </ul>
-<p>Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.</p>
-</blockquote>
-<p><strong>Example 1:</strong></p>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这道题又是对上一题的推广，leetcode这种由简入难的题挺多的。这次是要求对链表的K个结点反转，这里的K可以是任意的。我们可以依旧按照上一题的那种方式，将链表分为若干段：每次从链表上“摘下”k个结点的链表，把这个链表进行反转后，再放回原来的位置。对于链表的反转操作，我们可以利用构建链表时用的头插法来进行。这里在解决时碰到几个问题：</p>
 <blockquote>
-<p>Input: 3<br>Output: “III”</p>
+<ol>
+<li>若剩下链表长度不够K时，我们不需要对这段链表进行反转，所以我们需要提前计算出链表的长度</li>
+<li>需要记录下反转后的最后一个结点，用于在放回原链表时，可以和下一段连接起来。</li>
+</ol>
 </blockquote>
-<p><strong>Example 2:</strong></p>
-<blockquote>
-<p>Input: 4<br>Output: “IV”</p>
-</blockquote>
-<p><strong>Example 3:</strong></p>
-<blockquote>
-<p>Input: 9<br>Output: “IX”</p>
-</blockquote>
-<p><strong>Example 4:</strong></p>
-<blockquote>
-<p>Input: 58<br>Output: “LVIII”<br>Explanation: L = 50, V = 5, III = 3.</p>
-</blockquote>
-<p><strong>Example 5:</strong></p>
-<blockquote>
-<p>Input: 1994<br>Output: “MCMXCIV”<br>Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</p>
-</blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目描述很长，但意思很简单，就是将普通的阿拉伯数字转换为罗马数字。罗马数字有自己的表示规则，所以需要进行一定处理。其实处理方法很简单：</p>
-<blockquote>
-<p>每次找到数字中包含的最大罗马数字，然后减去这个数，并把该罗马数加入表示数的字符串中。不断重复这个过程，直到数字为0停止，输出结果。</p>
-</blockquote>
-<p>最开始实现时，写了一长串的if-else语句，尽管能够成功解决。但是代码不够简洁，需要想办法使代码美观规范。可以将这些罗马数字和其对应的阿拉伯数字从大到小存放到数组或者map中，之后直接从大到小遍历这个数组即可，可以省去大部分if-else语句，且结构更加清晰。</p>
-<p>评论区有另一种解法，直接把0~10,10~100,100~1000,1000~3999范围类，罗马数的可能表示直接列出来放到一个数字中，然后直接按位查表，O(1)的时间复杂度。</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        <span class="built_in">string</span> res = <span class="string">""</span>;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; val&#123;<span class="number">1000</span>,<span class="number">900</span>,<span class="number">500</span>,<span class="number">400</span>,<span class="number">100</span>,<span class="number">90</span>,<span class="number">50</span>,<span class="number">40</span>,<span class="number">10</span>,<span class="number">9</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>&#125;;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; str&#123;<span class="string">"M"</span>,<span class="string">"CM"</span>,<span class="string">"D"</span>,<span class="string">"CD"</span>,<span class="string">"C"</span>,<span class="string">"XC"</span>,<span class="string">"L"</span>,<span class="string">"XL"</span>,<span class="string">"X"</span>,<span class="string">"IX"</span>,<span class="string">"V"</span>,<span class="string">"IV"</span>,<span class="string">"I"</span>&#125;;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; val.size(); ++i) &#123;</div><div class="line">            <span class="keyword">while</span> (num &gt;= val[i]) &#123;</div><div class="line">                num -= val[i];</div><div class="line">                res += str[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">const</span> <span class="keyword">static</span> <span class="built_in">string</span> THOUS[];</div><div class="line">    <span class="keyword">const</span> <span class="keyword">static</span> <span class="built_in">string</span> HUNDS[];</div><div class="line">    <span class="keyword">const</span> <span class="keyword">static</span> <span class="built_in">string</span> TENS[];</div><div class="line">    <span class="keyword">const</span> <span class="keyword">static</span> <span class="built_in">string</span> ONES[];</div><div class="line">    <span class="function"><span class="built_in">string</span> <span class="title">intToRoman</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</div><div class="line">        <span class="built_in">string</span> result;</div><div class="line">        result += THOUS[(<span class="keyword">int</span>)(num/<span class="number">1000</span>)%<span class="number">10</span>];</div><div class="line">        result += HUNDS[(<span class="keyword">int</span>)(num/<span class="number">100</span>)%<span class="number">10</span>];</div><div class="line">        result += TENS[(<span class="keyword">int</span>)(num/<span class="number">10</span>)%<span class="number">10</span>];</div><div class="line">        result += ONES[num%<span class="number">10</span>];</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="built_in">string</span> Solution::THOUS[]	= &#123;<span class="string">""</span>,<span class="string">"M"</span>,<span class="string">"MM"</span>,<span class="string">"MMM"</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="built_in">string</span> Solution::HUNDS[]	= &#123;<span class="string">""</span>,<span class="string">"C"</span>,<span class="string">"CC"</span>,<span class="string">"CCC"</span>,<span class="string">"CD"</span>,<span class="string">"D"</span>,<span class="string">"DC"</span>,<span class="string">"DCC"</span>,<span class="string">"DCCC"</span>,<span class="string">"CM"</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="built_in">string</span> Solution::TENS[]	= &#123;<span class="string">""</span>,<span class="string">"X"</span>,<span class="string">"XX"</span>,<span class="string">"XXX"</span>,<span class="string">"XL"</span>,<span class="string">"L"</span>,<span class="string">"LX"</span>,<span class="string">"LXX"</span>,<span class="string">"LXXX"</span>,<span class="string">"XC"</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="built_in">string</span> Solution::ONES[]	= &#123;<span class="string">""</span>,<span class="string">"I"</span>,<span class="string">"II"</span>,<span class="string">"III"</span>,<span class="string">"IV"</span>,<span class="string">"V"</span>,<span class="string">"VI"</span>,<span class="string">"VII"</span>,<span class="string">"VIII"</span>,<span class="string">"IX"</span>&#125;;</div></pre></td></tr></table></figure>
+<p>还有一种方法，实现如下，这种方法思想上大致相同，这种方法不用单独计算链表长度，而是边计算长度边处理链表，每当数到k个结点时就反转一次。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode *next;</div><div class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="function">ListNode <span class="title">dummy</span><span class="params">(<span class="number">0</span>)</span></span>;</div><div class="line">        dummy.next = <span class="literal">NULL</span>;</div><div class="line">        ListNode* count = head;</div><div class="line">        <span class="keyword">int</span> Len = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(count)</div><div class="line">        &#123;</div><div class="line">            count=count-&gt;next;</div><div class="line">            Len++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ListNode* pre = &amp;dummy;</div><div class="line">        ListNode* last = head;</div><div class="line">        ListNode* temp = last;</div><div class="line">        ListNode* next;</div><div class="line">        <span class="keyword">while</span>(Len &gt;= k)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//下一个待取的结点</span></div><div class="line">                next = temp-&gt;next;</div><div class="line">                <span class="comment">//插入头部</span></div><div class="line">                temp-&gt;next = pre-&gt;next;</div><div class="line">                pre-&gt;next = temp;</div><div class="line">                temp = next;</div><div class="line">            &#125;</div><div class="line">            pre = last;last=next;</div><div class="line">            Len-=k;</div><div class="line">        &#125;</div><div class="line">        pre-&gt;next = last;</div><div class="line">        <span class="keyword">return</span> dummy.next;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function">ListNode* <span class="title">reverseKGroup</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!head || k == <span class="number">1</span>) <span class="keyword">return</span> head;</div><div class="line">        ListNode *dummy = <span class="keyword">new</span> ListNode(<span class="number">-1</span>), *pre = dummy, *cur = head;</div><div class="line">        dummy-&gt;next = head;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; cur; ++i) &#123;</div><div class="line">            <span class="keyword">if</span> (i % k == <span class="number">0</span>) &#123;</div><div class="line">                pre = reverseOneGroup(pre, cur-&gt;next);</div><div class="line">                cur = pre-&gt;next;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                cur = cur-&gt;next;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dummy-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="function">ListNode* <span class="title">reverseOneGroup</span><span class="params">(ListNode* pre, ListNode* next)</span> </span>&#123;</div><div class="line">        ListNode *last = pre-&gt;next, *cur = last-&gt;next;</div><div class="line">        <span class="keyword">while</span>(cur != next) &#123;</div><div class="line">            last-&gt;next = cur-&gt;next;</div><div class="line">            cur-&gt;next = pre-&gt;next;</div><div class="line">            pre-&gt;next = cur;</div><div class="line">            cur = last-&gt;next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> last;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -418,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/03/LeetCode-11-Container-With-Most-Water/" rel="next" title="LeetCode--11. Container With Most Water">
-                <i class="fa fa-chevron-left"></i> LeetCode--11. Container With Most Water
+              <a href="/2019/04/16/LeetCode-24-Swap-Nodes-in-Pairs/" rel="next" title="LeetCode--24. Swap Nodes in Pairs">
+                <i class="fa fa-chevron-left"></i> LeetCode--24. Swap Nodes in Pairs
               </a>
             
           </div>
@@ -427,10 +412,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/07/LeetCode-10-Regular-Expression-Matching/" rel="prev" title="LeetCode--10. Regular Expression Matching">
-                LeetCode--10. Regular Expression Matching <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1"><span class="nav-number">3.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2"><span class="nav-number">3.2.</span> <span class="nav-text">方法2</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解法1"><span class="nav-number">3.1.</span> <span class="nav-text">解法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解法2"><span class="nav-number">3.2.</span> <span class="nav-text">解法2</span></a></li></ol></li></ol></div>
             
 
           </div>
