@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2019-04-17T09:51:30.286Z</updated>
+  <updated>2019-04-18T05:19:07.872Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第四周LeetCode</title>
+    <link href="http://wuyujie.top/2019/04/18/%E7%AC%AC%E5%9B%9B%E5%91%A8LeetCode/"/>
+    <id>http://wuyujie.top/2019/04/18/第四周LeetCode/</id>
+    <published>2019-04-18T05:13:11.000Z</published>
+    <updated>2019-04-18T05:19:07.872Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="第四周LeetCode刷题记录"><a href="#第四周LeetCode刷题记录" class="headerlink" title="第四周LeetCode刷题记录"></a>第四周LeetCode刷题记录</h2><a id="more"></a><ol><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-20-Valid-Parentheses/" title="LeetCode--20. Valid Parentheses" target="_blank" rel="external">LeetCode—20. Valid Parentheses</a></li><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-21-Merge-Two-Sorted-Lists/" title="LeetCode--21. Merge Two Sorted Lists" target="_blank" rel="external">LeetCode—21. Merge Two Sorted Lists</a></li><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-22-Generate-Parentheses/" title="LeetCode--22. Generate Parentheses" target="_blank" rel="external">LeetCode—22. Generate Parentheses</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-23-Merge-k-Sorted-Lists/" title="LeetCode--23. Merge k Sorted Lists" target="_blank" rel="external">LeetCode—23. Merge k Sorted Lists</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-24-Swap-Nodes-in-Pairs/" title="LeetCode--24. Swap Nodes in Pairs" target="_blank" rel="external">LeetCode—24. Swap Nodes in Pairs</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-25-Reverse-Nodes-in-k-Group/" title="LeetCode--25. Reverse Nodes in k-Group" target="_blank" rel="external">LeetCode—25. Reverse Nodes in k-Group</a></li><li><a href="http://wuyunjie.top/2019/04/17/LeetCode-26-Remove-Duplicates-from-Sorted-Array/" title="LeetCode--26. Remove Duplicates from Sorted Array" target="_blank" rel="external">LeetCode—26. Remove Duplicates from Sorted Array</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;第四周LeetCode刷题记录&quot;&gt;&lt;a href=&quot;#第四周LeetCode刷题记录&quot; class=&quot;headerlink&quot; title=&quot;第四周LeetCode刷题记录&quot;&gt;&lt;/a&gt;第四周LeetCode刷题记录&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="LeetCode报告" scheme="http://wuyujie.top/categories/LeetCode%E6%8A%A5%E5%91%8A/"/>
+    
+    
+      <category term="LeetCode报告" scheme="http://wuyujie.top/tags/LeetCode%E6%8A%A5%E5%91%8A/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode--28. Implement strStr()</title>
@@ -228,7 +250,7 @@
     <link href="http://wuyujie.top/2019/04/11/%E7%AC%AC%E4%B8%89%E5%91%A8LeetCode/"/>
     <id>http://wuyujie.top/2019/04/11/第三周LeetCode/</id>
     <published>2019-04-11T05:41:57.000Z</published>
-    <updated>2019-04-17T09:55:51.692Z</updated>
+    <updated>2019-04-18T05:14:31.756Z</updated>
     
     <content type="html"><![CDATA[<h2 id="第三周LeetCode刷题记录"><a href="#第三周LeetCode刷题记录" class="headerlink" title="第三周LeetCode刷题记录"></a>第三周LeetCode刷题记录</h2><a id="more"></a><ol><li><a href="http://wuyunjie.top/2019/04/07/LeetCode-10-Regular-Expression-Matching/" title="LeetCode--10. Regular Expression Matching" target="_blank" rel="external">LeetCode—10. Regular Expression Matching</a></li><li><a href="http://wuyunjie.top/2019/04/07/LeetCode-13-Roman-to-Integer/" title="LeetCode--13. Roman to Integer" target="_blank" rel="external">LeetCode—13. Roman to Integer</a></li><li><a href="http://wuyunjie.top/2019/04/07/LeetCode-14-Longest-Common-Prefix/" title="LeetCode--14. Longest Common Prefix" target="_blank" rel="external">LeetCode—14. Longest Common Prefix</a></li><li><a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" title="LeetCode--15. 3Sum" target="_blank" rel="external">LeetCode—15. 3Sum</a></li><li><a href="http://wuyunjie.top/2019/04/09/LeetCode-16-3Sum-Closest/" title="LeetCode--16. 3Sum Closest" target="_blank" rel="external">LeetCode—16. 3Sum Closest</a></li><li><a href="http://wuyunjie.top/2019/04/10/LeetCode-17-Letter-Combinations-of-a-Phone-Number/" title="LeetCode--17. Letter Combinations of a Phone Number" target="_blank" rel="external">LeetCode—17. Letter Combinations of a Phone Number</a></li><li><a href="http://wuyunjie.top/2019/04/10/LeetCode-18-4Sum/" title="LeetCode--18. 4Sum" target="_blank" rel="external">LeetCode—18. 4Sum</a></li><li><a href="http://wuyunjie.top/2019/04/11/LeetCode-19-Remove-Nth-Node-From-End-of-List/" title="LeetCode--19. Remove Nth Node From End of List" target="_blank" rel="external">LeetCode—19. Remove Nth Node From End of List</a></li></ol>]]></content>
     
@@ -238,6 +260,10 @@
     
     </summary>
     
+      <category term="LeetCode报告" scheme="http://wuyujie.top/categories/LeetCode%E6%8A%A5%E5%91%8A/"/>
+    
+    
+      <category term="LeetCode报告" scheme="http://wuyujie.top/tags/LeetCode%E6%8A%A5%E5%91%8A/"/>
     
   </entry>
   
@@ -438,29 +464,6 @@
     
       &lt;h3 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述&quot;&gt;&lt;/a&gt;一、问题描述&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://wuyujie.top/categories/LeetCode/"/>
-    
-    
-      <category term="LeetCode" scheme="http://wuyujie.top/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode--11. Container With Most Water</title>
-    <link href="http://wuyujie.top/2019/04/03/LeetCode-11-Container-With-Most-Water/"/>
-    <id>http://wuyujie.top/2019/04/03/LeetCode-11-Container-With-Most-Water/</id>
-    <published>2019-04-03T12:16:07.000Z</published>
-    <updated>2019-04-03T12:24:53.332Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote><p>Given n non-negative integers <strong>a1, a2, …, an</strong> , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.<br><a id="more"></a></p></blockquote><p><strong>Note:</strong> You may not slant the container and n is at least 2.</p><p><img src="https://i.niupic.com/images/2019/04/03/5Ujc.jpg" alt=""><br>The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</p><p><strong>Example :</strong></p><blockquote><p>Input: [1,8,6,2,5,4,8,3,7]<br>Output: 49</p></blockquote><h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>首先想到的是暴力解法，直接遍历所有可能的二元组，最终可以找到满足题目要求的最大值。但是题目对时间有要求，这种时间复杂度O(n^2)的方法超时了。所以需要使用更优的方法，一种优化的方法思路如下：</p><blockquote><p>使用两个变量，一个表示底的开始，一个表示底的终点。一开始底的起点是数组第一位，终点是数组最后一位。这样去计算两者之间围成的区域，如果比当前记录的最大区域大，则将之记为最大区域值。之后，将两边中较短的一边向中间移动一个单位，再次计算区域大小，重复刚才的后续过程。<br>这里的难点是为什么移动的是两边中较小的一条呢？因为这条是这个区域增加的“短板“。移动较短的一边，也许会遇到一条更大的边，这样的话这种增加有可能抵消了底边的变短，甚至可能使得区域面积变得更大。相反的，如果移动的是较大的一边，最好的情况是遇到一条比较短边还要长的边，但是因为“木桶效应“，整个区域大小还是取决于较短的边，所以移动较长的一边是不可能得到更好的结果的。</p></blockquote><h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=height.size()<span class="number">-1</span>;</div><div class="line">        <span class="keyword">int</span> maxArea = min(height[i],height[j])*j;</div><div class="line">        <span class="keyword">while</span>(i&lt;j)</div><div class="line">        &#123;</div><div class="line">            maxArea = max(maxArea,min(height[i],height[j])*(j-i));</div><div class="line">            <span class="keyword">if</span>(height[i]&lt;height[j]) i++;</div><div class="line">            <span class="keyword">else</span> j--;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> maxArea;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;一、问题描述&quot;&gt;&lt;a href=&quot;#一、问题描述&quot; class=&quot;headerlink&quot; title=&quot;一、问题描述&quot;&gt;&lt;/a&gt;一、问题描述&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;Given n non-negative integers &lt;strong&gt;a1, a2, …, an&lt;/strong&gt; , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.&lt;br&gt;
     
     </summary>
     
