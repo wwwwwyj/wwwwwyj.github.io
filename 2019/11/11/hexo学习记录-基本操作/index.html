@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo,学习记录,写博客," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="前言 终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
+<meta name="keywords" content="Hexo,学习记录,写博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo学习记录--基本操作">
+<meta property="og:url" content="http://wuyujie.top/2019/11/11/hexo学习记录-基本操作/index.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="前言 终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
+<meta property="og:updated_time" content="2019-11-12T02:48:59.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo学习记录--基本操作">
+<meta name="twitter:description" content="前言 终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wuyujie.top/2019/11/11/hexo学习记录-基本操作/"/>
+
+
+
+
+
+  <title>hexo学习记录--基本操作 | WuYJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">HELLO WORLD</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/11/11/hexo学习记录-基本操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo学习记录--基本操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-11T23:00:46+08:00">
+                2019-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h3 id="Hexo写博客的基本操作"><a href="#Hexo写博客的基本操作" class="headerlink" title="Hexo写博客的基本操作"></a>Hexo写博客的基本操作</h3><h4 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h4><blockquote>
+<p>最重要的就是写文章部分了，首先了解如何新建一篇文章。Hexo博客建立开始，就自带一篇 <a href="http://wuyunjie.top/2017/09/20/hello-world/" target="_blank" rel="external">Hello World</a> 简易教程。新建文章主要用下面这条命令：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new [layout] &lt;title&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里可以指定文章的布局(layout)，默认为 <code>post</code>。这样所有的文章都会以<code>md</code>形式在<code>source</code>文件夹下的<code>_post</code>文件夹中被创建，之后我们就可以愉快的编辑文章了，这是一个<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="external">markdown的学习文档</a>。</p>
+</blockquote>
+<h4 id="添加分类页"><a href="#添加分类页" class="headerlink" title="添加分类页"></a>添加分类页</h4><blockquote>
+<p>新建一个分类页面，命名为 <code>categories</code>。命令如下：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new page [categories]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>可以将 <code>categories</code> 改为自己需要的新页面，会在 <code>source</code> 文件夹下新建一个对应名为<code>categories</code>的文件夹。然后编辑主题的 <code>_config.yml</code>，即<code>themes/next</code>下的配置文件，区别于网站根目录下的配置文件，将 <code>menu</code> 中的 <code>categories: /categories || th</code> 注释去掉，在菜单中添加链接。</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">menu:</span></div><div class="line"><span class="attr">  home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></div><div class="line">  <span class="comment">#about: /about/ || user</span></div><div class="line"><span class="attr">  tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">tags</span></div><div class="line"><span class="attr">  categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">th</span></div><div class="line"><span class="attr">  archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">archive</span></div></pre></td></tr></table></figure>
+<h4 id="文章分类归档"><a href="#文章分类归档" class="headerlink" title="文章分类归档"></a>文章分类归档</h4><blockquote>
+<p>当然也可以个文章进行分类归档，在编辑文章时，为文章添加 <code>tags</code> 和 <code>categories</code>即可。<br><figure class="highlight mkdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">title: a title</div><div class="line">date: a date</div><div class="line">tags:</div><div class="line"><span class="code">    - tag1</span></div><div class="line"><span class="code">    - tag2</span></div><div class="line"><span class="code">    - tag3</span></div><div class="line">categories: a category</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="编辑工具"><a href="#编辑工具" class="headerlink" title="编辑工具"></a>编辑工具</h4><blockquote>
+<p>为了方便，感觉又两个在线编辑<code>markdown</code>文档的工具挺好用的。</p>
+<blockquote>
+<ol>
+<li><a href="http://markdown.xiaoshujiang.com/" target="_blank" rel="external">小书匠</a></li>
+<li><a href="https://www.mdeditor.com/" target="_blank" rel="external">MdEditor</a></li>
+</ol>
+</blockquote>
+<p>当然也可以配置离线工具，但是不太熟。我配了个<code>sublime</code>的，感觉不好看，也不怎么好用。</p>
+</blockquote>
+<h3 id="生成和部署"><a href="#生成和部署" class="headerlink" title="生成和部署"></a>生成和部署</h3><blockquote>
+<p>当编辑完一个博客页面后，我们需要生成静态页面。可以用如下指令。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g #生成</div></pre></td></tr></table></figure>
+<blockquote>
+<p>我们不需要急于将页面提交到<code>github</code>，可以先在本地预览效果进行调整，等到达到满意后，再部署到<code>github</code>。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s #启动服务, 通过 `localhost:4000`访问本地页面</div></pre></td></tr></table></figure>
+<blockquote>
+<p>一切准备就绪后，就可以提交了。然后通过自己的域名就可以成功访问博客。不过这一步可能会存在延迟，不会立即看到效果。应该是由于缓存的关系。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d #上传部署到github</div></pre></td></tr></table></figure>
+<h3 id="常用命令和缩写"><a href="#常用命令和缩写" class="headerlink" title="常用命令和缩写"></a>常用命令和缩写</h3><blockquote>
+<p>常用命令有以下几个</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo new "postName" #新建文章</div><div class="line">hexo new page "pageName" #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口</div><div class="line">hexo deploy #部署到GitHub</div><div class="line">hexo help  # 查看帮助</div><div class="line">hexo version  #查看Hexo的版本</div></pre></td></tr></table></figure>
+<blockquote>
+<p>一些缩写形式</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo n == hexo new</div><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure>
+<blockquote>
+<p>至此我们可以开始愉快的玩耍了。</p>
+</blockquote>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
+<p>[1] <a href="https://www.jianshu.com/p/1bcad7700c46" target="_blank" rel="external">使用hexo搭建github博客</a><br>[2] <a href="https://www.cnblogs.com/fengzheng/p/8031518.html" target="_blank" rel="external">Hexo + github 打造个人博客</a><br>[3] <a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">使用hexo+github搭建免费个人博客详细教程</a><br>[4] <a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="external">Hexo 指令</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/学习记录/" rel="tag"># 学习记录</a>
+          
+            <a href="/tags/写博客/" rel="tag"># 写博客</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/25/LeetCode-37-Sudoku-Solver/" rel="next" title="LeetCode--37. Sudoku Solver">
+                <i class="fa fa-chevron-left"></i> LeetCode--37. Sudoku Solver
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/header.jpg"
+              alt="wuyunjie" />
+          
+            <p class="site-author-name" itemprop="name">wuyunjie</p>
+            <p class="site-description motion-element" itemprop="description">这是一个为了有博客而存在的博客。 欢迎来到, 多多指教</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wwwwwyj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://wuyunjie.top/myloving/happy-birthday" target="_blank" title="Loving">
+                  
+                    <i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number"></span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo写博客的基本操作"><span class="nav-number">1.</span> <span class="nav-text">Hexo写博客的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写文章"><span class="nav-number">1.1.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加分类页"><span class="nav-number">1.2.</span> <span class="nav-text">添加分类页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章分类归档"><span class="nav-number">1.3.</span> <span class="nav-text">文章分类归档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑工具"><span class="nav-number">1.4.</span> <span class="nav-text">编辑工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成和部署"><span class="nav-number">2.</span> <span class="nav-text">生成和部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令和缩写"><span class="nav-number">3.</span> <span class="nav-text">常用命令和缩写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

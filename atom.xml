@@ -6,15 +6,44 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2019-04-25T08:18:44.079Z</updated>
+  <updated>2019-11-12T02:48:59.149Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
-    <name>Wuyunjie</name>
+    <name>wuyunjie</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo学习记录--基本操作</title>
+    <link href="http://wuyujie.top/2019/11/11/hexo%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
+    <id>http://wuyujie.top/2019/11/11/hexo学习记录-基本操作/</id>
+    <published>2019-11-11T15:00:46.000Z</published>
+    <updated>2019-11-12T02:48:59.149Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。</p></blockquote><h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h3 id="Hexo写博客的基本操作"><a href="#Hexo写博客的基本操作" class="headerlink" title="Hexo写博客的基本操作"></a>Hexo写博客的基本操作</h3><h4 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h4><blockquote><p>最重要的就是写文章部分了，首先了解如何新建一篇文章。Hexo博客建立开始，就自带一篇 <a href="http://wuyunjie.top/2017/09/20/hello-world/" target="_blank" rel="external">Hello World</a> 简易教程。新建文章主要用下面这条命令：</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new [layout] &lt;title&gt;</div></pre></td></tr></table></figure><blockquote><p>这里可以指定文章的布局(layout)，默认为 <code>post</code>。这样所有的文章都会以<code>md</code>形式在<code>source</code>文件夹下的<code>_post</code>文件夹中被创建，之后我们就可以愉快的编辑文章了，这是一个<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="external">markdown的学习文档</a>。</p></blockquote><h4 id="添加分类页"><a href="#添加分类页" class="headerlink" title="添加分类页"></a>添加分类页</h4><blockquote><p>新建一个分类页面，命名为 <code>categories</code>。命令如下：</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new page [categories]</div></pre></td></tr></table></figure><blockquote><p>可以将 <code>categories</code> 改为自己需要的新页面，会在 <code>source</code> 文件夹下新建一个对应名为<code>categories</code>的文件夹。然后编辑主题的 <code>_config.yml</code>，即<code>themes/next</code>下的配置文件，区别于网站根目录下的配置文件，将 <code>menu</code> 中的 <code>categories: /categories || th</code> 注释去掉，在菜单中添加链接。</p></blockquote><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">menu:</span></div><div class="line"><span class="attr">  home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></div><div class="line">  <span class="comment">#about: /about/ || user</span></div><div class="line"><span class="attr">  tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">tags</span></div><div class="line"><span class="attr">  categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">th</span></div><div class="line"><span class="attr">  archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">archive</span></div></pre></td></tr></table></figure><h4 id="文章分类归档"><a href="#文章分类归档" class="headerlink" title="文章分类归档"></a>文章分类归档</h4><blockquote><p>当然也可以个文章进行分类归档，在编辑文章时，为文章添加 <code>tags</code> 和 <code>categories</code>即可。<br><figure class="highlight mkdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">title: a title</div><div class="line">date: a date</div><div class="line">tags:</div><div class="line"><span class="code">    - tag1</span></div><div class="line"><span class="code">    - tag2</span></div><div class="line"><span class="code">    - tag3</span></div><div class="line">categories: a category</div></pre></td></tr></table></figure></p></blockquote><h4 id="编辑工具"><a href="#编辑工具" class="headerlink" title="编辑工具"></a>编辑工具</h4><blockquote><p>为了方便，感觉又两个在线编辑<code>markdown</code>文档的工具挺好用的。</p><blockquote><ol><li><a href="http://markdown.xiaoshujiang.com/" target="_blank" rel="external">小书匠</a></li><li><a href="https://www.mdeditor.com/" target="_blank" rel="external">MdEditor</a></li></ol></blockquote><p>当然也可以配置离线工具，但是不太熟。我配了个<code>sublime</code>的，感觉不好看，也不怎么好用。</p></blockquote><h3 id="生成和部署"><a href="#生成和部署" class="headerlink" title="生成和部署"></a>生成和部署</h3><blockquote><p>当编辑完一个博客页面后，我们需要生成静态页面。可以用如下指令。</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo g #生成</div></pre></td></tr></table></figure><blockquote><p>我们不需要急于将页面提交到<code>github</code>，可以先在本地预览效果进行调整，等到达到满意后，再部署到<code>github</code>。</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s #启动服务, 通过 `localhost:4000`访问本地页面</div></pre></td></tr></table></figure><blockquote><p>一切准备就绪后，就可以提交了。然后通过自己的域名就可以成功访问博客。不过这一步可能会存在延迟，不会立即看到效果。应该是由于缓存的关系。</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d #上传部署到github</div></pre></td></tr></table></figure><h3 id="常用命令和缩写"><a href="#常用命令和缩写" class="headerlink" title="常用命令和缩写"></a>常用命令和缩写</h3><blockquote><p>常用命令有以下几个</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo new "postName" #新建文章</div><div class="line">hexo new page "pageName" #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口</div><div class="line">hexo deploy #部署到GitHub</div><div class="line">hexo help  # 查看帮助</div><div class="line">hexo version  #查看Hexo的版本</div></pre></td></tr></table></figure><blockquote><p>一些缩写形式</p></blockquote><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo n == hexo new</div><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure><blockquote><p>至此我们可以开始愉快的玩耍了。</p></blockquote><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote><p>[1] <a href="https://www.jianshu.com/p/1bcad7700c46" target="_blank" rel="external">使用hexo搭建github博客</a><br>[2] <a href="https://www.cnblogs.com/fengzheng/p/8031518.html" target="_blank" rel="external">Hexo + github 打造个人博客</a><br>[3] <a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="external">使用hexo+github搭建免费个人博客详细教程</a><br>[4] <a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="external">Hexo 指令</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://wuyujie.top/categories/Hexo/"/>
+    
+    
+      <category term="Hexo" scheme="http://wuyujie.top/tags/Hexo/"/>
+    
+      <category term="学习记录" scheme="http://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="写博客" scheme="http://wuyujie.top/tags/%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode--37. Sudoku Solver</title>
@@ -242,25 +271,6 @@
     
     
       <category term="LeetCode" scheme="http://wuyujie.top/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://wuyujie.top/2019/04/21/hello-world/"/>
-    <id>http://wuyujie.top/2019/04/21/hello-world/</id>
-    <published>2019-04-21T13:04:23.095Z</published>
-    <updated>2017-09-21T16:39:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;
-    
-    </summary>
-    
     
   </entry>
   
