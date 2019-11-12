@@ -82,13 +82,12 @@
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--29. Divide Two Integers">
-<meta property="og:url" content="http://wuyujie.top/2019/04/22/LeetCode-29-Divide-Two-Integers/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;04&#x2F;22&#x2F;LeetCode-29-Divide-Two-Integers&#x2F;index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="一、问题描述 Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-04-22T07:11:08.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode--29. Divide Two Integers">
-<meta name="twitter:description" content="一、问题描述 Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.">
 
 
 
@@ -180,7 +179,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -190,7 +189,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -200,7 +199,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/categories/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -210,7 +209,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -220,7 +219,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -330,6 +329,17 @@
 
           
           
+             <span id="/2019/04/22/LeetCode-29-Divide-Two-Integers/" class="leancloud_visitors" data-flag-title="LeetCode--29. Divide Two Integers">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -372,14 +382,13 @@
 </blockquote>
 <h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目要求实现除法，并且不能使用乘法、除法和模这些操作。这就意味着我们只能使用加减或者位运算，来实现除法的过程。</p>
 <p>第一种思路是，用被除数减去除数，知道被除数小于除数时，返回减法进行的次数。</p>
-<p>这需要先对输入的两个数进行处理，若除数或被除数是负数，不能直接进行减法，需要先取他们的绝对值。但这是会出现越界的情况，如-2^31的绝对值就越界了，int不能存储。但是题目要求的是只能用32-bit的环境，所以不能用long来解决了，这里想到的是使用unsigned int来保存绝对值结果。这时又碰到了另一个问题，abs()函数也无法处理越界的数，即求abs(-2^31)时会报错，解决方法是使用labs()函数，或者重写一个abs()，可以实现需要的_abs()如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> temp = value;</div><div class="line">    <span class="keyword">return</span> (temp &gt; <span class="number">0x80000000</span>) ? -value : temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>除此之外，还需要单独判断一种结果溢出的情况，也就是<code>dividend = -2^31，divisor = -1</code> 的情况，这时直接输出INT_MAX即可。</p>
+<p>这需要先对输入的两个数进行处理，若除数或被除数是负数，不能直接进行减法，需要先取他们的绝对值。但这是会出现越界的情况，如-2^31的绝对值就越界了，int不能存储。但是题目要求的是只能用32-bit的环境，所以不能用long来解决了，这里想到的是使用unsigned int来保存绝对值结果。这时又碰到了另一个问题，abs()函数也无法处理越界的数，即求abs(-2^31)时会报错，解决方法是使用labs()函数，或者重写一个abs()，可以实现需要的_abs()如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> temp = value;</span><br><span class="line">    <span class="keyword">return</span> (temp &gt; <span class="number">0x80000000</span>) ? -value : temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>除此之外，还需要单独判断一种结果溢出的情况，也就是<code>dividend = -2^31，divisor = -1</code> 的情况，这时直接输出INT_MAX即可。</p>
 <p>这种方法效率太低，最后超时了。在这种方法基础上可以进行优化。可以加入位运算，如果被除数大于除数，找到小于被除数的，且是除数2^n的最大的数，被除数减去该数，结果加上n后，重复上述操作，直到被除数小于除数为止。这里寻找这个符合条件的数时，就可以运用位运算。</p>
 <p>还有一种比较有意思的解法，就是运用对数求解。首先分别求出被除数和除数的对数，算出它们的差后，将其作为指数，求 e 的指数结果。公式如下：<br>    a/b = e^(log(a) - log(b))<br>但是计算对数时，应该使用了除法/，所以可能违反了条件。</p>
-<p>参考：<br><a href="https://blog.csdn.net/zephyr_be_brave/article/details/8722397" title="C++自己实现abs" target="_blank" rel="external">C++自己实现abs</a><br><a href="https://leetcode.com/problems/divide-two-integers/discuss/13407/C%2B%2B-bit-manipulations" title="C++ bit manipulations" target="_blank" rel="external">C++ bit manipulations</a><br><a href="https://leetcode.com/problems/divide-two-integers/discuss/13460/6-line-solution-C%2B%2B" title="6 line solution C++" target="_blank" rel="external">6 line solution C++</a></p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="只用加减法（超时）"><a href="#只用加减法（超时）" class="headerlink" title="只用加减法（超时）"></a>只用加减法（超时）</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(divd &gt;= divr)</div><div class="line">        &#123;</div><div class="line">            divd -= divr;</div><div class="line">            result++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sign * result;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</div><div class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="加入位运算"><a href="#加入位运算" class="headerlink" title="加入位运算"></a>加入位运算</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(divd &gt;= divr)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">unsigned</span> <span class="keyword">int</span> temp = divr; <span class="keyword">unsigned</span> m = <span class="number">1</span>;</div><div class="line">            <span class="keyword">while</span>((temp &lt;&lt; <span class="number">1</span>) &lt;= divd &amp;&amp; temp != <span class="number">2147483648</span>)</div><div class="line">            &#123;</div><div class="line">                temp &lt;&lt;= <span class="number">1</span>;</div><div class="line">                m &lt;&lt;= <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">            divd -= temp;</div><div class="line">            result += m;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> sign * result;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</div><div class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="对数求解"><a href="#对数求解" class="headerlink" title="对数求解"></a>对数求解</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</div><div class="line">        <span class="keyword">if</span>(dividend == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</div><div class="line">        </div><div class="line">        result = <span class="built_in">exp</span>(<span class="built_in">log</span>(divd)-<span class="built_in">log</span>(divr));</div><div class="line">        <span class="keyword">return</span> sign * result;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</div><div class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>参考：<br><a href="https://blog.csdn.net/zephyr_be_brave/article/details/8722397" target="_blank" rel="noopener" title="C++自己实现abs">C++自己实现abs</a><br><a href="https://leetcode.com/problems/divide-two-integers/discuss/13407/C%2B%2B-bit-manipulations" target="_blank" rel="noopener" title="C++ bit manipulations">C++ bit manipulations</a><br><a href="https://leetcode.com/problems/divide-two-integers/discuss/13460/6-line-solution-C%2B%2B" target="_blank" rel="noopener" title="6 line solution C++">6 line solution C++</a></p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="只用加减法（超时）"><a href="#只用加减法（超时）" class="headerlink" title="只用加减法（超时）"></a>只用加减法（超时）</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(divd &gt;= divr)</span><br><span class="line">        &#123;</span><br><span class="line">            divd -= divr;</span><br><span class="line">            result++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sign * result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</span><br><span class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="加入位运算"><a href="#加入位运算" class="headerlink" title="加入位运算"></a>加入位运算</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(divd &gt;= divr)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">unsigned</span> <span class="keyword">int</span> temp = divr; <span class="keyword">unsigned</span> m = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>((temp &lt;&lt; <span class="number">1</span>) &lt;= divd &amp;&amp; temp != <span class="number">2147483648</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                temp &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">                m &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            divd -= temp;</span><br><span class="line">            result += m;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sign * result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</span><br><span class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="对数求解"><a href="#对数求解" class="headerlink" title="对数求解"></a>对数求解</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">divide</span><span class="params">(<span class="keyword">int</span> dividend, <span class="keyword">int</span> divisor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(dividend == INT_MIN &amp;&amp; divisor == <span class="number">-1</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">        <span class="keyword">if</span>(dividend == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sign = (dividend &gt; <span class="number">0</span>) ^ (divisor &gt; <span class="number">0</span>)? <span class="number">-1</span> : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divd = __abs(dividend);</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> divr = __abs(divisor);</span><br><span class="line">        </span><br><span class="line">        result = <span class="built_in">exp</span>(<span class="built_in">log</span>(divd)-<span class="built_in">log</span>(divr));</span><br><span class="line">        <span class="keyword">return</span> sign * result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> __abs(<span class="keyword">int</span> value)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> copyed_value = value;</span><br><span class="line">        <span class="keyword">return</span> (copyed_value &gt; <span class="number">0x80000000</span>) ? -value : copyed_value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -409,7 +418,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/18/第四周LeetCode/" rel="next" title="第四周LeetCode">
+              <a href="/2019/04/18/%E7%AC%AC%E5%9B%9B%E5%91%A8LeetCode/" rel="next" title="第四周LeetCode">
                 <i class="fa fa-chevron-left"></i> 第四周LeetCode
               </a>
             
@@ -499,7 +508,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives/">
+              <a href="/archives/%20%7C%7C%20archive">
             
                 <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
@@ -612,11 +621,11 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动</div>
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -709,7 +718,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -749,6 +758,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("iUWerO0dNONkDugQRx3WGQvk-9Nh9j0Va", "Kfty30hGqwC73f7ffue3HpVd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
 
   
 

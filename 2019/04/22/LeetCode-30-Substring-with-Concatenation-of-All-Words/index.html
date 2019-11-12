@@ -82,13 +82,12 @@
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--30. Substring with Concatenation of All Words">
-<meta property="og:url" content="http://wuyujie.top/2019/04/22/LeetCode-30-Substring-with-Concatenation-of-All-Words/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;04&#x2F;22&#x2F;LeetCode-30-Substring-with-Concatenation-of-All-Words&#x2F;index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="一、问题描述 You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-04-22T09:39:29.744Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode--30. Substring with Concatenation of All Words">
-<meta name="twitter:description" content="一、问题描述 You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once">
 
 
 
@@ -180,7 +179,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -190,7 +189,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -200,7 +199,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/categories/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -210,7 +209,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -220,7 +219,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -330,6 +329,17 @@
 
           
           
+             <span id="/2019/04/22/LeetCode-30-Substring-with-Concatenation-of-All-Words/" class="leancloud_visitors" data-flag-title="LeetCode--30. Substring with Concatenation of All Words">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -379,10 +389,10 @@
 </ol>
 </blockquote>
 <p>这种方法尽管最后能求解ac，但感觉可能存在问题，比如两个单词 a, c的hash值分别为1 3, b的hash值为2, 那么可能(a,c)的组合和(b,b)的组合hashsum相等，所以是有可能会出错的。</p>
-<p>参考：<br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13791/" target="_blank" rel="external">My 24ms C++ solution (O(N) time, using an unordered_map)</a><br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/192123/" target="_blank" rel="external">O(n) C++ solution, 8ms, beats 100%</a><br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13700/" target="_blank" rel="external">My AC c++ code, O(n) complexity, 26ms</a></p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="两个哈希表"><a href="#两个哈希表" class="headerlink" title="两个哈希表"></a>两个哈希表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordfound,counts;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(s.empty() || words.empty()) <span class="keyword">return</span> res;</div><div class="line">        <span class="keyword">int</span> wordsize = words.size(), wordlen = words[<span class="number">0</span>].length();</div><div class="line">        <span class="keyword">int</span> slen = s.length();</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> word:words) counts[word]++;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= slen - wordsize * wordlen; ++i)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> j;</div><div class="line">            <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; wordsize; ++j)</div><div class="line">            &#123;</div><div class="line">                <span class="built_in">string</span> temp = s.substr(i + j*wordlen, wordlen);</div><div class="line">                <span class="keyword">if</span>(counts[temp] == <span class="number">0</span>) <span class="keyword">break</span>;</div><div class="line">                wordfound[temp]++;</div><div class="line">                <span class="keyword">if</span>(wordfound[temp] &gt; counts[temp]) <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(j == wordsize) res.push_back(i);</div><div class="line">            wordfound.clear();</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="滑动窗口的方法"><a href="#滑动窗口的方法" class="headerlink" title="滑动窗口的方法"></a>滑动窗口的方法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; counts;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(s.empty() || words.empty()) <span class="keyword">return</span> res;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> wordsize = words.size(), wordlen = words[<span class="number">0</span>].length();</div><div class="line">        <span class="keyword">int</span> slen = s.length();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(slen &lt; wordsize * wordlen) <span class="keyword">return</span> res;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> start, cur, founded;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> word:words) counts[word]++;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordlen; ++i)</div><div class="line">        &#123;</div><div class="line">            start = cur = i;</div><div class="line">            founded = wordsize;</div><div class="line">            </div><div class="line">            <span class="keyword">while</span>(start &lt;= slen - wordsize * wordlen)</div><div class="line">            &#123;</div><div class="line">                <span class="comment">//单词不在words内,整个窗口后移到后一个单词</span></div><div class="line">                <span class="keyword">if</span>(counts.count(s.substr(cur,wordlen)) == <span class="number">0</span>)</div><div class="line">                &#123;</div><div class="line">                    founded = wordsize;</div><div class="line">                    <span class="keyword">for</span>(;start != cur; start += wordlen)</div><div class="line">                        counts[s.substr(start,wordlen)]++;</div><div class="line">                    start += wordlen;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(counts[s.substr(cur,wordlen)] == <span class="number">0</span>)</div><div class="line">                <span class="comment">//单词出现次数超过限制,窗口移动到该单词第一次出现的下一个位置</span></div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">for</span>(;s.substr(start,wordlen) != s.substr(cur,wordlen);start += wordlen)</div><div class="line">                    &#123;</div><div class="line">                        counts[s.substr(start,wordlen)]++;</div><div class="line">                        founded++;</div><div class="line">                    &#125;</div><div class="line">                    start += wordlen;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    counts[s.substr(cur,wordlen)]--;</div><div class="line">                    <span class="keyword">if</span>(--founded == <span class="number">0</span>)</div><div class="line">                    &#123;</div><div class="line">                        res.push_back(start);</div><div class="line">                        counts[s.substr(start,wordlen)]++;</div><div class="line">                        start += wordlen;</div><div class="line">                        founded++;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                cur += wordlen;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">for</span>(;start&lt;cur;start+=wordlen)</div><div class="line">                counts[s.substr(start,wordlen)]++;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="hash函数"><a href="#hash函数" class="headerlink" title="hash函数"></a>hash函数</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; retVal;</div><div class="line">        <span class="keyword">if</span> (words.size()&lt;<span class="number">1</span> || s.size()&lt;<span class="number">1</span>) <span class="keyword">return</span> retVal;</div><div class="line">        <span class="comment">// Hash all the words seperately then add them together to get a magic number</span></div><div class="line">        <span class="built_in">std</span>::hash&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; hash_fn;</div><div class="line">        <span class="keyword">size_t</span> magicNumber = <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;words.size(); i++) &#123;</div><div class="line">            magicNumber += hash_fn(words[i]);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> wordLength = words[<span class="number">0</span>].size();</div><div class="line">        <span class="comment">// Concatenated substring will be a given length</span></div><div class="line">        <span class="keyword">int</span> minimumSize = words.size()*wordLength;</div><div class="line">        <span class="comment">// We do a sliding window calculation for each 'offset' a pattern might have</span></div><div class="line">        <span class="comment">// This is faster than re-hashing the entire window because we can just drop the least recently hashed value</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> startOffset=<span class="number">0</span>; startOffset&lt;wordLength; startOffset++) &#123;</div><div class="line">            <span class="keyword">int</span> i;</div><div class="line">            <span class="keyword">size_t</span> hashSum = <span class="number">0</span>;</div><div class="line">            <span class="keyword">int</span> minimum = <span class="number">0L</span>L-minimumSize-startOffset+s.size();</div><div class="line">            <span class="comment">// This means that the requested offset does not leave us with enough characters in the string!</span></div><div class="line">            <span class="keyword">if</span> (minimum &lt; <span class="number">0</span>) <span class="keyword">return</span> retVal;</div><div class="line">            <span class="keyword">for</span> (i=s.size()-startOffset-wordLength; i&gt;=minimum; i-=wordLength) &#123;</div><div class="line">                hashSum+=hash_fn(s.substr(i,wordLength));</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (hashSum==magicNumber) retVal.push_back(i+wordLength);</div><div class="line">            <span class="keyword">for</span> (;i&gt;=<span class="number">0</span>; i-=wordLength) &#123;</div><div class="line">                hashSum-=hash_fn(s.substr(i+minimumSize,wordLength));</div><div class="line">                hashSum+=hash_fn(s.substr(i,wordLength));</div><div class="line">                <span class="keyword">if</span> (hashSum==magicNumber) retVal.push_back(i);</div><div class="line">            &#125;</div><div class="line">        &#125;        </div><div class="line">        <span class="keyword">return</span> retVal;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>参考：<br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13791/" target="_blank" rel="noopener">My 24ms C++ solution (O(N) time, using an unordered_map)</a><br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/192123/" target="_blank" rel="noopener">O(n) C++ solution, 8ms, beats 100%</a><br><a href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/discuss/13700/" target="_blank" rel="noopener">My AC c++ code, O(n) complexity, 26ms</a></p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="两个哈希表"><a href="#两个哈希表" class="headerlink" title="两个哈希表"></a>两个哈希表</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; wordfound,counts;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(s.empty() || words.empty()) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="keyword">int</span> wordsize = words.size(), wordlen = words[<span class="number">0</span>].length();</span><br><span class="line">        <span class="keyword">int</span> slen = s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> word:words) counts[word]++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= slen - wordsize * wordlen; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j;</span><br><span class="line">            <span class="keyword">for</span>(j = <span class="number">0</span> ; j &lt; wordsize; ++j)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">string</span> temp = s.substr(i + j*wordlen, wordlen);</span><br><span class="line">                <span class="keyword">if</span>(counts[temp] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">                wordfound[temp]++;</span><br><span class="line">                <span class="keyword">if</span>(wordfound[temp] &gt; counts[temp]) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(j == wordsize) res.push_back(i);</span><br><span class="line">            wordfound.clear();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="滑动窗口的方法"><a href="#滑动窗口的方法" class="headerlink" title="滑动窗口的方法"></a>滑动窗口的方法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; counts;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(s.empty() || words.empty()) <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> wordsize = words.size(), wordlen = words[<span class="number">0</span>].length();</span><br><span class="line">        <span class="keyword">int</span> slen = s.length();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(slen &lt; wordsize * wordlen) <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> start, cur, founded;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> word:words) counts[word]++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; wordlen; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            start = cur = i;</span><br><span class="line">            founded = wordsize;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span>(start &lt;= slen - wordsize * wordlen)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//单词不在words内,整个窗口后移到后一个单词</span></span><br><span class="line">                <span class="keyword">if</span>(counts.count(s.substr(cur,wordlen)) == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    founded = wordsize;</span><br><span class="line">                    <span class="keyword">for</span>(;start != cur; start += wordlen)</span><br><span class="line">                        counts[s.substr(start,wordlen)]++;</span><br><span class="line">                    start += wordlen;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(counts[s.substr(cur,wordlen)] == <span class="number">0</span>)</span><br><span class="line">                <span class="comment">//单词出现次数超过限制,窗口移动到该单词第一次出现的下一个位置</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">for</span>(;s.substr(start,wordlen) != s.substr(cur,wordlen);start += wordlen)</span><br><span class="line">                    &#123;</span><br><span class="line">                        counts[s.substr(start,wordlen)]++;</span><br><span class="line">                        founded++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    start += wordlen;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    counts[s.substr(cur,wordlen)]--;</span><br><span class="line">                    <span class="keyword">if</span>(--founded == <span class="number">0</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        res.push_back(start);</span><br><span class="line">                        counts[s.substr(start,wordlen)]++;</span><br><span class="line">                        start += wordlen;</span><br><span class="line">                        founded++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                cur += wordlen;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(;start&lt;cur;start+=wordlen)</span><br><span class="line">                counts[s.substr(start,wordlen)]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="hash函数"><a href="#hash函数" class="headerlink" title="hash函数"></a>hash函数</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findSubstring(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; words) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; retVal;</span><br><span class="line">        <span class="keyword">if</span> (words.size()&lt;<span class="number">1</span> || s.size()&lt;<span class="number">1</span>) <span class="keyword">return</span> retVal;</span><br><span class="line">        <span class="comment">// Hash all the words seperately then add them together to get a magic number</span></span><br><span class="line">        <span class="built_in">std</span>::hash&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; hash_fn;</span><br><span class="line">        <span class="keyword">size_t</span> magicNumber = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;words.size(); i++) &#123;</span><br><span class="line">            magicNumber += hash_fn(words[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> wordLength = words[<span class="number">0</span>].size();</span><br><span class="line">        <span class="comment">// Concatenated substring will be a given length</span></span><br><span class="line">        <span class="keyword">int</span> minimumSize = words.size()*wordLength;</span><br><span class="line">        <span class="comment">// We do a sliding window calculation for each 'offset' a pattern might have</span></span><br><span class="line">        <span class="comment">// This is faster than re-hashing the entire window because we can just drop the least recently hashed value</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> startOffset=<span class="number">0</span>; startOffset&lt;wordLength; startOffset++) &#123;</span><br><span class="line">            <span class="keyword">int</span> i;</span><br><span class="line">            <span class="keyword">size_t</span> hashSum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> minimum = <span class="number">0L</span>L-minimumSize-startOffset+s.size();</span><br><span class="line">            <span class="comment">// This means that the requested offset does not leave us with enough characters in the string!</span></span><br><span class="line">            <span class="keyword">if</span> (minimum &lt; <span class="number">0</span>) <span class="keyword">return</span> retVal;</span><br><span class="line">            <span class="keyword">for</span> (i=s.size()-startOffset-wordLength; i&gt;=minimum; i-=wordLength) &#123;</span><br><span class="line">                hashSum+=hash_fn(s.substr(i,wordLength));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (hashSum==magicNumber) retVal.push_back(i+wordLength);</span><br><span class="line">            <span class="keyword">for</span> (;i&gt;=<span class="number">0</span>; i-=wordLength) &#123;</span><br><span class="line">                hashSum-=hash_fn(s.substr(i+minimumSize,wordLength));</span><br><span class="line">                hashSum+=hash_fn(s.substr(i,wordLength));</span><br><span class="line">                <span class="keyword">if</span> (hashSum==magicNumber) retVal.push_back(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">return</span> retVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -502,7 +512,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives/">
+              <a href="/archives/%20%7C%7C%20archive">
             
                 <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
@@ -615,11 +625,11 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动</div>
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -712,7 +722,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -752,6 +762,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("iUWerO0dNONkDugQRx3WGQvk-9Nh9j0Va", "Kfty30hGqwC73f7ffue3HpVd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
 
   
 

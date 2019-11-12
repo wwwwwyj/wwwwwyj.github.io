@@ -82,13 +82,12 @@
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--3. Longest Substring Without Repeating Characters">
-<meta property="og:url" content="http://wuyujie.top/2019/03/28/LeetCode-3-Longest-Substring-Without-Repeating-Characters/index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;03&#x2F;28&#x2F;LeetCode-3-Longest-Substring-Without-Repeating-Characters&#x2F;index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="一、问题描述 Given a string, find the length of the longest substring without repeating characters.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-11-11T14:56:40.052Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode--3. Longest Substring Without Repeating Characters">
-<meta name="twitter:description" content="一、问题描述 Given a string, find the length of the longest substring without repeating characters.">
 
 
 
@@ -180,7 +179,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -190,7 +189,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/tags/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -200,7 +199,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/categories/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -210,7 +209,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/archives/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -220,7 +219,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/about/%20" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -330,6 +329,17 @@
 
           
           
+             <span id="/2019/03/28/LeetCode-3-Longest-Substring-Without-Repeating-Characters/" class="leancloud_visitors" data-flag-title="LeetCode--3. Longest Substring Without Repeating Characters">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -370,18 +380,18 @@
 </blockquote>
 <h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目要求的是，最长不含重复元素的字串。<br>最开始的想法是，用一个向量数组，存储以每一个位置为终点，包含该位置字符在内的最长不含重复元素的字串的长度，相当于一个dp的算法。数组更新方式是：用一个二重循环，外循环是从第一个字符到最后一个字符一次遍历；内循环用于判断，以该位置字符为终点，可以得到的最长不重复字串有多长。该算法成功解决了问题。<br>后来继续分析程序，发现可以不使用向量数组，因为数组内的每一个元素的值只需要访问一次，直接用一个变量保存即可。用此方法改进后，速度和空间都得到了优化。</p>
 <blockquote>
-<p>讨论区有另外一种更优化的解法，代码中用vector生成256个-1，用来存储每个字符上一次出现的下标。代码比较抽象，理解如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v(<span class="number">256</span>,<span class="number">-1</span>); <span class="comment">//构造字符串的容器。初始化为-1，意思是暂时不存在这个字符。</span></div><div class="line">start=<span class="number">-1</span>; <span class="comment">//start用来记录子串开始的位置，初始化为-1，表示没有开始构造子字符串。</span></div><div class="line"><span class="keyword">if</span>(v[s[i]]&gt;start)<span class="comment">//已经在该字符出现之前出现过相同的字符了，那么就将start也就是开始位置标记为上次该字符的出现位置。</span></div><div class="line">	start=v[s[i]]; </div><div class="line">v[s[i]]=i; <span class="comment">//更新字符在容器中对应的下标</span></div><div class="line">ans=max(ans,i-start); <span class="comment">//i-start的意思是，当前for循环的i（也就是子字符串的结束字符）减去子字符串结束的字符的下标位置，结果就是子字符串的长度。</span></div></pre></td></tr></table></figure></p>
+<p>讨论区有另外一种更优化的解法，代码中用vector生成256个-1，用来存储每个字符上一次出现的下标。代码比较抽象，理解如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;v(<span class="number">256</span>,<span class="number">-1</span>); <span class="comment">//构造字符串的容器。初始化为-1，意思是暂时不存在这个字符。</span></span><br><span class="line">start=<span class="number">-1</span>; <span class="comment">//start用来记录子串开始的位置，初始化为-1，表示没有开始构造子字符串。</span></span><br><span class="line"><span class="keyword">if</span>(v[s[i]]&gt;start)<span class="comment">//已经在该字符出现之前出现过相同的字符了，那么就将start也就是开始位置标记为上次该字符的出现位置。</span></span><br><span class="line">	start=v[s[i]]; </span><br><span class="line">v[s[i]]=i; <span class="comment">//更新字符在容器中对应的下标</span></span><br><span class="line">ans=max(ans,i-start); <span class="comment">//i-start的意思是，当前for循环的i（也就是子字符串的结束字符）减去子字符串结束的字符的下标位置，结果就是子字符串的长度。</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
 <li>解法1(使用了向量数组)</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(s.length()==<span class="number">0</span>) <span class="comment">//空字符串，直接返回0</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> max=<span class="number">1</span>; <span class="comment">//非空字符串，最短为1</span></div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; longestsub; <span class="comment">//每个位置的最长不重复字串长度</span></div><div class="line">        longestsub.push_back(<span class="number">1</span>); <span class="comment">//初始化第一个位置</span></div><div class="line">		<span class="comment">//遍历每一个位置</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;s.length();i++)</div><div class="line">        &#123;</div><div class="line">            longestsub.push_back(<span class="number">1</span>);</div><div class="line">			<span class="comment">//从上一个位置的最长不重复字串为起点</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i-longestsub[i<span class="number">-1</span>];j&lt;i;j++)</div><div class="line">            &#123;</div><div class="line">				<span class="comment">//没有重复，继续计算</span></div><div class="line">                <span class="keyword">if</span>(s[j]!=s[i])</div><div class="line">                &#123;</div><div class="line">                    longestsub[i]++;</div><div class="line">                &#125;</div><div class="line">				<span class="comment">//有重复，从1开始重新计数</span></div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    longestsub[i]=<span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">			<span class="comment">//记录最长长度</span></div><div class="line">            <span class="keyword">if</span>(longestsub[i]&gt;max)</div><div class="line">            &#123;</div><div class="line">                max=longestsub[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.length()==<span class="number">0</span>) <span class="comment">//空字符串，直接返回0</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> max=<span class="number">1</span>; <span class="comment">//非空字符串，最短为1</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; longestsub; <span class="comment">//每个位置的最长不重复字串长度</span></span><br><span class="line">        longestsub.push_back(<span class="number">1</span>); <span class="comment">//初始化第一个位置</span></span><br><span class="line">		<span class="comment">//遍历每一个位置</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;s.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            longestsub.push_back(<span class="number">1</span>);</span><br><span class="line">			<span class="comment">//从上一个位置的最长不重复字串为起点</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i-longestsub[i<span class="number">-1</span>];j&lt;i;j++)</span><br><span class="line">            &#123;</span><br><span class="line">				<span class="comment">//没有重复，继续计算</span></span><br><span class="line">                <span class="keyword">if</span>(s[j]!=s[i])</span><br><span class="line">                &#123;</span><br><span class="line">                    longestsub[i]++;</span><br><span class="line">                &#125;</span><br><span class="line">				<span class="comment">//有重复，从1开始重新计数</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    longestsub[i]=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">			<span class="comment">//记录最长长度</span></span><br><span class="line">            <span class="keyword">if</span>(longestsub[i]&gt;max)</span><br><span class="line">            &#123;</span><br><span class="line">                max=longestsub[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>不使用数组</li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(s.length()==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> Longest=<span class="number">1</span>,Last=<span class="number">1</span>;<span class="comment">//记录最长长度和上一字符的最长不重复字串长度</span></div><div class="line">        <span class="comment">//vector&lt;int&gt; longestsub;</span></div><div class="line">        <span class="comment">//longestsub.push_back(1);</span></div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;s.length();i++)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">//longestsub.push_back(1);</span></div><div class="line">            <span class="keyword">int</span> present=<span class="number">1</span>;<span class="comment">//计算当前位置最长不重复字串长度</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i-Last;j&lt;i;j++)</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(s[j]!=s[i])</div><div class="line">                &#123;</div><div class="line">                    present++;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    present=<span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            Longest=max(Longest,present);</div><div class="line">            Last=present;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> Longest;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.length()==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> Longest=<span class="number">1</span>,Last=<span class="number">1</span>;<span class="comment">//记录最长长度和上一字符的最长不重复字串长度</span></span><br><span class="line">        <span class="comment">//vector&lt;int&gt; longestsub;</span></span><br><span class="line">        <span class="comment">//longestsub.push_back(1);</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;s.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//longestsub.push_back(1);</span></span><br><span class="line">            <span class="keyword">int</span> present=<span class="number">1</span>;<span class="comment">//计算当前位置最长不重复字串长度</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i-Last;j&lt;i;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(s[j]!=s[i])</span><br><span class="line">                &#123;</span><br><span class="line">                    present++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    present=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Longest=max(Longest,present);</span><br><span class="line">            Last=present;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>3.解法3</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dict(<span class="number">256</span>, <span class="number">-1</span>);</div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, start = <span class="number">-1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != s.length(); i++) &#123;</div><div class="line">            <span class="keyword">if</span> (dict[s[i]] &gt; start)</div><div class="line">                start = dict[s[i]];</div><div class="line">            dict[s[i]] = i;</div><div class="line">            maxLen = max(maxLen, i - start);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> maxLen;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dict(<span class="number">256</span>, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>, start = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i != s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dict[s[i]] &gt; start)</span><br><span class="line">                start = dict[s[i]];</span><br><span class="line">            dict[s[i]] = i;</span><br><span class="line">            maxLen = max(maxLen, i - start);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxLen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -501,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
             
-              <a href="/archives/">
+              <a href="/archives/%20%7C%7C%20archive">
             
                 <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
@@ -614,11 +624,11 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动</div>
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">NexT.Mist</a> v5.1.2</div>
 
 
         
@@ -711,7 +721,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
 
 
 
@@ -751,6 +761,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("iUWerO0dNONkDugQRx3WGQvk-9Nh9j0Va", "Kfty30hGqwC73f7ffue3HpVd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
 
   
 
