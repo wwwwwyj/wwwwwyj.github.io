@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/ 
+Allow: /about/ 
+
+Sitemap: http://wuyunjie.top/sitemap.xml
+Sitemap: http://wuyunjie.top/baidusitemap.xml
