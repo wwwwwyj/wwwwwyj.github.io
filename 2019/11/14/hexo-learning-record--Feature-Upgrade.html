@@ -327,7 +327,24 @@
 <p>这里需要注意的一点是，GitHub图片的地址需要是源文件地址，比如上图的地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>之前一直用的<code>GitHub</code>下文件的url(<code>https://github.com</code>开头)，一直不显示，还以为是图片格式不兼容，笑哭。</p>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+<h3 id="表格显示问题"><a href="#表格显示问题" class="headerlink" title="表格显示问题"></a>表格显示问题</h3><p><code>table</code>表格显示异常，直接不显示表格。一开始以为是渲染器，语法什么的问题，后来发现原来解决方法很简单，表格和正文之间需要空行。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">测试</th>
+<th style="text-align:left">表格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">正常</td>
+<td style="text-align:left">显示</td>
+</tr>
+</tbody>
+</table>
+</div>
+
     </div>
 
     
@@ -394,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">8.</span> <span class="nav-text"> </span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,20 +427,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -471,13 +488,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">103k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:33</span>
+    <span title="站点阅读时长">1:34</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
