@@ -23,7 +23,7 @@
     <published>2019-11-16T04:44:45.000Z</published>
     <updated>2019-11-16T04:44:45.000Z</updated>
     
-    <content type="html"><![CDATA[<p>在<code>GitHub</code>上浏览开源项目时或者在查看自己的仓库时，我们可能只需要其中单独几个文件夹下的内容，而不需要整个仓库。但一般<code>GitHub</code>只能克隆整个仓库。可以通过一个在线网站<code>DownGit</code>自动打包下载对应文件夹：</p><blockquote><p><a href="https://www.itsvse.com/downgit/#/home" target="_blank" rel="noopener">DownGit</a></p></blockquote><p>只需要找到仓库中对应文件夹的url,输入之后,点击 download 自动打包下载。<br><img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/DownGit.PNG" alt="DownGit"></p>]]></content>
+    <content type="html"><![CDATA[<p>在<code>GitHub</code>上浏览开源项目时或者在查看自己的仓库时，我们可能只需要其中单独几个文件夹下的内容，而不需要整个仓库。但一般<code>GitHub</code>只能克隆整个仓库。可以通过一个在线网站<code>DownGit</code>自动打包下载对应文件夹：</p><blockquote><p><a href="https://www.itsvse.com/downgit/#/home" target="_blank" rel="noopener">DownGit</a></p></blockquote><p>只需要找到仓库中对应文件夹的url,输入之后,点击 download 自动打包下载。<br><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/DownGit.PNG" alt="DownGit"></p>]]></content>
     
     <summary type="html">
     
