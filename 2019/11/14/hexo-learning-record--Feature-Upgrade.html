@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/favicon.ico" color="#222">
   <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="baidu-site-verification" content="Ac3ISAkdh5">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -62,8 +63,10 @@
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;GitHubImageRepository.PNG">
 <meta property="og:updated_time" content="2019-11-16T03:40:41.000Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;GitHubImageRepository.PNG">
 
 <link rel="canonical" href="http://wuyujie.top/2019/11/14/hexo-learning-record--Feature-Upgrade.html">
 
@@ -251,14 +254,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -311,9 +314,15 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/theme-next-pace source/lib/pace</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在<code>/themes/next/_config.yml</code>中设置使生效</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pace:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Themes list:</span></span><br><span class="line">  <span class="comment"># big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span></span><br><span class="line">  <span class="comment"># corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">bounce</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pace:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Themes list:</span></span><br><span class="line">  <span class="comment"># big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span></span><br><span class="line">  <span class="comment"># corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">bounce</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-
+<h3 id="GitHub图床"><a href="#GitHub图床" class="headerlink" title="GitHub图床"></a>GitHub图床</h3><p>在写博客时，我们常常需要在博客中插入图片什么的。这时一般需要一个图床，免费的图床有很多，但是上传文件后只能得到一个链接，不知道什么时候会丢失链接或者干脆图床网站不维护了。我们可以利用<code>GitHub</code>建立一个图床仓库，方便管理。顺便也可以练习一下<code>Git</code>的使用。如下图就是建立的一个图床仓库：<br><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG" alt="GitHub图床"></p>
+<blockquote>
+<p>这里需要注意的一点是，GitHub图片的地址需要是源文件地址，比如上图的地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>之前一直用的<code>GitHub</code>下文件的url(<code>https://github.com</code>开头)，一直不显示，还以为是图片格式不兼容，笑哭。</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
     </div>
 
     
@@ -380,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">8.</span> <span class="nav-text"> </span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -396,20 +405,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">51</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -457,13 +466,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">99k</span>
+    <span title="站点总字数">100k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:30</span>
+    <span title="站点阅读时长">1:31</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
@@ -614,11 +623,20 @@
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/muse.js"></script>
-<script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/next-boot.js"></script>
 
 
 
   
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
