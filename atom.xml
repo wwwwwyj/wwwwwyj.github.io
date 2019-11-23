@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2019-11-23T14:04:26.000Z</updated>
+  <updated>2019-11-23T14:41:09.000Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AdPart复现--问题集锦</title>
+    <link href="http://wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html"/>
+    <id>http://wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html</id>
+    <published>2019-11-23T14:41:09.000Z</published>
+    <updated>2019-11-23T14:41:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近在复现分布式RDF引擎<code>AdPart</code>, 复现过程中遇到了一些小问题, 就在这里记录一下吧。<br><a id="more"></a></p><h3 id="Problem-and-Solve"><a href="#Problem-and-Solve" class="headerlink" title="Problem and Solve"></a>Problem and Solve</h3><h4 id="g-编译问题"><a href="#g-编译问题" class="headerlink" title="g++ 编译问题"></a>g++ 编译问题</h4><p>因为对 <code>g++</code> 编译项目不太熟悉, 这也是第一次自己写一个完整的项目并用 <code>g++</code> 来编译, 难免许多基础都不会。遇到了下面这个报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">undefined reference to &apos;Foo::Foo(std::string)&apos;</span><br></pre></td></tr></table></figure><br>这个问题卡了我很久, 什么修改 <code>g++</code> 版本, 不使用<code>c++11</code>都试过，还一度怀疑是不是我代码写的有问题。后来发现是一个很简单的原因，没有在编译的时候将<code>Foo.cpp</code>(用这个来代指我的问题)添加进去, 也就是我编译的时候差不多是这样:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cpp -o testFoo</span><br></pre></td></tr></table></figure><br>但是实际上需要是这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cpp Foo.cpp -o testFoo</span><br></pre></td></tr></table></figure><br>修改完之后成功编译, 还是对 <code>g++</code> 不熟, 得抽时间学学 <code>g++</code> 怎么编译 <code>c++</code> 代码了。</p><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote><ul><li><a href="https://stackoverflow.com/questions/3656050/c-undefined-reference-to-foofoostdstring" target="_blank" rel="noopener">c++ “ undefined reference to ‘Foo::Foo(std::string)’ ”</a></li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;最近在复现分布式RDF引擎&lt;code&gt;AdPart&lt;/code&gt;, 复现过程中遇到了一些小问题, 就在这里记录一下吧。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="AdPart复现" scheme="http://wuyujie.top/categories/AdPart%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+      <category term="AdPart" scheme="http://wuyujie.top/tags/AdPart/"/>
+    
+      <category term="代码复现" scheme="http://wuyujie.top/tags/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+    
+      <category term="Debug" scheme="http://wuyujie.top/tags/Debug/"/>
+    
+  </entry>
   
   <entry>
     <title>pip/conda install 由于目标计算机积极拒绝，无法连接</title>
@@ -34,9 +60,9 @@
       <category term="Python" scheme="http://wuyujie.top/categories/Python/"/>
     
     
-      <category term="Python" scheme="http://wuyujie.top/tags/Python/"/>
-    
       <category term="Debug" scheme="http://wuyujie.top/tags/Debug/"/>
+    
+      <category term="Python" scheme="http://wuyujie.top/tags/Python/"/>
     
   </entry>
   
@@ -468,28 +494,6 @@
     
     
       <category term="LeetCode" scheme="http://wuyujie.top/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第四周LeetCode</title>
-    <link href="http://wuyujie.top/2019/04/18/forth-week-LeetCode.html"/>
-    <id>http://wuyujie.top/2019/04/18/forth-week-LeetCode.html</id>
-    <published>2019-04-18T05:13:11.000Z</published>
-    <updated>2019-11-14T09:50:55.647Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="第四周LeetCode刷题记录"><a href="#第四周LeetCode刷题记录" class="headerlink" title="第四周LeetCode刷题记录"></a>第四周LeetCode刷题记录</h2><a id="more"></a><ol><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-20-Valid-Parentheses/" target="_blank" rel="noopener" title="LeetCode--20. Valid Parentheses">LeetCode—20. Valid Parentheses</a></li><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-21-Merge-Two-Sorted-Lists/" target="_blank" rel="noopener" title="LeetCode--21. Merge Two Sorted Lists">LeetCode—21. Merge Two Sorted Lists</a></li><li><a href="http://wuyunjie.top/2019/04/14/LeetCode-22-Generate-Parentheses/" target="_blank" rel="noopener" title="LeetCode--22. Generate Parentheses">LeetCode—22. Generate Parentheses</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-23-Merge-k-Sorted-Lists/" target="_blank" rel="noopener" title="LeetCode--23. Merge k Sorted Lists">LeetCode—23. Merge k Sorted Lists</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-24-Swap-Nodes-in-Pairs/" target="_blank" rel="noopener" title="LeetCode--24. Swap Nodes in Pairs">LeetCode—24. Swap Nodes in Pairs</a></li><li><a href="http://wuyunjie.top/2019/04/16/LeetCode-25-Reverse-Nodes-in-k-Group/" target="_blank" rel="noopener" title="LeetCode--25. Reverse Nodes in k-Group">LeetCode—25. Reverse Nodes in k-Group</a></li><li><a href="http://wuyunjie.top/2019/04/17/LeetCode-26-Remove-Duplicates-from-Sorted-Array/" target="_blank" rel="noopener" title="LeetCode--26. Remove Duplicates from Sorted Array">LeetCode—26. Remove Duplicates from Sorted Array</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;第四周LeetCode刷题记录&quot;&gt;&lt;a href=&quot;#第四周LeetCode刷题记录&quot; class=&quot;headerlink&quot; title=&quot;第四周LeetCode刷题记录&quot;&gt;&lt;/a&gt;第四周LeetCode刷题记录&lt;/h2&gt;
-    
-    </summary>
-    
-      <category term="LeetCode报告" scheme="http://wuyujie.top/categories/LeetCode%E6%8A%A5%E5%91%8A/"/>
-    
-    
-      <category term="LeetCode报告" scheme="http://wuyujie.top/tags/LeetCode%E6%8A%A5%E5%91%8A/"/>
     
   </entry>
   
