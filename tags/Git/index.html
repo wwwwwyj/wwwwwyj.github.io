@@ -55,18 +55,16 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来">
-<meta name="keywords" content="学习记录,Spark">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spark学习-Spark程序基本运行流程">
-<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;11&#x2F;16&#x2F;Spark-learning-record--program-running-process.html">
+  <meta name="description" content="这是一个为了有博客而存在的博客。 欢迎来到, 多多指教">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WuYJ&#39;s Blog">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;tags&#x2F;Git&#x2F;index.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来">
+<meta property="og:description" content="这是一个为了有博客而存在的博客。 欢迎来到, 多多指教">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-16T13:32:35.000Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wuyujie.top/2019/11/16/Spark-learning-record--program-running-process.html">
+<link rel="canonical" href="http://wuyujie.top/tags/Git/">
 
 
 <script id="page-configurations">
@@ -74,13 +72,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Spark学习-Spark程序基本运行流程 | WuYJ's Blog</title>
+  <title>标签: Git | WuYJ's Blog</title>
   
 
 
@@ -195,199 +193,50 @@
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/11/16/Spark-learning-record--program-running-process.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="wuyunjie">
-      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 欢迎来到, 多多指教">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WuYJ's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Spark学习-Spark程序基本运行流程
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h1 class="collection-header">Git
+          <small>标签</small>
         </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-16 21:32:35" itemprop="dateCreated datePublished" datetime="2019-11-16T21:32:35+08:00">2019-11-16</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spark/" itemprop="url" rel="index">
-                    <span itemprop="name">Spark</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2019/11/16/Spark-learning-record--program-running-process.html" class="post-meta-item leancloud_visitors" data-flag-title="Spark学习-Spark程序基本运行流程" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>959</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+      </div>
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来<br><a id="more"></a></p>
-<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><p>以做的线性回归算法为例(只做了线性回归<code>-_-||</code>)，主要步骤如下：</p>
-<blockquote>
-<ol>
-<li><p>编写 Spark 程序，这里涉及到一些 Spark 语法，暂时没看懂，以后系统学习的时候再慢慢深入</p>
-</li>
-<li><p>将实验数据传到 HDFS 上，配置的 Spark 基于 Hadoop 的 HDFS 运行，所以 Spark 直接访问的是 HDFS 上的数据，不能访问到本地。</p>
-</li>
-<li><p>将程序(调用<code>pyspark</code>的<code>.py</code>代码)提交到集群执行：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --master spark://host:port program.py</span><br></pre></td></tr></table></figure>
-<p>查阅资料 Spark 还有多种运行模式，以后好好学一学(拖延症，不知道啥时候能开始学了)<br>HDFS 的主要操作有以下： </p>
-</li>
-</ol>
-</blockquote>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">指令</th>
-<th style="text-align:left">功能说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">hdfs dfs -help</td>
-<td style="text-align:left">--查看hdfs帮助</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -ls folder</td>
-<td style="text-align:left">--查看目录文件</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -put sourcepath savepath</td>
-<td style="text-align:left">--hdfs上传文件，-f 覆盖已有文件；-p 保留原文件属性</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -get sourcepath savepath</td>
-<td style="text-align:left">--hdfs下载文件</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -mkdir -p /output/dirname</td>
-<td style="text-align:left">--创建多级目录</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -touchz /input/filename</td>
-<td style="text-align:left">--创建文件filename</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -cat /input/filename</td>
-<td style="text-align:left">--查看文件filename内容</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -du -s /input</td>
-<td style="text-align:left">--查看所有文件大小和字节大小</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -cp /sourcefile /targetfile</td>
-<td style="text-align:left">--复制文件</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -rm -R /directory</td>
-<td style="text-align:left">--删除文件夹，-R循环删除文件夹里面的文件</td>
-</tr>
-<tr>
-<td style="text-align:left">hdfs dfs -mv /user/root/.Trash/Current/filename /filename</td>
-<td style="text-align:left">--找回删除文件</td>
-</tr>
-</tbody>
-</table>
-</div>
-<blockquote>
-<p>这是一些较为常用的命令，具体其它指令可以查看<code>hdfs dfs -help</code>可以发现和<code>Linux</code>下文件系统的指令很相似，大部分指令的功能基本相同，只是增加了一些有分布式系统特性的指令，比如<code>-put</code>等。</p>
-</blockquote>
-<p>参考：</p>
-<blockquote>
-<ul>
-<li><a href="https://www.cnblogs.com/zengming/p/10306706.html" target="_blank" rel="noopener">常用HDFS操作命令</a></li>
-<li><a href="https://www.cnblogs.com/qiuhong10/p/8476635.html" target="_blank" rel="noopener">Spark多种运行模式</a></li>
-<li><a href="https://blog.csdn.net/roguesir/article/details/83317059" target="_blank" rel="noopener">【PySpark学习笔记三】spark-submit命令详解</a></li>
-</ul>
-</blockquote>
-
+    <div class="collection-year">
+      <h1 class="collection-header">2019</h1>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
-              <a href="/tags/Spark/" rel="tag"># Spark</a>
-          </div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2019-11-23T20:17:31+08:00"
+              content="2019-11-23">
+          11-23
+        </time>
+      </div>
 
-        
+      <h2 class="post-title">
+          <a class="post-title-link" href="/2019/11/23/Git-learning-foundation.html" itemprop="url">
+            <span itemprop="name">Git学习--基础</span>
+          </a>
+      </h2>
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/16/hexo-learning-record--post-encryption.html" rel="next" title="Hexo学习记录-博文加密">
-                  <i class="fa fa-chevron-left"></i> Hexo学习记录-博文加密
-                </a>
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/16/scrapy-crawler--basic-use.html" rel="prev" title="Scrapy爬虫-基础使用">
-                  Scrapy爬虫-基础使用 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
   
 
-  </div>
+  
+
 
 
           </div>
@@ -416,7 +265,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本步骤"><span class="nav-number">2.</span> <span class="nav-text">基本步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
