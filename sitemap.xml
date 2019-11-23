@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://wuyujie.top/2017/09/21/My-new-Post.html</loc>
+    
+    <lastmod>2019-11-23T14:05:10.217Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html</loc>
+    
+    <lastmod>2019-11-23T14:04:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://wuyujie.top/2019/11/23/Git-learning-foundation.html</loc>
     
     <lastmod>2019-11-23T12:17:31.000Z</lastmod>
@@ -96,13 +110,6 @@
     <loc>http://wuyujie.top/2019/04/03/second-week-LeetCode.html</loc>
     
     <lastmod>2019-11-14T09:50:23.359Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://wuyujie.top/2017/09/21/My-new-Post.html</loc>
-    
-    <lastmod>2019-11-14T09:49:52.880Z</lastmod>
     
   </url>
   

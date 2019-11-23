@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://wuyujie.top/2017/09/21/My-new-Post.html</loc>
+    <lastmod>2019-11-23</lastmod>
+  </url>  <url>
+    <loc>http://wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html</loc>
+    <lastmod>2019-11-23</lastmod>
+  </url>  <url>
     <loc>http://wuyujie.top/2019/11/23/Git-learning-foundation.html</loc>
     <lastmod>2019-11-23</lastmod>
   </url>  <url>
@@ -38,9 +44,6 @@
     <lastmod>2019-11-14</lastmod>
   </url>  <url>
     <loc>http://wuyujie.top/2019/04/03/second-week-LeetCode.html</loc>
-    <lastmod>2019-11-14</lastmod>
-  </url>  <url>
-    <loc>http://wuyujie.top/2017/09/21/My-new-Post.html</loc>
     <lastmod>2019-11-14</lastmod>
   </url>  <url>
     <loc>http://wuyujie.top/2019/03/28/LeetCode--929-Unique-Email-Addresses.html</loc>
