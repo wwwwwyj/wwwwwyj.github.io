@@ -56,7 +56,7 @@
   };
 </script>
   <meta name="description" content="前言增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
-<meta name="keywords" content="Hexo,学习记录,写博客">
+<meta name="keywords" content="学习记录,Hexo,写博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo学习记录--功能升级">
 <meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;11&#x2F;14&#x2F;hexo-learning-record--Feature-Upgrade.html">
@@ -161,6 +161,11 @@
     <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
 
   </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
@@ -259,7 +264,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -344,6 +349,9 @@
 </tbody>
 </table>
 </div>
+<h3 id="加入豆瓣书单"><a href="#加入豆瓣书单" class="headerlink" title="加入豆瓣书单"></a>加入豆瓣书单</h3><p>直接安装豆瓣依赖模块 <code>$ npm install hexo-douban --save</code>, 简单易操作。配置上需要在 <code>hexo</code> 配置文件中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: mythsman</span><br><span class="line">  builtin: false</span><br><span class="line">  book:</span><br><span class="line">    title: &apos;This is my book title&apos;</span><br><span class="line">    quote: &apos;This is my book quote&apos;</span><br><span class="line">  movie:</span><br><span class="line">    title: &apos;This is my movie title&apos;</span><br><span class="line">    quote: &apos;This is my movie quote&apos;</span><br><span class="line">  game:</span><br><span class="line">    title: &apos;This is my game title&apos;</span><br><span class="line">    quote: &apos;This is my game quote&apos;</span><br><span class="line">  timeout: 10000</span><br></pre></td></tr></table></figure></p>
+<p>然后部署到主题文件中, <code>next</code> 主题下设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  archives: /archives</span><br><span class="line">  books: /books     # 这是链接到books页面</span><br><span class="line">  movies: /movies   #  这是链接到movies页面</span><br><span class="line">  games: /games   # 这是链接到games页面</span><br></pre></td></tr></table></figure></p>
+<p>之后在启动过程中加入命令 <code>hexo douban -bgm</code> 自动抓取相关信息生成页面。 其中开启 <code>hexo-douban</code> 的命令中，<code>-bgm</code> 代表的是 <code>book、game、movie</code> 三个参数。</p>
 
     </div>
 
@@ -353,8 +361,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
               <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
               <a href="/tags/%E5%86%99%E5%8D%9A%E5%AE%A2/" rel="tag"># 写博客</a>
           </div>
 
@@ -411,7 +419,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入豆瓣书单"><span class="nav-number">9.</span> <span class="nav-text">加入豆瓣书单</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -427,20 +435,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -488,7 +496,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">111k</span>
+    <span title="站点总字数">112k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
