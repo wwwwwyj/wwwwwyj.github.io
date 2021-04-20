@@ -290,7 +290,7 @@
 <li><p>解法2 调用 <code>String.replaceAll()</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">   <span class="keyword">return</span> s.replaceAll(<span class="string">" "</span>, <span class="string">"%20"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>解法2 调用 <code>Spring.split()</code></p>
+<li><p>解法3 调用 <code>Spring.split()</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        String[] strs = s.split(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">" "</span>.equals(str))</span><br><span class="line">                sb.append(<span class="string">"%20"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            sb.append(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -312,7 +312,7 @@
 <li>StringBuilder<br><code>StringBuilder</code>类也代表<strong>可变</strong>字符串对象。实际上，StringBuilder和StringBuffer基本相似，两个类的构造器和方法也基本相同。不同的是：<strong>StringBuffer是线程安全的，而StringBuilder则没有实现线程安全功能，所以性能略高</strong>。StringBuffer类中的方法都添加了<code>synchronized</code>关键字，也就是给这个方法添加了一个锁，用来保证线程安全。</li>
 </ul>
 <p><strong>Java9改进了字符串</strong>（包括String、StringBuffer、StringBuilder）的实现。在Java9以前字符串采用<code>char[]</code>数组来保存字符，因此字符串的每个字符占<code>2</code>字节；而Java9的字符串采用<code>byte[]</code>数组再加一个<code>encoding-flag</code>字段来保存字符，因此字符串的每个字符只占<code>1</code>字节。所以Java9的字符串更加节省空间，字符串的功能方法也没有受到影响。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] <a href="https://blog.csdn.net/csxypr/article/details/92378336" target="_blank" rel="noopener">String、StringBuffer和StringBuilder的区别</a><br>[2] <a href="https://blog.nowcoder.net/n/d332492753844d18aa4edc484e3c1318" target="_blank" rel="noopener">《剑指Offer》二维数组中的查找</a><br>[3] <a href="https://blog.csdn.net/qq_32671287/article/details/79420736" target="_blank" rel="noopener">java中foreach循环</a><br>[4] <a href="https://www.cnblogs.com/mengdd/archive/2013/01/21/2870019.html" target="_blank" rel="noopener">Java 增强型的for循环 for each</a></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p>[1] <a href="https://blog.csdn.net/csxypr/article/details/92378336" target="_blank" rel="noopener">String、StringBuffer和StringBuilder的区别</a></p>
 
     </div>
 
@@ -339,6 +339,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2021/04/20/JZ3-print-LinkList-reverse.html" rel="prev" title="剑指offer-3-从尾到头打印链表">
+                  剑指offer-3-从尾到头打印链表 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -393,7 +396,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -454,13 +457,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">130k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:58</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
