@@ -55,18 +55,18 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 Implement strStr().">
-<meta name="keywords" content="LeetCode">
+  <meta name="description" content="一、问题描述请实现一个函数，将一个字符串中的每个空格替换成&amp;quot;%20&amp;quot;。例如，当字符串为We Are Happy，则经过替换之后的字符串为We%20Are%20Happy。">
+<meta name="keywords" content="剑指offer,面试复习,刷题记录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode--28. Implement strStr()">
-<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;04&#x2F;17&#x2F;LeetCode--28-Implement-strStr.html">
+<meta property="og:title" content="剑指offer-2-替换空格">
+<meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2021&#x2F;04&#x2F;20&#x2F;JZ2-replace-spaces.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 Implement strStr().">
+<meta property="og:description" content="一、问题描述请实现一个函数，将一个字符串中的每个空格替换成&amp;quot;%20&amp;quot;。例如，当字符串为We Are Happy，则经过替换之后的字符串为We%20Are%20Happy。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T09:45:37.251Z">
+<meta property="og:updated_time" content="2021-04-20T11:01:03.000Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://wuyujie.top/2019/04/17/LeetCode--28-Implement-strStr.html">
+<link rel="canonical" href="http://wuyujie.top/2021/04/20/JZ2-replace-spaces.html">
 
 
 <script id="page-configurations">
@@ -80,7 +80,7 @@
   };
 </script>
 
-  <title>LeetCode--28. Implement strStr() | WuYJ's Blog</title>
+  <title>剑指offer-2-替换空格 | WuYJ's Blog</title>
   
 
 
@@ -205,7 +205,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2019/04/17/LeetCode--28-Implement-strStr.html">
+    <link itemprop="mainEntityOfPage" href="http://wuyujie.top/2021/04/20/JZ2-replace-spaces.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -218,7 +218,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode--28. Implement strStr()
+          剑指offer-2-替换空格
         </h1>
 
         <div class="post-meta">
@@ -228,29 +228,22 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-04-17 16:51:25" itemprop="dateCreated datePublished" datetime="2019-04-17T16:51:25+08:00">2019-04-17</time>
+              <time title="创建时间：2021-04-20 19:01:03" itemprop="dateCreated datePublished" datetime="2021-04-20T19:01:03+08:00">2021-04-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-14 17:45:37" itemprop="dateModified" datetime="2019-11-14T17:45:37+08:00">2019-11-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
-                    <span itemprop="name">LeetCode</span>
+                  <a href="/categories/%E5%89%91%E6%8C%87offer/" itemprop="url" rel="index">
+                    <span itemprop="name">剑指offer</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2019/04/17/LeetCode--28-Implement-strStr.html" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode--28. Implement strStr()" title="阅读次数">
+            <span id="/2021/04/20/JZ2-replace-spaces.html" class="post-meta-item leancloud_visitors" data-flag-title="剑指offer-2-替换空格" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -262,14 +255,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -281,38 +274,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>Implement strStr().<br><a id="more"></a><br>Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.</p>
-</blockquote>
-<p><strong>Example 1:</strong></p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><p>请实现一个函数，将一个字符串中的每个空格替换成<code>&quot;%20&quot;</code>。例如，当字符串为<code>We Are Happy</code>，则经过替换之后的字符串为<code>We%20Are%20Happy</code>。<br><a id="more"></a></p>
+<p><strong>示例:</strong></p>
 <blockquote>
-<p>Input: haystack = “hello”, needle = “ll”<br>Output: 2</p>
+<p>输入:   “We Are Happy”<br>返回值: “We%20Are%20Happy”</p>
 </blockquote>
-<p><strong>Example 2:</strong></p>
-<blockquote>
-<p>Input: haystack = “aaaaa”, needle = “bba”<br>Output: -1</p>
-</blockquote>
-<p><strong>Clarification :</strong></p>
-<blockquote>
-<p>What should we return when needle is an empty string? This is a great question to ask during an interview.</p>
-<p>For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C’s strstr() and Java’s indexOf().</p>
-</blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这个题要求实现strStr()函数。实际上就是个字符串匹配过程，要求从haystack中寻找子串needle，若找到，返回子串开始位置；否知返回-1.</p>
-<p>想到的有两种解法，一种是直接暴力求解，另一种是用KMP算法。</p>
-<p>首先实现了暴力求解的算法。将haystack所有与needle一样长的子串进行比较，若成功找到，就返回当前子串其实位置；若最终未找到，返回-1.这种方法实现后，发现效果还算不错，没有想象的那么差。</p>
-<p>之后实现了KMP算法，KMP算法可以利用next数组加速匹配过程。</p>
-<blockquote>
-<p>假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置</p>
-<ul>
-<li>如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++，继续匹配下一个字符；</li>
-<li>如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]。此举意味着失配时，模式串P相对于文本串S向右移动了j - next [j] 位。换言之，当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值.</li>
-</ul>
-</blockquote>
-<p>这里重点是构造next数组，next数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如如果next[j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀。</p>
-<p>参考文献：<br>[1] <a href="https://www.cnblogs.com/yjiyjige/p/3263858.html" target="_blank" rel="noopener">（原创）详解KMP算法</a><br>[2] <a href="https://www.cnblogs.com/ZuoAndFutureGirl/p/9028287.html" target="_blank" rel="noopener">很详尽KMP算法</a></p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="暴力算法1"><a href="#暴力算法1" class="headerlink" title="暴力算法1"></a>暴力算法1</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(<span class="built_in">string</span> haystack, <span class="built_in">string</span> needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = haystack.size(), n = needle.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m - n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (haystack[i + j] != needle[j]) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j == n) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="暴力算法2"><a href="#暴力算法2" class="headerlink" title="暴力算法2"></a>暴力算法2</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(<span class="built_in">string</span> haystack, <span class="built_in">string</span> needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = haystack.size(), n = needle.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= m - n; i++) &#123;</span><br><span class="line">            <span class="built_in">string</span> substr = haystack.substr(i, n);</span><br><span class="line">            <span class="keyword">if</span> (substr == needle) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; get_KMP_Next(<span class="built_in">string</span> s)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next(s.length());</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>, k=<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j &lt; s.length()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(k == <span class="number">-1</span> || s[j] == s[k])</span><br><span class="line">            &#123;</span><br><span class="line">                next[++j] = ++k;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                k = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">strStr</span><span class="params">(<span class="built_in">string</span> haystack, <span class="built_in">string</span> needle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(needle.length() == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>, j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = haystack.length(), n = needle.length();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; next = get_KMP_Next(needle);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(i &lt; m &amp;&amp; j &lt; n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(j == <span class="number">-1</span> || haystack[i] == needle[j])</span><br><span class="line">            &#123;</span><br><span class="line">                i++;j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                j = next[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(j == needle.length())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i-j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这道题挺简单的，就是逐个判断String数组的字符，然后基于拼接构建出要求的字符串。也有方法直接调用内置的替换函数，不知道为何难度为<strong>较难</strong>，可能还有特殊的优化解。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
+<li><p>解法1 暴力求法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s string字符串 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> string字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">        String result = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">' '</span>)</span><br><span class="line">                result += <span class="string">"%20"</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                result += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解法2 调用 <code>String.replaceAll()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">   <span class="keyword">return</span> s.replaceAll(<span class="string">" "</span>, <span class="string">"%20"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解法2 调用 <code>Spring.split()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        String[] strs = s.split(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">" "</span>.equals(str))</span><br><span class="line">                sb.append(<span class="string">"%20"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            sb.append(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
     </div>
 
     
@@ -321,24 +300,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/%E5%89%91%E6%8C%87offer/" rel="tag"># 剑指offer</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/" rel="tag"># 面试复习</a>
+              <a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="tag"># 刷题记录</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/04/17/LeetCode--27-Remove-Element.html" rel="next" title="LeetCode--27. Remove Element">
-                  <i class="fa fa-chevron-left"></i> LeetCode--27. Remove Element
+                <a href="/2021/04/12/how-are-things.html" rel="next" title="《最近怎么样?》">
+                  <i class="fa fa-chevron-left"></i> 《最近怎么样?》
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/04/18/forth-week-LeetCode.html" rel="prev" title="第四周LeetCode">
-                  第四周LeetCode <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -377,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暴力算法1"><span class="nav-number">3.1.</span> <span class="nav-text">暴力算法1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暴力算法2"><span class="nav-number">3.2.</span> <span class="nav-text">暴力算法2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP算法"><span class="nav-number">3.3.</span> <span class="nav-text">KMP算法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
