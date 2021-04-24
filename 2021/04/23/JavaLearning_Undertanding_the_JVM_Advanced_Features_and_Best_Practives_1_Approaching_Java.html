@@ -63,12 +63,11 @@
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言 世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;blob&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;Java_technology_system.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;blob&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;OpenJDK_and_OracleJDK.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;blob&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;Relationship_between_OpenJDK_versions.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;OpenJDK_and_OracleJDK.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;Relationship_between_OpenJDK_versions.PNG">
 <meta property="og:updated_time" content="2021-04-23T08:37:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;blob&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;Java_technology_system.PNG">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;OpenJDK_and_OracleJDK.PNG">
 
 <link rel="canonical" href="http://wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html">
 
@@ -265,14 +264,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.8k</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -306,7 +305,7 @@
 <li>Java SE API子集</li>
 <li>Java虚拟机</li>
 </ul>
-<p><img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/JavaLearning/JVM/Java_technology_system.PNG" alt="Java技术体系"></p>
+<p>![Java技术体系]<a href="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/master/img/blog/JavaLearning/JVM/Java_technology_system.PNG" target="_blank" rel="noopener">https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/master/img/blog/JavaLearning/JVM/Java_technology_system.PNG</a>)</p>
 <p>按照技术关注的重点业务来划分，可以分为以下四条主要的产品线：</p>
 <ul>
 <li><strong>Java Card</strong>：支持Java小程序（Applets）运行在<strong><code>小内存设备（如智能卡）</code></strong>上的平台。</li>
@@ -355,9 +354,9 @@
 </ul>
 </blockquote>
 <h4 id="3-实战：自己编译JDK"><a href="#3-实战：自己编译JDK" class="headerlink" title="3. 实战：自己编译JDK"></a>3. 实战：自己编译JDK</h4><h5 id="3-1-OpenJDK和OracleJDK"><a href="#3-1-OpenJDK和OracleJDK" class="headerlink" title="3.1 OpenJDK和OracleJDK"></a>3.1 OpenJDK和OracleJDK</h5><p>OpenJDK和 OracleJDK在程序上是非常接近的，两者共用了绝大部分相同的代码。在JDK 11以前，OracleJDK中还会存在一些OpenJDK没有的、闭源的功能，即OracleJDK 的“商业特性”。许多功能在JDK 11时全部开源到了OpenJDK中。到了这个阶段，已经可以认为OpenJDK与OracleJDK代码实质上已达到完全一致的程度。</p>
-<p><img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/JavaLearning/JVM/OpenJDK_and_OracleJDK.PNG" alt="OpenJDK和 OracleJDK的关系"></p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/master/img/blog/JavaLearning/JVM/OpenJDK_and_OracleJDK.PNG" alt="OpenJDK和 OracleJDK的关系"></p>
 <p>OpenJDK内部不同版本之间的关系，按照开发习惯，新的功能或Bug修复通常是在最新分支上进行的，当功能或修复在最新分支上稳定之后会同步到其他老版本的维护分支上。</p>
-<p><img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/JavaLearning/JVM/Relationship_between_OpenJDK_versions.PNG" alt="OpenJDK版本之间的关系"></p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/Relationship_between_OpenJDK_versions.PNG" alt="OpenJDK版本之间的关系"></p>
 
     </div>
 
