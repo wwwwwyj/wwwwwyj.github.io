@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://wuyujie.top/2021/04/27/JavaLearning_Head_First_Java_2_class_and_objects.html</loc>
+    <lastmod>2021-04-27</lastmod>
+  </url>  <url>
+    <loc>http://wuyujie.top/2021/04/26/JZ4-rebuild-binaryTree.html</loc>
+    <lastmod>2021-04-26</lastmod>
+  </url>  <url>
     <loc>http://wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html</loc>
     <lastmod>2021-04-23</lastmod>
   </url>  <url>
