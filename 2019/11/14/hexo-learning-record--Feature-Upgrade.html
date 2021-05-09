@@ -31,7 +31,7 @@
     exturl: false,
     sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
     copycode: {"enable":true,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: true,
     mediumzoom: false,
@@ -44,8 +44,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -56,7 +56,7 @@
   };
 </script>
   <meta name="description" content="前言增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
-<meta name="keywords" content="学习记录,Hexo,写博客">
+<meta name="keywords" content="Hexo,学习记录,写博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo学习记录--功能升级">
 <meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;11&#x2F;14&#x2F;hexo-learning-record--Feature-Upgrade.html">
@@ -181,9 +181,34 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
 
   </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 
 </nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
 </div>
     </header>
 
@@ -259,20 +284,34 @@
               </span>
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
-            </span><br>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/14/hexo-learning-record--Feature-Upgrade.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/14/hexo-learning-record--Feature-Upgrade.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -288,7 +327,7 @@
 <h3 id="LeanCloud添加文章阅读量"><a href="#LeanCloud添加文章阅读量" class="headerlink" title="LeanCloud添加文章阅读量"></a>LeanCloud添加文章阅读量</h3><p>操作很简单，在 <code>LeanCloud</code>注册账号后，创建一个应用即可，主要参考官网教程和一些网上的博客：</p>
 <blockquote>
 <ul>
-<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">开始使用</a>‘</li>
+<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">开始使用</a></li>
 <li><a href="https://blog.csdn.net/weixin_39345384/article/details/80787998" target="_blank" rel="noopener">NexT主题下，用Leancloud统计文章阅读量</a></li>
 </ul>
 </blockquote>
@@ -353,6 +392,29 @@
 <h3 id="加入豆瓣书单"><a href="#加入豆瓣书单" class="headerlink" title="加入豆瓣书单"></a>加入豆瓣书单</h3><p>直接安装豆瓣依赖模块 <code>$ npm install hexo-douban --save</code>, 简单易操作。配置上需要在 <code>hexo</code> 配置文件中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: mythsman</span><br><span class="line">  builtin: false</span><br><span class="line">  book:</span><br><span class="line">    title: &apos;This is my book title&apos;</span><br><span class="line">    quote: &apos;This is my book quote&apos;</span><br><span class="line">  movie:</span><br><span class="line">    title: &apos;This is my movie title&apos;</span><br><span class="line">    quote: &apos;This is my movie quote&apos;</span><br><span class="line">  game:</span><br><span class="line">    title: &apos;This is my game title&apos;</span><br><span class="line">    quote: &apos;This is my game quote&apos;</span><br><span class="line">  timeout: 10000</span><br></pre></td></tr></table></figure></p>
 <p>然后部署到主题文件中, <code>next</code> 主题下设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  archives: /archives</span><br><span class="line">  books: /books     # 这是链接到books页面</span><br><span class="line">  movies: /movies   #  这是链接到movies页面</span><br><span class="line">  games: /games   # 这是链接到games页面</span><br></pre></td></tr></table></figure></p>
 <p>之后在启动过程中加入命令 <code>hexo douban -bgm</code> 自动抓取相关信息生成页面。 其中开启 <code>hexo-douban</code> 的命令中，<code>-bgm</code> 代表的是 <code>book、game、movie</code> 三个参数。</p>
+<h3 id="加入搜索功能"><a href="#加入搜索功能" class="headerlink" title="加入搜索功能"></a>加入搜索功能</h3><ol>
+<li><p>安装本地搜索插件 <code>hexo-generator-search</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
+<p>安装之后，会在站点目录的 <code>public</code> 文件夹下创建一个 <code>search.xml</code> 文件</p>
+</li>
+<li><p>在站点配置文件 <code>_config.yml</code> 中添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Search </span><br><span class="line">search:</span><br><span class="line">  path: ./public/search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+<p><code>field</code>：搜索范围，默认是 <code>post</code>，还可以选择 <code>page</code>、<code>all</code>，设置成 <code>all</code> 表示搜索所有页面<br><code>limit</code>：限制搜索的条目数</p>
+</li>
+<li><p>主题配置文件<br>在主题配置文件 <code>_config.yml</code> 中找到如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  trigger: auto</span><br><span class="line">  top_n_per_article: 1</span><br></pre></td></tr></table></figure>
+<p>确保 <code>enable</code> 设成 <code>true</code>。</p>
+</li>
+</ol>
+<h3 id="加入评论系统-基于Valine"><a href="#加入评论系统-基于Valine" class="headerlink" title="加入评论系统(基于Valine)"></a>加入评论系统(基于Valine)</h3><ol>
+<li><p>获取 <code>APP ID</code> 和 <code>APP Key</code><br>先登录或注册 <code>LeanCloud</code>, 进入控制台后创建应用。选择<code>设置</code>&gt;<code>应用Key</code>，就可以获取<code>APP ID</code>和<code>APP Key</code>了。</p>
+</li>
+<li><p>在<code>next</code>主题中配置<code>valine</code><br>在主题配置文件 <code>_config.yml</code> 中找到<code>comments</code>栏目并开启<code>valine</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">comments:</span><br><span class="line">  active: valine</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>然后在该配置文件中找到<code>valine</code>设置栏，开启<code>valine</code>并填入<code>appid</code>和<code>appkey</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span><br><span class="line">  appid: # your app id</span><br><span class="line">  appkey: # your app key</span><br><span class="line">  notify: true # 评论回复邮件提醒, See: https://github.com/xCss/Valine/wiki</span><br><span class="line">  verify: false # 验证码服务</span><br><span class="line">  placeholder: 留言区 # 评论框占位提示符</span><br><span class="line">  avatar: mm # 头像配置</span><br><span class="line">  guest_info: nick,mail,link # 回复要填写的信息</span><br><span class="line">  pageSize: 10 # 评论列表分页，每页条数</span><br><span class="line">  visitor: false # 文章访问量统计 </span><br><span class="line">  comment_count: true # if false, comment count will only be displayed in post page, not in home page</span><br></pre></td></tr></table></figure></p>
+<p>3. </p>
 
     </div>
 
@@ -362,8 +424,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
               <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
               <a href="/tags/%E5%86%99%E5%8D%9A%E5%AE%A2/" rel="tag"># 写博客</a>
           </div>
 
@@ -396,6 +458,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -420,7 +483,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入豆瓣书单"><span class="nav-number">9.</span> <span class="nav-text">加入豆瓣书单</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入豆瓣书单"><span class="nav-number">9.</span> <span class="nav-text">加入豆瓣书单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入搜索功能"><span class="nav-number">10.</span> <span class="nav-text">加入搜索功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入评论系统-基于Valine"><span class="nav-number">11.</span> <span class="nav-text">加入评论系统(基于Valine)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -497,13 +560,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">144k</span>
+    <span title="站点总字数">145k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:11</span>
+    <span title="站点阅读时长">2:12</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
@@ -667,10 +730,12 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(bp, s);
     })();
-  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
 
 
 
+
+  <script src="/js/local-search.js"></script>
 
 
 
@@ -687,6 +752,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'oe5313HVahW3YTGfyPbIjSLR-gzGzoHsz',
+    appKey: 'ctl910M2uzIjUmkOC49x2L49',
+    placeholder: "欢迎评论，多多指教！",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
