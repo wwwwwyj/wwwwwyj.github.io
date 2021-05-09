@@ -44,7 +44,7 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     },
-    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    localsearch: {"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},
     path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
@@ -56,7 +56,7 @@
   };
 </script>
   <meta name="description" content="测试一下博文加密功能, 输入密码查看">
-<meta name="keywords" content="Hexo,学习记录,写博客">
+<meta name="keywords" content="学习记录,Hexo,写博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo学习记录-博文加密">
 <meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;11&#x2F;16&#x2F;hexo-learning-record--post-encryption.html">
@@ -332,8 +332,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
               <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
               <a href="/tags/%E5%86%99%E5%8D%9A%E5%AE%A2/" rel="tag"># 写博客</a>
           </div>
 
