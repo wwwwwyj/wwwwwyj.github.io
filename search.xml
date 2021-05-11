@@ -116,7 +116,10 @@
 </ol>
 <p>然后在该配置文件中找到<code>valine</code>设置栏，开启<code>valine</code>并填入<code>appid</code>和<code>appkey</code>。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span><br><span class="line">  appid: # your app id</span><br><span class="line">  appkey: # your app key</span><br><span class="line">  notify: true # 评论回复邮件提醒, See: https://github.com/xCss/Valine/wiki</span><br><span class="line">  verify: false # 验证码服务</span><br><span class="line">  placeholder: 留言区 # 评论框占位提示符</span><br><span class="line">  avatar: mm # 头像配置</span><br><span class="line">  guest_info: nick,mail,link # 回复要填写的信息</span><br><span class="line">  pageSize: 10 # 评论列表分页，每页条数</span><br><span class="line">  visitor: false # 文章访问量统计 </span><br><span class="line">  comment_count: true # if false, comment count will only be displayed in post page, not in home page</span><br></pre></td></tr></table></figure></p>
 <ol>
-<li>由于<code>valine 1.4</code>版本后，不再支持自带的<code>邮件提醒</code>，所以这里使用第三方<code>Valine-Admin</code>，基于<code>Leancloud</code>的云引擎与云函数。功能更完善，主要部署方法可以查阅<code>github</code>:<a href="https://github.com/DesertsP/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a>。</li>
+<li>由于<code>valine 1.4</code>版本后，不再支持自带的<code>邮件提醒</code>，所以这里使用第三方<code>Valine-Admin</code>，基于<code>Leancloud</code>的云引擎与云函数。功能更完善，主要部署方法可以查阅<code>github</code>:<a href="https://github.com/DesertsP/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a>。<blockquote>
+<p>PS: 这里<code>Leancloud</code><strong>一定要用国际版</strong>，可以少去很多麻烦。</p>
+</blockquote>
+</li>
 </ol>
 ]]></content>
       <categories>
