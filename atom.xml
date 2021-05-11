@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2021-05-11T04:58:19.000Z</updated>
+  <updated>2021-05-11T13:35:06.000Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>&#39;Java学习|Head First Java]--3 认识变量</title>
+    <link href="http://wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html"/>
+    <id>http://wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html</id>
+    <published>2021-05-11T13:35:06.000Z</published>
+    <updated>2021-05-11T13:35:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote><p>变量有两种：<code>primitive</code>主数据类型和引用。<br><a id="more"></a></p></blockquote><h3 id="1-声明变量"><a href="#1-声明变量" class="headerlink" title="1. 声明变量"></a>1. 声明变量</h3><p><code>Java</code>中必须声明所有变量的类型。主要分为两种变量</p><blockquote><ul><li><code>primitive</code>主数据类型保存基本类型的值，包括<strong>整数、布尔和浮点数等</strong>；</li><li><code>对象引用</code>保存对象的引用</li></ul></blockquote><p>变量必须有<strong>类型</strong>和<strong>名称</strong>。（<strong><code>variables must have a type and a name</code></strong>）</p><h4 id="primitive主数据类型"><a href="#primitive主数据类型" class="headerlink" title="primitive主数据类型"></a><code>primitive</code>主数据类型</h4><p><code>primitive</code>主数据类型有不同大小和名称：</p><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/variable_type_size.PNG" alt="`primitive`主数据类型有不同大小"></p><p>这里展示了<code>primitive</code>主数据类型的名称以及对应的位数：</p><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/primitive_variable_type_size.PNG" alt="`primitive`主数据类型名称以及对应的位数"></p><blockquote><p>这里注意在声明浮点数时，除非加上<code>f</code>，否则所有带小数点的值都会被<code>Java</code>当作<code>double</code>处理。(比如<code>float f = 32.5f</code>)</p></blockquote><p><code>Java</code>编译器不允许将较大的类型值赋给较小类型，比如<code>int</code>类型值无法赋予<code>byte</code>类型。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">24</span>;</span><br><span class="line"><span class="keyword">byte</span> b = x;</span><br></pre></td></tr></table></figure><p>即使<code>byte</code>可以装下<code>24</code>，这条语句也不能通过编译。</p><h4 id="对象引用"><a href="#对象引用" class="headerlink" title="对象引用"></a>对象引用</h4><p>没有对象变量存在，只有<code>引用（reference）</code>到对象的变量。</p><blockquote><p>对象引用变量保存的是<strong>存取对象的方法</strong>；</p></blockquote><p>它不是对象的容器，而是类似于指向对象的指针或者说地址。</p><blockquote><p>但只有<code>Java</code>虚拟机知道如何使用引用来获取对象，我们并不知道引用变量中实际装载的是什么。</p></blockquote><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/variable_object_reference.PNG" alt="对象引用"></p><p>对象的声明、创建与赋值有三个步骤：</p><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/create_object.PNG" alt="对象的声明、创建与赋值"></p><blockquote><p><strong>数组也是对象</strong></p></blockquote><p>无论声明来承载<code>primitive</code>主数据类型还是对象引用，数组永远是对象。</p><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/array_is_object.PNG" alt="数组也是对象"></p><h4 id="变量命名规范"><a href="#变量命名规范" class="headerlink" title="变量命名规范"></a>变量命名规范</h4><p>可以根据一下规则来为类、方法或变量命名：</p><blockquote><ul><li>名称必须以字母、下划线(<code>_</code>)或<code>$</code>符号开头，不能用数字开头；</li><li>除了第一个字符外，后面就可以用数字；</li><li>只要符合上述两条规则，就可以进行任意命名了。但要注意避开Java<code>保留字</code>。</li></ul></blockquote><p>这里的规则是最为基础的规则了，实际上为了命名规范，还有更多更复杂的要求。Java<code>保留字</code>一览表：</p><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/reserved_word.PNG" alt="Java`保留字`一览表"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;变量有两种：&lt;code&gt;primitive&lt;/code&gt;主数据类型和引用。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://wuyujie.top/categories/Java/"/>
+    
+    
+      <category term="Learning" scheme="http://wuyujie.top/tags/Learning/"/>
+    
+      <category term="Java" scheme="http://wuyujie.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>[读书|2021阅读]--《围城》</title>
@@ -414,9 +439,9 @@
       <category term="Git" scheme="http://wuyujie.top/categories/Git/"/>
     
     
-      <category term="学习记录" scheme="http://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
       <category term="Git" scheme="http://wuyujie.top/tags/Git/"/>
+    
+      <category term="学习记录" scheme="http://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
@@ -488,35 +513,11 @@
       <category term="Hexo" scheme="http://wuyujie.top/categories/Hexo/"/>
     
     
-      <category term="Hexo" scheme="http://wuyujie.top/tags/Hexo/"/>
-    
       <category term="学习记录" scheme="http://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
+      <category term="Hexo" scheme="http://wuyujie.top/tags/Hexo/"/>
+    
       <category term="写博客" scheme="http://wuyujie.top/tags/%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sublime Text3 删除 Markdown Editing 插件后启动报错</title>
-    <link href="http://wuyujie.top/2019/11/16/Sublime-Text3-removes-the-Markdown-Editing-plugin-leads-to-an-error.html"/>
-    <id>http://wuyujie.top/2019/11/16/Sublime-Text3-removes-the-Markdown-Editing-plugin-leads-to-an-error.html</id>
-    <published>2019-11-16T06:48:12.000Z</published>
-    <updated>2019-11-16T06:48:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Sublime-Text3启动报错"><a href="#Sublime-Text3启动报错" class="headerlink" title="Sublime Text3启动报错"></a>Sublime Text3启动报错</h3><p><code>Sublime Text3</code> 之前装了 <code>Markdown Editing</code> 插件，由于嫌弃界面太难看把他卸载了，之后再次打开<code>.md</code>格式的文件，一直报下面这个错误。<br><a id="more"></a><br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error: </span>Error loading colour scheme Packages/MarkdownEditing/MarkdownEditor.tmTheme: Error parsing plist xml: Failed to open file In file "Packages/MarkdownEditing/MarkdownEditor.tmTheme"</span><br></pre></td></tr></table></figure></p><p>查阅网上有方法说<code>set syntax:html</code> 可以解决，但这好像不能根本解决问题，依旧会弹出报错弹窗。后面找到文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Usersname\AppData\Roaming\Sublime Text 3\Packages\User</span><br></pre></td></tr></table></figure><br>发现存在卸载残留文件，即 <code>Markdown Editing</code> 的配置文件，将其删除后文集解决，<code>Sublime Text3</code>正常工作。类似的还有一个<code>Error trying to parse settings</code>的报错，也是配置文件的原因，找到报错显示的对应配置文件修改一下就解决了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;Sublime-Text3启动报错&quot;&gt;&lt;a href=&quot;#Sublime-Text3启动报错&quot; class=&quot;headerlink&quot; title=&quot;Sublime Text3启动报错&quot;&gt;&lt;/a&gt;Sublime Text3启动报错&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Sublime Text3&lt;/code&gt; 之前装了 &lt;code&gt;Markdown Editing&lt;/code&gt; 插件，由于嫌弃界面太难看把他卸载了，之后再次打开&lt;code&gt;.md&lt;/code&gt;格式的文件，一直报下面这个错误。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Sublime Text3" scheme="http://wuyujie.top/categories/Sublime-Text3/"/>
-    
-    
-      <category term="Debug" scheme="http://wuyujie.top/tags/Debug/"/>
-    
-      <category term="Sublime Text3" scheme="http://wuyujie.top/tags/Sublime-Text3/"/>
     
   </entry>
   
