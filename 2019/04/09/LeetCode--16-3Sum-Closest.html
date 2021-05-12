@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input">
+  <meta name="description" content="一、问题描述  Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each in">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--16. 3Sum Closest">
 <meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2019&#x2F;04&#x2F;09&#x2F;LeetCode--16-3Sum-Closest.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input">
+<meta property="og:description" content="一、问题描述  Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each in">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:41:40.511Z">
 <meta name="twitter:card" content="summary">
@@ -321,28 +321,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>Given an array <strong>nums</strong> of n integers and an integer <strong>target</strong>, find three integers in <strong>nums</strong> such that the sum is closest to <strong>target</strong>. Return the sum of the three integers. You may assume that each input would have exactly one solution.<br><a id="more"></a></p>
-</blockquote>
-<p><strong>Example :</strong></p>
+        <h3 id="一问题描述">一、问题描述</h3>
 <blockquote>
-<p>Given array nums = [-1, 2, 1, -4], and target = 1.</p>
+<p>Given an array <strong>nums</strong> of n integers and an integer <strong>target</strong>, find three integers in <strong>nums</strong> such that the sum is closest to <strong>target</strong>. Return the sum of the three integers. You may assume that each input would have exactly one solution. <a id="more"></a></p>
+</blockquote>
+<p><strong>Example :</strong> &gt; Given array nums = [-1, 2, 1, -4], and target = 1.</p>
+<blockquote>
 <p>The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</p>
 </blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这个题和它的前一道题<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" target="_blank" rel="noopener" title="15. 3Sum">15. 3Sum</a>很像，前一道题可以看做本题在target = 0时的特殊情况。但这道题进行了一定的改写和简化：</p>
-<blockquote>
-<ol>
-<li>存在且仅存在一个解，所以我们可以在找到一个最优解后立即停止;</li>
-<li>要寻找的是最接近target的三数和。也就是说可能会没有等于target的情况，比如题目的例子就是如此；另一方面只需要返回这三个数的和，不需要记录这三个数，所以对结果的记录和判断简化了。</li>
-</ol>
-</blockquote>
-<p>我们只需要在15题的算法的基础上进行一定的修改就可以得到这道题的结果了。我们可以用同样的方法，先对数组进行排序，固定一个数a，然后去找另外两个数b和c的组合：</p>
-<ol>
-<li>如果我们只要找到两个数且和(b+c)为(target - a)，那么找到了最接近的三数和即target;</li>
-<li>否者我们记录下当前数以及与target的距离(定义为|target-(a+b+c)|)，继续遍历数组找下一个更相近的三数和。</li>
-</ol>
+<h3 id="二解题思路">二、解题思路</h3>
+<p>这个题和它的前一道题<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" target="_blank" rel="noopener" title="15. 3Sum">15. 3Sum</a>很像，前一道题可以看做本题在target = 0时的特殊情况。但这道题进行了一定的改写和简化： &gt; 1. 存在且仅存在一个解，所以我们可以在找到一个最优解后立即停止; &gt; 2. 要寻找的是最接近target的三数和。也就是说可能会没有等于target的情况，比如题目的例子就是如此；另一方面只需要返回这三个数的和，不需要记录这三个数，所以对结果的记录和判断简化了。</p>
+<p>我们只需要在15题的算法的基础上进行一定的修改就可以得到这道题的结果了。我们可以用同样的方法，先对数组进行排序，固定一个数a，然后去找另外两个数b和c的组合： 1. 如果我们只要找到两个数且和(b+c)为(target - a)，那么找到了最接近的三数和即target; 2. 否者我们记录下当前数以及与target的距离(定义为|target-(a+b+c)|)，继续遍历数组找下一个更相近的三数和。</p>
 <p>同样的，在寻找过程中，我们可以跳过那些重复的组合，并且进行合适的剪枝进行优化。</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[nums.size()<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">int</span> closesetDistance = <span class="built_in">abs</span>(nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[nums.size()<span class="number">-1</span>] - target);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size() ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> low = i+<span class="number">1</span>,high = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[low] + nums[high];</span><br><span class="line">                <span class="keyword">if</span>(sum == target)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> target;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; target) </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(sum-target &lt; closesetDistance)</span><br><span class="line">                    &#123;</span><br><span class="line">                        closesetDistance = sum-target;</span><br><span class="line">                        res = sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[high] == nums[--high]);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(target-sum &lt; closesetDistance)</span><br><span class="line">                    &#123;</span><br><span class="line">                        closesetDistance = target-sum;</span><br><span class="line">                        res = sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[low] == nums[++low]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="三代码">三、代码</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[nums.size()<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">int</span> closesetDistance = <span class="built_in">abs</span>(nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[nums.size()<span class="number">-1</span>] - target);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size() ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> low = i+<span class="number">1</span>,high = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[low] + nums[high];</span><br><span class="line">                <span class="keyword">if</span>(sum == target)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> target;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; target) </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(sum-target &lt; closesetDistance)</span><br><span class="line">                    &#123;</span><br><span class="line">                        closesetDistance = sum-target;</span><br><span class="line">                        res = sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[high] == nums[--high]);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(target-sum &lt; closesetDistance)</span><br><span class="line">                    &#123;</span><br><span class="line">                        closesetDistance = target-sum;</span><br><span class="line">                        res = sum;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[low] == nums[++low]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -408,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -424,14 +417,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -485,13 +478,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">150k</span>
+    <span title="站点总字数">153k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:16</span>
+    <span title="站点阅读时长">2:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。">
+  <meta name="description" content="前言  世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。">
 <meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--1 走近Java">
 <meta property="og:url" content="http:&#x2F;&#x2F;wuyujie.top&#x2F;2021&#x2F;04&#x2F;23&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。">
+<meta property="og:description" content="前言  世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;Java_technology_system.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;OpenJDK_and_OracleJDK.PNG">
@@ -266,8 +266,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
             </span>
@@ -318,10 +318,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。</code><br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>世界上并没有完美的程序，但我们并不因此而沮丧，因为写程序本来就是一个不断追求完美的过程。</code> <a id="more"></a></p>
 </blockquote>
-<h4 id="1-Java技术体系"><a href="#1-Java技术体系" class="headerlink" title="1. Java技术体系"></a>1. Java技术体系</h4><p><code>JCP(Java Community Process)</code>所定义的Java技术体系包括了以下几个组成部分：</p>
+<h4 id="java技术体系">1. Java技术体系</h4>
+<p><code>JCP(Java Community Process)</code>所定义的Java技术体系包括了以下几个组成部分：</p>
 <ul>
 <li>Java程序设计语言</li>
 <li>各种硬件平台上的Java虚拟机实现</li>
@@ -340,7 +342,9 @@
 <li>Java SE API子集</li>
 <li>Java虚拟机</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/Java_technology_system.PNG" alt="Java技术体系"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/Java_technology_system.PNG" alt="Java技术体系" /><figcaption aria-hidden="true">Java技术体系</figcaption>
+</figure>
 <p>按照技术关注的重点业务来划分，可以分为以下四条主要的产品线：</p>
 <ul>
 <li><strong>Java Card</strong>：支持Java小程序（Applets）运行在<strong><code>小内存设备（如智能卡）</code></strong>上的平台。</li>
@@ -348,9 +352,12 @@
 <li><strong>Java SE（Standard Edition）</strong>：支持面向<strong><code>桌面级应用（如Windows下的应用程序）</code></strong>的Java平台，提 供了完整的Java核心API，这条产品线在JDK 6以前被称为<code>J2SE</code>。</li>
 <li><strong>Java EE（Enterprise Edition）</strong>：支持<strong><code>使用多层架构的企业应用（如ERP、MIS、CRM应用）</code></strong>的 Java平台，除了提供Java SE API外，还对其做了大量有针对性的扩充，并提供了相关的部署支持， 这条产品线在JDK 6以前被称为<code>J2EE</code>；在JDK 10以后被Oracle放弃，捐献给Eclipse基金会管理，此后被 称为<code>Jakarta EE</code>。(PS:扩展一般以<code>javax.*</code>作为包名，而以<code>java.*</code>为包名的包都是Java SE API的核心包。一部分曾经是扩展包的API后来进入了核心包中，因此核心包中也包含了不少<code>javax.*</code>开头的包名)</li>
 </ul>
-<h4 id="2-Java虚拟机家族"><a href="#2-Java虚拟机家族" class="headerlink" title="2. Java虚拟机家族"></a>2. Java虚拟机家族</h4><h5 id="2-1-虚拟机始祖：Sun-Classic-Exact-VM"><a href="#2-1-虚拟机始祖：Sun-Classic-Exact-VM" class="headerlink" title="2.1 虚拟机始祖：Sun Classic/Exact VM"></a>2.1 虚拟机始祖：Sun Classic/Exact VM</h5><p><code>Classic VM</code>只能使用<strong>纯解释器方式</strong>来执行Java代码，如果要使用<strong>即时编译器</strong>就必须进行外挂，但是假如外挂了即时编译器的话，即时编译器就会完全接管虚拟机的执行系统，解释器便不能再工作了。由于解释器和编译器不能配合工作，这就意味着<code>如果要使用编译执行，编译器就不得不对每一个方法、每一行代码都进行编译，而无论它们执行的频率是否具有编译的价值</code>。</p>
+<h4 id="java虚拟机家族">2. Java虚拟机家族</h4>
+<h5 id="虚拟机始祖sun-classicexact-vm">2.1 虚拟机始祖：Sun Classic/Exact VM</h5>
+<p><code>Classic VM</code>只能使用<strong>纯解释器方式</strong>来执行Java代码，如果要使用<strong>即时编译器</strong>就必须进行外挂，但是假如外挂了即时编译器的话，即时编译器就会完全接管虚拟机的执行系统，解释器便不能再工作了。由于解释器和编译器不能配合工作，这就意味着<code>如果要使用编译执行，编译器就不得不对每一个方法、每一行代码都进行编译，而无论它们执行的频率是否具有编译的价值</code>。</p>
 <p><code>Exact VM</code>因它使用<code>准确式内存管理</code>（Exact Memory Management，也可以叫Non-Conservative/Accurate Memory Management）而得名。准确式内存管理是指<code>虚拟机可以知道内存中某个位置的数据具体是什么类型</code>。已经具备现代高性能虚拟机雏形，如热点探测、两级即时编译器、编译器与解释器混合工作模式等。</p>
-<h5 id="2-2-武林盟主：HotSpot-VM"><a href="#2-2-武林盟主：HotSpot-VM" class="headerlink" title="2.2 武林盟主：HotSpot VM"></a>2.2 武林盟主：HotSpot VM</h5><p><code>HotSpot VM</code>是Sun/OracleJDK和OpenJDK中的默认Java虚拟机，也是目前<em>使用范围最广</em>的Java虚拟机。</p>
+<h5 id="武林盟主hotspot-vm">2.2 武林盟主：HotSpot VM</h5>
+<p><code>HotSpot VM</code>是Sun/OracleJDK和OpenJDK中的默认Java虚拟机，也是目前<em>使用范围最广</em>的Java虚拟机。</p>
 <blockquote>
 <p>它是由一家名为<code>“Longview Technologies”</code>的小公司设计；甚至这个虚拟机最初<em>并非是为Java语言而研发的</em>，它来源于<code>Strongtalk虚拟机</code>，而这款虚拟机中相当多的技术又是来源于一款为<em>支持Self语言</em>实现“达到C语言50%以上的执行效率”的目标而设计的Self虚拟机， 最终甚至可以追溯到20世纪80年代中期开发的<code>Berkeley Smalltalk</code>上。</p>
 </blockquote>
@@ -358,25 +365,35 @@
 <blockquote>
 <p>HotSpot虚拟机的热点代码探测能力可以通过执行计数器找出最具有编译价值的代码，然后通知即时编译器<strong>以方法为单位进行编译</strong>。如果一个方法被频繁调用，或方法中有效循环次数很多，将会分别触发<code>标准即时编译和栈上替换编译（On-Stack Replacement，OSR）行为</code>。</p>
 </blockquote>
-<h5 id="2-3-小家碧玉：Mobile-Embedded-VM"><a href="#2-3-小家碧玉：Mobile-Embedded-VM" class="headerlink" title="2.3 小家碧玉：Mobile/Embedded VM"></a>2.3 小家碧玉：Mobile/Embedded VM</h5><p>面对移动和嵌入式市场，在Java ME这条产品线上的虚拟机名为CDC-HI（C Virtual Machine， CVM）和CLDC-HI（Monty VM）。</p>
+<h5 id="小家碧玉mobileembedded-vm">2.3 小家碧玉：Mobile/Embedded VM</h5>
+<p>面对移动和嵌入式市场，在Java ME这条产品线上的虚拟机名为CDC-HI（C Virtual Machine， CVM）和CLDC-HI（Monty VM）。</p>
 <blockquote>
 <p>CDC/CLDC全称是<code>Connected（Limited）Device Configuration</code>，HI则是<code>HotSpot Implementation</code>的缩写，但它们并不是由HotSpot直接裁剪而来，只是借鉴过其中一些技术，并没有血缘关系，充其量能叫有所渊源。</p>
 </blockquote>
-<h5 id="2-4-天下第二：BEA-JRockit-IBM-J9-VM"><a href="#2-4-天下第二：BEA-JRockit-IBM-J9-VM" class="headerlink" title="2.4 天下第二：BEA JRockit/IBM J9 VM"></a>2.4 天下第二：BEA JRockit/IBM J9 VM</h5><p>BEA System公司的<code>JRockit</code>与 IBM公司的<code>IBM J9</code>曾经与HotSpot并称<strong>“三大商业Java虚拟机”</strong>。</p>
+<h5 id="天下第二bea-jrockitibm-j9-vm">2.4 天下第二：BEA JRockit/IBM J9 VM</h5>
+<p>BEA System公司的<code>JRockit</code>与 IBM公司的<code>IBM J9</code>曾经与HotSpot并称<strong>“三大商业Java虚拟机”</strong>。</p>
 <p>JRockit虚拟机曾经号称是“世界上速度最快的Java虚拟机”，BEA将其发展为一款<strong>专门为服务器硬件和服务端应用场景高度优化的虚拟机</strong>，由于专注于服务端应用，它可以不太关注于程序启动速度，因此JRockit内部<em>不包含解释器实现</em>，全部代码都靠<code>即时编译器编译后执行</code>。JRockit的<strong>垃圾收集器</strong>和<strong>Java Mission Control故障处理套件</strong>等部分的实现，在当时众多的Java虚拟机中也处于领先水平。</p>
 <p>IBM J9虚拟机机最初是由IBM Ottawa实验室的一个<code>SmallTalk虚拟机</code>项目扩展而来。IBM J9虚拟机的市场定位与HotSpot比较接近，它是一款在<em>设计上全面考虑服务端、桌面应用，再到嵌入式的多用途虚拟机</em>。</p>
 <blockquote>
 <p>IBM J9虚拟机的<code>职责分离与模块化</code>做得比HotSpot更优秀，由J9 虚拟机中抽象封装出来的核心组件库（包括垃圾收集器、即时编译器、诊断监控子系统等）就单独构成了IBM OMR项目</p>
 </blockquote>
-<h5 id="2-5-软硬合璧：BEA-Liquid-VM-Azul-VM"><a href="#2-5-软硬合璧：BEA-Liquid-VM-Azul-VM" class="headerlink" title="2.5 软硬合璧：BEA Liquid VM/Azul VM"></a>2.5 软硬合璧：BEA Liquid VM/Azul VM</h5><p>一类<strong>与特定硬件平台绑定、软硬件配合工作的专有虚拟机</strong>，往往能够实现更高的执行性能，或提供某些特殊的功能特性。</p>
+<h5 id="软硬合璧bea-liquid-vmazul-vm">2.5 软硬合璧：BEA Liquid VM/Azul VM</h5>
+<p>一类<strong>与特定硬件平台绑定、软硬件配合工作的专有虚拟机</strong>，往往能够实现更高的执行性能，或提供某些特殊的功能特性。</p>
 <blockquote>
 <p>Liquid VM也被称为JRockit VE(Virtual Edition，VE)，BEA公司开发的可以直接运行在自家 Hypervisor系统上的JRockit虚拟机的虚拟化版本。Liquid VM不需要操作系统的支持，或者说<strong>它自己本身实现了一个专用操作系统的必要功能</strong>。</p>
+</blockquote>
+<blockquote>
 <p>Azul VM是Azul Systems公司在HotSpot基础上进行大量改进，运行于Azul Systems公司的<strong>专有硬件Vega系统</strong>上的Java虚拟机。</p>
+</blockquote>
+<blockquote>
 <p>Zing虚拟机(Azul Systems公司研发)是一个从HotSpot某旧版代码分支基础上独立出来重新开发的高性能Java虚拟机。在要求低延迟、快速预热等场景中，Zing VM都要比HotSpot表现得更好。Zing的PGC、 C4收集器可以轻易支持TB级别的Java堆内存，而且保证暂停时间仍然可以维持在不超过10毫秒的范围里。</p>
 </blockquote>
-<h5 id="2-6-挑战者：Apache-Harmony-Google-Android-Dalvik-VM"><a href="#2-6-挑战者：Apache-Harmony-Google-Android-Dalvik-VM" class="headerlink" title="2.6 挑战者：Apache Harmony/Google Android Dalvik VM"></a>2.6 挑战者：Apache Harmony/Google Android Dalvik VM</h5><p>Harmony虚拟机（准确地说是Harmony里的DRLVM）和Dalvik虚拟机<code>只能称作“虚拟 机”，而不能称作“Java虚拟机”</code>。</p>
-<h5 id="2-7-没有成功，但并非失败：Microsoft-JVM及其他"><a href="#2-7-没有成功，但并非失败：Microsoft-JVM及其他" class="headerlink" title="2.7 没有成功，但并非失败：Microsoft JVM及其他"></a>2.7 没有成功，但并非失败：Microsoft JVM及其他</h5><p>微软为了在Internet Explorer 3浏览器中支持Java Applets应用而开发了自己的Java虚拟机，</p>
-<h5 id="2-8-百家争鸣"><a href="#2-8-百家争鸣" class="headerlink" title="2.8 百家争鸣"></a>2.8 百家争鸣</h5><p>一些Java虚拟机是单纯为了用于生产，甚至在设计之初就仅仅是用于研究、验证某种技术和观点，又或者是作为一些规范的标准实现：</p>
+<h5 id="挑战者apache-harmonygoogle-android-dalvik-vm">2.6 挑战者：Apache Harmony/Google Android Dalvik VM</h5>
+<p>Harmony虚拟机（准确地说是Harmony里的DRLVM）和Dalvik虚拟机<code>只能称作“虚拟 机”，而不能称作“Java虚拟机”</code>。</p>
+<h5 id="没有成功但并非失败microsoft-jvm及其他">2.7 没有成功，但并非失败：Microsoft JVM及其他</h5>
+<p>微软为了在Internet Explorer 3浏览器中支持Java Applets应用而开发了自己的Java虚拟机，</p>
+<h5 id="百家争鸣">2.8 百家争鸣</h5>
+<p>一些Java虚拟机是单纯为了用于生产，甚至在设计之初就仅仅是用于研究、验证某种技术和观点，又或者是作为一些规范的标准实现：</p>
 <blockquote>
 <ul>
 <li>KVM。KVM中的K是“Kilobyte”的意思，它强调简单、轻量、高度可移植，但是运行速度比较慢。主要用于手机平台。</li>
@@ -388,10 +405,16 @@
 <li>IKVM.NET。基于微软.NET框架实现的Java虚拟机，并借助Mono获得一定的跨平台能力。</li>
 </ul>
 </blockquote>
-<h4 id="3-实战：自己编译JDK"><a href="#3-实战：自己编译JDK" class="headerlink" title="3. 实战：自己编译JDK"></a>3. 实战：自己编译JDK</h4><h5 id="3-1-OpenJDK和OracleJDK"><a href="#3-1-OpenJDK和OracleJDK" class="headerlink" title="3.1 OpenJDK和OracleJDK"></a>3.1 OpenJDK和OracleJDK</h5><p>OpenJDK和 OracleJDK在程序上是非常接近的，两者共用了绝大部分相同的代码。在JDK 11以前，OracleJDK中还会存在一些OpenJDK没有的、闭源的功能，即OracleJDK 的“商业特性”。许多功能在JDK 11时全部开源到了OpenJDK中。到了这个阶段，已经可以认为OpenJDK与OracleJDK代码实质上已达到完全一致的程度。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/OpenJDK_and_OracleJDK.PNG" alt="OpenJDK和 OracleJDK的关系"></p>
+<h4 id="实战自己编译jdk">3. 实战：自己编译JDK</h4>
+<h5 id="openjdk和oraclejdk">3.1 OpenJDK和OracleJDK</h5>
+<p>OpenJDK和 OracleJDK在程序上是非常接近的，两者共用了绝大部分相同的代码。在JDK 11以前，OracleJDK中还会存在一些OpenJDK没有的、闭源的功能，即OracleJDK 的“商业特性”。许多功能在JDK 11时全部开源到了OpenJDK中。到了这个阶段，已经可以认为OpenJDK与OracleJDK代码实质上已达到完全一致的程度。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/OpenJDK_and_OracleJDK.PNG" alt="OpenJDK和 OracleJDK的关系" /><figcaption aria-hidden="true">OpenJDK和 OracleJDK的关系</figcaption>
+</figure>
 <p>OpenJDK内部不同版本之间的关系，按照开发习惯，新的功能或Bug修复通常是在最新分支上进行的，当功能或修复在最新分支上稳定之后会同步到其他老版本的维护分支上。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/Relationship_between_OpenJDK_versions.PNG" alt="OpenJDK版本之间的关系"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/Relationship_between_OpenJDK_versions.PNG" alt="OpenJDK版本之间的关系" /><figcaption aria-hidden="true">OpenJDK版本之间的关系</figcaption>
+</figure>
 
     </div>
 
@@ -460,7 +483,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Java技术体系"><span class="nav-number">1.1.</span> <span class="nav-text">1. Java技术体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Java虚拟机家族"><span class="nav-number">1.2.</span> <span class="nav-text">2. Java虚拟机家族</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-虚拟机始祖：Sun-Classic-Exact-VM"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 虚拟机始祖：Sun Classic/Exact VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-武林盟主：HotSpot-VM"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 武林盟主：HotSpot VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-小家碧玉：Mobile-Embedded-VM"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 小家碧玉：Mobile/Embedded VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-天下第二：BEA-JRockit-IBM-J9-VM"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 天下第二：BEA JRockit/IBM J9 VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-软硬合璧：BEA-Liquid-VM-Azul-VM"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 软硬合璧：BEA Liquid VM/Azul VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-6-挑战者：Apache-Harmony-Google-Android-Dalvik-VM"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 挑战者：Apache Harmony/Google Android Dalvik VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-7-没有成功，但并非失败：Microsoft-JVM及其他"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 没有成功，但并非失败：Microsoft JVM及其他</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-8-百家争鸣"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 百家争鸣</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-实战：自己编译JDK"><span class="nav-number">1.3.</span> <span class="nav-text">3. 实战：自己编译JDK</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-OpenJDK和OracleJDK"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 OpenJDK和OracleJDK</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java技术体系"><span class="nav-number">1.1.</span> <span class="nav-text">1. Java技术体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java虚拟机家族"><span class="nav-number">1.2.</span> <span class="nav-text">2. Java虚拟机家族</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#虚拟机始祖sun-classicexact-vm"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 虚拟机始祖：Sun Classic/Exact VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#武林盟主hotspot-vm"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 武林盟主：HotSpot VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#小家碧玉mobileembedded-vm"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 小家碧玉：Mobile/Embedded VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#天下第二bea-jrockitibm-j9-vm"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 天下第二：BEA JRockit/IBM J9 VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软硬合璧bea-liquid-vmazul-vm"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 软硬合璧：BEA Liquid VM/Azul VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#挑战者apache-harmonygoogle-android-dalvik-vm"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 挑战者：Apache Harmony/Google Android Dalvik VM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#没有成功但并非失败microsoft-jvm及其他"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 没有成功，但并非失败：Microsoft JVM及其他</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#百家争鸣"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 百家争鸣</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战自己编译jdk"><span class="nav-number">1.3.</span> <span class="nav-text">3. 实战：自己编译JDK</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#openjdk和oraclejdk"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 OpenJDK和OracleJDK</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,14 +499,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -537,13 +560,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">150k</span>
+    <span title="站点总字数">153k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:16</span>
+    <span title="站点阅读时长">2:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
