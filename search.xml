@@ -252,7 +252,7 @@
       </tags>
   </entry>
   <entry>
-    <title>&#39;Java学习|Head First Java]--3 认识变量</title>
+    <title>[Java学习|Head First Java]--3 认识变量</title>
     <url>/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
 <p>变量有两种：<code>primitive</code>主数据类型和引用。<br><a id="more"></a></p>
