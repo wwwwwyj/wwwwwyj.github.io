@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wuyujie.top/"/>
-  <updated>2021-05-12T07:33:45.000Z</updated>
+  <updated>2021-05-12T11:38:08.000Z</updated>
   <id>http://wuyujie.top/</id>
   
   <author>
@@ -17,9 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>[Java学习|Head First Java]--7 继承与多态</title>
+    <link href="http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html"/>
+    <id>http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html</id>
+    <published>2021-05-12T11:38:08.000Z</published>
+    <updated>2021-05-12T11:38:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言">前言</h3><blockquote><p>规划程序时要考虑未来。 <a id="more"></a></p></blockquote><h3 id="继承">1. 继承</h3><h4 id="继承-1">1.1 继承</h4><p>设计<strong>继承</strong>时，会把共同程序代码放在某个类中，告诉其他类此类事他们的父类。当某个类继承另一个类的时候，也就是子类继承自父类。继承的关系意味着子类继承了父类的方法和实例变量。</p><p>如下一个例子</p><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/inheritanceExample.PNG" alt="继承" /><figcaption aria-hidden="true">继承</figcaption></figure><p><code>PantherMan</code>会自动继承<code>SuperHero</code>的实例变量和方法，且<code>PantherMan</code>也可以加入自己的方法和实例变量，或者覆盖掉继承的方法。而<code>FriedEggMan</code>不需要独特的行为，所以没有覆盖任何方法。</p><blockquote><p>实例变量无法覆盖是因为不需要，它们没有定义特殊的行为。</p></blockquote><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/inheritanceExample.PNG" alt="继承范例" /><figcaption aria-hidden="true">继承范例</figcaption></figure><p>在这个继承范例中，<code>Family Doctor</code>增加了实例变量和方法，<code>Surgeon</code>覆盖了继承的方法并增加了一个新方法。</p><blockquote><ul><li><p>需要注意继承使用的关键词<code>extends</code></p></li><li><p>如果在子类中还打算引用父类的方法，可以使用<code>super</code>关键字：</p></li></ul></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">roam</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">super</span>.roam();</span><br><span class="line">     <span class="comment">// my own roam stuff</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="继承层次设计">1.2 继承层次设计</h4><p>比如以设计动物仿真程序为例，主要有以下步骤：</p><ol type="1"><li>找出具有共同属性和行为的对象</li><li>设计代表共同状态与行为的类</li><li>决定子类是否需要让某项行为(即方法的实现)有特定不同的运作方式</li><li>通过寻找使用共同行为的子类来找出更多抽象化的机会</li><li>完成类的继承层次</li></ol><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/animalInheritanceTree.PNG" alt="动物类继承层次" /><figcaption aria-hidden="true">动物类继承层次</figcaption></figure><blockquote><p>当调用对象引用的方法时，会调用到与该对象类型最接近的方法。即<code>最低阶</code>会胜出。Java虚拟机会从树的叶节点开始往上寻找方法。</p></blockquote><p>所有子类与其任一个上层父类之间应该都是<code>IS-A</code>的关系。</p><h4 id="存取权限">1.3 存取权限</h4><p>父类可以通过存取权限决定子类是否能够继承某些特定的成员。主要有以下4种存取权限，左边最受限制，越往右限制程度越小：</p><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/accessLevels.PNG" alt="存取权限" /><figcaption aria-hidden="true">存取权限</figcaption></figure><p><code>存取权限(Access levels)</code>控制谁可以接触什么：</p><blockquote><ul><li><code>public</code>类型的成员会被继承</li><li><code>private</code>类型的成员不会被继承</li></ul></blockquote><h4 id="继承的意义">1.4 继承的意义</h4><p>通过继承，子类不需要重新编译就能运行到新版本的父类。此外通过继承可以：</p><ol type="1"><li><p>避免重复的程序代码</p><p>即可以在父类这一单一位置定义共同程序代码。</p></li><li><p>定义出共同的协议</p><p>继承可以确保每个父类下的所有类都会有父类所持有的全部(可继承的)方法。也就是说，通过继承来定义相关类之间的共同协议。</p></li></ol><h4 id="私有类">1.5 "私有类"</h4><p>实际上没有"私有类"的概念，但有三种方法可以防止这个类被继承：</p><ol type="1"><li><p>存取控制。不能标记类为私有，但可以不标记为公有。非公有类只能被同一个包的类继承。</p></li><li><p>使用<code>final</code>修饰符。表示它是继承树的末端，不能被继承。</p><blockquote><p><code>final</code>表示符主要为保证安全，确保方法都是当前版本。</p><p>如果想防止特定方法被覆盖，可以在该方法前表示<code>final</code>修饰符。</p></blockquote></li><li><p>让类只拥有<code>private</code>的构造函数。</p></li></ol><h3 id="多态">2. 多态</h3><p>一般声明引用和创建对象时，重点在于要求引用类型与对象类型必须相符。而在多态下，引用与对象可以是不同类型：</p><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/polymorphismExample.PNG" alt="多态" /><figcaption aria-hidden="true">多态</figcaption></figure><p>运用多态时，引用类型可以时实际对象类型的父类。所以可以实现<code>多态数组(polymorphic arrays)</code>这一类东西：</p><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/polymorphicArray.PNG" alt="多态数组" /><figcaption aria-hidden="true">多态数组</figcaption></figure><p>参数和返回类型也可以用多态。</p><figure><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/polymorphicArgument.PNG" alt="参数多态" /><figcaption aria-hidden="true">参数多态</figcaption></figure><h3 id="覆盖的规则">3. 覆盖的规则</h3><p>当要覆盖父类的方法时，必须遵守以下规则：</p><ol type="1"><li>参数必须一样，且返回类型必须兼容</li><li><strong>不能降低</strong>方法的存取权限</li></ol><h3 id="方法的重载overload">4. 方法的重载(overload)</h3><p>重载的意义是两个方法的名称相同，但参数不同。所以<strong>重载与多态毫无关系</strong>。</p><blockquote><p>重载的方法只是刚好有相同名字的不同方法，它与继承或多态无关</p></blockquote><p>重载的方法有更多的扩展性：</p><ol type="1"><li>返回类型可以不同</li><li>不能只改变返回类型。重载的条件是<strong>要使用不同的参数</strong>。</li><li>可以任意设定存取权限</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;规划程序时要考虑未来。
+    
+    </summary>
+    
+      <category term="headFirstJava" scheme="http://wuyujie.top/categories/headFirstJava/"/>
+    
+    
+      <category term="Learning" scheme="http://wuyujie.top/tags/Learning/"/>
+    
+      <category term="Java" scheme="http://wuyujie.top/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[Java学习|Head First Java]--6 认识Java的API</title>
-    <link href="http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Using_the_Java_Library.html"/>
-    <id>http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Using_the_Java_Library.html</id>
+    <link href="http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html"/>
+    <id>http://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html</id>
     <published>2021-05-12T07:33:45.000Z</published>
     <updated>2021-05-12T07:33:45.000Z</updated>
     
@@ -511,31 +537,6 @@
       <category term="Debug" scheme="http://wuyujie.top/tags/Debug/"/>
     
       <category term="Python" scheme="http://wuyujie.top/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git学习--基础</title>
-    <link href="http://wuyujie.top/2019/11/23/Git-learning-foundation.html"/>
-    <id>http://wuyujie.top/2019/11/23/Git-learning-foundation.html</id>
-    <published>2019-11-23T12:17:31.000Z</published>
-    <updated>2019-11-23T12:17:31.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="前言">前言</h3><p><code>Git</code> 是一个"版本控制"工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过"读档"回退到以前的状态。 <a id="more"></a> Git 是<strong>分布式版本控制系统</strong>, 每个项目协作者电脑里都有完整的版本库, 完成修改后, 只需把各自的修改推送给其他人就可以让别人看见自己的修改, 也有充当“中央服务器”的电脑方便“交换”大家的修改。</p><p>这里版本库又名仓库，即<em>repository</em>，可以简单理解成一个目录，这个目录里面的所有文件都可以被<code>Git</code>管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以"还原"。</p><h3 id="git-配置">Git 配置</h3><p>安装 Git 之后, 使用之前需要先进行一些配置, 主要进行如下配置: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Zhang San&quot;            # your name</span><br><span class="line">$ git config --global user.email &quot;zhangsan@foo.com&quot;    # your email</span><br><span class="line">$ git config --global core.editor vim                  # your favourite editor</span><br><span class="line">$ git config --global color.ui true                    # your git color</span><br></pre></td></tr></table></figure> 前两个命令设置基本的用户信息, <code>core.editor</code>可以设置自己喜欢的文本编辑器, <code>color.ui</code> 能为输出到你终端的内容着色，以便你可以凭直观进行快速、简单地分析</p><h3 id="快速使用">快速使用</h3><h4 id="初始化">初始化</h4><p>现在可以开始用<code>Git</code>来管理代码了。首先需要将项目的目录初始化为Git可以管理的仓库, 切换到实验/项目的目录中, 然后输入: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init    # 初始化仓库</span><br></pre></td></tr></table></figure> 我们通过 git clone 命令下载项目, 里面已经包含一些 git 记录, 因此不需要额外进行初始化。</p><h4 id="查看版本信息">查看版本信息</h4><p>主要使用以下两条命令查看版本信息： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git log        # 查看目前为止所有的存档.</span><br><span class="line">$ git status     # 查看与当前存档相比, 哪些文件发生了变化</span><br></pre></td></tr></table></figure></p><h4 id="存档">存档</h4><p>首先你需要使用 git status 查看是否有新的文件或已修改的文件未被跟踪, 可以使用以下命令将修改的文件加入跟踪列表 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add file.c    # 将文件 file.c 加入跟踪列表</span><br></pre></td></tr></table></figure> 如果需要一次添加所有未被跟踪的文件, 也可以使用 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .     # 把工作时的所有变化提交到暂存区, 包括文件内容修改(modified)以及新文件(new), 但不包括被删除的文件</span><br><span class="line">$ git add -u    # 仅监控已经被add的文件(即tracked file), 他会将被修改的文件提交到暂存区。(git add --update的缩写)</span><br><span class="line">$ git add -A    # 是上面两个功能的合集(git add --all的缩写), 提交所有变化</span><br></pre></td></tr></table></figure> 可以通过编辑 <code>.gitignore</code> 文件, 在里面给出需要被 git 忽略的文件和文件类型从而筛选文件。新文件加入跟踪列表, 确认无误后就可以存档了: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit    # 提交工程当前的状态</span><br></pre></td></tr></table></figure> 执行这条命令后, 需要添加本次存档的注释, 可以根据这些注释来区别和寻找不同的存档。</p><h4 id="读档">读档</h4><p>首先使用 git log 来查看已有的存档, 并通过存档的 <code>hash code</code> 来回到过去。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;code&gt;</span><br></pre></td></tr></table></figure> <code>hard</code>模式会把你工作目录中所有未提交的内容清空, 所以需要慎用。</p><h4 id="分支功能">分支功能</h4><p>这就是 <code>Git</code> 的分支功能可以让我们创建不同的世界线, 即在一个时刻, 我们可以做出不同的选择, 使得多个"平行宇宙"并行存在: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch    # 查看所有分支</span><br></pre></td></tr></table></figure> 使用 <code>git init</code> 初始化之后会自动建立主分支 <code>master</code>。可以用以下命令创建一个新的分支: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;分支名&gt;    # 创建并切换分支</span><br></pre></td></tr></table></figure> 我们可以将新分支上的修改合并到主分支上： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;分支名&gt;    # 合并指定分支到当前分支</span><br></pre></td></tr></table></figure></p><h3 id="参考文献">参考文献</h3><blockquote><ul><li><a href="https://nju-projectn.github.io/ics-pa-gitbook/ics2019/git.html" target="_blank" rel="noopener">git快速入门</a></li><li><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></li><li><a href="https://git-scm.com/book/en/v2" target="_blank" rel="noopener">Git Book(官方文档)</a></li></ul></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;Git&lt;/code&gt; 是一个&quot;版本控制&quot;工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过&quot;读档&quot;回退到以前的状态。
-    
-    </summary>
-    
-      <category term="Git" scheme="http://wuyujie.top/categories/Git/"/>
-    
-    
-      <category term="Git" scheme="http://wuyujie.top/tags/Git/"/>
-    
-      <category term="学习记录" scheme="http://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
