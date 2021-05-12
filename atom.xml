@@ -5,9 +5,9 @@
   <subtitle>HELLO WORLD</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://wuyujie.top/"/>
+  <link href="wuyujie.top/"/>
   <updated>2021-05-12T11:38:08.000Z</updated>
-  <id>https://wuyujie.top/</id>
+  <id>wuyujie.top/</id>
   
   <author>
     <name>wuyunjie</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>[Java学习|Head First Java]--7 继承与多态</title>
-    <link href="https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html"/>
-    <id>https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html</id>
+    <link href="wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html"/>
+    <id>wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_7_inheritance_and_polymorphism.html</id>
     <published>2021-05-12T11:38:08.000Z</published>
     <updated>2021-05-12T11:38:08.000Z</updated>
     
@@ -33,19 +33,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--6 认识Java的API</title>
-    <link href="https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html"/>
-    <id>https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html</id>
+    <link href="wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html"/>
+    <id>wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_6_Using_the_Java_Library.html</id>
     <published>2021-05-12T07:33:45.000Z</published>
     <updated>2021-05-12T07:33:45.000Z</updated>
     
@@ -59,19 +59,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--5 超强力方法</title>
-    <link href="https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Extra-Strength_Methods.html"/>
-    <id>https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Extra-Strength_Methods.html</id>
+    <link href="wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Extra-Strength_Methods.html"/>
+    <id>wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_5_Extra-Strength_Methods.html</id>
     <published>2021-05-12T04:57:22.000Z</published>
     <updated>2021-05-12T04:57:22.000Z</updated>
     
@@ -85,19 +85,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--4 对象的行为</title>
-    <link href="https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_4_behavior_of_objects.html"/>
-    <id>https://wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_4_behavior_of_objects.html</id>
+    <link href="wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_4_behavior_of_objects.html"/>
+    <id>wuyujie.top/2021/05/12/JavaLearning_Head_First_Java_4_behavior_of_objects.html</id>
     <published>2021-05-12T02:08:12.000Z</published>
     <updated>2021-05-12T02:08:12.000Z</updated>
     
@@ -111,19 +111,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--3 认识变量</title>
-    <link href="https://wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html"/>
-    <id>https://wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html</id>
+    <link href="wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html"/>
+    <id>wuyujie.top/2021/05/11/JavaLearning_Head_First_Java_3_recognize_variables.html</id>
     <published>2021-05-11T13:35:06.000Z</published>
     <updated>2021-05-11T13:35:06.000Z</updated>
     
@@ -137,19 +137,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[读书|2021阅读]--《围城》</title>
-    <link href="https://wuyujie.top/2021/05/11/Reading_2021--Fortress_Besieged.html"/>
-    <id>https://wuyujie.top/2021/05/11/Reading_2021--Fortress_Besieged.html</id>
+    <link href="wuyujie.top/2021/05/11/Reading_2021--Fortress_Besieged.html"/>
+    <id>wuyujie.top/2021/05/11/Reading_2021--Fortress_Besieged.html</id>
     <published>2021-05-11T04:58:19.000Z</published>
     <updated>2021-05-11T04:58:19.000Z</updated>
     
@@ -163,19 +163,19 @@
     
     </summary>
     
-      <category term="Reading" scheme="https://wuyujie.top/categories/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/categories/Reading/"/>
     
     
-      <category term="Reading" scheme="https://wuyujie.top/tags/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/tags/Reading/"/>
     
-      <category term="Book" scheme="https://wuyujie.top/tags/Book/"/>
+      <category term="Book" scheme="wuyujie.top/tags/Book/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--2 类与对象</title>
-    <link href="https://wuyujie.top/2021/04/27/JavaLearning_Head_First_Java_2_class_and_objects.html"/>
-    <id>https://wuyujie.top/2021/04/27/JavaLearning_Head_First_Java_2_class_and_objects.html</id>
+    <link href="wuyujie.top/2021/04/27/JavaLearning_Head_First_Java_2_class_and_objects.html"/>
+    <id>wuyujie.top/2021/04/27/JavaLearning_Head_First_Java_2_class_and_objects.html</id>
     <published>2021-04-27T15:05:45.000Z</published>
     <updated>2021-04-27T15:05:45.000Z</updated>
     
@@ -189,19 +189,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>剑指offer-4-重建二叉树</title>
-    <link href="https://wuyujie.top/2021/04/26/JZ4-rebuild-binaryTree.html"/>
-    <id>https://wuyujie.top/2021/04/26/JZ4-rebuild-binaryTree.html</id>
+    <link href="wuyujie.top/2021/04/26/JZ4-rebuild-binaryTree.html"/>
+    <id>wuyujie.top/2021/04/26/JZ4-rebuild-binaryTree.html</id>
     <published>2021-04-26T14:54:52.000Z</published>
     <updated>2021-04-26T14:54:52.000Z</updated>
     
@@ -214,21 +214,21 @@
     
     </summary>
     
-      <category term="剑指offer" scheme="https://wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
     
     
-      <category term="剑指offer" scheme="https://wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
     
-      <category term="面试复习" scheme="https://wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
+      <category term="面试复习" scheme="wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="刷题记录" scheme="https://wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+      <category term="刷题记录" scheme="wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|深入理解Java虚拟机]--1 走近Java</title>
-    <link href="https://wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html"/>
-    <id>https://wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html</id>
+    <link href="wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html"/>
+    <id>wuyujie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html</id>
     <published>2021-04-23T08:37:49.000Z</published>
     <updated>2021-04-23T08:37:49.000Z</updated>
     
@@ -242,21 +242,21 @@
     
     </summary>
     
-      <category term="JVM" scheme="https://wuyujie.top/categories/JVM/"/>
+      <category term="JVM" scheme="wuyujie.top/categories/JVM/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
-      <category term="JVM" scheme="https://wuyujie.top/tags/JVM/"/>
+      <category term="JVM" scheme="wuyujie.top/tags/JVM/"/>
     
   </entry>
   
   <entry>
     <title>[读书|2021阅读]--《月亮与六便士》</title>
-    <link href="https://wuyujie.top/2021/04/22/Reading_2021--The_Moon_and_Sixpence.html"/>
-    <id>https://wuyujie.top/2021/04/22/Reading_2021--The_Moon_and_Sixpence.html</id>
+    <link href="wuyujie.top/2021/04/22/Reading_2021--The_Moon_and_Sixpence.html"/>
+    <id>wuyujie.top/2021/04/22/Reading_2021--The_Moon_and_Sixpence.html</id>
     <published>2021-04-22T12:27:36.000Z</published>
     <updated>2021-04-22T12:27:36.000Z</updated>
     
@@ -270,19 +270,19 @@
     
     </summary>
     
-      <category term="Reading" scheme="https://wuyujie.top/categories/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/categories/Reading/"/>
     
     
-      <category term="Reading" scheme="https://wuyujie.top/tags/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/tags/Reading/"/>
     
-      <category term="Book" scheme="https://wuyujie.top/tags/Book/"/>
+      <category term="Book" scheme="wuyujie.top/tags/Book/"/>
     
   </entry>
   
   <entry>
     <title>剑指offer-3-从尾到头打印链表</title>
-    <link href="https://wuyujie.top/2021/04/20/JZ3-print-LinkList-reverse.html"/>
-    <id>https://wuyujie.top/2021/04/20/JZ3-print-LinkList-reverse.html</id>
+    <link href="wuyujie.top/2021/04/20/JZ3-print-LinkList-reverse.html"/>
+    <id>wuyujie.top/2021/04/20/JZ3-print-LinkList-reverse.html</id>
     <published>2021-04-20T14:01:35.000Z</published>
     <updated>2021-04-20T14:01:35.000Z</updated>
     
@@ -295,21 +295,21 @@
     
     </summary>
     
-      <category term="剑指offer" scheme="https://wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
     
     
-      <category term="剑指offer" scheme="https://wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
     
-      <category term="面试复习" scheme="https://wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
+      <category term="面试复习" scheme="wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="刷题记录" scheme="https://wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+      <category term="刷题记录" scheme="wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
   <entry>
     <title>剑指offer-2-替换空格</title>
-    <link href="https://wuyujie.top/2021/04/20/JZ2-replace-spaces.html"/>
-    <id>https://wuyujie.top/2021/04/20/JZ2-replace-spaces.html</id>
+    <link href="wuyujie.top/2021/04/20/JZ2-replace-spaces.html"/>
+    <id>wuyujie.top/2021/04/20/JZ2-replace-spaces.html</id>
     <published>2021-04-20T11:01:03.000Z</published>
     <updated>2021-04-20T11:01:03.000Z</updated>
     
@@ -322,21 +322,21 @@
     
     </summary>
     
-      <category term="剑指offer" scheme="https://wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
     
     
-      <category term="剑指offer" scheme="https://wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
     
-      <category term="面试复习" scheme="https://wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
+      <category term="面试复习" scheme="wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="刷题记录" scheme="https://wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+      <category term="刷题记录" scheme="wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
   <entry>
     <title>《最近怎么样?》</title>
-    <link href="https://wuyujie.top/2021/04/12/how-are-things.html"/>
-    <id>https://wuyujie.top/2021/04/12/how-are-things.html</id>
+    <link href="wuyujie.top/2021/04/12/how-are-things.html"/>
+    <id>wuyujie.top/2021/04/12/how-are-things.html</id>
     <published>2021-04-12T12:36:13.000Z</published>
     <updated>2021-04-12T12:36:13.000Z</updated>
     
@@ -348,21 +348,21 @@
     
     </summary>
     
-      <category term="日记" scheme="https://wuyujie.top/categories/%E6%97%A5%E8%AE%B0/"/>
+      <category term="日记" scheme="wuyujie.top/categories/%E6%97%A5%E8%AE%B0/"/>
     
     
-      <category term="日记" scheme="https://wuyujie.top/tags/%E6%97%A5%E8%AE%B0/"/>
+      <category term="日记" scheme="wuyujie.top/tags/%E6%97%A5%E8%AE%B0/"/>
     
-      <category term="青春回忆" scheme="https://wuyujie.top/tags/%E9%9D%92%E6%98%A5%E5%9B%9E%E5%BF%86/"/>
+      <category term="青春回忆" scheme="wuyujie.top/tags/%E9%9D%92%E6%98%A5%E5%9B%9E%E5%BF%86/"/>
     
-      <category term="我与她" scheme="https://wuyujie.top/tags/%E6%88%91%E4%B8%8E%E5%A5%B9/"/>
+      <category term="我与她" scheme="wuyujie.top/tags/%E6%88%91%E4%B8%8E%E5%A5%B9/"/>
     
   </entry>
   
   <entry>
     <title>剑指offer-1-二维数组中的查找</title>
-    <link href="https://wuyujie.top/2021/04/02/JZ1-Lookup-in-a-two-dimensional-array.html"/>
-    <id>https://wuyujie.top/2021/04/02/JZ1-Lookup-in-a-two-dimensional-array.html</id>
+    <link href="wuyujie.top/2021/04/02/JZ1-Lookup-in-a-two-dimensional-array.html"/>
+    <id>wuyujie.top/2021/04/02/JZ1-Lookup-in-a-two-dimensional-array.html</id>
     <published>2021-04-02T14:48:59.000Z</published>
     <updated>2021-04-02T14:48:59.000Z</updated>
     
@@ -375,21 +375,21 @@
     
     </summary>
     
-      <category term="剑指offer" scheme="https://wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/categories/%E5%89%91%E6%8C%87offer/"/>
     
     
-      <category term="剑指offer" scheme="https://wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="剑指offer" scheme="wuyujie.top/tags/%E5%89%91%E6%8C%87offer/"/>
     
-      <category term="面试复习" scheme="https://wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
+      <category term="面试复习" scheme="wuyujie.top/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
     
-      <category term="刷题记录" scheme="https://wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+      <category term="刷题记录" scheme="wuyujie.top/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
   <entry>
     <title>[Java学习|Head First Java]--1 基础概念</title>
-    <link href="https://wuyujie.top/2021/01/09/JavaLearning_Head_First_Java_1_basic_concepts.html"/>
-    <id>https://wuyujie.top/2021/01/09/JavaLearning_Head_First_Java_1_basic_concepts.html</id>
+    <link href="wuyujie.top/2021/01/09/JavaLearning_Head_First_Java_1_basic_concepts.html"/>
+    <id>wuyujie.top/2021/01/09/JavaLearning_Head_First_Java_1_basic_concepts.html</id>
     <published>2021-01-09T11:52:35.000Z</published>
     <updated>2021-01-09T11:52:35.000Z</updated>
     
@@ -403,19 +403,19 @@
     
     </summary>
     
-      <category term="headFirstJava" scheme="https://wuyujie.top/categories/headFirstJava/"/>
+      <category term="headFirstJava" scheme="wuyujie.top/categories/headFirstJava/"/>
     
     
-      <category term="Learning" scheme="https://wuyujie.top/tags/Learning/"/>
+      <category term="Learning" scheme="wuyujie.top/tags/Learning/"/>
     
-      <category term="Java" scheme="https://wuyujie.top/tags/Java/"/>
+      <category term="Java" scheme="wuyujie.top/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>[读书]--2020 阅读清单</title>
-    <link href="https://wuyujie.top/2020/09/11/Reading--2020_Reading_List.html"/>
-    <id>https://wuyujie.top/2020/09/11/Reading--2020_Reading_List.html</id>
+    <link href="wuyujie.top/2020/09/11/Reading--2020_Reading_List.html"/>
+    <id>wuyujie.top/2020/09/11/Reading--2020_Reading_List.html</id>
     <published>2020-09-11T05:19:55.000Z</published>
     <updated>2020-09-11T05:19:55.000Z</updated>
     
@@ -429,19 +429,19 @@
     
     </summary>
     
-      <category term="Reading" scheme="https://wuyujie.top/categories/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/categories/Reading/"/>
     
     
-      <category term="Reading" scheme="https://wuyujie.top/tags/Reading/"/>
+      <category term="Reading" scheme="wuyujie.top/tags/Reading/"/>
     
-      <category term="Book" scheme="https://wuyujie.top/tags/Book/"/>
+      <category term="Book" scheme="wuyujie.top/tags/Book/"/>
     
   </entry>
   
   <entry>
     <title>MIT 6.NULL(一) Course overview + the shell</title>
-    <link href="https://wuyujie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html"/>
-    <id>https://wuyujie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html</id>
+    <link href="wuyujie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html"/>
+    <id>wuyujie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html</id>
     <published>2020-05-27T09:00:00.000Z</published>
     <updated>2020-06-01T09:29:08.000Z</updated>
     
@@ -454,19 +454,19 @@
     
     </summary>
     
-      <category term="MIT课程" scheme="https://wuyujie.top/categories/MIT%E8%AF%BE%E7%A8%8B/"/>
+      <category term="MIT课程" scheme="wuyujie.top/categories/MIT%E8%AF%BE%E7%A8%8B/"/>
     
     
-      <category term="学习记录" scheme="https://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+      <category term="学习记录" scheme="wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
-      <category term="MIT" scheme="https://wuyujie.top/tags/MIT/"/>
+      <category term="MIT" scheme="wuyujie.top/tags/MIT/"/>
     
   </entry>
   
   <entry>
     <title>MIT 6.NULL: The Missing Semester of Your CS Education 学习</title>
-    <link href="https://wuyujie.top/2020/05/27/MIT-6-NULL-The-Missing-Semester-of-Your-CS-Education-Learning.html"/>
-    <id>https://wuyujie.top/2020/05/27/MIT-6-NULL-The-Missing-Semester-of-Your-CS-Education-Learning.html</id>
+    <link href="wuyujie.top/2020/05/27/MIT-6-NULL-The-Missing-Semester-of-Your-CS-Education-Learning.html"/>
+    <id>wuyujie.top/2020/05/27/MIT-6-NULL-The-Missing-Semester-of-Your-CS-Education-Learning.html</id>
     <published>2020-05-27T08:57:08.000Z</published>
     <updated>2020-05-27T08:57:08.000Z</updated>
     
@@ -479,19 +479,19 @@
     
     </summary>
     
-      <category term="MIT课程" scheme="https://wuyujie.top/categories/MIT%E8%AF%BE%E7%A8%8B/"/>
+      <category term="MIT课程" scheme="wuyujie.top/categories/MIT%E8%AF%BE%E7%A8%8B/"/>
     
     
-      <category term="学习记录" scheme="https://wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+      <category term="学习记录" scheme="wuyujie.top/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     
-      <category term="MIT" scheme="https://wuyujie.top/tags/MIT/"/>
+      <category term="MIT" scheme="wuyujie.top/tags/MIT/"/>
     
   </entry>
   
   <entry>
     <title>AdPart复现--问题集锦</title>
-    <link href="https://wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html"/>
-    <id>https://wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html</id>
+    <link href="wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html"/>
+    <id>wuyujie.top/2019/11/23/AdPart-Repeat-Problem-Collect.html</id>
     <published>2019-11-23T14:41:09.000Z</published>
     <updated>2019-11-23T14:41:09.000Z</updated>
     
@@ -504,21 +504,21 @@
     
     </summary>
     
-      <category term="AdPart复现" scheme="https://wuyujie.top/categories/AdPart%E5%A4%8D%E7%8E%B0/"/>
+      <category term="AdPart复现" scheme="wuyujie.top/categories/AdPart%E5%A4%8D%E7%8E%B0/"/>
     
     
-      <category term="AdPart" scheme="https://wuyujie.top/tags/AdPart/"/>
+      <category term="AdPart" scheme="wuyujie.top/tags/AdPart/"/>
     
-      <category term="代码复现" scheme="https://wuyujie.top/tags/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
+      <category term="代码复现" scheme="wuyujie.top/tags/%E4%BB%A3%E7%A0%81%E5%A4%8D%E7%8E%B0/"/>
     
-      <category term="Debug" scheme="https://wuyujie.top/tags/Debug/"/>
+      <category term="Debug" scheme="wuyujie.top/tags/Debug/"/>
     
   </entry>
   
   <entry>
     <title>pip/conda install 由于目标计算机积极拒绝，无法连接</title>
-    <link href="https://wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html"/>
-    <id>https://wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html</id>
+    <link href="wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html"/>
+    <id>wuyujie.top/2019/11/23/Pip-conda-install-unable-to-connect-bug.html</id>
     <published>2019-11-23T14:04:26.000Z</published>
     <updated>2019-11-23T14:04:26.000Z</updated>
     
@@ -531,12 +531,12 @@
     
     </summary>
     
-      <category term="Python" scheme="https://wuyujie.top/categories/Python/"/>
+      <category term="Python" scheme="wuyujie.top/categories/Python/"/>
     
     
-      <category term="Debug" scheme="https://wuyujie.top/tags/Debug/"/>
+      <category term="Debug" scheme="wuyujie.top/tags/Debug/"/>
     
-      <category term="Python" scheme="https://wuyujie.top/tags/Python/"/>
+      <category term="Python" scheme="wuyujie.top/tags/Python/"/>
     
   </entry>
   
