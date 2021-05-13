@@ -325,7 +325,7 @@
 <p>The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</p>
 </blockquote>
 <h3 id="二解题思路">二、解题思路</h3>
-<p>这个题和它的前一道题<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" target="_blank" rel="noopener" title="15. 3Sum">15. 3Sum</a>很像，前一道题可以看做本题在target = 0时的特殊情况。但这道题进行了一定的改写和简化： &gt; 1. 存在且仅存在一个解，所以我们可以在找到一个最优解后立即停止; &gt; 2. 要寻找的是最接近target的三数和。也就是说可能会没有等于target的情况，比如题目的例子就是如此；另一方面只需要返回这三个数的和，不需要记录这三个数，所以对结果的记录和判断简化了。</p>
+<p>这个题和它的前一道题<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" title="15. 3Sum">15. 3Sum</a>很像，前一道题可以看做本题在target = 0时的特殊情况。但这道题进行了一定的改写和简化： &gt; 1. 存在且仅存在一个解，所以我们可以在找到一个最优解后立即停止; &gt; 2. 要寻找的是最接近target的三数和。也就是说可能会没有等于target的情况，比如题目的例子就是如此；另一方面只需要返回这三个数的和，不需要记录这三个数，所以对结果的记录和判断简化了。</p>
 <p>我们只需要在15题的算法的基础上进行一定的修改就可以得到这道题的结果了。我们可以用同样的方法，先对数组进行排序，固定一个数a，然后去找另外两个数b和c的组合： 1. 如果我们只要找到两个数且和(b+c)为(target - a)，那么找到了最接近的三数和即target; 2. 否者我们记录下当前数以及与target的距离(定义为|target-(a+b+c)|)，继续遍历数组找下一个更相近的三数和。</p>
 <p>同样的，在寻找过程中，我们可以跳过那些重复的组合，并且进行合适的剪枝进行优化。</p>
 <h3 id="三代码">三、代码</h3>
@@ -412,7 +412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -473,13 +473,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">166k</span>
+    <span title="站点总字数">177k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:31</span>
+    <span title="站点阅读时长">2:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -326,7 +326,7 @@
 <p>A solution set is: [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2]]</p>
 </blockquote>
 <h3 id="二解题思路">二、解题思路</h3>
-<p>这道题和前面几道关于数字之和的题应该是同一个系列(<a href="http://wuyunjie.top/2019/03/28/LeetCode%E2%80%94%E2%80%941-Two-Sum/" target="_blank" rel="noopener" title="Two Sum">Two Sum</a>，<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" target="_blank" rel="noopener" title="3Sum">3Sum</a>，<a href="http://wuyunjie.top/2019/04/09/LeetCode-16-3Sum-Closest/" target="_blank" rel="noopener" title="3Sum Closest">3Sum Closest</a>)。尽管难度有所提升，但是解题的思想和算法实际上都一致，其实也就是多了层循环。比如四个数a,b,c,d，我们可以先固定数a，然后寻找b,c,d，这就转换成了三数和的问题。</p>
+<p>这道题和前面几道关于数字之和的题应该是同一个系列(<a href="http://wuyunjie.top/2019/03/28/LeetCode%E2%80%94%E2%80%941-Two-Sum/" title="Two Sum">Two Sum</a>，<a href="http://wuyunjie.top/2019/04/07/LeetCode-15-3Sum/" title="3Sum">3Sum</a>，<a href="http://wuyunjie.top/2019/04/09/LeetCode-16-3Sum-Closest/" title="3Sum Closest">3Sum Closest</a>)。尽管难度有所提升，但是解题的思想和算法实际上都一致，其实也就是多了层循环。比如四个数a,b,c,d，我们可以先固定数a，然后寻找b,c,d，这就转换成了三数和的问题。</p>
 <p>现在遇到了许多类似的问题，而且可以看出他们的解决方法具有一定规律，可以进行拓展。那么是不是可以找到一种泛化的方法计算KSUM，使得我们以后遇到5sum, 6sum...等等类似的问题时，不必再去重写这些算法，只用一个泛化的算法就可以搞定这一些。翻看评论区后，发现已经有人实现了这样的算法，主要是通过递归DFS实现的。每次先固定一个数，然后递归找到K-1SUM的结果。依次类推，直到找到2SUM返回最终结果，开始回溯。代码实现如下。</p>
 <p>参考文献： <a href="https://leetcode.com/problems/4sum/discuss/8641/12ms-KSum-c%2B%2B-code" target="_blank" rel="noopener" title="12ms KSum, c++ code">[1] 12ms KSum, c++ code</a> <a href="https://leetcode.com/problems/4sum/discuss/163559/C%2B%2B-solution-for-all-Ksum-question" target="_blank" rel="noopener" title="[1] C++ solution for all Ksum question">[2] C++ solution for all Ksum question</a></p>
 <h3 id="三代码">三、代码</h3>
@@ -416,7 +416,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -477,13 +477,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">166k</span>
+    <span title="站点总字数">177k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:31</span>
+    <span title="站点阅读时长">2:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
