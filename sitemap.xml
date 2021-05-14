@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wuyunjie.top/2021/05/14/JavaLearning_Head_First_Java_11_exception_handling.html</loc>
+    
+    <lastmod>2021-05-14T08:43:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wuyunjie.top/2021/05/13/JavaLearning_Head_First_Java_9_constructors_and_garbage_collection.html</loc>
     
-    <lastmod>2021-05-14T04:47:29.499Z</lastmod>
+    <lastmod>2021-05-14T04:53:44.341Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wuyunjie.top/2021/05/14/JavaLearning_Head_First_Java_10_numbers_and_statics.html</loc>
+    
+    <lastmod>2021-05-14T04:53:28.000Z</lastmod>
     
   </url>
   
