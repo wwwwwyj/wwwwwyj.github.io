@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wuyunjie.top/2021/05/13/JavaLearning_Head_First_Java_9_constructors_and_garbage_collection.html</loc>
+    
+    <lastmod>2021-05-14T04:47:29.499Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wuyunjie.top/2021/05/13/JavaLearning_Head_First_Java_8_interfaces_and_abstract_classes.html</loc>
+    
+    <lastmod>2021-05-13T09:12:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wuyunjie.top/2021/05/12/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_2_Java_memory_area.html</loc>
     
     <lastmod>2021-05-12T15:03:54.000Z</lastmod>
