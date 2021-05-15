@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wuyunjie.top/about/index.html</loc>
+    
+    <lastmod>2021-05-15T06:40:06.267Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wuyunjie.top/2021/05/14/Reading_2021--How_to_Read_a_Book.html</loc>
+    
+    <lastmod>2021-05-14T12:30:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wuyunjie.top/2021/05/14/JavaLearning_Head_First_Java_11_exception_handling.html</loc>
     
     <lastmod>2021-05-14T08:43:25.000Z</lastmod>
@@ -96,13 +110,6 @@
     <loc>https://wuyunjie.top/2021/04/23/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_1_Approaching_Java.html</loc>
     
     <lastmod>2021-04-23T08:37:49.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wuyunjie.top/about/index.html</loc>
-    
-    <lastmod>2021-04-23T07:06:22.975Z</lastmod>
     
   </url>
   
