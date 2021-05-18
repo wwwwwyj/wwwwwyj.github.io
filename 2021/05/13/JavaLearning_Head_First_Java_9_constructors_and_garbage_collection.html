@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  对象有生死。">
+  <meta name="description" content="前言 对象有生死。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--9 构造器与垃圾收集器">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;13&#x2F;JavaLearning_Head_First_Java_9_constructors_and_garbage_collection.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  对象有生死。">
+<meta property="og:description" content="前言 对象有生死。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;stackHeap.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;twoMthodsStack.PNG">
@@ -321,15 +321,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>对象有生死。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>对象有生死。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="栈与堆">1. 栈与堆</h3>
-<p><code>Java</code>中主要在意两种内存区域：对象的生存空间<code>堆(heap)</code>与方法调用及变量的生存空间<code>栈(stack)</code>。<code>Java</code>虚拟机启动时，会从底层操作系统取得一块内存，用于执行Java程序。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/stackHeap.PNG" alt="栈与堆" /><figcaption aria-hidden="true">栈与堆</figcaption>
-</figure>
+<h3 id="1-栈与堆"><a href="#1-栈与堆" class="headerlink" title="1. 栈与堆"></a>1. 栈与堆</h3><p><code>Java</code>中主要在意两种内存区域：对象的生存空间<code>堆(heap)</code>与方法调用及变量的生存空间<code>栈(stack)</code>。<code>Java</code>虚拟机启动时，会从底层操作系统取得一块内存，用于执行Java程序。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/stackHeap.PNG" alt="栈与堆"></p>
 <p>几乎所有对象都存活于可垃圾回收的堆上，而变量根据它的类型判断存在于那一个内存区域。实例变量存在于堆中，而局部变量(也叫区域变量)存在于栈上，所以也叫栈变量。</p>
 <blockquote>
 <ul>
@@ -337,26 +333,17 @@
 <li><code>局部变量</code>和<code>方法</code>被声明在方法中，是<code>暂时</code>的，生命周期只限于方法被放置于栈上这段时间(即方法调用到执行完毕)</li>
 </ul>
 </blockquote>
-<h4 id="局部变量">1.1 局部变量</h4>
-<p>调用一个方法时，该方法会放在调用栈的栈顶。实际上放到栈顶的时<code>栈帧(stack frame)</code>，带有方法的状态，程序计数器及所有的局部变量值。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/twoMthodsStack.PNG" alt="放了两个方法的栈" /><figcaption aria-hidden="true">放了两个方法的栈</figcaption>
-</figure>
+<h4 id="1-1-局部变量"><a href="#1-1-局部变量" class="headerlink" title="1.1 局部变量"></a>1.1 局部变量</h4><p>调用一个方法时，该方法会放在调用栈的栈顶。实际上放到栈顶的时<code>栈帧(stack frame)</code>，带有方法的状态，程序计数器及所有的局部变量值。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/twoMthodsStack.PNG" alt="放了两个方法的栈"></p>
 <p>比如<code>foo()</code>调用了<code>bar()</code>，则<code>bar()</code>方法会放置在<code>foo()</code>上面。</p>
-<h4 id="对象局部变量">1.2 对象局部变量</h4>
-<p>非<code>primitive</code>的变量只是保存对象的引用，对象放于堆上，而局部变量本身放于栈上。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/objectLocalVariable.PNG" alt="对象局部变量" /><figcaption aria-hidden="true">对象局部变量</figcaption>
-</figure>
-<h4 id="实例变量">1.3 实例变量</h4>
-<p>实例变量存在于对象所属的堆空间上。</p>
+<h4 id="1-2-对象局部变量"><a href="#1-2-对象局部变量" class="headerlink" title="1.2 对象局部变量"></a>1.2 对象局部变量</h4><p>非<code>primitive</code>的变量只是保存对象的引用，对象放于堆上，而局部变量本身放于栈上。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/objectLocalVariable.PNG" alt="对象局部变量"></p>
+<h4 id="1-3-实例变量"><a href="#1-3-实例变量" class="headerlink" title="1.3 实例变量"></a>1.3 实例变量</h4><p>实例变量存在于对象所属的堆空间上。</p>
 <ul>
 <li>如果实例变量全是<code>primitive</code>主数据类型，<code>Java</code>会根据其类型的大小为该实例变量留下空间</li>
 <li>如果实例变量是一个对象，会留下对象引用所用到的空间，而不是对象本身。</li>
 </ul>
-<h3 id="构造函数">2. 构造函数</h3>
-<h4 id="创建对象">2.1 创建对象</h4>
-<p>声明对象和赋值的3个步骤：<code>声明引用变量</code>、<code>创建对象</code>、<code>连接对象和引用</code>。第二步<code>创建对象</code>看起来好像在调用类名的方法：</p>
+<h3 id="2-构造函数"><a href="#2-构造函数" class="headerlink" title="2. 构造函数"></a>2. 构造函数</h3><h4 id="2-1-创建对象"><a href="#2-1-创建对象" class="headerlink" title="2.1 创建对象"></a>2.1 创建对象</h4><p>声明对象和赋值的3个步骤：<code>声明引用变量</code>、<code>创建对象</code>、<code>连接对象和引用</code>。第二步<code>创建对象</code>看起来好像在调用类名的方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Duck myDuck = <span class="keyword">new</span> Duck();</span><br></pre></td></tr></table></figure>
 <p>实际上调用的是<code>Duck</code>的构造函数。</p>
 <blockquote>
@@ -366,9 +353,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
-<li><p>构造函数没有返回类型，名字必须与类名相同。</p></li>
-<li><p>可以有与类同名的方法而不会变成构造函数。</p></li>
-<li><p>构造函数不会被继承。</p></li>
+<li><p>构造函数没有返回类型，名字必须与类名相同。</p>
+</li>
+<li><p>可以有与类同名的方法而不会变成构造函数。</p>
+</li>
+<li>构造函数不会被继承。</li>
 </ul>
 </blockquote>
 <p>构造函数的一个关键特征是，在对象与引用连接前就执行，可以对对象进行预处理。大部分人使用构造函数来初始化对象的状态，也就是给对象的实例变量赋值。</p>
@@ -380,15 +369,12 @@
 <blockquote>
 <p>构造函数可以是<code>公有</code>、<code>私有</code>或<code>不指定</code>的。</p>
 </blockquote>
-<h4 id="父类及继承与构造函数的关系">2.2 父类及继承与构造函数的关系</h4>
-<p>在创建新对象时，所有继承下来的构造函数都会执行。即每个父类的构造函数都会在子类对象创建时期执行。</p>
+<h4 id="2-2-父类及继承与构造函数的关系"><a href="#2-2-父类及继承与构造函数的关系" class="headerlink" title="2.2 父类及继承与构造函数的关系"></a>2.2 父类及继承与构造函数的关系</h4><p>在创建新对象时，所有继承下来的构造函数都会执行。即每个父类的构造函数都会在子类对象创建时期执行。</p>
 <blockquote>
 <p>抽象类也有构造函数，只是无法对其执行<code>new</code>操作，他的构造函数会在子类创建实例时执行。</p>
 </blockquote>
-<p>如果<code>Hippo</code>对象继承<code>Animal</code>，<code>Animal</code>继承了<code>Object</code>，那么创建对象的过程被称为一个<code>"构造函数链(Constructor Chaining)"</code>。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/ConstructorChaining.PNG" alt="Hippo类构造函数调用" /><figcaption aria-hidden="true">Hippo类构造函数调用</figcaption>
-</figure>
+<p>如果<code>Hippo</code>对象继承<code>Animal</code>，<code>Animal</code>继承了<code>Object</code>，那么创建对象的过程被称为一个<code>&quot;构造函数链(Constructor Chaining)&quot;</code>。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/ConstructorChaining.PNG" alt="Hippo类构造函数调用"></p>
 <blockquote>
 <p>调用父类构造函数唯一的方法时调用<code>super()</code>。</p>
 </blockquote>
@@ -405,16 +391,14 @@
 <p>使用<code>this()</code>来从某个构造函数调用同一个类的另外一个构造函数。</p>
 <p><code>this()</code>只能在构造函数中，且也必须时第一行语句。所以<code>super()</code>和<code>this()</code>不能在一个构造函数中同时调用。</p>
 </blockquote>
-<h4 id="垃圾收集器">3 垃圾收集器</h4>
-<h4 id="对象的生命周期">3.1 对象的生命周期</h4>
-<p>对象的生命周期取决于引用到它的"引用"，引用变量的声明周期又看它是局部变量还是实例变量。</p>
+<h4 id="3-垃圾收集器"><a href="#3-垃圾收集器" class="headerlink" title="3 垃圾收集器"></a>3 垃圾收集器</h4><h4 id="3-1-对象的生命周期"><a href="#3-1-对象的生命周期" class="headerlink" title="3.1 对象的生命周期"></a>3.1 对象的生命周期</h4><p>对象的生命周期取决于引用到它的”引用”，引用变量的声明周期又看它是局部变量还是实例变量。</p>
 <blockquote>
 <ul>
 <li>局部变量只会存活在声明该变量的方法中</li>
 <li>实例变量的寿命与对象相同。</li>
 </ul>
 </blockquote>
-<p><strong>"life"与"scope"的差别</strong></p>
+<p><strong>“life”与”scope”的差别</strong></p>
 <ul>
 <li><strong>life</strong>。只要变量的堆栈块还存在于堆栈上，局部变量就算存活。</li>
 <li><strong>scope</strong>。局部变量的范围只限于声明它的方法之内。当此方法调用其他方法时，该变量依旧存活，但不在目前执行范围内。</li>
@@ -424,13 +408,16 @@
 <p>若没有引用指向该对象，对象无法被获取，<code>垃圾收集器(GC)</code>会自动回收内存空间。</p>
 </blockquote>
 <p>有三种方法可以释放对象的引用：</p>
-<ol type="1">
+<ol>
 <li><p>引用永久性的离开它的范围。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     Life z = <span class="keyword">new</span> Life();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     Life z = <span class="keyword">new</span> Life();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>引用被赋值到其他对象上。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Life z = <span class="keyword">new</span> Life();</span><br><span class="line">z = <span class="keyword">new</span> Life();</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Life z = <span class="keyword">new</span> Life();</span><br><span class="line">z = <span class="keyword">new</span> Life();</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>直接将引用设定为<code>null</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Life z = <span class="keyword">new</span> Life();</span><br><span class="line">z = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Life z = <span class="keyword">new</span> Life();</span><br><span class="line">z = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
     </div>
@@ -499,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈与堆"><span class="nav-number">2.</span> <span class="nav-text">1. 栈与堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#局部变量"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象局部变量"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 对象局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例变量"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 实例变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数"><span class="nav-number">3.</span> <span class="nav-text">2. 构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建对象"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 创建对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父类及继承与构造函数的关系"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 父类及继承与构造函数的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">3.3.</span> <span class="nav-text">3 垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的生命周期"><span class="nav-number">3.4.</span> <span class="nav-text">3.1 对象的生命周期</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-栈与堆"><span class="nav-number">2.</span> <span class="nav-text">1. 栈与堆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-局部变量"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-对象局部变量"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 对象局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-实例变量"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 实例变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-构造函数"><span class="nav-number">3.</span> <span class="nav-text">2. 构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-创建对象"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 创建对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-父类及继承与构造函数的关系"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 父类及继承与构造函数的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-垃圾收集器"><span class="nav-number">3.3.</span> <span class="nav-text">3 垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-对象的生命周期"><span class="nav-number">3.4.</span> <span class="nav-text">3.1 对象的生命周期</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -515,7 +502,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-count">83</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -576,13 +563,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">192k</span>
+    <span title="站点总字数">210k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:54</span>
+    <span title="站点阅读时长">3:11</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
