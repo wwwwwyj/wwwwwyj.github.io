@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="Sublime Text3启动报错Sublime Text3 之前装了 Markdown Editing 插件，由于嫌弃界面太难看把他卸载了，之后再次打开.md格式的文件，一直报下面这个错误。">
+  <meta name="description" content="Sublime Text3启动报错 Sublime Text3 之前装了 Markdown Editing 插件，由于嫌弃界面太难看把他卸载了，之后再次打开.md格式的文件，一直报下面这个错误。">
 <meta name="keywords" content="Debug,Sublime Text3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sublime Text3 删除 Markdown Editing 插件后启动报错">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;16&#x2F;Sublime-Text3-removes-the-Markdown-Editing-plugin-leads-to-an-error.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="Sublime Text3启动报错Sublime Text3 之前装了 Markdown Editing 插件，由于嫌弃界面太难看把他卸载了，之后再次打开.md格式的文件，一直报下面这个错误。">
+<meta property="og:description" content="Sublime Text3启动报错 Sublime Text3 之前装了 Markdown Editing 插件，由于嫌弃界面太难看把他卸载了，之后再次打开.md格式的文件，一直报下面这个错误。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-16T06:48:12.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,8 +309,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Sublime-Text3启动报错"><a href="#Sublime-Text3启动报错" class="headerlink" title="Sublime Text3启动报错"></a>Sublime Text3启动报错</h3><p><code>Sublime Text3</code> 之前装了 <code>Markdown Editing</code> 插件，由于嫌弃界面太难看把他卸载了，之后再次打开<code>.md</code>格式的文件，一直报下面这个错误。<br><a id="more"></a><br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error: </span>Error loading colour scheme Packages/MarkdownEditing/MarkdownEditor.tmTheme: Error parsing plist xml: Failed to open file In file "Packages/MarkdownEditing/MarkdownEditor.tmTheme"</span><br></pre></td></tr></table></figure></p>
-<p>查阅网上有方法说<code>set syntax:html</code> 可以解决，但这好像不能根本解决问题，依旧会弹出报错弹窗。后面找到文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Usersname\AppData\Roaming\Sublime Text 3\Packages\User</span><br></pre></td></tr></table></figure><br>发现存在卸载残留文件，即 <code>Markdown Editing</code> 的配置文件，将其删除后文集解决，<code>Sublime Text3</code>正常工作。类似的还有一个<code>Error trying to parse settings</code>的报错，也是配置文件的原因，找到报错显示的对应配置文件修改一下就解决了。</p>
+        <h3 id="sublime-text3启动报错">Sublime Text3启动报错</h3>
+<p><code>Sublime Text3</code> 之前装了 <code>Markdown Editing</code> 插件，由于嫌弃界面太难看把他卸载了，之后再次打开<code>.md</code>格式的文件，一直报下面这个错误。 <a id="more"></a> <figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error: </span>Error loading colour scheme Packages/MarkdownEditing/MarkdownEditor.tmTheme: Error parsing plist xml: Failed to open file In file "Packages/MarkdownEditing/MarkdownEditor.tmTheme"</span><br></pre></td></tr></table></figure></p>
+<p>查阅网上有方法说<code>set syntax:html</code> 可以解决，但这好像不能根本解决问题，依旧会弹出报错弹窗。后面找到文件夹 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Usersname\AppData\Roaming\Sublime Text 3\Packages\User</span><br></pre></td></tr></table></figure> 发现存在卸载残留文件，即 <code>Markdown Editing</code> 的配置文件，将其删除后文集解决，<code>Sublime Text3</code>正常工作。类似的还有一个<code>Error trying to parse settings</code>的报错，也是配置文件的原因，找到报错显示的对应配置文件修改一下就解决了。</p>
 
     </div>
 
@@ -378,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime-Text3启动报错"><span class="nav-number">1.</span> <span class="nav-text">Sublime Text3启动报错</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#sublime-text3启动报错"><span class="nav-number">1.</span> <span class="nav-text">Sublime Text3启动报错</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -394,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">89</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -455,13 +456,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">210k</span>
+    <span title="站点总字数">235k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:11</span>
+    <span title="站点阅读时长">3:34</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

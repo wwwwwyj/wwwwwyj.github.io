@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="前言  连接到外面的世界。">
+<meta name="keywords" content="Learning,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java学习|Head_First_Java]--15 网络与线程">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;18&#x2F;JavaLearning_Head_First_Java_15_networking_and_threads.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="前言  连接到外面的世界。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientAndServer.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientAndServerWorks.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientConnectServer.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;wellKnownTCPPort.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;readFromSocket.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;PrintWriterToSocket.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;client.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;server.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;javaThread.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;JVMThread.PNG">
+<meta property="og:updated_time" content="2021-05-18T10:46:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientAndServer.PNG">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[Java学习|Head_First_Java]--15 网络与线程 | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">HELLO WORLD</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 欢迎来到, 多多指教">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Java学习|Head_First_Java]--15 网络与线程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-18 18:46:26" itemprop="dateCreated datePublished" datetime="2021-05-18T18:46:26+08:00">2021-05-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/headFirstJava/" itemprop="url" rel="index">
+                    <span itemprop="name">headFirstJava</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|Head_First_Java]--15 网络与线程" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>连接到外面的世界。 <a id="more"></a></p>
+</blockquote>
+<h3 id="客户端client与服务器server">1. 客户端(Client)与服务器(Server)</h3>
+<p>客户端必须要认识服务器，服务器必须要认识所有的客户端。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServer.PNG" alt="客户端与服务器" /><figcaption aria-hidden="true">客户端与服务器</figcaption>
+</figure>
+<p>工作方式如下：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServerWorks.PNG" alt="客户端与服务器工作方式" /><figcaption aria-hidden="true">客户端与服务器工作方式</figcaption>
+</figure>
+<p>连接、传送与接受：</p>
+<p>客户端要连接服务器需要做三件事：</p>
+<ol type="1">
+<li>建立客户端与服务器之间的初始连接</li>
+<li>传送信息到服务器</li>
+<li>接受来自服务器的信息</li>
+</ol>
+<p>Java API的网络功能包(<code>java.net</code>)对底层工作细节进行了封装。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientConnectServer.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
+<h4 id="socket连接">1.1 Socket连接</h4>
+<p>连接到其他机器需要<code>Socket连接</code>，<code>Socket</code>是代表两台机器间网络连接的对象(<code>java.net.Socket</code>)。创建Socket连接需要两项关于<strong>服务器</strong>的信息：<code>IP地址</code>和<code>端口号</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"196.164.1.103"</span>, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+<p>Socket连接的建立代表两台机器间有对方的信息(包括<code>IP地址</code>和<code>端口号</code>)</p>
+<p><code>TCP</code>端口是一个<code>16</code>位宽、用来识别服务器上特定程序的数字。一个地址可以有<code>65536</code>个不同的端口号可用。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/wellKnownTCPPort.PNG" alt="常用的TCP端口号" /><figcaption aria-hidden="true">常用的TCP端口号</figcaption>
+</figure>
+<blockquote>
+<p><code>0~1023</code>的<code>TCP</code>端口号预留给已知特定服务使用，可以从<code>1024~65535</code>中选择端口号用于自定义程序</p>
+</blockquote>
+<p>不同程序不能共享一个端口，使用(也叫绑定)某个已被占用的端口，会受到<code>BindException</code>异常。</p>
+<h4 id="读取socket数据">1.2 读取Socket数据</h4>
+<p>可以用串流来通过Socket连接沟通，即使用<code>BufferedReader</code>从<code>Socket</code>上读取数据，而不管串流来自文件还是Socket。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 建立对服务器的Socket连接</span></span><br><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立连接到Socket上低层输入串流的InputStreamReader</span></span><br><span class="line">InputStreamReader stream = <span class="keyword">new</span> InputStreamReader(chatSocket.getInputStream());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 建立BufferedReader来读取</span></span><br><span class="line">BufferedReader reader = <span class="keyword">new</span> BufferedReader(stream);</span><br><span class="line">String message = reader.readLine();</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/readFromSocket.PNG" alt="读取Socket数据" /><figcaption aria-hidden="true">读取Socket数据</figcaption>
+</figure>
+<h4 id="向socket写入数据">1.3 向Socket写入数据</h4>
+<p>利用<code>PrintWriter</code>向Socket写入数据：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 对服务器建立Socket连接</span></span><br><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立连接到Socket的PrintWriter</span></span><br><span class="line">PrintWriter writer = <span class="keyword">new</span> PrintWriter(chatSocket.getOutputStream());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 写入数据</span></span><br><span class="line">writer.println(<span class="string">"message to send"</span>);</span><br><span class="line">writer.print(<span class="string">"another message"</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/PrintWriterToSocket.PNG" alt="向Socket写入数据" /><figcaption aria-hidden="true">向Socket写入数据</figcaption>
+</figure>
+<h4 id="客户端">1.4 客户端</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/client.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyAdviceClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Socket s = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">4242</span>);</span><br><span class="line">            InputStreamReader streamReader = <span class="keyword">new</span> InputStreamReader(s.getInputStream());</span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(streamReader);</span><br><span class="line">            String advice = reader.readLine();</span><br><span class="line">            System.out.println(<span class="string">"Today you should: "</span> + advice);</span><br><span class="line">            reader.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DailyAdviceClient client = <span class="keyword">new</span> DailyAdviceClient();</span><br><span class="line">        client.go();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="服务器">1.5 服务器</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/server.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyAdviceServer</span> </span>&#123;</span><br><span class="line">    String[] adviceList = &#123;<span class="string">"Take smaller bites"</span>, <span class="string">"Go for the tight jeans. No they do NOT make you look fat."</span>, <span class="string">"One word: inappropriate"</span>, <span class="string">"Just for today, be honest. Tell your boss what you *really* think"</span>, <span class="string">"You might want to rethink that haircut."</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ServerSocket serverSock = <span class="keyword">new</span> ServerSocket(<span class="number">4242</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                Socket sock = serverSock.accept();</span><br><span class="line"></span><br><span class="line">                PrintWriter writer = <span class="keyword">new</span> PrintWriter(sock.getOutputStream());</span><br><span class="line">                String advice = getAdvice();</span><br><span class="line">                writer.println(advice);</span><br><span class="line">                writer.close();</span><br><span class="line">                System.out.println(advice);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment">// close go</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getAdvice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> random = (<span class="keyword">int</span>) (Math.random() * adviceList.length);</span><br><span class="line">        <span class="keyword">return</span> adviceList[random];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DailyAdviceServer server = <span class="keyword">new</span> DailyAdviceServer();</span><br><span class="line">        server.go();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="线程">2. 线程</h3>
+<p>每个线程有独立的<code>执行空间(stack)</code>。Java内置有<code>多线程(Multithreading)</code>功能，但只有一种<code>Thread</code>类。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/javaThread.PNG" alt="Thread类" /><figcaption aria-hidden="true">Thread类</figcaption>
+</figure>
+<h4 id="新建线程">2.1 新建线程</h4>
+<p>每个Java应用程序会启动一个主线程，将<code>main()</code>函数放在执行空间最开始处。Java虚拟机负责主线程的启动。自定义建立的线程，需要在程序中启动。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JVMThread.PNG" alt="主线程与自建线程" /><figcaption aria-hidden="true">主线程与自建线程</figcaption>
+</figure>
+<p>启动新线程主要有以下几个步骤：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 建立Runnable对象(线程的任务)，此类是对线程要执行的任务的定义</span></span><br><span class="line">Runnable threadJob = <span class="keyword">new</span> MyRunnable();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立Thread对象(执行工人)并赋值Runnable对象</span></span><br><span class="line"><span class="comment">// 告诉Thread对象把Runnable的run()方法放到执行空间执行</span></span><br><span class="line">Thread myThread = <span class="keyword">new</span> Thread(threadJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 启动线程Thread</span></span><br><span class="line"><span class="comment">// 真正到执行空间执行run()方法</span></span><br><span class="line">myThread.start();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Thread</code>是个工人，<code>Runnable</code>是这个工人的工作。</p>
+</blockquote>
+<p><code>Runnable</code>是一个<strong>接口</strong>，只有<code>run()</code>这一个方法。<code>Runnable</code>带有会放在执行空间的第一项方法：<code>run()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="comment">// code that will be run by the new thread</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="线程的状态">2.2 线程的状态</h4>
+<p>新建线程的3个状态：</p>
+<ol type="1">
+<li><p>等待启动(新建线程)。Thread实例已经创建，但还未启动。即未处于执行中的线程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread t = <span class="keyword">new</span> Thread(r);</span><br></pre></td></tr></table></figure></li>
+<li><p>可执行线程。启动线程时，变成可执行状态，已经布置好了执行空间，轮到它就可以执行了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.start();</span><br></pre></td></tr></table></figure></li>
+<li><p>执行中线程。线程占用资源开始执行，该过程只能依靠JVM的线程调度机制来决定。</p></li>
+</ol>
+<blockquote>
+<p>一旦线程进入可执行状态，会不断在可执行与执行中两种状态切换。也可有另一种状态：暂时不可执行(<code>阻塞状态</code>)</p>
+</blockquote>
+<ul>
+<li>典型的可执行/执行中循环。即JVM线程调度器会把不断切换线程，给予不同线程执行机会。</li>
+<li>暂时被阻挡。<code>调度器(scheduler)</code>会在特殊情况下把线程阻塞，比如线程执行到等待<code>Socket</code>输入流的程序段，但又无数据可读，调度器会把线程移出可执行状态。或者<code>Sleep()</code>函数、调用某个被<code>锁住(locked)</code>的对象等等。</li>
+</ul>
+<h4 id="线程调度器">2.3 线程调度器</h4>
+<p><code>线程调度器(Thread Scheduler)</code>会<u>决定哪个线程从等待状态中被挑出来运行，以及何时把哪个线程送回等待被执行的状态</u>。</p>
+<blockquote>
+<p>调度是无法被控制的</p>
+</blockquote>
+<p>可以通过<code>sleep</code>强制要求线程睡眠，暂时不被唤醒。但调度器是不可预测的，线程之间可能有多个不同的执行顺序，每次执行可能得到不同的结果。</p>
+<blockquote>
+<p>Thread对象不能重复使用，一旦线程的run()方法完成后，线程就不能再重新启动。</p>
+</blockquote>
+<h4 id="sleep">2.4 <code>sleep()</code></h4>
+<p>确保线程有机会执行，可以让它们周期性地进入<code>睡眠</code>状态。当线程醒来时，会进入可执行状态等待被调度器调度执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+<p><code>sleep</code>方法可能会抛出<code>InterruptedException</code>异常，所以对它的调用需要放在<code>try/catch</code>块中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">     Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span>(InterruptedException ex) &#123;</span><br><span class="line">     ex.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="建立与启动多个线程">2.5 建立与启动多个线程</h4>
+<p>可以为线程命名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunThreads</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RunThreads runner = <span class="keyword">new</span> RunThreads();</span><br><span class="line">        Thread alpha = <span class="keyword">new</span> Thread(runner);</span><br><span class="line">        Thread beta = <span class="keyword">new</span> Thread(runner);</span><br><span class="line">        alpha.setName(<span class="string">"Alpha thread"</span>);</span><br><span class="line">        beta.setName(<span class="string">"Beta thread"</span>);</span><br><span class="line">        alpha.start();</span><br><span class="line">        beta.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">25</span>; i++) &#123;</span><br><span class="line">            String threadName = Thread.currentThread().getName();</span><br><span class="line">            System.out.println(threadName + <span class="string">" is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="线程的并发性问题">2.6 线程的并发性问题</h4>
+<p>线程的<code>并发性(Concurrency)</code>问题会引发<code>竞争状态(race condition)</code>。竞争状态可能会引起数据的损毁。需要对线程间的共享数据增加一道锁，以保证数据的安全。</p>
+<p>要使得具有安全问题的方法<code>原子化</code>，比如对账户操作的方法<code>makeWithdrawal()</code>。确定线程一旦进入这个方法后，就必须能够在其他线程进入之前把任务执行完毕。</p>
+<blockquote>
+<p>使用<code>synchronized</code>关键词来修饰方法使它每次只能被单一线程存取。</p>
+<ul>
+<li><code>synchronized</code>关键词代表线程需要钥匙来存取被<code>同步化(synchronized)</code>过的线程。</li>
+<li>要保护数据，就把作用在数据上的方法同步化</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">makeWithdrawal</span><span class="params">(<span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (account.getBalance() &gt;= amount) &#123;</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + “ is about to withdraw”);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             System.out.println(Thread.currentThread().getName() + “ is going to sleep”);</span><br><span class="line">             Thread.sleep(<span class="number">500</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span>(InterruptedException ex) &#123;ex.printStackTrace(); &#125;</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + “ woke up.”);</span><br><span class="line">         account.withdraw(amount);</span><br><span class="line">         System.out.println(Thread.currentThread().getName() + “ completes the withdrawl”);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         System.out.println(“Sorry, not enough <span class="keyword">for</span> “ + Thread.currentThread().getName());</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>锁不是配在方法上的，而是配在对象上的。这意味着对象有两个同步化的方法，就表示两个线程无法进入同一个方法，也表示两个线程无法进入不同的方法。</p>
+</blockquote>
+<p>同步化除了可以保证数据的安全，但同时也存在一些影响或潜在问题：</p>
+<ul>
+<li>同步化方法会带来额外的开销(查询钥匙等)</li>
+<li>同步化方法会强制线程排队，影响并行性</li>
+<li>同步化方法可能会导致死锁</li>
+</ul>
+<p>原则上只做最少量的同步化，可以用<code>synchronized</code>来修饰一行或数行指令而不必同步化整个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     doStuff();</span><br><span class="line">     <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">         criticalStuff();</span><br><span class="line">         moreCriticalStuff();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于静态方法，每个被载入的类也有锁。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Learning/" rel="tag"># Learning</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/05/18/JavaLearning_Head_First_Java_14_serialization_and_file_IO.html" rel="next" title="[Java学习|Head_First_Java]--14 序列化和文件的输入/输出">
+                  <i class="fa fa-chevron-left"></i> [Java学习|Head_First_Java]--14 序列化和文件的输入/输出
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/05/19/JavaLearning_Head_First_Java_16_collections_and_generics.html" rel="prev" title="[Java学习|Head_First_Java]--16 集合与泛型">
+                  [Java学习|Head_First_Java]--16 集合与泛型 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端client与服务器server"><span class="nav-number">2.</span> <span class="nav-text">1. 客户端(Client)与服务器(Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#socket连接"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Socket连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取socket数据"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 读取Socket数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向socket写入数据"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 向Socket写入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">2. 线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建线程"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 新建线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的状态"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 线程的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程调度器"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 线程调度器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 sleep()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立与启动多个线程"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 建立与启动多个线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的并发性问题"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 线程的并发性问题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 欢迎来到, 多多指教</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">89</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">235k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:34</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论，多多指教！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
