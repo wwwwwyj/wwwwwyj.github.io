@@ -2861,6 +2861,7 @@
 </ul>
 <p><strong><code>HSDIS</code>：<code>JIT</code>生成代码反汇编</strong></p>
 <p><code>HSDIS</code>是一个被官方推荐的<code>HotSpot</code>虚拟机即时编译代码的反汇编插件。<code>HSDIS</code>插件的作用是让<code>HotSpot</code>的<code>-XX：+PrintAssembly</code>指令调用它来把即时编译器动态生成的本地代码还原为<u>汇编代码</u>输出，同时还会自动产生大量非常有价值的注释，这样我们就可以通过输出的汇编代码来从最本质的角度分析问题。</p>
+<p><code>JITWatch</code>是<code>HSDIS</code>经常搭配使用的可视化的编译日志分析工具，在<code>JITWatch</code>中加载日志后，就可以看到执行期间使用过的各种对象类型和对应调用过的方法。</p>
 ]]></content>
       <categories>
         <category>JVM</category>
