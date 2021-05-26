@@ -1,4 +1,6 @@
-https://wuyunjie.top/2021/05/26/JZ9_Number_of_1s_in_binary.html
+https://wuyunjie.top/2021/05/26/JZ13_the_odd_numbers_come_before_the_even_numbers.html
+https://wuyunjie.top/2021/05/26/JZ12_Integer_power.html
+https://wuyunjie.top/2021/05/26/JZ11_Number_of_1s_in_binary.html
 https://wuyunjie.top/2021/05/26/JZ10_Rectangular_coverage.html
 https://wuyunjie.top/2021/05/26/JZ9_Jumping_expanding.html
 https://wuyunjie.top/2021/05/26/JZ8_Step_up.html
@@ -6,5 +8,3 @@ https://wuyunjie.top/2021/05/25/JZ7_Fibonacci_sequence.html
 https://wuyunjie.top/2021/05/24/JZ6_rotate_the_smallest_number_of_the_array.html
 https://wuyunjie.top/2021/05/24/JZ5_implement_the_queue_with_two_stacks.html
 https://wuyunjie.top/2021/05/20/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_4_Performance_monitoring_fault_handling.html
-https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html
-https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html

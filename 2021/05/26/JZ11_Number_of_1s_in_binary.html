@@ -55,21 +55,18 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 请实现一个函数，将一个字符串中的每个空格替换成&quot;%20&quot;。例如，当字符串为We Are Happy，则经过替换之后的字符串为We%20Are%20Happy。">
+  <meta name="description" content="一、问题描述 输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
 <meta name="keywords" content="剑指offer,面试复习,刷题记录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指offer-2-替换空格">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;04&#x2F;20&#x2F;JZ2-replace-spaces.html">
+<meta property="og:title" content="剑指offer-11-二进制中1的个数">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;26&#x2F;JZ11_Number_of_1s_in_binary.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 请实现一个函数，将一个字符串中的每个空格替换成&quot;%20&quot;。例如，当字符串为We Are Happy，则经过替换之后的字符串为We%20Are%20Happy。">
+<meta property="og:description" content="一、问题描述 输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;jzoffer&#x2F;JZ2&#x2F;String.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;jzoffer&#x2F;JZ2&#x2F;StringBuffer.png">
-<meta property="og:updated_time" content="2021-04-20T11:01:03.000Z">
+<meta property="og:updated_time" content="2021-05-26T05:01:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;jzoffer&#x2F;JZ2&#x2F;String.png">
 
-<link rel="canonical" href="https://wuyunjie.top/2021/04/20/JZ2-replace-spaces.html">
+<link rel="canonical" href="https://wuyunjie.top/2021/05/26/JZ11_Number_of_1s_in_binary.html">
 
 
 <script id="page-configurations">
@@ -83,7 +80,7 @@
   };
 </script>
 
-  <title>剑指offer-2-替换空格 | WuYJ's Blog</title>
+  <title>剑指offer-11-二进制中1的个数 | WuYJ's Blog</title>
   
 
 
@@ -229,7 +226,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/04/20/JZ2-replace-spaces.html">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/05/26/JZ11_Number_of_1s_in_binary.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -242,7 +239,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          剑指offer-2-替换空格
+          剑指offer-11-二进制中1的个数
         </h1>
 
         <div class="post-meta">
@@ -252,7 +249,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-04-20 19:01:03" itemprop="dateCreated datePublished" datetime="2021-04-20T19:01:03+08:00">2021-04-20</time>
+              <time title="创建时间：2021-05-26 13:01:12" itemprop="dateCreated datePublished" datetime="2021-05-26T13:01:12+08:00">2021-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,7 +264,7 @@
             </span>
 
           
-            <span id="/2021/04/20/JZ2-replace-spaces.html" class="post-meta-item leancloud_visitors" data-flag-title="剑指offer-2-替换空格" title="阅读次数">
+            <span id="/2021/05/26/JZ11_Number_of_1s_in_binary.html" class="post-meta-item leancloud_visitors" data-flag-title="剑指offer-11-二进制中1的个数" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -282,8 +279,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/04/20/JZ2-replace-spaces.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/04/20/JZ2-replace-spaces.html" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/05/26/JZ11_Number_of_1s_in_binary.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/26/JZ11_Number_of_1s_in_binary.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -293,14 +290,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>857</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -313,41 +310,29 @@
 
       
         <h3 id="一问题描述">一、问题描述</h3>
-<p>请实现一个函数，将一个字符串中的每个空格替换成<code>"%20"</code>。例如，当字符串为<code>We Are Happy</code>，则经过替换之后的字符串为<code>We%20Are%20Happy</code>。 <a id="more"></a></p>
-<p><strong>示例:</strong> &gt; 输入: "We Are Happy" &gt; 返回值: "We%20Are%20Happy"</p>
+<p>输入一个整数，输出该数<code>32</code>位二进制表示中<code>1</code>的个数。其中负数用补码表示。 <a id="more"></a></p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p>输入：10 返回值：2</p>
+</blockquote>
 <h3 id="二解题思路">二、解题思路</h3>
-<p>这道题挺简单的，就是逐个判断String数组的字符，然后基于拼接构建出要求的字符串。也有方法直接调用内置的替换函数，不知道为何难度为<strong>较难</strong>，可能还有特殊的优化解。</p>
+<h4 id="位运算">1. 位运算</h4>
+<p>考查的应该就是位操作吧。实际上要统计<code>1</code>的个数很简单，只需要将整数逐位右移，统计最低位<code>1</code>的出现次数。判断最低为是否为<code>1</code>可以使用等式：<code>n &amp; 1</code>，结果为<code>1</code>即为<code>1</code>，否则为<code>0</code>。</p>
+<p>这里有一个需要注意的点是，由于整数是补码表示，所以在右移的时候，若数字为负数会将高位自动补<code>1</code>。这里刚好之前学到<code>Java</code>里有一个无符号右移的运算符: <code>&gt;&gt;&gt;</code>，可以直接解决这个问题。</p>
+<ul>
+<li><a href="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">[Java学习|Head_First_Java]--十大遗珠之憾</a></li>
+</ul>
+<h4 id="技巧法">2. 技巧法</h4>
+<p>考虑二进制数：<code>val :1101000</code>, <code>val-1: 1100111</code> 那么<code>val &amp; （val-1） : 1100000</code>。即：</p>
+<blockquote>
+<p>如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。</p>
+</blockquote>
+<p>把一个整数减去<code>1</code>，再和原整数做与运算，会把该整数最右边一个<code>1</code>变成<code>0</code>.那么一个整数的二进制有多少个<code>1</code>，就可以进行多少次这样的操作。</p>
 <h3 id="三代码">三、代码</h3>
-<ol type="1">
-<li><p>解法1 暴力求法 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> s string字符串 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> string字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line"></span><br><span class="line">        String result = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">' '</span>)</span><br><span class="line">                result += <span class="string">"%20"</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                result += s.charAt(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>解法2 调用 <code>String.replaceAll()</code> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">   <span class="keyword">return</span> s.replaceAll(<span class="string">" "</span>, <span class="string">"%20"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>解法3 调用 <code>Spring.split()</code> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span> <span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">if</span> (s == <span class="keyword">null</span> || <span class="string">""</span>.equals(s))</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        String[] strs = s.split(<span class="string">""</span>);</span><br><span class="line">        <span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">" "</span>.equals(str))</span><br><span class="line">                sb.append(<span class="string">"%20"</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            sb.append(str);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<hr />
-<h3 id="java学习">Java学习</h3>
-<ol type="1">
-<li>String、StringBuffer和StringBuilder</li>
-</ol>
-<ul>
-<li>String <code>String</code>类是<strong>不可变</strong>类，即一旦一个String对象被创建以后，包含在这个对象中的字符序列是不可改变的，直至这个对象被销毁。通过一个字符串对象a的内存存储空间图对String类的不可变性理解。</li>
-</ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/jzoffer/JZ2/String.png" alt="String类不可变" /><figcaption aria-hidden="true"><code>String</code>类不可变</figcaption>
-</figure>
-<p>再次给a赋值时，并不是对原来堆中实例对象进行重新赋值，而是生成一个新的实例对象，并且指向“456”这个字符串，a则指向最新生成的实例对象，<em>之前的实例对象仍然存在，如果没有被再次引用，则会被垃圾回收</em>。</p>
-<ul>
-<li>StringBuffer <code>StringBuffer</code>对象则代表一个字符序列<strong>可变</strong>的字符串，当一个StringBuffer被创建以后，通过StringBuffer提供的<code>append()</code>、<code>insert()</code>、<code>reverse()</code>、<code>setCharAt()</code>、<code>setLength()</code>等方法可以改变这个字符串对象的字符序列。一旦通过StringBuffer生成了最终想要的字符串，就可以调用它的<code>toString()</code>方法将其转换为一个String对象。</li>
-</ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/jzoffer/JZ2/StringBuffer.png" alt="StringBuffer类" /><figcaption aria-hidden="true"><code>StringBuffer</code>类</figcaption>
-</figure>
-<p>字符串连接的情况，方便和直接的方式是通过"+"符号来实现，但是这种方式达到目的的效率比较低，且<em>每执行一次都会创建一个String对象</em>，<strong>即耗时，又浪费空间</strong>。使用StringBuilder类就可以避免这种问题的发生</p>
-<ul>
-<li>StringBuilder <code>StringBuilder</code>类也代表<strong>可变</strong>字符串对象。实际上，StringBuilder和StringBuffer基本相似，两个类的构造器和方法也基本相同。不同的是：<strong>StringBuffer是线程安全的，而StringBuilder则没有实现线程安全功能，所以性能略高</strong>。StringBuffer类中的方法都添加了<code>synchronized</code>关键字，也就是给这个方法添加了一个锁，用来保证线程安全。</li>
-</ul>
-<p><strong>Java9改进了字符串</strong>（包括String、StringBuffer、StringBuilder）的实现。在Java9以前字符串采用<code>char[]</code>数组来保存字符，因此字符串的每个字符占<code>2</code>字节；而Java9的字符串采用<code>byte[]</code>数组再加一个<code>encoding-flag</code>字段来保存字符，因此字符串的每个字符只占<code>1</code>字节。所以Java9的字符串更加节省空间，字符串的功能方法也没有受到影响。</p>
-<h3 id="参考文献">参考文献</h3>
-<p>[1] <a href="https://blog.csdn.net/csxypr/article/details/92378336" target="_blank" rel="noopener">String、StringBuffer和StringBuilder的区别</a></p>
+<h4 id="位运算-1">1. 位运算</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes += (n &amp; <span class="number">1</span>);</span><br><span class="line">            n = n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="技巧法-1">2. 技巧法：</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes++;</span><br><span class="line">            n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -366,16 +351,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2021/04/12/how-are-things.html" rel="next" title="《最近怎么样?》">
-                  <i class="fa fa-chevron-left"></i> 《最近怎么样?》
+                <a href="/2021/05/26/JZ10_Rectangular_coverage.html" rel="next" title="剑指offer-10-矩形覆盖">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-10-矩形覆盖
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2021/04/20/JZ3-print-LinkList-reverse.html" rel="prev" title="剑指offer-3-从尾到头打印链表">
-                  剑指offer-3-从尾到头打印链表 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/05/26/JZ12_Integer_power.html" rel="prev" title="剑指offer-12-数值的整数次方">
+                  剑指offer-12-数值的整数次方 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -416,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java学习"><span class="nav-number">4.</span> <span class="nav-text">Java学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算"><span class="nav-number">2.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技巧法"><span class="nav-number">2.2.</span> <span class="nav-text">2. 技巧法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技巧法-1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 技巧法：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -685,6 +670,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

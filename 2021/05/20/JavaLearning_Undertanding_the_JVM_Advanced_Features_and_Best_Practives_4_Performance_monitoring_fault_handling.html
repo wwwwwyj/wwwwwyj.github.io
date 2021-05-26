@@ -63,8 +63,12 @@
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;jps.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;basicJavaTools.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;securityJavaTools.PNG">
 <meta property="og:updated_time" content="2021-05-20T14:41:12.000Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;jps.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/05/20/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_4_Performance_monitoring_fault_handling.html">
 
@@ -166,7 +170,7 @@
   </li>
         <li class="menu-item menu-item-books">
 
-    <a href="/books" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -231,7 +235,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
       <meta itemprop="name" content="wuyunjie">
-      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎来到, 多多指教。">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -290,14 +294,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>123</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -314,7 +318,83 @@
 <p><code>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。</code> <a id="more"></a></p>
 </blockquote>
 <h3 id="基础故障处理工具">1. 基础故障处理工具</h3>
-<p>除了编译和运行Java程序外，打包、部署、签名、调试、监控、运维等各种场景都可能会用到<code>JDK</code>的<code>bin</code>目录下的小工具。</p>
+<p>除了编译和运行Java程序外，打包、部署、签名、调试、监控、运维等各种场景都可能会用到<code>JDK</code>的<code>bin</code>目录下的小工具。根据软件可用性和授权的不同，可以把它们划分成三类：</p>
+<ul>
+<li><strong>商业授权工具</strong>：主要是<code>JMC（Java Mission Control）</code>及它要使用到的<code>JFR（Java Flight Recorder）</code>；</li>
+<li><strong>正式支持工具</strong>：这一类工具属于被长期支持的工具，不同平台、不同版本的<code>JDK</code>之间，这类工具可能会略有差异；</li>
+<li><strong>实验性工具</strong>：这一类工具在它们的使用说明中被声明为“<code>没有技术支持，并且是实验性质的</code>”（<code>Unsupported and Experimental</code>）产品。</li>
+</ul>
+<h4 id="jps虚拟机进程状况工具">1.1 <code>jps</code>：虚拟机进程状况工具</h4>
+<p><code>jps（JVM Process Status Tool）</code>功能和<code>UNIX</code>的<code>ps</code>命令类似：</p>
+<blockquote>
+<p>可以列出<code>正在运行</code>的虚拟机进程，并显示虚拟机<u><strong>执行主类（Main Class，main()函数所在的类）</strong></u>名称以及这些进程的<code>本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）</code>。</p>
+</blockquote>
+<p><code>jps</code>命令格式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps [ options ] [ hostid ]</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/jps.PNG" alt="jps参数" /><figcaption aria-hidden="true">jps参数</figcaption>
+</figure>
+<h4 id="jstat虚拟机统计信息监视工具">1.2 <code>jstat</code>：虚拟机统计信息监视工具</h4>
+<p><code>jstat（JVM Statistics Monitoring Tool）</code>是用于监视虚拟机各种运行状态信息的命令行工具。</p>
+<blockquote>
+<p>可以显示本地或者远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据</p>
+</blockquote>
+<h4 id="jinfojava配置信息工具">1.3 <code>jinfo</code>：Java配置信息工具</h4>
+<p><code>jinfo（Configuration Info for Java）</code>的作用是实时查看和调整虚拟机各项参数。</p>
+<blockquote>
+<p>使用<code>jps</code>命令的<code>-v</code>参数可以查看虚拟机启动时显式指定的参数列表，但如果想知道未被显式指定的参数的系统默认值，除了去找资料外，就只能使用<code>jinfo</code>的<code>-flag</code>选项进行查询了</p>
+</blockquote>
+<h4 id="jmapjava内存映像工具">1.4 <code>jmap</code>：Java内存映像工具</h4>
+<p><code>jmap（Memory Map for Java）</code>命令用于生成<strong>堆转储快照</strong>（一般称为<code>heapdump</code>或<code>dump</code>文件）。</p>
+<blockquote>
+<p>还可以查询<u><code>finalize</code>执行队列</u>、<u>Java堆</u>和<u>方法区的详细信息</u>，如空间使用率、当前用的是哪种收集器等。</p>
+</blockquote>
+<h4 id="jhat虚拟机堆转储快照分析工具">1.5 <code>jhat</code>：虚拟机堆转储快照分析工具</h4>
+<p><code>jhat（JVM Heap Analysis Tool）</code>命令与<code>jmap</code>搭配使用，来分析<code>jmap</code>生成的堆转储快照。</p>
+<h4 id="jstackjava堆栈跟踪工具">1.6 <code>jstack</code>：Java堆栈跟踪工具</h4>
+<p><code>jstack（Stack Trace for Java）</code>命令用于生成虚拟机当前时刻的线程快照（一般称为<code>threaddump</code>或者<code>javacore</code>文件）。</p>
+<blockquote>
+<p>线程快照就是当前虚拟机内每一条线程正在执行的<strong>方法堆栈</strong>的集合，生成线程快照的目的通常是<u>定位线程出现长时间停顿的原因</u>，如线程间死锁、死循环、请求外部资源导致的长时间挂起等。</p>
+</blockquote>
+<h4 id="基础工具总结">1.7 基础工具总结</h4>
+<ul>
+<li><strong>基础工具</strong>：用于支持基本的程序创建和运行</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/basicJavaTools.PNG" alt="基础工具" /><figcaption aria-hidden="true">基础工具</figcaption>
+</figure>
+<ul>
+<li><strong>安全</strong>：用于程序签名、设置安全测试等</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/securityJavaTools.PNG" alt="安全工具" /><figcaption aria-hidden="true">安全工具</figcaption>
+</figure>
+<p>还有许多工具，就不一一列举了，需要的时候在查找学习就行。</p>
+<h3 id="可视化故障处理工具">2. 可视化故障处理工具</h3>
+<p>这类工具主要包括<code>JConsole</code>、 <code>JHSDB</code>、<code>VisualVM</code>和<code>JMC</code>四个。</p>
+<h4 id="jhsdb基于服务性代理的调试工具">2.1 <code>JHSDB</code>：基于服务性代理的调试工具</h4>
+<p><code>JHSDB</code>是一款基于<code>服务性代理（Serviceability Agent，SA）</code>实现的进程外调试工具。服务性代理是<code>HotSpot</code>虚拟机中一组用于映射<code>Java</code>虚拟机运行信息的、主要基于<code>Java</code>语言（含少量<code>JNI</code>代码）实现的<code>API</code>集合。</p>
+<p>通过服务性代理的<code>API</code>，可以在一个独立的Java虚拟机的进程里分析其他<code>HotSpot</code>虚拟机的内部数据，或者从<code>HotSpot</code>虚拟机进程内存中<code>dump</code>出来的转储快照里还原出它的运行状态细节。</p>
+<h4 id="jconsolejava监视与管理控制台">2.2 <code>JConsole</code>：Java监视与管理控制台</h4>
+<p><code>JConsole（Java Monitoring and Management Console）</code>是一款基于<code>JMX（Java Manage-ment Extensions）</code>的可视化监视、管理工具。它的主要功能是通过<code>JMX</code>的<code>MBean（Managed Bean）</code>对系统进行信息收集和参数动态调整。</p>
+<h4 id="visualvm多合-故障处理工具">2.3 <code>VisualVM</code>：多合-故障处理工具</h4>
+<p><code>VisualVM（All-in-One Java Troubleshooting Tool）</code>是功能最强大的运行监视和故障处理程序之一，除了常规的运行监视、故障处理外，还将提供其他方面的能力，譬如<code>性能分析（Profiling）</code>。</p>
+<p><code>VisualVM</code>还有一个很大的<strong>优点</strong>：<u><strong>不需要被监视的程序基于特殊<code>Agent</code>去运行</strong></u>，因此它的通用性很强，对应用程序实际性能的影响也较小，使得它可以直接应用在生产环境中。</p>
+<h4 id="java-mission-control可持续在线的监控工具">2.4 <code>Java Mission Control</code>：可持续在线的监控工具</h4>
+<p><code>JMC</code>最初是<code>BEA</code>公司的产品，选择了由<code>IBM</code>捐赠的<code>Eclipse RCP</code>作为基础框架，更常见的是作为Eclipse的插件来使用。</p>
+<p><code>JMC</code>与虚拟机之间同样采取<code>JMX</code>协议进行通信，<code>JMC</code>一方面作为<code>JMX</code>控制台，显示来自虚拟机<code>MBean</code>提供的数据；另一方面作为<code>JFR</code>的分析工具，展示来自<code>JFR</code>的数据。</p>
+<h3 id="hotspot虚拟机插件及工具">3. <code>HotSpot</code>虚拟机插件及工具</h3>
+<p><code>HotSpot</code>的插件及工具存放在HotSpot源码<code>hotspot/src/share/tools</code>目录下，包括：</p>
+<ul>
+<li><code>Ideal Graph Visualizer</code>：用于可视化展示<code>C2</code>即时编译器是如何将字节码转化为理想图，然后转化为机器码的。</li>
+<li><code>Client Compiler Visualizer</code>：用于查看<code>C1</code>即时编译器生成高级中间表示（<code>HIR</code>），转换成低级中间表示（<code>LIR</code>）和做物理寄存器分配的过程。</li>
+<li><code>MakeDeps</code>：帮助处理<code>HotSpot</code>的编译依赖的工具。</li>
+<li><code>Project Creator</code>：帮忙生成<code>Visual Studio</code>的<code>.project</code>文件的工具。</li>
+<li><code>LogCompilation</code>：将<code>-XX：+LogCompilation</code>输出的日志整理成更容易阅读的格式的工具。</li>
+<li><code>HSDIS</code>：即时编译器的反汇编插件。</li>
+</ul>
+<p><strong><code>HSDIS</code>：<code>JIT</code>生成代码反汇编</strong></p>
+<p><code>HSDIS</code>是一个被官方推荐的<code>HotSpot</code>虚拟机即时编译代码的反汇编插件。<code>HSDIS</code>插件的作用是让<code>HotSpot</code>的<code>-XX：+PrintAssembly</code>指令调用它来把即时编译器动态生成的本地代码还原为<u>汇编代码</u>输出，同时还会自动产生大量非常有价值的注释，这样我们就可以通过输出的汇编代码来从最本质的角度分析问题。</p>
 
     </div>
 
@@ -383,7 +463,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础故障处理工具"><span class="nav-number">2.</span> <span class="nav-text">1. 基础故障处理工具</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础故障处理工具"><span class="nav-number">2.</span> <span class="nav-text">1. 基础故障处理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jps虚拟机进程状况工具"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 jps：虚拟机进程状况工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jstat虚拟机统计信息监视工具"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 jstat：虚拟机统计信息监视工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinfojava配置信息工具"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 jinfo：Java配置信息工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmapjava内存映像工具"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 jmap：Java内存映像工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jhat虚拟机堆转储快照分析工具"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 jhat：虚拟机堆转储快照分析工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jstackjava堆栈跟踪工具"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 jstack：Java堆栈跟踪工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础工具总结"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 基础工具总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化故障处理工具"><span class="nav-number">3.</span> <span class="nav-text">2. 可视化故障处理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jhsdb基于服务性代理的调试工具"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 JHSDB：基于服务性代理的调试工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jconsolejava监视与管理控制台"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 JConsole：Java监视与管理控制台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visualvm多合-故障处理工具"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 VisualVM：多合-故障处理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-mission-control可持续在线的监控工具"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 Java Mission Control：可持续在线的监控工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotspot虚拟机插件及工具"><span class="nav-number">4.</span> <span class="nav-text">3. HotSpot虚拟机插件及工具</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -392,14 +472,14 @@
     <img class="site-author-image" itemprop="image" alt="wuyunjie"
       src="/images/header.jpg">
   <p class="site-author-name" itemprop="name">wuyunjie</p>
-  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎来到, 多多指教。</div>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -460,13 +540,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">242k</span>
+    <span title="站点总字数">247k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">3:40</span>
+    <span title="站点阅读时长">3:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
@@ -717,7 +797,7 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
     notify: true,
     appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
     appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
-    placeholder: "欢迎评论，多多指教！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
     avatar: 'retro',
     meta: guest,
     pageSize: '10' || 10,
