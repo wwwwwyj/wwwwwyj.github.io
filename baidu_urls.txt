@@ -1,10 +1,10 @@
+https://wuyunjie.top/2021/05/26/JZ9_Number_of_1s_in_binary.html
+https://wuyunjie.top/2021/05/26/JZ10_Rectangular_coverage.html
+https://wuyunjie.top/2021/05/26/JZ9_Jumping_expanding.html
+https://wuyunjie.top/2021/05/26/JZ8_Step_up.html
+https://wuyunjie.top/2021/05/25/JZ7_Fibonacci_sequence.html
+https://wuyunjie.top/2021/05/24/JZ6_rotate_the_smallest_number_of_the_array.html
+https://wuyunjie.top/2021/05/24/JZ5_implement_the_queue_with_two_stacks.html
 https://wuyunjie.top/2021/05/20/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_4_Performance_monitoring_fault_handling.html
 https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html
 https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html
-https://wuyunjie.top/2021/05/19/JavaLearning_Head_First_Java_17_package_jars_and_deployment.html
-https://wuyunjie.top/2021/05/19/JavaLearning_Head_First_Java_16_collections_and_generics.html
-https://wuyunjie.top/2021/05/18/JavaLearning_Head_First_Java_15_networking_and_threads.html
-https://wuyunjie.top/2021/05/18/JavaLearning_Head_First_Java_14_serialization_and_file_IO.html
-https://wuyunjie.top/2021/05/17/JavaLearning_Head_First_Java_12_getting_gui.html
-https://wuyunjie.top/2021/05/17/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_3_Garbage_collector_and_memory_allocation_strategy.html
-https://wuyunjie.top/2021/05/14/Reading_2021--How_to_Read_a_Book.html
