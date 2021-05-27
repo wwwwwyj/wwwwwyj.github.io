@@ -65,6 +65,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;ClassLifeCycle.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;ParentsDelegation.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;JDK9ClassLoaderDelegation.PNG">
 <meta property="og:updated_time" content="2021-05-27T05:31:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;ClassLifeCycle.PNG">
@@ -293,14 +294,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.9k</span>
+              <span>8.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -509,7 +510,58 @@
 <p>直到Java模块化出现为止，双亲委派模型主要出现过3次较大规模“被破坏”的情况：</p>
 <ul>
 <li>第一次“被破坏”其实发生在双亲委派模型出现之前——即<code>JDK 1.2</code>面世以前。</li>
+<li>第二次“被破坏”是由这个模型自身的缺陷导致的，有基础类型要调用回用户的代码。</li>
+<li>第三次“被破坏”是由于用户对程序动态性的追求而导致的。</li>
 </ul>
+<p><code>OSGi</code>实现模块化热部署的关键是<u><strong>它自定义的类加载器机制的实现</strong></u>：</p>
+<ul>
+<li>每一个程序模块（<code>OSGi</code>中称为<code>Bundle</code>）都有一个自己的类加载器，当需要更换一个<code>Bundle</code>时，就把<code>Bundle</code>连同类加载器一起换掉以实现代码的热替换。</li>
+</ul>
+<p>在<code>OSGi</code>环境下，类加载器发展为更加复杂的网状结构，当收到类加载请求时，<code>OSGi</code>将按照下面的顺序进行类搜索：</p>
+<ol type="1">
+<li>将以<code>java.*</code>开头的类，委派给父类加载器加载。</li>
+<li>否则，将委派列表名单内的类，委派给父类加载器加载。</li>
+<li>否则，将<code>Import</code>列表中的类，委派给<code>Export</code>这个类的<code>Bundle</code>的类加载器加载。</li>
+<li>否则，查找当前<code>Bundle</code>的<code>ClassPath</code>，使用自己的类加载器加载。</li>
+<li>否则，查找类是否在自己的<code>Fragment Bundle</code>中，如果在，则委派给<code>Fragment Bundle</code>的类加载器加载。</li>
+<li>否则，查找<code>Dynamic Import</code>列表的<code>Bundle</code>，委派给对应<code>Bundle</code>的类加载器加载。</li>
+<li>否则，类查找失败。</li>
+</ol>
+<h3 id="java模块化系统">4. Java模块化系统</h3>
+<p><code>JDK 9</code>中引入的<code>Java模块化系统（Java Platform Module System，JPMS）</code>能够实现模块化的关键目标——可配置的封装隔离机制。<code>JDK 9</code>的模块除了简单地充当代码的容器，还包含以下内容：</p>
+<ul>
+<li>依赖其他模块的列表。</li>
+<li>导出的包列表，即其他模块可以使用的列表。</li>
+<li>开放的包列表，即其他模块可反射访问模块的列表。</li>
+<li>使用的服务列表。</li>
+<li>提供服务的实现列表。</li>
+</ul>
+<p><u><strong>可配置的封装隔离机制</strong></u>解决了：</p>
+<ul>
+<li><code>JDK 9</code>之前基于<code>类路径（ClassPath）</code>来查找依赖的<strong>可靠性问题</strong>。</li>
+<li>原来类路径上跨<code>JAR</code>文件的<code>public</code>类型的<strong>可访问性问题</strong>。</li>
+</ul>
+<h4 id="模块的兼容性">4.1 模块的兼容性</h4>
+<p><code>JDK 9</code>提出了与<code>“类路径”（ClassPath）</code>相对应的<code>“模块路径”（ModulePath）</code>的概念，使<u><strong>可配置的封装隔离机制</strong></u>能够兼容传统的类路径查找机制。</p>
+<p>模块化系统将按照以下规则来保证使用传统类路径依赖的Java程序可以不经修改地直接运行在<code>JDK 9</code>及以后的Java版本上：</p>
+<ul>
+<li><strong>JAR文件在类路径的访问规则</strong>：所有类路径下的<code>JAR</code>文件及其他资源文件，都被视为自动打包在一个<code>匿名模块（Unnamed Module）</code>里，这个匿名模块<strong>几乎是没有任何隔离的</strong>，它可以看到和使用<u>类路径上所有的包</u>、<u>JDK系统模块中所有的导出包</u>，以及<u>模块路径上所有模块中导出的包</u>。</li>
+<li><strong>模块在模块路径的访问规则</strong>：模块路径下的<code>具名模块（Named Module）</code>只能访问到它<u>依赖定义中列明依赖的模块和包</u>，匿名模块里所有的内容对具名模块来说都是不可见的，即<strong><u>具名模块看不见传统JAR包的内容</u></strong>。</li>
+<li><strong>JAR文件在模块路径的访问规则</strong>：如果把一个传统的、不包含模块定义的JAR文件放置到模块路径中，它就会变成一个<code>自动模块（Automatic Module）</code>。尽管不包含<code>module-info.class</code>，但自动模块将默认依赖于整个模块路径中的所有模块，因此可以访问到<u>所有模块导出的</u>包，自动模块也<strong>默认导出自己所有的包</strong>。</li>
+</ul>
+<h4 id="模块化下的类加载器">4.2 模块化下的类加载器</h4>
+<p><code>JDK 9</code>为了模块化系统的顺利施行，模块化下的类加载器发生了一些变动，主要包括以下几个方面：</p>
+<ul>
+<li><code>扩展类加载器（Extension Class Loader）</code>被<code>平台类加载器（Platform Class Loader）</code>取代。</li>
+<li><code>平台类加载器</code>和<code>应用程序类加载器</code>都不再派生自<code>java.net.URLClassLoader</code>，现在启动类加载器、平台类加载器、应用程序类加载器全都继承于 <code>jdk.internal.loader.BuiltinClassLoader</code>。<code>BuiltinClassLoader</code>中实现了新的模块化架构下<u>类如何从模块中加载的逻辑</u>，以及<u>模块中资源可访问性的处理</u>。</li>
+<li><code>JDK 9</code>中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。
+<ul>
+<li>当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类<u>是否能够归属到某一个系统模块中</u>，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JDK9ClassLoaderDelegation.PNG" alt="JDK 9后的类加载器委派关系" /><figcaption aria-hidden="true">JDK 9后的类加载器委派关系</figcaption>
+</figure>
 
     </div>
 
@@ -575,7 +627,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的时机"><span class="nav-number">2.</span> <span class="nav-text">1. 类加载的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的过程"><span class="nav-number">3.</span> <span class="nav-text">2. 类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 验证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件格式验证"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 文件格式验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#元数据验证"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 元数据验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字节码验证"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 字节码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#符号引用验证"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类或接口的解析"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 类或接口的解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段解析"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 字段解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法解析"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 方法解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口方法解析"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">3. 类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与类加载器"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 类与类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 双亲委派模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#破坏双亲委派模型"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 破坏双亲委派模型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的时机"><span class="nav-number">2.</span> <span class="nav-text">1. 类加载的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的过程"><span class="nav-number">3.</span> <span class="nav-text">2. 类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 验证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件格式验证"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 文件格式验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#元数据验证"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 元数据验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字节码验证"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 字节码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#符号引用验证"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类或接口的解析"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 类或接口的解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段解析"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 字段解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法解析"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 方法解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口方法解析"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">3. 类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与类加载器"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 类与类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 双亲委派模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#破坏双亲委派模型"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 破坏双亲委派模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java模块化系统"><span class="nav-number">5.</span> <span class="nav-text">4. Java模块化系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模块的兼容性"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 模块的兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块化下的类加载器"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 模块化下的类加载器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -652,13 +704,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">265k</span>
+    <span title="站点总字数">267k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">4:03</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
