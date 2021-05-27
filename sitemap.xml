@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wuyunjie.top/2021/05/27/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_7_Virtual_machine_class_loading_mechanism.html</loc>
+    
+    <lastmod>2021-05-27T05:31:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_6_Class_file_structure.html</loc>
+    
+    <lastmod>2021-05-26T13:23:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_5_Tuning_case_study_and_practice.html</loc>
     
     <lastmod>2021-05-26T11:55:06.000Z</lastmod>

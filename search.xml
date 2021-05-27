@@ -5967,4 +5967,483 @@ F(n) = 2^{(n-1)}
         <tag>刷题记录</tag>
       </tags>
   </entry>
+  <entry>
+    <title>[Java学习|深入理解Java虚拟机]--7 虚拟机类加载机制</title>
+    <url>/2021/05/27/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_7_Virtual_machine_class_loading_mechanism.html</url>
+    <content><![CDATA[<h3 id="前言">前言</h3>
+<blockquote>
+<p>在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。 <a id="more"></a></p>
+</blockquote>
+<p>Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这个过程被称作虚拟机的<code>类加载机制</code>。</p>
+<h3 id="类加载的时机">1. 类加载的时机</h3>
+<p>一个类型<strong><u>从被加载到虚拟机内存中开始，到卸载出内存为止</u></strong>，它的整个生命周期将会经历七个阶段:</p>
+<ul>
+<li>加载（Loading）</li>
+<li>验证（Verification）</li>
+<li>准备（Preparation）</li>
+<li>解析（Resolution）</li>
+<li>初始化 （Initialization）</li>
+<li>使用（Using）</li>
+<li>卸载（Unloading）</li>
+</ul>
+<p>其中验证、准备、解析三个部分统称为连接（Linking）。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ClassLifeCycle.PNG" alt="类的生命周期" /><figcaption aria-hidden="true">类的生命周期</figcaption>
+</figure>
+<blockquote>
+<p>解析阶在某些情况下可以在初始化阶段之后再开始，这是为了支持Java语言的<code>运行时绑定</code>特性（也称为<code>动态绑定</code>或<code>晚期绑定</code>）。</p>
+</blockquote>
+<p>只有六种情况必须立即对类进行<code>“初始化”</code>（而加载、验证、准备自然需要在此之前开始）：</p>
+<ul>
+<li>遇到<code>new</code>、<code>getstatic</code>、<code>putstatic</code>或<code>invokestatic</code>这四条字节码指令时，如果类型没有进行过初始化，则需要先触发其初始化阶段；</li>
+<li>使用<code>java.lang.reflect</code>包的方法对类型进行反射调用的时候，如果类型没有进行过初始化，则需要先触发其初始化；</li>
+<li>当初始化类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化；
+<ul>
+<li>一个<code>接口</code>在初始化时，并不要求其父接口全部都完成了初始化，只有在真正使用到父接口的时候（如引用接口中定义的常量）才会初始化。</li>
+</ul></li>
+<li>当虚拟机启动时，用户需要指定一个要执行的<code>主类（包含main()方法的那个类）</code>，虚拟机会先初始化这个主类；</li>
+<li>当使用<code>JDK 7</code>新加入的<code>动态语言支持</code>时，如果一个<code>java.lang.invoke.MethodHandle</code>实例最后的解析的方法句柄对应的类没有进行过初始化，则需要先触发其初始化；</li>
+<li>当一个接口中定义了<code>JDK 8</code>新加入的默认方法（被default关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化；</li>
+</ul>
+<h3 id="类加载的过程">2. 类加载的过程</h3>
+<h4 id="加载">2.1 加载</h4>
+<p><code>“加载”（Loading）</code>阶段是整个<code>“类加载”（Class Loading）</code>过程中的一个阶段，在加载阶段，Java虚拟机需要完成以下三件事情：</p>
+<ol type="1">
+<li>通过一个类的全限定名来获取定义此类的<code>二进制字节流</code>。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为方法区这个类的各种数据的访问入口。</li>
+</ol>
+<p>开发人员通过定义自己的类加载器去控制字节流的获取方式（重写一个类加载器的<code>findClass()</code>或<code>loadClass()</code>方法），实现根据自己的想法来赋予应用程序获取运行代码的动态性。</p>
+<h4 id="验证">2.2 验证</h4>
+<p>验证是连接阶段的第一步，这一阶段的目的是<u>确保Class文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求，保证这些信息被当作代码运行后不会危害虚拟机自身的安全</u>。从整体上看，验证阶段大致上会完成下面四个阶段的检验动作：文件格式验证、元数据验证、字节 码验证和符号引用验证。</p>
+<h5 id="文件格式验证">2.2.1 文件格式验证</h5>
+<p>验证字节流是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理。</p>
+<p>该验证阶段的主要目的是<u><strong>保证输入的字节流能正确地解析并存储于方法区之内，格式上符合描述一个Java类型信息的要求。</strong></u>这阶段的验证是<strong>基于二进制字节流进行的</strong>，只有通过了这个阶段的验证之后，这段字节流才被允许进入Java虚拟机内存的方法区中进行存储。</p>
+<h5 id="元数据验证">2.2.2 元数据验证</h5>
+<p>对字节码描述的信息进行<code>语义分析</code>，以保证其描述的信息符合《Java语言规范》的要求。</p>
+<h5 id="字节码验证">2.2.3 字节码验证</h5>
+<p>通过<code>数据流分析</code>和<code>控制流分析</code>，确定程序语义是合法的、符合逻辑的。</p>
+<p>这阶段对类的方法体（Class文件中的Code属性）进行校验分析，保证被校验类的方法在运行时不会做出危害虚拟机安全的行为。</p>
+<h5 id="符号引用验证">2.2.4 符号引用验证</h5>
+<p>符号引用验证可以看作是<strong><u>对类自身以外（常量池中的各种符号引用）的各类信息进行匹配性校验</u></strong>，即该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。</p>
+<p>该校验过程发生在虚拟机<u>将符号引用转化为直接引用</u>的时候，这个转化动作将在连接的第三阶段——解析阶段中发生。</p>
+<h4 id="准备">2.3 准备</h4>
+<p>准备阶段是正式<u><strong>为类中定义的变量（即静态变量，被static修饰的变量）分配内存并设置类变量初始值</strong></u>的阶段。</p>
+<p>两个容易产生混淆的概念：</p>
+<ul>
+<li>此时进行内存分配的仅包括类变量，而不包括实例变量，实例变量将会在对象实例化时随着对象一起分配在Java堆中。</li>
+<li>这里所说的初始值“通常情况”下是<code>数据类型的零值</code>。
+<ul>
+<li>比如对于<code>public static int value = 123;</code>，变量value在准备阶段过后的初始值为0，把 <code>value</code>赋值为<code>123</code>的<code>putstatic</code>指令是程序被编译后，存放于类构造器<code>&lt;clinit&gt;()</code>方法之中，所以把<code>value</code>赋值为<code>123</code>的动作要到<strong>类的初始化阶段</strong>才会被执行。</li>
+<li>如果类字段的字段属性表中存在<code>ConstantValue</code>属性，那在准备阶段变量值就会被初始化为<code>ConstantValue</code>属性所指定的初始值(比如<code>public static final int value = 123;</code>)</li>
+</ul></li>
+</ul>
+<h4 id="解析">2.4 解析</h4>
+<p>解析阶段是Java虚拟机<strong>将常量池内的符号引用替换为直接引用</strong>的过程。</p>
+<ul>
+<li><code>符号引用（Symbolic References）</code>：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的<strong>字面量</strong>，只要使用时能无歧义地定位到目标即可。
+<ul>
+<li>符号引用与虚拟机实现的内存布局无关，引 用的目标并不一定是已经加载到虚拟机内存当中的内容。</li>
+</ul></li>
+<li><code>直接引用（Direct References）</code>：直接引用是可以直接指向目标的指针、相对偏移量或者是一个能间接定位到目标的句柄。
+<ul>
+<li>直接引用是和虚拟机实现的内存布局直接相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。</li>
+<li>如果有了直接引用，那引用的目标必定已经在虚拟机的内存中存在。</li>
+</ul></li>
+</ul>
+<p>虚拟机实现可以对第一次解析的结果进行缓存(除<code>invokedynamic</code>指令以外)，譬如在运行时直接引用常量池中的记录，并把常量标识为已解析状态，从而避免解析动作重复进行。无论是否真正执行了多次解析动作，Java虚拟机都需要保证的是在同一个实体中：</p>
+<ul>
+<li>如果一个符号引用之前已经被成功解析过，那么后续的引用解析请求就应当一直能够成功；</li>
+<li>如果第一次解析失败了，其他指令对这个符号的解析请求也应该收到相同的异常，哪怕这个请求的符号在后来已成功加载进Java虚拟机内存之中。</li>
+</ul>
+<p>对于<code>invokedynamic</code>指令，上面的规则就不成立了。当碰到某个前面已经由<code>invokedynamic</code>指令触发过解析的符号引用时，并不意味着这个解析结果对于其他<code>invokedynamic</code>指令也同样生效。</p>
+<ul>
+<li><code>invokedynamic</code>指令的目的本来就是用于动态语言支持，它对应的引用称为<code>“动态调用点限定符 （Dynamically-Computed Call Site Specifier）”</code>，这里<code>“动态”</code>的含义是指<u><strong>必须等到程序实际运行到这条指令时，解析动作才能进行</strong></u>。</li>
+</ul>
+<p>解析动作主要针对<u><strong>类或接口</strong></u>、<u><strong>字段</strong></u>、<u><strong>类方法</strong></u>、<u><strong>接口方法</strong></u>、<u><strong>方法类型</strong></u>、<u><strong>方法句柄</strong></u>和<u><strong>调用点限定符</strong></u>这7类符号引用进行。</p>
+<h5 id="类或接口的解析">2.4.1 类或接口的解析</h5>
+<p>假设当前代码所处的类为<code>D</code>，如果要把一个从未解析过的符号引用<code>N</code>解析为一个类或接口<code>C</code>的直接引用，那虚拟机完成整个解析的过程需要包括以下3个步骤：</p>
+<ol type="1">
+<li>如果<code>C</code>不是一个数组类型，那虚拟机将会把代表<code>N</code>的全限定名传递给<code>D</code>的类加载器去加载这个类<code>C</code>。</li>
+<li>如果<code>C</code>是一个数组类型，并且数组的元素类型为对象，也就是<code>N</code>的描述符会是类似“<code>[Ljava/lang/Integer</code>”的形式，那将会按照第一点的规则加载数组元素类型。</li>
+<li>如果上面两步没有出现任何异常，那么<code>C</code>在虚拟机中实际上已经成为一个有效的类或接口了，但在解析完成前还要进行符号引用验证，确认<code>D</code>是否具备对<code>C</code>的访问权限。如果发现不具备访问权限， 将抛出<code>java.lang.IllegalAccessError</code>异常。</li>
+</ol>
+<p>如果我们说一个<code>D</code>拥有<code>C</code>的访问权限，那就意味着以下3条规则中至少有其中一条成立：</p>
+<ul>
+<li>被访问类<code>C</code>是<code>public</code>的，并且与访问类<code>D</code>处于同一个模块。</li>
+<li>被访问类<code>C</code>是<code>public</code>的，不与访问类<code>D</code>处于同一个模块，但是<code>被访问类C</code>的模块允许<code>访问类D</code>的模块进行访问。</li>
+<li>被访问类<code>C</code>不是<code>public</code>的，但是它与访问类<code>D</code>处于同一个包中。</li>
+</ul>
+<h5 id="字段解析">2.4.2 字段解析</h5>
+<p>要解析一个未被解析过的字段符号引用，首先将会对字段表内<code>class_index</code>项中索引的<code>CONSTANT_Class_info</code>符号引用进行解析，也就是<strong><u>字段所属的类或接口的符号引用</u></strong>。</p>
+<p>如果解析成功完成，那把这个字段所属的类或接口用<code>C</code>表示，按照如下步骤对C进行后续字段的搜索：</p>
+<ol type="1">
+<li>如果<code>C</code>本身就包含了<strong>简单名称</strong>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
+<li>如果在<code>C</code>中实现了接口，将会按照继承关系从下往上递归搜索各个接口和它的父接口， 如果接口中包含了<strong>简单名称</strong>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
+<li>如果<code>C</code>不是<code>java.lang.Object</code>的话，将会按照继承关系从下往上递归搜索其父类，如果在父类中包含了<code>简单名称</code>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
+<li>否则，查找失败，抛出<code>java.lang.NoSuchFieldError</code>异常。</li>
+</ol>
+<p>如果查找过程成功返回了引用，将会对这个字段进行权限验证。</p>
+<h5 id="方法解析">2.4.3 方法解析</h5>
+<p>方法解析的第一个步骤也是需要先解析出方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，那么依然用<code>C</code>表示这个类，接下来虚拟机将会按照如下步骤进行后续的方法搜索：</p>
+<ol type="1">
+<li>由于Class文件格式中<strong><u>类的方法和接口的方法符号引用的常量类型定义是分开的</u></strong>，如果在类的方法表中发现<code>class_index</code>中索引的<code>C</code>是个接口的话，那就直接抛出<code>java.lang.IncompatibleClassChangeError</code>异常。</li>
+<li>在类<code>C</code>中查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
+<li>在类<code>C</code>的父类中递归查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
+<li>在类<code>C</code>实现的接口列表及它们的父接口之中递归查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果存在匹配的方法，说明类<code>C</code>是一个抽象类，这时候查找结束，抛出<code>java.lang.AbstractMethodError</code>异常。</li>
+<li>否则，宣告方法查找失败，抛出<code>java.lang.NoSuchMethodError</code>。</li>
+</ol>
+<p>最后，如果查找过程成功返回了直接引用，将会对这个方法进行权限验证。</p>
+<h5 id="接口方法解析">2.4.4 接口方法解析</h5>
+<p>接口方法也是需要先解析出接口方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，依然用<code>C</code>表示这个接口，接下来虚拟机将会按照如下步骤进行后续的接口方法搜索：</p>
+<ol type="1">
+<li>与类的方法解析相反，如果在接口方法表中发现<code>class_index</code>中的索引<code>C</code>是个类而不是接口，那么就直接抛出<code>java.lang.IncompatibleClassChangeError</code>异常。</li>
+<li>在接口<code>C</code>中查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
+<li>在接口<code>C</code>的父接口中递归查找，直到<code>java.lang.Object</code>类（接口方法的查找范围也会包括Object类中的方法）为止，看是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
+<ul>
+<li>由于Java的<u>接口允许多重继承</u>，如果C的不同父接口中存有<u>多个</u><strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，那将会从这多个方法中返回其中一个并结束查找，不同发行商实现的<code>Javac</code>编译器有可能会按照<u><strong>更严格的约束拒绝编译这种代码来避免不确定性</strong></u>。</li>
+</ul></li>
+<li>否则，宣告方法查找失败，抛出<code>java.lang.NoSuchMethodError</code>异常。</li>
+</ol>
+<blockquote>
+<ul>
+<li>在<code>JDK 9</code>之前，Java接口中的所有方法都<u>默认是<code>public</code>的</u>，也没有模块化的访问约束，所以不存在访问权限的问题。</li>
+<li>但在<code>JDK 9</code>中增加了<u>接口的静态私有方法</u>，也有了模块化的访问约束，所以接口方法的访问也完全有可能因访问权限控制而出现<code>java.lang.IllegalAccessError</code>异常。</li>
+</ul>
+</blockquote>
+<h4 id="初始化">2.5 初始化</h4>
+<blockquote>
+<p>直到初始化阶段，Java虚拟机才真正开始执行类中编写的Java程序代码，将主导权移交给应用程序。</p>
+</blockquote>
+<p>初始化阶段就是执行类构造器<code>&lt;clinit&gt;()</code>方法的过程。</p>
+<blockquote>
+<p><code>&lt;clinit&gt;()</code>并不是程序员在Java代码中直接编写的方法，它是<code>Javac</code>编译器的自动生成物。</p>
+</blockquote>
+<p><code>&lt;clinit&gt;()</code>方法是由编译器<u>自动收集</u>类中的所有<strong>类变量的赋值动作</strong>和<strong>静态语句块（static{}块）中的语句</strong>合并产生的。</p>
+<ul>
+<li><code>&lt;clinit&gt;()</code>方法不需要显式地调用父类构造器，Java虚拟机会保证在子类的<code>&lt;clinit&gt;()</code>方法执行前，父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。意味着父类中定义的静态语句块要优先于子类的变量赋值操作；</li>
+<li><code>&lt;clinit&gt;()</code>方法不是必需的，如果一个类中没有静态语句块，也没有对变量的赋值操作，那么编译器可以不为这个类生成<code>&lt;clinit&gt;()</code>方法</li>
+<li>执行接口的<code>&lt;clinit&gt;()</code>方法不需要先执行父接口的<code>&lt;clinit&gt;()</code>方法，接口的<strong><u>实现类</u></strong>在初始化时也一样不会执行接口的<code>&lt;clinit&gt;()</code>方法；</li>
+<li>Java虚拟机必须保证一个类的<code>&lt;clinit&gt;()</code>方法方法在多线程环境中被正确地加锁同步。</li>
+<li>同一个类加载器下，一个类型只会被初始化一次。</li>
+</ul>
+<h3 id="类加载器">3. 类加载器</h3>
+<p>实现<code>“通过一个类的全限定名来获取描述该类的二进制字节流”</code>这个动作的代码被称为<code>“类加载器”（Class Loader）</code>。</p>
+<h4 id="类与类加载器">3.1 类与类加载器</h4>
+<p>对于任意一个类，都必须由加载它的类加载器和这个类本身一起共同确立其在Java虚拟机中的<strong><u>唯一性</u></strong>，每一个类加载器都拥有一个独立的类名称空间。</p>
+<blockquote>
+<p>比较两个类是否“相等”，只有在这两个类是由同一个类加载器加载的前提下才有意义，只要加载它们的类加载器不同，那这两个类就<strong>必定不相等</strong>。</p>
+</blockquote>
+<h4 id="双亲委派模型">3.2 双亲委派模型</h4>
+<p>Java虚拟机的角度来看，只存在两种不同的类加载器：</p>
+<ul>
+<li><code>启动类加载器（Bootstrap ClassLoader）</code>，这个类加载器是虚拟机自身的一部分；</li>
+<li>其他所有的类加载器，这些类加载器都由Java语言实现，<strong><u>独立存在于虚拟机外部</u></strong>，并且全都继承自抽象类 <code>java.lang.ClassLoader</code>。</li>
+</ul>
+<p>Java开发人员的角度来看，类加载器是<code>三层类加载器</code>、<code>双亲委派</code>的类加载架构：</p>
+<ul>
+<li><code>启动类加载器（Bootstrap Class Loader）</code>：负责加载存放在<code>&lt;JAVA_HOME&gt;\lib</code>目录，或者被<code>-Xbootclasspath</code>参数所指定的路径中存放的，而且是Java虚拟机能够识别的类库加载到虚拟机的内存中。启动类加载器无法被Java程序直接引用；</li>
+<li><code>扩展类加载器（Extension Class Loader）</code>：负责加载<code>&lt;JAVA_HOME&gt;\lib\ext</code>目录中，或者被<code>java.ext.dirs</code>系统变量所指定的路径中所有的类库。这个类加载器是在类<code>sun.misc.Launcher$ExtClassLoader</code>中以Java代码的形式实现的。</li>
+<li><code>应用程序类加载器（Application Class Loader）</code>：负责加载用户类路径<code>（ClassPath）</code>上所有的类库，由 <code>sun.misc.Launcher$AppClassLoader</code>来实现。</li>
+</ul>
+<p><u><code>JDK 9</code>之前</u>的Java应用都是由这三种类加载器互相配合来完成加载的，用户可以加入自定义的类加载器来进行拓展，如：</p>
+<ul>
+<li>增加除了磁盘位置之外的Class文件来源</li>
+<li>通过类加载器实现类的隔离、重载等功能。</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ParentsDelegation.PNG" alt="双亲委派模型" /><figcaption aria-hidden="true">双亲委派模型</figcaption>
+</figure>
+<p><code>“双亲委派模型（Parents Delegation Model）”</code>要求除了顶层的启动类加载器外，其余的类加载器都应有自己的父类加载器。</p>
+<blockquote>
+<p>类加载器之间的父子关系一般不是以<code>继承（Inheritance）</code>来实现的，而是通常使用<code>组合（Composition）</code>关系来复用父加载器的代码。</p>
+</blockquote>
+<p>双亲委派模型的工作过程是：</p>
+<ul>
+<li>如果一个类加载器收到了类加载的请求，首先把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到最顶层的启动类加载器中；</li>
+<li>只有当父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去完成加载。</li>
+</ul>
+<h4 id="破坏双亲委派模型">3.3 破坏双亲委派模型</h4>
+<p>直到Java模块化出现为止，双亲委派模型主要出现过3次较大规模“被破坏”的情况：</p>
+<ul>
+<li>第一次“被破坏”其实发生在双亲委派模型出现之前——即<code>JDK 1.2</code>面世以前。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Learning</tag>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Java学习|深入理解Java虚拟机]--6 类文件结构</title>
+    <url>/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_6_Class_file_structure.html</url>
+    <content><![CDATA[<h3 id="前言">前言</h3>
+<blockquote>
+<p><code>代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步。</code> <a id="more"></a></p>
+</blockquote>
+<h3 id="无关性的基石">1. 无关性的基石</h3>
+<p>各种不同平台的Java虚拟机，以及所有平台都统一支持的<u>程序存储格式</u>——<code>字节码（Byte Code）</code>是构成平台无关性的基石。Java虚拟机<strong>不与包括Java语言在内的任何程序语言绑定，它只与<code>“Class文件”</code>这种特定的二进制文件格式所关联</strong>，<code>Class文件</code>中包含了<code>Java虚拟机指令集</code>、<code>符号表</code>以及<code>若干其他辅助信息</code>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JVMLanguageIndependence.PNG" alt="Java虚拟机的语言无关性" /><figcaption aria-hidden="true">Java虚拟机的语言无关性</figcaption>
+</figure>
+<p>Java语言中的各种语法、关键字、常量变量和运算符号的语义最终都会由多条字节码指令组合来表达，这决定了<u>字节码指令所能提供的语言描述能力比Java语言本身更加强大</u>。</p>
+<h3 id="class类文件的结构">2. Class类文件的结构</h3>
+<p><code>Class文件</code>是一组以<code>8</code>个字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在文件之中，<strong>中间没有添加任何分隔符</strong>，这使得<u>整个Class文件中存储的内容几乎全部是程序运行的必要数据</u>，没有空隙存在。遇到需要占用8个字节以上空间的数据项时，则会<strong><code>按照高位在前的方式分割</code></strong>成若干个8个字节进行存储。</p>
+<blockquote>
+<p>任何一个Class文件都对应着唯一的一个类或接口的定义信息。反过来说，<strong>类或接口并不一定都得定义在文件里</strong>（譬如类或接口也可以动态生成，直接送入类加载器中）。</p>
+</blockquote>
+<p>Class文件格式采用一种类似于C语言结构体的<code>伪结构</code>来存储数据，这种伪结构中只有两种数据类型：<code>“无符号数”</code>和<code>“表”</code>。</p>
+<ul>
+<li><code>无符号数</code>属于<u><strong>基本的数据类型</strong></u>，以<code>u1</code>、<code>u2</code>、<code>u4</code>、<code>u8</code>来分别代表1个字节、2个字节、4个字节和8个 字节的无符号数，可以用来描述数字、索引引用、数量值或者按照UTF-8编码构成字符串值。</li>
+<li><code>表</code>是<u><strong>由多个无符号数或者其他表作为数据项构成的复合数据类型</strong></u>，所有表的命名都习惯性地以<code>“_info”</code>结尾。表用于描述有层次关系的复合结构的数据，<strong><code>整个Class文件本质上也可以视作是一张表</code></strong>。</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ClassFileStructure.PNG" alt="Class文件格式" /><figcaption aria-hidden="true">Class文件格式</figcaption>
+</figure>
+<h4 id="魔数与class文件的版本">2.1 魔数与Class文件的版本</h4>
+<p>每个Class文件的头4个字节被称为<code>魔数（Magic Number）</code>，它的<strong>唯一作用</strong>是<u><strong>确定这个文件是否为一个能被虚拟机接受的Class文件</strong></u>。</p>
+<blockquote>
+<p>Class文件的魔数取得很有“浪漫气息”，值为<code>0xCAFEBABE</code>(咖啡宝贝?)</p>
+</blockquote>
+<p>第5和第6个字节是<code>次版本号（Minor Version）</code>，第7和第8个字节是<code>主版本号（Major Version）</code>。</p>
+<blockquote>
+<p>Java的版本号是从45开始的。在Class文件校验部分明确要求了即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的Class文件。</p>
+</blockquote>
+<h4 id="常量池">2.2 常量池</h4>
+<p>常量池可以比喻为<code>Class</code>文件里的资源仓库，通常也是占用<code>Class</code>文件空间最大的数据项目之一，它还是在Class文件中第一个出现的<code>表类型数据项目</code>。</p>
+<p>常量池中常量的数量是不固定的，所以在常量池的入口需要放置一项<code>u2</code>类型的数据，代表<code>常量池容量计数值（constant_pool_count）</code>。</p>
+<blockquote>
+<p>Class文件结构中只有常量池的容量计数是<strong>从1开始</strong>。将第0项常量空出来目的在于，如果后面某些指向常量池的索引值的数据在特定情况下需要表达<strong>“不引用任何一个常量池项目”</strong>的含义，可以把索引值设置为0来表示。</p>
+</blockquote>
+<p>常量池中主要存放两大类常量：<code>字面量（Literal）</code>和<code>符号引用（Symbolic References）</code>。</p>
+<ul>
+<li>字面量比较接近于Java语言层面的常量概念，如文本字符串、被声明为final的常量值等；</li>
+<li>符号引用则属于编译原理方面的概念，主要包括下面几类常量：
+<ul>
+<li>被模块导出或者开放的包（Package）；</li>
+<li>类和接口的全限定名（Fully Qualified Name）</li>
+<li>字段的名称和描述符（Descriptor）</li>
+<li>方法的名称和描述符</li>
+<li>方法句柄和方法类型（Method Handle、Method Type、Invoke Dynamic）</li>
+<li>动态调用点和动态常量（Dynamically-Computed Call Site、Dynamically-Computed Constant）</li>
+</ul></li>
+</ul>
+<p>常量池中每一项常量都是一个表。这类表都有一个共同的特点，表结构起始的第一位是个<code>u1</code>类型的标志位（<code>tag</code>），代表着当前常量属于哪种常量类型。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ItemTypeOfConstantPool.PNG" alt="常量池的项目类型" /><figcaption aria-hidden="true">常量池的项目类型</figcaption>
+</figure>
+<blockquote>
+<p>可以使用用于分析Class文件字节码的工具：<code>javap</code>，输出的<code>TestClass.class</code>文件字节码内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">javap -verbose TestClass</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="访问标志">2.3 访问标志</h4>
+<p><code>访问标志（access_flags）</code>，用于识别一些类或者接口层次的访问信息，包括：这个Class是类还是接口；是否定义为public类型；是否定义为abstract类型；如果是类的话，是否被声明为final；等等。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/accessFlags.PNG" alt="访问标志" /><figcaption aria-hidden="true">访问标志</figcaption>
+</figure>
+<p>举例：TestClass是一个普通Java类，它的<code>ACC_PUBLIC</code>、<code>ACC_SUPER</code>标志应当为真，其他为假，因此它的<code>access_flags</code>的值应为：<code>0x0001|0x0020=0x0021</code>。</p>
+<h4 id="类索引父类索引与接口索引集合">2.4 类索引、父类索引与接口索引集合</h4>
+<p><code>类索引（this_class）</code>和<code>父类索引（super_class）</code>都是一个<code>u2</code>类型的数据，而<code>接口索引集合（interfaces）</code>是一组<code>u2</code>类型的数据的集合，Class文件中由这三项数据来确定该<strong><u>类型的继承关系</u></strong>。</p>
+<blockquote>
+<ul>
+<li>类索引用于确定这个类的全限定名</li>
+<li>父类索引用于确定这个类的父类的全限定名。父类索引只有一个(不允许多重继承)</li>
+<li>接口索引集合用来描述这个类实现了哪些接口，这些被实现的接口将按<code>implements</code>关键字后的接口顺序从左到右排列在接口索引集合中。</li>
+</ul>
+</blockquote>
+<p>类索引和父类索引用两个<code>u2</code>类型的索引值表示，它们各自指向一个类型为<code>CONSTANT_Class_info</code>的类描述符常量，通过<code>CONSTANT_Class_info</code>类型的常量中的索引值可以找到定义在<code>CONSTANT_Utf8_info</code>类型的常量中的<code>全限定名字符串</code>。</p>
+<p>对于接口索引集合，入口的第一项<code>u2</code>类型的数据为<code>接口计数器（interfaces_count）</code>，表示索引表的容量。如果该类没有实现任何接口，则该计数器值为0。</p>
+<h4 id="字段表集合">2.5 字段表集合</h4>
+<p><code>字段表（field_info）</code>用于描述接口或者类中声明的变量。<code>“字段”（Field）</code>包括类级变量以及实例级变量，但不包括在方法内部声明的局部变量。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/fieldInfo.PNG" alt="字段表结构" /><figcaption aria-hidden="true">字段表结构</figcaption>
+</figure>
+<p><code>name_index</code>和<code>descriptor_index</code>都是对常量池项的引用，分别代表着字段的简单名称以及字段和方法的描述符。</p>
+<ul>
+<li><code>全限定名</code>和<code>简单名称</code>。比如<code>“org/fenixsoft/clazz/TestClass”</code>是类的<code>全限定名</code>；<code>简单名称</code>则就是指没有类型和参数修饰的方法或者字段名称，类中的<code>inc()</code>方法和<code>m</code>字段的简单名称分别就是“<code>inc</code>”和“<code>m</code>”。</li>
+<li><code>描述符</code>的作用是用来描述字段的数据类型、方法的参数列表（包括数量、类型以及顺序）和返回值。
+<ul>
+<li>对于数组类型，每一维度将使用一个前置的<code>“[”</code>字符来描述。比如<code>“int[]”</code>将被记录成<code>“[I”</code>。</li>
+<li>描述符来描述方法时，按照先参数列表、后返回值的顺序描述，参数列表按照参数的严格顺序放在一组小括号<code>“()”</code>之内。<code>void inc()</code>的描述符为<code>“()V”</code>。</li>
+</ul></li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/descriptor.PNG" alt="描述符" /><figcaption aria-hidden="true">描述符</figcaption>
+</figure>
+<blockquote>
+<p>字段表集合中不会列出从父类或者父接口中继承而来的字段</p>
+</blockquote>
+<h4 id="方法表集合">2.6 方法表集合</h4>
+<p>对方法的描述与对字段的描述采用了几乎完全一致的方式，依次包括<code>访问标志（access_flags）</code>、<code>名称索引（name_index）</code>、<code>描述符索引（descriptor_index）</code>、<code>属性表集合（attributes）</code>几项。</p>
+<blockquote>
+<p>父类方法在子类中没有被<code>重写（Override）</code>，方法表集合中就不会出现来自父类的方法信息。</p>
+</blockquote>
+<h4 id="属性表集合">2.7 属性表集合</h4>
+<p>Class文件、字段表、方法表都可以携带自己的<code>属性表集合（attribute_info）</code>。对于每一个属性，它的名称都要从常量池中引用一个<code>CONSTANT_Utf8_info</code>类型的常量来表示，而属性值的结构则是完全自定义的，只需要通过一个<code>u4</code>的长度属性去说明属性值所占用的位数即可。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/attributeInfo.PNG" alt="属性表结构" /><figcaption aria-hidden="true">属性表结构</figcaption>
+</figure>
+<h5 id="code属性">2.7.1 Code属性</h5>
+<p>Java程序方法体里面的代码经过<code>Javac</code>编译器处理之后，最终变为字节码指令存储在<code>Code属性</code>内。Code属性出现在方法表的属性集合之中。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/CodeAttributeInfo.PNG" alt="Code属性表的结构" /><figcaption aria-hidden="true">Code属性表的结构</figcaption>
+</figure>
+<ul>
+<li><code>attribute_name_index</code>是一项指向<code>CONSTANT_Utf8_info</code>型常量的索引，此常量值<strong>固定为<code>“Code”</code></strong>；</li>
+<li><code>attribute_length</code>指示了属性值的长度；</li>
+<li><code>max_stack</code>代表了<code>操作数栈（Operand Stack）</code>深度的最大值；</li>
+<li><code>max_locals</code>代表了局部变量表所需的存储空间。<code>Javac</code>编译器会根据变量的作用域来分配变量槽给各个变量使用，根据<u><strong>同时生存的最大局部变量数量和类型</strong></u>计算出<code>max_locals</code>的大小。</li>
+<li><code>code_length</code>和code用来存储Java源程序编译后生成的字节码指令。<code>code_length</code>代表字节码长度，虽然它是一个<code>u4</code>类型的长度值，理论上最大值可以达到<code>2的32次幂</code>。有可能<strong><u>因为方法生成字节码超长的原因而导致编译失败</u></strong>。</li>
+<li>Code属性用于描述代码。
+<ul>
+<li>Java语言里面的潜规则：在任何实例方法里面，都可以通过“<code>this”</code>关键字访问到此方法所属的对象。是通过在<code>Javac</code>编译器编译的时候把对<code>this</code>关键字的访问转变为对一个普通方法参数的访问，然后在虚拟机调用实例方法时自动传入此参数。所以在实例方法的局部变量表中至少会存在一个指向当前对象实例的局部变量。</li>
+</ul></li>
+<li>显式异常处理表对于Code属性来说并不是必须存在的。如果存在异常表，它包含<u>四个字段</u>，这些字段的含义为：如果当字节码从第<code>start_pc</code>行到第<code>end_pc</code>行之间（不含第<code>end_pc</code>行）出现了类型为<code>catch_type</code>或者其子类的异常（<code>catch_type</code>为指向一个<code>CONSTANT_Class_info</code>型常量的索引），则转到第<code>handler_pc</code>行继续处理。当 <code>catch_type</code>的值为0时，代表任意异常情况都需要转到<code>handler_pc</code>处进行处理。</li>
+</ul>
+<h5 id="exceptions属性">2.7.2 Exceptions属性</h5>
+<p><code>Exceptions属性</code>是在方法表中与Code属性平级的一项属性，作用是列举出方法中可能抛出的<code>受查异常（Checked Excepitons）</code>。</p>
+<h5 id="linenumbertable属性">2.7.3 LineNumberTable属性</h5>
+<p><code>LineNumberTable</code>属性用于描述Java源码行号与字节码行号（字节码的偏移量）之间的对应关系。</p>
+<h5 id="localvariabletable及localvariabletypetable属性">2.7.4 LocalVariableTable及LocalVariableTypeTable属性</h5>
+<ul>
+<li><code>LocalVariableTable</code>属性用于描述栈帧中局部变量表的变量与Java源码中定义的变量之间的关系。</li>
+<li><code>LocalVariableTypeTable</code>把<code>LocalVariableTabl</code>字段描述符的<code>descriptor_index</code>替换成了字段的<code>特征签名（Signature）</code>。泛型引入之后，由于描述符中泛型的参数化类型<code>被擦除掉</code>，描述符就不能准确描述泛型类型了。因此出现了<code>LocalVariableTypeTable</code>属性，<strong><u>使用字段的特征签名来完成泛型的描述</u></strong>。</li>
+</ul>
+<h5 id="sourcefile及sourcedebugextension属性">2.7.5 SourceFile及SourceDebugExtension属性</h5>
+<p><code>SourceFile</code>属性用于记录生成这个Class文件的源码文件名称。</p>
+<p><code>SourceDebugExtension</code>属性用于存储额外的代码调试信息。</p>
+<h5 id="constantvalue属性">2.7.6 ConstantValue属性</h5>
+<p><code>ConstantValue</code>属性的作用是通知虚拟机自动为静态变量赋值。只有被<code>static</code>关键字修饰的变量（类变量）才可以使用这项属性。</p>
+<h5 id="innerclasses属性">2.7.7 InnerClasses属性</h5>
+<p><code>InnerClasses</code>属性用于记录内部类与宿主类之间的关联。</p>
+<h5 id="deprecated及synthetic属性">2.7.8 Deprecated及Synthetic属性</h5>
+<ul>
+<li><code>Deprecated</code>属性用于表示某个类、字段或者方法，已经被程序作者定为不再推荐使用，它可以通过代码中使用<code>“@deprecated”</code>注解进行设置；</li>
+<li><code>Synthetic</code>属性代表此字段或者方法并不是由Java源码直接产生的，而是由编译器自行添加的。</li>
+</ul>
+<blockquote>
+<p><code>Deprecated</code>和<code>Synthetic</code>两个属性都属于标志类型的布尔属性，只存在有和没有的区别，没有属性值的概念。</p>
+</blockquote>
+<h5 id="stackmaptable属性">2.7.9 StackMapTable属性</h5>
+<p><code>StackMapTable</code>属性会在虚拟机类加载的字节码验证阶段被<code>新类型检查验证器（Type Checker）</code>使用，目的在于代替以前比较消耗性能的基于数据流分析的类型推导验证器。</p>
+<h5 id="signature属性">5.7.10 Signature属性</h5>
+<p><code>Signature</code>属性记录泛型类型，是因为Java语言的泛型采用的是<code>擦除法</code>实现的伪泛型，字节码（Code属性）中所有的泛型信息编译（类型变量、参数化类型）在编译之后都通通被擦除掉。</p>
+<blockquote>
+<ul>
+<li>使用擦除法的好处是实现简单（主要修改<code>Javac</code>编译器，虚拟机内部只做了很少的改动）、非常容易实现<code>Backport</code>，运行期也能够节省一些类型所占的内存空间。</li>
+<li>坏处是运行期就无法像有真泛型支持的语言那样，将泛型类型与用户定义的普通类型同等对待</li>
+</ul>
+</blockquote>
+<h5 id="bootstrapmethods属性">2.7.11 BootstrapMethods属性</h5>
+<p><code>BootstrapMethods</code>属性用于保存<code>invokedynamic</code>指令引用的引导方法限定符。</p>
+<h5 id="methodparameters属性">2.7.12 MethodParameters属性</h5>
+<p><code>MethodParameters</code>的作用是记录方法的各个形参名称和信息。</p>
+<h5 id="模块化相关属性">2.7.13 模块化相关属性</h5>
+<p><code>模块描述文件（module-info.java）</code>最终是要编译成一个独立的Class文件来存储的，所以Class文件格式也扩展了<code>Module</code>、<code>ModulePackages</code>和<code>ModuleMainClass</code>三个属性用于支持Java模块化相关功能。</p>
+<ul>
+<li><code>Module</code>属性除了表示该模块的名称、版本、标志信息以外，还存储了这个模块requires、exports、opens、uses和provides定义的全部内容；</li>
+<li><code>ModulePackages</code>用于描述该模块中所有的包</li>
+<li><code>ModuleMainClass</code>用于确定该模块的<code>主类（Main Class）</code></li>
+</ul>
+<h5 id="运行时注解相关属性">2.7.14 运行时注解相关属性</h5>
+<p>为了存储源码中注解信息，Class文件同步增加了</p>
+<ul>
+<li><code>RuntimeVisibleAnnotations</code>；</li>
+<li><code>RuntimeInvisibleAnnotations</code>；</li>
+<li><code>RuntimeVisibleParameterAnnotations</code>；</li>
+<li><code>RuntimeInvisibleParameterAnnotations</code></li>
+</ul>
+<p>后来又新增类型注解 （JSR 308）：</p>
+<ul>
+<li><code>RuntimeVisibleTypeAnnotations</code></li>
+<li><code>RuntimeInvisibleTypeAnnotations</code></li>
+</ul>
+<p><code>RuntimeVisibleAnnotations</code>记录了类、字段或方法的声明上记录运行时可见注解，当我们使用<code>反射API</code>来获取类、字段或方法上的注解时，返回值就是通过这个属性来取到的。</p>
+<h3 id="字节码指令简介">3. 字节码指令简介</h3>
+<p>Java虚拟机的指令由<u><strong>一个字节长度的</strong>、<strong>代表着某种特定操作含义</strong></u>的数字（称为<code>操作码，Opcode</code>）以及跟随其后的零至多个代表<strong>此操作所需的参数</strong>（称为<code>操作数，Operand</code>）构成。</p>
+<p>如果不考虑异常处理的话，那Java虚拟机的解释器可以使用下面这段伪代码作为最基本的执行模型来理解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    自动计算PC寄存器的值加<span class="number">1</span>;</span><br><span class="line">    根据PC寄存器指示的位置，从字节码流中取出操作码;</span><br><span class="line">    <span class="keyword">if</span> (字节码存在操作数) 从字节码流中取出操作数;</span><br><span class="line">    执行操作码所定义的操作;</span><br><span class="line">&#125; <span class="keyword">while</span> (字节码流长度 &gt; <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="字节码与数据类型">3.1 字节码与数据类型</h4>
+<p>Java虚拟机的指令集中，<strong>大多数指令都包含其操作所对应的数据类型信息</strong>。</p>
+<blockquote>
+<p>对于大部分与数据类型相关的字节码指令，它们的操作码助记符中都有特殊的字符来表明专门为哪种数据类型服务：<code>i</code>代表对<code>int</code>类型的数据操作，<code>l</code>代表<code>long</code>，<code>s</code>代表<code>short</code>，<code>b</code>代表<code>byte</code>，<code>c</code>代表<code>char</code>，<code>f</code>代表<code>float</code>，<code>d</code>代表<code>double</code>，<code>a</code>代表<code>reference</code>。</p>
+</blockquote>
+<p>Java虚拟机的指令集对于特定的操作只提供了有限的类型相关指令去支持它，即指令集将会被故意设计成非完全独立的。有一些单独的指令可以在必要的时候用来将一些不支持的类型转换为可被支持的类型。</p>
+<h4 id="加载和存储指令">3.2 加载和存储指令</h4>
+<p>加载和存储指令用于将数据在栈帧中的局部变量表和操作数栈之间来回传输：</p>
+<ul>
+<li>将一个局部变量加载到操作栈：<code>load</code>、<code>iload_&lt;n&gt;</code>、<code>lload</code>、<code>lload_&lt;n&gt;</code>、<code>fload</code>、<code>fload_&lt;n&gt;</code>、<code>dload</code>、<code>dload_&lt;n&gt;</code>、<code>aload</code>、<code>aload_&lt;n&gt;</code>；</li>
+<li>将一个数值从操作数栈存储到局部变量表：<code>istore</code>、<code>istore_&lt;n&gt;</code>、<code>lstore</code>、<code>lstore_&lt;n&gt;</code>、<code>fstore</code>、<code>fstore_&lt;n&gt;</code>、<code>dstore</code>、<code>dstore_&lt;n&gt;</code>、<code>astore</code>、<code>astore_&lt;n&gt;</code>；</li>
+<li>将一个常量加载到操作数栈：<code>bipush</code>、<code>sipush</code>、<code>ldc</code>、<code>ldc_w</code>、<code>ldc2_w</code>、<code>aconst_null</code>、<code>iconst_m1</code>、<code>iconst_&lt;i&gt;</code>、<code>lconst_&lt;l&gt;</code>、<code>fconst_&lt;f&gt;</code>、<code>dconst_&lt;d&gt;</code></li>
+<li>扩充局部变量表的访问索引的指令：<code>wide</code></li>
+</ul>
+<p>是以尖括号结尾的（例如<code>iload_&lt;n&gt;</code>）指令助记符实际上代表了一组指令，某个带有一个操作数的通用指令（例如<code>iload</code>）的特殊形式。省略掉了显式的操作数，不需要进行取操作数的动作，因为实际上操作数就隐含在指令中。</p>
+<h4 id="运算指令">3.3 运算指令</h4>
+<p>算术指令用于对两个操作数栈上的值进行某种特定运算，并把结果重新存入到操作栈顶：</p>
+<ul>
+<li>对整型数据进行运算的指令</li>
+<li>对浮点型数据进行运算的指令</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ArithmeticInstructions.PNG" alt="算术指令" /><figcaption aria-hidden="true">算术指令</figcaption>
+</figure>
+<h4 id="类型转换指令">3.4 类型转换指令</h4>
+<p>类型转换指令可以<strong><u>将两种不同的数值类型相互转换</u></strong>，这些转换操作一般用于：</p>
+<ul>
+<li>实现用户代码中的显式类型转换操作；</li>
+<li>处理字节码指令集中数据类型相关指令无法与数据类型 一一对应的问题。</li>
+</ul>
+<p>Java虚拟机<strong><u>直接支持（即转换时无须显式的转换指令）</u></strong>以下数值类型的<code>宽化类型转换（Widening Numeric Conversion）</code>：</p>
+<ul>
+<li>int类型到long、float或者double类型</li>
+<li>long类型到float、double类型</li>
+<li>float类型到double类型</li>
+</ul>
+<p>处理<code>窄化类型转换（Narrowing Numeric Conversion）</code>时，就必须显式地使用转换指令来完成，这些转换指令包括<code>i2b</code>、<code>i2c</code>、<code>i2s</code>、<code>l2i</code>、<code>f2i</code>、<code>f2l</code>、<code>d2i</code>、<code>d2l</code>和<code>d2f</code>。</p>
+<h4 id="对象创建与访问指令">3.5 对象创建与访问指令</h4>
+<p>对类实例和数组的创建与操作使用了不同的字节码指令。对象创建后，就可以通过对象访问指令获取对象实例或者数组实例中的字段或者数组元素，这些指令包括：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ObjectInstructions.PNG" alt="对象创建与访问指令" /><figcaption aria-hidden="true">对象创建与访问指令</figcaption>
+</figure>
+<h4 id="操作数栈管理指令">3.6 操作数栈管理指令</h4>
+<p>Java虚拟机提供了一些用于直接操作操作数栈的指令，包括：</p>
+<ul>
+<li>将操作数栈的栈顶一个或两个元素出栈：<code>pop</code>、<code>pop2</code></li>
+<li>复制栈顶一个或两个数值并将复制值或双份的复制值重新压入栈顶：<code>dup</code>、<code>dup2</code>、<code>dup_x1</code>、<code>dup2_x1</code>、<code>dup_x2</code>、<code>dup2_x2</code></li>
+<li>将栈最顶端的两个数值互换：<code>swap</code></li>
+</ul>
+<h4 id="控制转移指令">4.7 控制转移指令</h4>
+<p>控制转移指令可以让Java虚拟机<strong><u>有条件</u></strong>或<strong><u>无条件</u></strong>地从指定位置指令（而不是控制转移指令）的下 一条指令继续执行程序。控制转移指令包括：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ControlTransferInstruction.PNG" alt="控制转移指令" /><figcaption aria-hidden="true">控制转移指令</figcaption>
+</figure>
+<h4 id="方法调用和返回指令">4.8 方法调用和返回指令</h4>
+<p>方法调用（分派、执行过程）的指令：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/MethodCallAndReturnInstructions.PNG" alt="方法调用和返回指令" /><figcaption aria-hidden="true">方法调用和返回指令</figcaption>
+</figure>
+<h4 id="异常处理指令">4.9 异常处理指令</h4>
+<p>而在Java虚拟机中，处理异常（catch语句）不是由字节码指令来实现的（很久之前曾经使用<code>jsr</code>和 <code>ret</code>指令来实现，现在已经不用了），而是<strong><u>采用异常表来完成</u></strong>。</p>
+<h4 id="同步指令">4.10 同步指令</h4>
+<p>支持方法级的同步和方法内部一段指令序列的同步，这两种同步结构都是使用<code>管程</code>（<code>Monitor</code>，更常见的是直接将它称为<code>“锁”</code>）来实现的。</p>
+<ul>
+<li>方法级的同步是<strong>隐式的</strong>，<u>无须通过字节码指令来控制</u>，它实现在方法调用和返回操作之中。调用指令将会检查方法的<code>ACC_SYNCHRONIZED</code>访问标志是否被设置，如果设置了，执行线程就要求先成功持有管程，然后才能执行方法，最后当方法完成时释放管程。</li>
+<li>同步一段指令集序列通常是由Java语言中的synchronized语句块来表示的，Java虚拟机的指令集中有<code>monitorenter</code>和<code>monitorexit</code>两条指令来支持synchronized关键字的语义</li>
+</ul>
+<h3 id="公有设计私有实现">5. 公有设计，私有实现</h3>
+<p>任何一款Java虚拟机实现都必须能够读取Class文件并精确实现包含在其中的Java虚拟机代码的语义。在此前提下，虚拟机实现者可以使用让Java虚拟机获得更高的性能、更低的内存消耗或者更好的可移植性。</p>
+]]></content>
+      <categories>
+        <category>JVM</category>
+      </categories>
+      <tags>
+        <tag>Learning</tag>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
 </search>

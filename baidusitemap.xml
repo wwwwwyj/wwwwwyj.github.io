@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://wuyunjie.top/2021/05/27/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_7_Virtual_machine_class_loading_mechanism.html</loc>
+    <lastmod>2021-05-27</lastmod>
+  </url>  <url>
+    <loc>https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_6_Class_file_structure.html</loc>
+    <lastmod>2021-05-26</lastmod>
+  </url>  <url>
     <loc>https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_5_Tuning_case_study_and_practice.html</loc>
     <lastmod>2021-05-26</lastmod>
   </url>  <url>
