@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  面对现实，你得做出图形用户接口。">
+  <meta name="description" content="前言 面对现实，你得做出图形用户接口。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--12 图形用户接口">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;17&#x2F;JavaLearning_Head_First_Java_12_getting_gui.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  面对现实，你得做出图形用户接口。">
+<meta property="og:description" content="前言 面对现实，你得做出图形用户接口。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;buttonEvent.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;innerClass.PNG">
@@ -295,7 +295,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -314,23 +314,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>面对现实，你得做出图形用户接口。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>面对现实，你得做出图形用户接口。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="window">1. window</h3>
-<p><code>JFrame</code>是代表屏幕上window的对象，可以把<code>button</code>，<code>checkbox</code>，<code>text</code>字段等接口放在window上。标准的<code>menu</code>也可以加到上面。</p>
+<h3 id="1-window"><a href="#1-window" class="headerlink" title="1. window"></a>1. window</h3><p><code>JFrame</code>是代表屏幕上window的对象，可以把<code>button</code>，<code>checkbox</code>，<code>text</code>字段等接口放在window上。标准的<code>menu</code>也可以加到上面。</p>
 <p>一旦创建了<code>JFrame</code>后，就可以把组件(<code>widget</code>)加到上面。最常用的组件包括：<code>JButton, JRadioButton, JCheckBox, JLabel, JList, JScrollPane, JSlider, JTextArea, JTextField, and JTable</code>.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleGui1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建 frame</span></span><br><span class="line">        JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建 widget</span></span><br><span class="line">        JButton button = <span class="keyword">new</span> JButton(<span class="string">"click me"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// window关闭时结束程序</span></span><br><span class="line">        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把widget加到frame上</span></span><br><span class="line">        frame.getContentPane().add(button);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设定frame大小</span></span><br><span class="line">        frame.setSize(<span class="number">300</span>, <span class="number">300</span>);</span><br><span class="line">        <span class="comment">// 显式</span></span><br><span class="line">        frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="用户接口事件">2. 用户接口事件</h3>
-<p>让按钮在按下时执行工作需要两项：</p>
+<h3 id="2-用户接口事件"><a href="#2-用户接口事件" class="headerlink" title="2. 用户接口事件"></a>2. 用户接口事件</h3><p>让按钮在按下时执行工作需要两项：</p>
 <ul>
 <li>被按下时要执行的方法(按钮任务)</li>
 <li>检测按钮被按下的方法(按钮感应装置)</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/buttonEvent.PNG" alt="按钮事件" /><figcaption aria-hidden="true">按钮事件</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/buttonEvent.PNG" alt="按钮事件"></p>
 <p>取得与处理用户操作事件的过程称为<code>event-handling</code>。如果想知道按钮的事件，就会监听事件的接口，<code>监听接口</code>是<u>介于监听与事件源间的桥梁</u>。</p>
 <p>事件来源将用户操作转换成事件的对象，事件几乎都是以对象来表示。程序大多数情况是事件的接收方而不是创建方。事件对象通过不同的事件方法来表示不同类型的事件。</p>
 <p>比如取得按钮的<code>ActionEvent</code>：</p>
@@ -340,30 +335,22 @@
 <li>定义事件处理的方法。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现接口ActionListener</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleGui1B</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">    JButton button;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SimpleGui1B gui = <span class="keyword">new</span> SimpleGui1B();</span><br><span class="line">        gui.go();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">        button = <span class="keyword">new</span> JButton(<span class="string">"click me"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 注册</span></span><br><span class="line">        button.addActionListener(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        frame.getContentPane().add(button);</span><br><span class="line">        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">        frame.setSize(<span class="number">300</span>,<span class="number">300</span>);</span><br><span class="line">        frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实现ActionListener接口的方法，处理事件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 以ActionEvent对象作为参数调用</span></span><br><span class="line">        button.setText(<span class="string">"I’ve been clicked!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="绘图组件">3. 绘图组件</h3>
-<p>创建具有绘图功能的<code>widget</code>放到<code>frame</code>上，创建<code>JPanel</code>的子类覆盖掉<code>paintComponet()</code>方法。</p>
+<h3 id="3-绘图组件"><a href="#3-绘图组件" class="headerlink" title="3. 绘图组件"></a>3. 绘图组件</h3><p>创建具有绘图功能的<code>widget</code>放到<code>frame</code>上，创建<code>JPanel</code>的子类覆盖掉<code>paintComponet()</code>方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDrawPanel</span> <span class="keyword">extends</span> <span class="title">JPanel</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">        g.setColor(Color.orange);</span><br><span class="line">        g.fillRect(<span class="number">20</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>显式<code>JPEG</code>照片：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">     Image image = <span class="keyword">new</span> ImageIcon(<span class="string">"catzilla.jpg"</span>).getImage();</span><br><span class="line">     g.drawImage(image,<span class="number">3</span>,<span class="number">4</span>,<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>随机色彩圆：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    g.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">this</span>.getWidth(), <span class="keyword">this</span>.getHeight());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> red = (<span class="keyword">int</span>) (Math.random() * <span class="number">256</span>);</span><br><span class="line">    <span class="keyword">int</span> green = (<span class="keyword">int</span>) (Math.random() * <span class="number">256</span>);</span><br><span class="line">    <span class="keyword">int</span> blue = (<span class="keyword">int</span>) (Math.random() * <span class="number">256</span>);</span><br><span class="line">    Color randomColor = <span class="keyword">new</span> Color(red, green, blue);</span><br><span class="line">    g.setColor(randomColor);</span><br><span class="line">    g.fillOval(<span class="number">70</span>,<span class="number">70</span>,<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="内部类inner-class">4. 内部类（Inner class）</h3>
-<p>一个类可以嵌套在另一个类的内部。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/innerClass.PNG" alt="简单内部类" /><figcaption aria-hidden="true">简单内部类</figcaption>
-</figure>
+<h3 id="4-内部类（Inner-class）"><a href="#4-内部类（Inner-class）" class="headerlink" title="4. 内部类（Inner class）"></a>4. 内部类（Inner class）</h3><p>一个类可以嵌套在另一个类的内部。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/innerClass.PNG" alt="简单内部类"></p>
 <blockquote>
 <p>内部类可以使用外部的所有方法与变量，就算私有内容也一样。即内部类可以把外部的方法或变量当作自己的。</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Inner_class_using_outer_class.PNG" alt="内部类使用外部类的变量" /><figcaption aria-hidden="true">内部类使用外部类的变量</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Inner_class_using_outer_class.PNG" alt="内部类使用外部类的变量"></p>
 <blockquote>
 <p>内部类的实例一定会绑定在外部类的实例上。从外部类程序代码中初始化的内部类，此内部对象会绑定在该外部对象上。</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/innerOuterBound.PNG" alt="创建内部类实例" /><figcaption aria-hidden="true">创建内部类实例</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/innerOuterBound.PNG" alt="创建内部类实例"></p>
 
     </div>
 
@@ -431,7 +418,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window"><span class="nav-number">2.</span> <span class="nav-text">1. window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户接口事件"><span class="nav-number">3.</span> <span class="nav-text">2. 用户接口事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘图组件"><span class="nav-number">4.</span> <span class="nav-text">3. 绘图组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类inner-class"><span class="nav-number">5.</span> <span class="nav-text">4. 内部类（Inner class）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-window"><span class="nav-number">2.</span> <span class="nav-text">1. window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户接口事件"><span class="nav-number">3.</span> <span class="nav-text">2. 用户接口事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-绘图组件"><span class="nav-number">4.</span> <span class="nav-text">3. 绘图组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-内部类（Inner-class）"><span class="nav-number">5.</span> <span class="nav-text">4. 内部类（Inner class）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -447,7 +434,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -508,13 +495,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

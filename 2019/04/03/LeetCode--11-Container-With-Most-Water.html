@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述  Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0)">
+  <meta name="description" content="一、问题描述 Given n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Fin">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--11. Container With Most Water">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;04&#x2F;03&#x2F;LeetCode--11-Container-With-Most-Water.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述  Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0)">
+<meta property="og:description" content="一、问题描述 Given n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Fin">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.niupic.com&#x2F;images&#x2F;2019&#x2F;04&#x2F;03&#x2F;5Ujc.jpg">
 <meta property="og:updated_time" content="2019-11-14T09:39:54.130Z">
@@ -318,21 +318,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<blockquote>
-<p>Given n non-negative integers <strong>a1, a2, ..., an</strong> , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water. <a id="more"></a></p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given n non-negative integers <strong>a1, a2, …, an</strong> , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.<br><a id="more"></a></p>
 </blockquote>
 <p><strong>Note:</strong> You may not slant the container and n is at least 2.</p>
-<p><img src="https://i.niupic.com/images/2019/04/03/5Ujc.jpg" /> The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</p>
-<p><strong>Example :</strong> &gt;Input: [1,8,6,2,5,4,8,3,7] &gt;Output: 49</p>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>首先想到的是暴力解法，直接遍历所有可能的二元组，最终可以找到满足题目要求的最大值。但是题目对时间有要求，这种时间复杂度O(n^2)的方法超时了。所以需要使用更优的方法，一种优化的方法思路如下：</p>
+<p><img src="https://i.niupic.com/images/2019/04/03/5Ujc.jpg" alt=""><br>The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.</p>
+<p><strong>Example :</strong></p>
 <blockquote>
-<p>使用两个变量，一个表示底的开始，一个表示底的终点。一开始底的起点是数组第一位，终点是数组最后一位。这样去计算两者之间围成的区域，如果比当前记录的最大区域大，则将之记为最大区域值。之后，将两边中较短的一边向中间移动一个单位，再次计算区域大小，重复刚才的后续过程。 这里的难点是为什么移动的是两边中较小的一条呢？因为这条是这个区域增加的“短板“。移动较短的一边，也许会遇到一条更大的边，这样的话这种增加有可能抵消了底边的变短，甚至可能使得区域面积变得更大。相反的，如果移动的是较大的一边，最好的情况是遇到一条比较短边还要长的边，但是因为“木桶效应“，整个区域大小还是取决于较短的边，所以移动较长的一边是不可能得到更好的结果的。</p>
+<p>Input: [1,8,6,2,5,4,8,3,7]<br>Output: 49</p>
 </blockquote>
-<h3 id="三代码">三、代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=height.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxArea = min(height[i],height[j])*j;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)</span><br><span class="line">        &#123;</span><br><span class="line">            maxArea = max(maxArea,min(height[i],height[j])*(j-i));</span><br><span class="line">            <span class="keyword">if</span>(height[i]&lt;height[j]) i++;</span><br><span class="line">            <span class="keyword">else</span> j--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>首先想到的是暴力解法，直接遍历所有可能的二元组，最终可以找到满足题目要求的最大值。但是题目对时间有要求，这种时间复杂度O(n^2)的方法超时了。所以需要使用更优的方法，一种优化的方法思路如下：</p>
+<blockquote>
+<p>使用两个变量，一个表示底的开始，一个表示底的终点。一开始底的起点是数组第一位，终点是数组最后一位。这样去计算两者之间围成的区域，如果比当前记录的最大区域大，则将之记为最大区域值。之后，将两边中较短的一边向中间移动一个单位，再次计算区域大小，重复刚才的后续过程。<br>这里的难点是为什么移动的是两边中较小的一条呢？因为这条是这个区域增加的“短板“。移动较短的一边，也许会遇到一条更大的边，这样的话这种增加有可能抵消了底边的变短，甚至可能使得区域面积变得更大。相反的，如果移动的是较大的一边，最好的情况是遇到一条比较短边还要长的边，但是因为“木桶效应“，整个区域大小还是取决于较短的边，所以移动较长的一边是不可能得到更好的结果的。</p>
+</blockquote>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,j=height.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxArea = min(height[i],height[j])*j;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)</span><br><span class="line">        &#123;</span><br><span class="line">            maxArea = max(maxArea,min(height[i],height[j])*(j-i));</span><br><span class="line">            <span class="keyword">if</span>(height[i]&lt;height[j]) i++;</span><br><span class="line">            <span class="keyword">else</span> j--;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxArea;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -398,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,7 +413,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -475,13 +474,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

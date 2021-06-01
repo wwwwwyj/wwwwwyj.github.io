@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  该放手了。">
+  <meta name="description" content="前言 该放手了。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--17 包、jar存档文件和部署">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;19&#x2F;JavaLearning_Head_First_Java_17_package_jars_and_deployment.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  该放手了。">
+<meta property="og:description" content="前言 该放手了。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;DeploymentOptions.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;makingJAR.PNG">
@@ -296,7 +296,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -315,75 +315,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>该放手了。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>该放手了。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="部署应用程序">1. 部署应用程序</h3>
-<p>可以有多种部署选择：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeploymentOptions.PNG" alt="部署选择" /><figcaption aria-hidden="true">部署选择</figcaption>
-</figure>
+<h3 id="1-部署应用程序"><a href="#1-部署应用程序" class="headerlink" title="1. 部署应用程序"></a>1. 部署应用程序</h3><p>可以有多种部署选择：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeploymentOptions.PNG" alt="部署选择"></p>
 <p>首先需要将源代码与<code>class</code>文件分离，关键在于结合<code>-d</code>这个编译选项和目录组织的结构。</p>
 <blockquote>
 <p>将源代码(<code>.java</code>)存储在<code>source</code>目录下，将编译输出的类文件(<code>.class</code>)放入<code>classes</code>目录</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/<span class="built_in">source</span></span><br><span class="line">javac -d ../classes MyApp.java</span><br></pre></td></tr></table></figure>
-<h4 id="把程序打包为jar">1.1 把程序打包为JAR</h4>
-<p><code>JAR</code>即<code>Java ARchive</code>，这种文件是<code>pkzip</code>格式的文件，能把一组类文件包装起来。创建可执行的<code>JAR</code>分为以下步骤：</p>
-<ol type="1">
-<li><p>确定所有的类文件都在<code>classes</code>目录下；</p></li>
+<h4 id="1-1-把程序打包为JAR"><a href="#1-1-把程序打包为JAR" class="headerlink" title="1.1 把程序打包为JAR"></a>1.1 把程序打包为JAR</h4><p><code>JAR</code>即<code>Java ARchive</code>，这种文件是<code>pkzip</code>格式的文件，能把一组类文件包装起来。创建可执行的<code>JAR</code>分为以下步骤：</p>
+<ol>
+<li><p>确定所有的类文件都在<code>classes</code>目录下；</p>
+</li>
 <li><p>创建<code>manifest.txt</code>文件描述哪个类带有<code>main()</code>方法，该文件带有下面一行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Main-Class: MyApp</span><br></pre></td></tr></table></figure>
-<p>此行后面要有换行，该文件放入<code>classes</code>目录</p></li>
+<p>此行后面要有换行，该文件放入<code>classes</code>目录</p>
+</li>
 <li><p>执行<code>jar</code>工具来创建带有<strong>所有类</strong>以及<code>manifest</code>的<code>JAR</code>文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/classes </span><br><span class="line">jar -cvmf manifest.txt app1.jar *.class</span><br><span class="line">OR</span><br><span class="line">jar -cvmf manifest.txt app1.jar MyApp.class</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/classes </span><br><span class="line">jar -cvmf manifest.txt app1.jar *.class</span><br><span class="line">OR</span><br><span class="line">jar -cvmf manifest.txt app1.jar MyApp.class</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/makingJAR.PNG" alt="创建JAR" /><figcaption aria-hidden="true">创建JAR</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/makingJAR.PNG" alt="创建JAR"></p>
 <p><code>JVM</code>能从<code>JAR</code>中载入类，并调用该类的<code>main()</code>方法。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar app1.jar</span><br></pre></td></tr></table></figure>
 <p>可以用包防止类名称的冲突。<code>Sun</code>建议加上所取得的域名(<code>domain</code>)名称来保证包名称不会重复。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/domainPackageNames.PNG" alt="使用域名的包名称" /><figcaption aria-hidden="true">使用域名的包名称</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/domainPackageNames.PNG" alt="使用域名的包名称"></p>
 <p>需要把类放在与包层次结构相对应的目录结构下：</p>
-<ol type="1">
-<li><p>选择包名称。</p></li>
+<ol>
+<li><p>选择包名称。</p>
+</li>
 <li><p>在类中加入包指令。这必须是程序源码的第一个语句，在<code>import</code>之上。每个源文件中只能有一个包指令。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.headfirstjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PackageExercise</span> </span>&#123;</span><br><span class="line">     <span class="comment">// life-altering code here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>设定相对应的目录结构。按照包层次结构来放置类文件</p></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.headfirstjava;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PackageExercise</span> </span>&#123;</span><br><span class="line">     <span class="comment">// life-altering code here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设定相对应的目录结构。按照包层次结构来放置类文件</p>
+</li>
 </ol>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/packageHierarchy.PNG" alt="包层次结构" /><figcaption aria-hidden="true">包层次结构</figcaption>
-</figure>
-<ol start="4" type="1">
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/packageHierarchy.PNG" alt="包层次结构"></p>
+<ol>
 <li><p>编译和执行<code>JAR</code></p>
 <ul>
 <li><p>加上<code>-d</code>选项来编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/<span class="built_in">source</span></span><br><span class="line"></span><br><span class="line">%编译器把输出放到class目录下正确的位置</span><br><span class="line">javac -d ../classes com/headfirstjava/PackageExercise.java</span><br><span class="line"></span><br><span class="line">%编译com.headfirstjava包下所有.java文件</span><br><span class="line">javac -d ../classes com/headfirstjava/*.java</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/<span class="built_in">source</span></span><br><span class="line"></span><br><span class="line">%编译器把输出放到class目录下正确的位置</span><br><span class="line">javac -d ../classes com/headfirstjava/PackageExercise.java</span><br><span class="line"></span><br><span class="line">%编译com.headfirstjava包下所有.java文件</span><br><span class="line">javac -d ../classes com/headfirstjava/*.java</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
 <li><p>执行程序</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/classes</span><br><span class="line">java com.headfirstjava.PackageExercise</span><br></pre></td></tr></table></figure>
-<p>一旦类被包进包中后，就不能使用“简写”名称来调用它，必须在命令栏指定要执行<code>main()</code>的类完整名称。</p></li>
-</ul></li>
-</ol>
+<p>一旦类被包进包中后，就不能使用“简写”名称来调用它，必须在命令栏指定要执行<code>main()</code>的类完整名称。</p>
+</li>
+</ul>
 <p>还可以条列和解压<code>JAR</code>包：</p>
 <ul>
 <li><p>将<code>JAR</code>内容列出，<code>-tf</code>代表<code>Table File</code>；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar -tf packEx.jar</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar -tf packEx.jar</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>解压<code>JAR</code>内容，<code>-xf</code>代表<code>eXtract File</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Skyler</span><br><span class="line">jar -xf packEx.jar</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Skyler</span><br><span class="line">jar -xf packEx.jar</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="java-web-start">1.2 Java Web Start</h4>
-<p><code>Java Web Start(JWS)</code>可以让用户从浏览器上执行首次启动，一旦程序下载后就可以独立于浏览器执行。</p>
+<h4 id="1-2-Java-Web-Start"><a href="#1-2-Java-Web-Start" class="headerlink" title="1.2 Java Web Start"></a>1.2 Java Web Start</h4><p><code>Java Web Start(JWS)</code>可以让用户从浏览器上执行首次启动，一旦程序下载后就可以独立于浏览器执行。</p>
 <ul>
 <li><code>JWS</code>下载程序时会调用程序的<code>main()</code>，然后用户可以通过<code>JWS helper app</code>启动应用程序而无需回到网页</li>
 <li><code>JWS</code>能偶检测服务器上应用程序局部更新，自动下载和整合更新过的程序</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JWS.PNG" alt="Java Web Start工作方式" /><figcaption aria-hidden="true">Java Web Start工作方式</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JWS.PNG" alt="Java Web Start工作方式"></p>
 <p><code>.jnlp</code>(<code>Java  Network Launch Protocol</code>)文件用于创建JWS应用程序，<code>JWS</code>会读取文件来寻找<code>JAR</code>并启动应用程序，<code>.jnlp</code>是个简单的<code>XML</code>文件。</p>
 
     </div>
@@ -452,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署应用程序"><span class="nav-number">2.</span> <span class="nav-text">1. 部署应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#把程序打包为jar"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 把程序打包为JAR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-web-start"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java Web Start</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-部署应用程序"><span class="nav-number">2.</span> <span class="nav-text">1. 部署应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-把程序打包为JAR"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 把程序打包为JAR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Java-Web-Start"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java Web Start</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,7 +467,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -529,13 +528,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
+  <meta name="description" content="前言增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
 <meta name="keywords" content="学习记录,Hexo,写博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo学习记录--功能升级">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;14&#x2F;hexo-learning-record--Feature-Upgrade.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
+<meta property="og:description" content="前言增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;GitHubImageRepository.PNG">
 <meta property="og:updated_time" content="2019-11-16T03:40:41.000Z">
@@ -299,14 +299,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -318,73 +318,102 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<p>增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。 <a id="more"></a></p>
-<h3 id="leancloud添加文章阅读量">LeanCloud添加文章阅读量</h3>
-<p>操作很简单，在 <code>LeanCloud</code>注册账号后，创建一个应用即可，主要参考官网教程和一些网上的博客： &gt; - <a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">开始使用</a> &gt; - <a href="https://blog.csdn.net/weixin_39345384/article/details/80787998" target="_blank" rel="noopener">NexT主题下，用Leancloud统计文章阅读量</a></p>
-<p>这里需要注意的主要是需要安装 <strong>Web安全</strong> 模块，否者无法正常使用 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-leancloud-counter-security --save</span><br></pre></td></tr></table></figure> &gt; - 主要参考这个博客解决问题 <a href="https://blog.csdn.net/w573719227/article/details/100704952" target="_blank" rel="noopener">HEXO博客使用LeanCloud报错“Counter not initialized! See more at console err msg.”</a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>增加一些新功能, 丰富一下博客内容和界面, 就是一些花里胡哨的东西。<br><a id="more"></a></p>
+<h3 id="LeanCloud添加文章阅读量"><a href="#LeanCloud添加文章阅读量" class="headerlink" title="LeanCloud添加文章阅读量"></a>LeanCloud添加文章阅读量</h3><p>操作很简单，在 <code>LeanCloud</code>注册账号后，创建一个应用即可，主要参考官网教程和一些网上的博客：</p>
+<blockquote>
+<ul>
+<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">开始使用</a></li>
+<li><a href="https://blog.csdn.net/weixin_39345384/article/details/80787998" target="_blank" rel="noopener">NexT主题下，用Leancloud统计文章阅读量</a></li>
+</ul>
+</blockquote>
+<p>这里需要注意的主要是需要安装 <strong>Web安全</strong> 模块，否者无法正常使用<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-leancloud-counter-security --save</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ul>
+<li>主要参考这个博客解决问题 <a href="https://blog.csdn.net/w573719227/article/details/100704952" target="_blank" rel="noopener">HEXO博客使用LeanCloud报错“Counter not initialized! See more at console err msg.”</a></li>
+</ul>
+</blockquote>
 <p>这里还有一个问题, 就是链接里带中文名, 所以导致链接在<code>leancloud</code>中以特殊字符形式存在, 在统计访问次数时出错。需要将其转换为英文的链接地址, 这里使用<a href="https://hexo.io/zh-cn/docs/permalinks.html" target="_blank" rel="noopener">Hexo-永久链接(Permalinks)</a>的方法，自定义链接地址，最终阅读量正常实现。</p>
-<h3 id="永久链接permalinks">永久链接（Permalinks）</h3>
-<p>可以在博客根目录的配置文件（<code>_config.yml</code>）中这样修改：</p>
+<h3 id="永久链接（Permalinks）"><a href="#永久链接（Permalinks）" class="headerlink" title="永久链接（Permalinks）"></a>永久链接（Permalinks）</h3><p>可以在博客根目录的配置文件（<code>_config.yml</code>）中这样修改：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:day/:entitle.html</span></span><br></pre></td></tr></table></figure>
 <p>其中<code>entitle</code>是自定义的一个属性，同时在<code>.\scaffolds\post.md</code>中修改：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">entitle: </span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">updated: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">categories:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>这样在编写文章时，可以在<code>entitle</code>输入指定字符，作为文章链接地址 &gt; - 参考文章<a href="https://blog.csdn.net/Likianta/article/details/79343427" target="_blank" rel="noopener">如何让你的Hexo博客网址使用全英文路径</a></p>
-<h3 id="不蒜子统计">不蒜子统计</h3>
-<p>更新到新版本后，启用不蒜子统计很简单，只需要在主题配置文件中启用即可：</p>
+<p>这样在编写文章时，可以在<code>entitle</code>输入指定字符，作为文章链接地址</p>
+<blockquote>
+<ul>
+<li>参考文章<a href="https://blog.csdn.net/Likianta/article/details/79343427" target="_blank" rel="noopener">如何让你的Hexo博客网址使用全英文路径</a></li>
+</ul>
+</blockquote>
+<h3 id="不蒜子统计"><a href="#不蒜子统计" class="headerlink" title="不蒜子统计"></a>不蒜子统计</h3><p>更新到新版本后，启用不蒜子统计很简单，只需要在主题配置文件中启用即可：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">busuanzi_count:</span></span><br><span class="line">  <span class="comment"># enable: false</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_visitors:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_visitors_icon:</span> <span class="string">user</span></span><br><span class="line">  <span class="attr">total_views:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">total_views_icon:</span> <span class="string">eye</span></span><br><span class="line">  <span class="attr">post_views:</span> <span class="literal">false</span> <span class="comment"># 与leancloud重复，故注释掉</span></span><br><span class="line">  <span class="attr">post_views_icon:</span> <span class="string">eye</span></span><br></pre></td></tr></table></figure>
 <p>应该也可以用leancloud实现类似功能，但懒得折腾了，就直接<code>不蒜子统计</code>一块用吧。</p>
-<h3 id="字数统计">字数统计</h3>
-<p>启用字数统计需要安装一个插件：</p>
+<h3 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h3><p>启用字数统计需要安装一个插件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-symbols-count-time --save</span><br></pre></td></tr></table></figure>
 <p>之后设置配置文件即可：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">symbols_count_time:</span></span><br><span class="line">  <span class="attr">separated_meta:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_post:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">item_text_total:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">awl:</span> <span class="number">4</span></span><br><span class="line">  <span class="attr">wpm:</span> <span class="number">275</span></span><br></pre></td></tr></table></figure>
-<h3 id="加载进度条">加载进度条</h3>
-<p>同样需要安装一下依赖库，不过他的安装方法与之前不同，不是用<code>npm</code>命令来安装，而是直接添加到主题的<code>lib</code>中： 1. 进入博客文件夹的<code>/themes/next</code>文件夹下 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd blog_folder/themes/next-update # 注意转换为对应主题路径</span><br></pre></td></tr></table></figure></p>
-<ol start="2" type="1">
-<li><p>载安装<code>Progress module</code> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/theme-next-pace source/lib/pace</span><br></pre></td></tr></table></figure></p></li>
-<li><p>在<code>/themes/next/_config.yml</code>中设置使生效 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pace:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Themes list:</span></span><br><span class="line">  <span class="comment"># big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span></span><br><span class="line">  <span class="comment"># corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">bounce</span></span><br></pre></td></tr></table></figure></p></li>
+<h3 id="加载进度条"><a href="#加载进度条" class="headerlink" title="加载进度条"></a>加载进度条</h3><p>同样需要安装一下依赖库，不过他的安装方法与之前不同，不是用<code>npm</code>命令来安装，而是直接添加到主题的<code>lib</code>中：</p>
+<ol>
+<li><p>进入博客文件夹的<code>/themes/next</code>文件夹下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd blog_folder/themes/next-update # 注意转换为对应主题路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>载安装<code>Progress module</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/theme-next-pace source/lib/pace</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>/themes/next/_config.yml</code>中设置使生效</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pace:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Themes list:</span></span><br><span class="line">  <span class="comment"># big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span></span><br><span class="line">  <span class="comment"># corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span></span><br><span class="line">  <span class="attr">theme:</span> <span class="string">bounce</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="github图床">GitHub图床</h3>
-<p>在写博客时，我们常常需要在博客中插入图片什么的。这时一般需要一个图床，免费的图床有很多，但是上传文件后只能得到一个链接，不知道什么时候会丢失链接或者干脆图床网站不维护了。我们可以利用<code>GitHub</code>建立一个图床仓库，方便管理。顺便也可以练习一下<code>Git</code>的使用。如下图就是建立的一个图床仓库： <img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG" alt="GitHub图床" /></p>
+<h3 id="GitHub图床"><a href="#GitHub图床" class="headerlink" title="GitHub图床"></a>GitHub图床</h3><p>在写博客时，我们常常需要在博客中插入图片什么的。这时一般需要一个图床，免费的图床有很多，但是上传文件后只能得到一个链接，不知道什么时候会丢失链接或者干脆图床网站不维护了。我们可以利用<code>GitHub</code>建立一个图床仓库，方便管理。顺便也可以练习一下<code>Git</code>的使用。如下图就是建立的一个图床仓库：<br><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG" alt="GitHub图床"></p>
 <blockquote>
-<p>这里需要注意的一点是，GitHub图片的地址需要是源文件地址，比如上图的地址： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的一点是，GitHub图片的地址需要是源文件地址，比如上图的地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/GitHubImageRepository.PNG</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>之前一直用的<code>GitHub</code>下文件的url(<code>https://github.com</code>开头)，一直不显示，还以为是图片格式不兼容，笑哭。</p>
-<h3 id="表格显示问题">表格显示问题</h3>
-<p><code>table</code>表格显示异常，直接不显示表格。一开始以为是渲染器，语法什么的问题，后来发现原来解决方法很简单，表格和正文之间需要空行。</p>
+<h3 id="表格显示问题"><a href="#表格显示问题" class="headerlink" title="表格显示问题"></a>表格显示问题</h3><p><code>table</code>表格显示异常，直接不显示表格。一开始以为是渲染器，语法什么的问题，后来发现原来解决方法很简单，表格和正文之间需要空行。</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: center;">测试</th>
-<th style="text-align: left;">表格</th>
+<tr>
+<th style="text-align:center">测试</th>
+<th style="text-align:left">表格</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;">正常</td>
-<td style="text-align: left;">显示</td>
+<tr>
+<td style="text-align:center">正常</td>
+<td style="text-align:left">显示</td>
 </tr>
 </tbody>
 </table>
-<h3 id="加入豆瓣书单">加入豆瓣书单</h3>
-<p>直接安装豆瓣依赖模块 <code>$ npm install hexo-douban --save</code>, 简单易操作。配置上需要在 <code>hexo</code> 配置文件中加入 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: mythsman</span><br><span class="line">  builtin: false</span><br><span class="line">  book:</span><br><span class="line">    title: &apos;This is my book title&apos;</span><br><span class="line">    quote: &apos;This is my book quote&apos;</span><br><span class="line">  movie:</span><br><span class="line">    title: &apos;This is my movie title&apos;</span><br><span class="line">    quote: &apos;This is my movie quote&apos;</span><br><span class="line">  game:</span><br><span class="line">    title: &apos;This is my game title&apos;</span><br><span class="line">    quote: &apos;This is my game quote&apos;</span><br><span class="line">  timeout: 10000</span><br></pre></td></tr></table></figure></p>
-<p>然后部署到主题文件中, <code>next</code> 主题下设置为 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  archives: /archives</span><br><span class="line">  books: /books     # 这是链接到books页面</span><br><span class="line">  movies: /movies   #  这是链接到movies页面</span><br><span class="line">  games: /games   # 这是链接到games页面</span><br></pre></td></tr></table></figure></p>
+</div>
+<h3 id="加入豆瓣书单"><a href="#加入豆瓣书单" class="headerlink" title="加入豆瓣书单"></a>加入豆瓣书单</h3><p>直接安装豆瓣依赖模块 <code>$ npm install hexo-douban --save</code>, 简单易操作。配置上需要在 <code>hexo</code> 配置文件中加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">douban:</span><br><span class="line">  user: mythsman</span><br><span class="line">  builtin: false</span><br><span class="line">  book:</span><br><span class="line">    title: &apos;This is my book title&apos;</span><br><span class="line">    quote: &apos;This is my book quote&apos;</span><br><span class="line">  movie:</span><br><span class="line">    title: &apos;This is my movie title&apos;</span><br><span class="line">    quote: &apos;This is my movie quote&apos;</span><br><span class="line">  game:</span><br><span class="line">    title: &apos;This is my game title&apos;</span><br><span class="line">    quote: &apos;This is my game quote&apos;</span><br><span class="line">  timeout: 10000</span><br></pre></td></tr></table></figure></p>
+<p>然后部署到主题文件中, <code>next</code> 主题下设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  archives: /archives</span><br><span class="line">  books: /books     # 这是链接到books页面</span><br><span class="line">  movies: /movies   #  这是链接到movies页面</span><br><span class="line">  games: /games   # 这是链接到games页面</span><br></pre></td></tr></table></figure></p>
 <p>之后在启动过程中加入命令 <code>hexo douban -bgm</code> 自动抓取相关信息生成页面。 其中开启 <code>hexo-douban</code> 的命令中，<code>-bgm</code> 代表的是 <code>book、game、movie</code> 三个参数。</p>
-<h3 id="加入搜索功能">加入搜索功能</h3>
-<ol type="1">
-<li><p>安装本地搜索插件 <code>hexo-generator-search</code> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure> 安装之后，会在站点目录的 <code>public</code> 文件夹下创建一个 <code>search.xml</code> 文件</p></li>
-<li><p>在站点配置文件 <code>_config.yml</code> 中添加如下内容： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Search </span><br><span class="line">search:</span><br><span class="line">  path: ./public/search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure> <code>field</code>：搜索范围，默认是 <code>post</code>，还可以选择 <code>page</code>、<code>all</code>，设置成 <code>all</code> 表示搜索所有页面 <code>limit</code>：限制搜索的条目数</p></li>
-<li><p>主题配置文件 在主题配置文件 <code>_config.yml</code> 中找到如下内容： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  trigger: auto</span><br><span class="line">  top_n_per_article: 1</span><br></pre></td></tr></table></figure> 确保 <code>enable</code> 设成 <code>true</code>。</p></li>
+<h3 id="加入搜索功能"><a href="#加入搜索功能" class="headerlink" title="加入搜索功能"></a>加入搜索功能</h3><ol>
+<li><p>安装本地搜索插件 <code>hexo-generator-search</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
+<p>安装之后，会在站点目录的 <code>public</code> 文件夹下创建一个 <code>search.xml</code> 文件</p>
+</li>
+<li><p>在站点配置文件 <code>_config.yml</code> 中添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Search </span><br><span class="line">search:</span><br><span class="line">  path: ./public/search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+<p><code>field</code>：搜索范围，默认是 <code>post</code>，还可以选择 <code>page</code>、<code>all</code>，设置成 <code>all</code> 表示搜索所有页面<br><code>limit</code>：限制搜索的条目数</p>
+</li>
+<li><p>主题配置文件<br>在主题配置文件 <code>_config.yml</code> 中找到如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br><span class="line">  trigger: auto</span><br><span class="line">  top_n_per_article: 1</span><br></pre></td></tr></table></figure>
+<p>确保 <code>enable</code> 设成 <code>true</code>。</p>
+</li>
 </ol>
-<h3 id="加入评论系统基于valine">加入评论系统(基于Valine)</h3>
-<ol type="1">
-<li><p>获取 <code>APP ID</code> 和 <code>APP Key</code> 先登录或注册 <code>LeanCloud</code>, 进入控制台后创建应用。选择<code>设置</code>&gt;<code>应用Key</code>，就可以获取<code>APP ID</code>和<code>APP Key</code>了。</p></li>
-<li><p>在<code>next</code>主题中配置<code>valine</code> 在主题配置文件 <code>_config.yml</code> 中找到<code>comments</code>栏目并开启<code>valine</code>: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">comments:</span><br><span class="line">  active: valine</span><br></pre></td></tr></table></figure></p></li>
+<h3 id="加入评论系统-基于Valine"><a href="#加入评论系统-基于Valine" class="headerlink" title="加入评论系统(基于Valine)"></a>加入评论系统(基于Valine)</h3><ol>
+<li><p>获取 <code>APP ID</code> 和 <code>APP Key</code><br> 先登录或注册 <code>LeanCloud</code>, 进入控制台后创建应用。选择<code>设置</code>&gt;<code>应用Key</code>，就可以获取<code>APP ID</code>和<code>APP Key</code>了。</p>
+</li>
+<li><p>在<code>next</code>主题中配置<code>valine</code><br>在主题配置文件 <code>_config.yml</code> 中找到<code>comments</code>栏目并开启<code>valine</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">comments:</span><br><span class="line">  active: valine</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<p>然后在该配置文件中找到<code>valine</code>设置栏，开启<code>valine</code>并填入<code>appid</code>和<code>appkey</code>。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span><br><span class="line">  appid: # your app id</span><br><span class="line">  appkey: # your app key</span><br><span class="line">  notify: true # 评论回复邮件提醒, See: https://github.com/xCss/Valine/wiki</span><br><span class="line">  verify: false # 验证码服务</span><br><span class="line">  placeholder: 留言区 # 评论框占位提示符</span><br><span class="line">  avatar: mm # 头像配置</span><br><span class="line">  guest_info: nick,mail,link # 回复要填写的信息</span><br><span class="line">  pageSize: 10 # 评论列表分页，每页条数</span><br><span class="line">  visitor: false # 文章访问量统计 </span><br><span class="line">  comment_count: true # if false, comment count will only be displayed in post page, not in home page</span><br></pre></td></tr></table></figure></p>
-<ol start="3" type="1">
-<li>由于<code>valine 1.4</code>版本后，不再支持自带的<code>邮件提醒</code>，所以这里使用第三方<code>Valine-Admin</code>，基于<code>Leancloud</code>的云引擎与云函数。功能更完善，主要部署方法可以查阅<code>github</code>:<a href="https://github.com/DesertsP/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a>。 &gt; PS: 这里<code>Leancloud</code><strong>一定要用国际版</strong>，可以少去很多麻烦。</li>
+<p>然后在该配置文件中找到<code>valine</code>设置栏，开启<code>valine</code>并填入<code>appid</code>和<code>appkey</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">valine:</span><br><span class="line">  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.</span><br><span class="line">  appid: # your app id</span><br><span class="line">  appkey: # your app key</span><br><span class="line">  notify: true # 评论回复邮件提醒, See: https://github.com/xCss/Valine/wiki</span><br><span class="line">  verify: false # 验证码服务</span><br><span class="line">  placeholder: 留言区 # 评论框占位提示符</span><br><span class="line">  avatar: mm # 头像配置</span><br><span class="line">  guest_info: nick,mail,link # 回复要填写的信息</span><br><span class="line">  pageSize: 10 # 评论列表分页，每页条数</span><br><span class="line">  visitor: false # 文章访问量统计 </span><br><span class="line">  comment_count: true # if false, comment count will only be displayed in post page, not in home page</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>由于<code>valine 1.4</code>版本后，不再支持自带的<code>邮件提醒</code>，所以这里使用第三方<code>Valine-Admin</code>，基于<code>Leancloud</code>的云引擎与云函数。功能更完善，主要部署方法可以查阅<code>github</code>:<a href="https://github.com/DesertsP/Valine-Admin" target="_blank" rel="noopener">Valine-Admin</a>。<blockquote>
+<p>PS: 这里<code>Leancloud</code><strong>一定要用国际版</strong>，可以少去很多麻烦。</p>
+</blockquote>
+</li>
 </ol>
 
     </div>
@@ -454,7 +483,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#leancloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接permalinks"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入豆瓣书单"><span class="nav-number">9.</span> <span class="nav-text">加入豆瓣书单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入搜索功能"><span class="nav-number">10.</span> <span class="nav-text">加入搜索功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入评论系统基于valine"><span class="nav-number">11.</span> <span class="nav-text">加入评论系统(基于Valine)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeanCloud添加文章阅读量"><span class="nav-number">2.</span> <span class="nav-text">LeanCloud添加文章阅读量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久链接（Permalinks）"><span class="nav-number">3.</span> <span class="nav-text">永久链接（Permalinks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不蒜子统计"><span class="nav-number">4.</span> <span class="nav-text">不蒜子统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字数统计"><span class="nav-number">5.</span> <span class="nav-text">字数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载进度条"><span class="nav-number">6.</span> <span class="nav-text">加载进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub图床"><span class="nav-number">7.</span> <span class="nav-text">GitHub图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格显示问题"><span class="nav-number">8.</span> <span class="nav-text">表格显示问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入豆瓣书单"><span class="nav-number">9.</span> <span class="nav-text">加入豆瓣书单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入搜索功能"><span class="nav-number">10.</span> <span class="nav-text">加入搜索功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加入评论系统-基于Valine"><span class="nav-number">11.</span> <span class="nav-text">加入评论系统(基于Valine)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -470,7 +499,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -531,13 +560,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

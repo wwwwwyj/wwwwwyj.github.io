@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  状态影响行为，行为影响变量。">
+  <meta name="description" content="前言 状态影响行为，行为影响变量。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head First Java]--4 对象的行为">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;12&#x2F;JavaLearning_Head_First_Java_4_behavior_of_objects.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  状态影响行为，行为影响变量。">
+<meta property="og:description" content="前言 状态影响行为，行为影响变量。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;instance_and_method.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;argument_and_parameter.PNG">
@@ -316,22 +316,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>状态影响行为，行为影响变量。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>状态影响行为，行为影响变量。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="对象参数">1. 对象参数</h3>
-<h4 id="对象的状态与行为">1.1. 对象的状态与行为</h4>
-<p>类是对象的蓝图。在编写类时，是在描述Java虚拟机应该如何制作该类型的对象。</p>
+<h3 id="1-对象参数"><a href="#1-对象参数" class="headerlink" title="1. 对象参数"></a>1. 对象参数</h3><h4 id="1-1-对象的状态与行为"><a href="#1-1-对象的状态与行为" class="headerlink" title="1.1. 对象的状态与行为"></a>1.1. 对象的状态与行为</h4><p>类是对象的蓝图。在编写类时，是在描述Java虚拟机应该如何制作该类型的对象。</p>
 <blockquote>
 <p>类所描述的是对象<code>知道什么与执行什么</code></p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/instance_and_method.PNG" alt="实例变量与方法" /><figcaption aria-hidden="true">实例变量与方法</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/instance_and_method.PNG" alt="实例变量与方法"></p>
 <p>同一个类型的对象能有不同的方法行为。每个实例有相同的方法，但方法可以根据实例变量的值变现不同行为。</p>
-<h4 id="方法的参数">1.2. 方法的参数</h4>
-<p>可以传值给方法。可以使用<code>实参(argument)</code>或<code>形参(parameter)</code>来调用传给方法的参数</p>
+<h4 id="1-2-方法的参数"><a href="#1-2-方法的参数" class="headerlink" title="1.2. 方法的参数"></a>1.2. 方法的参数</h4><p>可以传值给方法。可以使用<code>实参(argument)</code>或<code>形参(parameter)</code>来调用传给方法的参数</p>
 <blockquote>
 <p>方法会运用形参，调用一方会传入实参</p>
 <ul>
@@ -340,62 +334,45 @@
 <li>参数跟局部变量一样。它也有类型和名称，可以在方法内运用</li>
 </ul>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/argument_and_parameter.PNG" alt="实参与形参" /><figcaption aria-hidden="true">实参与形参</figcaption>
-</figure>
-<h4 id="返回值">1.3. 返回值</h4>
-<p>方法可以有返回值，每个方法都需要声明返回的类型。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/argument_and_parameter.PNG" alt="实参与形参"></p>
+<h4 id="1-3-返回值"><a href="#1-3-返回值" class="headerlink" title="1.3. 返回值"></a>1.3. 返回值</h4><p>方法可以有返回值，每个方法都需要声明返回的类型。</p>
 <blockquote>
 <p><code>void</code>表示没有返回任何东西。</p>
 </blockquote>
 <p>比如可以声明一个返回<code>int</code>类型值的方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">giveSecret</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">42</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果声明了方法有返回值，必须返回声明类型的值！</p>
-<h4 id="多个参数">1.4. 多个参数</h4>
-<p>方法可以有多个参数，声明和传入时都要以逗号分开。</p>
+<h4 id="1-4-多个参数"><a href="#1-4-多个参数" class="headerlink" title="1.4. 多个参数"></a>1.4. 多个参数</h4><p>方法可以有多个参数，声明和传入时都要以逗号分开。</p>
 <blockquote>
 <p>一定要以正确数量，类型和顺序来传递参数</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/multipe_argument.PNG" alt="多个参数" /><figcaption aria-hidden="true">多个参数</figcaption>
-</figure>
-<h4 id="参数传递">1.5. 参数传递</h4>
-<p>Java通过值传递，或者通过拷贝传递参数。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/argument_pass.PNG" alt="参数传递" /><figcaption aria-hidden="true">参数传递</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/multipe_argument.PNG" alt="多个参数"></p>
+<h4 id="1-5-参数传递"><a href="#1-5-参数传递" class="headerlink" title="1.5. 参数传递"></a>1.5. 参数传递</h4><p>Java通过值传递，或者通过拷贝传递参数。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/argument_pass.PNG" alt="参数传递"></p>
 <blockquote>
 <p><strong>方法无法改变调用方所传入的参数。</strong></p>
 </blockquote>
-<h4 id="要点">1.6. 要点</h4>
-<blockquote>
+<h4 id="1-6-要点"><a href="#1-6-要点" class="headerlink" title="1.6. 要点"></a>1.6. 要点</h4><blockquote>
 <ul>
 <li>如果传入的参数是对象，那么<strong>实际上传入的是远程控制的拷贝</strong>。</li>
 <li>方法只能声明单一返回值。如果需要返回多个返回值，可以使用数组。如需要返回混合不同类型值，可以使用<code>ArrayList</code></li>
 </ul>
 </blockquote>
-<h3 id="封装encapsulation">2. 封装(Encapsulation)</h3>
-<p>不封装可能会导致数据泄露。比如直接通过圆点运算符(<code>.</code>)来存取实例变量，可能会出现异常：</p>
+<h3 id="2-封装-Encapsulation"><a href="#2-封装-Encapsulation" class="headerlink" title="2. 封装(Encapsulation)"></a>2. 封装(Encapsulation)</h3><p>不封装可能会导致数据泄露。比如直接通过圆点运算符(<code>.</code>)来存取实例变量，可能会出现异常：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theCat.height = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 <p>需要创建<code>Setter</code>方法，使得在设置变量前可以进行检查。将程序实现从不良数据改成可以保护数据，且还能保持数据可修改，可以使用两个<code>存取修饰符(access modifier)</code>：公有修饰符<code>public</code>和私有修饰符<code>private</code>。封装的基本原则是：</p>
 <blockquote>
 <p>将实例变量标记为私有，提供公有的<code>getter</code>与<code>setter</code>方法来控制存取动作。</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/advantage_of_setter.PNG" alt="封装的好处" /><figcaption aria-hidden="true">封装的好处</figcaption>
-</figure>
-<h3 id="初始化实例变量">3. 初始化实例变量</h3>
-<p>声明变量是需要名称和类型，也可以同时初始化变量(为变量赋值)：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/advantage_of_setter.PNG" alt="封装的好处"></p>
+<h3 id="3-初始化实例变量"><a href="#3-初始化实例变量" class="headerlink" title="3. 初始化实例变量"></a>3. 初始化实例变量</h3><p>声明变量是需要名称和类型，也可以同时初始化变量(为变量赋值)：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> size = <span class="number">256</span>;</span><br></pre></td></tr></table></figure>
 <p>如果未明确初始化实例变量，会为实例变量设置默认值。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/init_variable.PNG" alt="实例变量默认值" /><figcaption aria-hidden="true">实例变量默认值</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/init_variable.PNG" alt="实例变量默认值"></p>
 <blockquote>
 <p>这么看，<code>String</code>变量内存储的也是一个对象引用。</p>
 </blockquote>
-<h3 id="实例变量与局部变量">4. 实例变量与局部变量</h3>
-<p>实例变量与局部变量的区别：</p>
+<h3 id="4-实例变量与局部变量"><a href="#4-实例变量与局部变量" class="headerlink" title="4. 实例变量与局部变量"></a>4. 实例变量与局部变量</h3><p>实例变量与局部变量的区别：</p>
 <blockquote>
 <ul>
 <li>实例变量声明在类内而不是方法中；而局部变量声明在方法中</li>
@@ -403,17 +380,14 @@
 </ul>
 </blockquote>
 <p>方法参数基本上与局部变量是相同的。</p>
-<h3 id="变量的比较">5. 变量的比较</h3>
-<h4 id="section">5.1 <code>==</code></h4>
-<blockquote>
+<h3 id="5-变量的比较"><a href="#5-变量的比较" class="headerlink" title="5. 变量的比较"></a>5. 变量的比较</h3><h4 id="5-1"><a href="#5-1" class="headerlink" title="5.1 =="></a>5.1 <code>==</code></h4><blockquote>
 <p><code>==</code>用于比较两个变量的字节组合是否相等。</p>
 </blockquote>
 <p>可以使用<code>==</code>来比较两个<code>primitive</code>主数据类型是否相等。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">byte</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">if</span> (a == b) &#123; <span class="comment">// true &#125;</span></span><br></pre></td></tr></table></figure>
 <p>也可以用<code>==</code>来判断两个引用是否指向同一对象。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Foo a = <span class="keyword">new</span> Foo();</span><br><span class="line">Foo b = <span class="keyword">new</span> Foo();</span><br><span class="line">Foo c = a;</span><br><span class="line"><span class="keyword">if</span> (a == b) &#123; <span class="comment">// false &#125;</span></span><br><span class="line"><span class="keyword">if</span> (a == c) &#123; <span class="comment">// true &#125;</span></span><br><span class="line"><span class="keyword">if</span> (b == c) &#123; <span class="comment">// false &#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="equals">5.2 <code>equals()</code></h4>
-<p>使用<code>equals()</code>方法来判断两个对象是否在含义上相等。</p>
+<h4 id="5-2-equals"><a href="#5-2-equals" class="headerlink" title="5.2 equals()"></a>5.2 <code>equals()</code></h4><p>使用<code>equals()</code>方法来判断两个对象是否在含义上相等。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String s1,s2,s3 = <span class="string">"abc"</span>, s4 =<span class="string">"abc"</span> ;</span><br><span class="line">s1 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line">s2 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line"></span><br><span class="line">s1==s2   是 <span class="keyword">false</span>      <span class="comment">//两个变量的内存地址不一样，也就是说它们指向的对象不一样，</span></span><br><span class="line"></span><br><span class="line">s1.equals(s2) 是 <span class="keyword">true</span>    <span class="comment">//两个变量的所包含的内容是abc，故相等。</span></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -482,7 +456,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象参数"><span class="nav-number">2.</span> <span class="nav-text">1. 对象参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的状态与行为"><span class="nav-number">2.1.</span> <span class="nav-text">1.1. 对象的状态与行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法的参数"><span class="nav-number">2.2.</span> <span class="nav-text">1.2. 方法的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值"><span class="nav-number">2.3.</span> <span class="nav-text">1.3. 返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个参数"><span class="nav-number">2.4.</span> <span class="nav-text">1.4. 多个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数传递"><span class="nav-number">2.5.</span> <span class="nav-text">1.5. 参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点"><span class="nav-number">2.6.</span> <span class="nav-text">1.6. 要点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装encapsulation"><span class="nav-number">3.</span> <span class="nav-text">2. 封装(Encapsulation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化实例变量"><span class="nav-number">4.</span> <span class="nav-text">3. 初始化实例变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例变量与局部变量"><span class="nav-number">5.</span> <span class="nav-text">4. 实例变量与局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的比较"><span class="nav-number">6.</span> <span class="nav-text">5. 变量的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 ==</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#equals"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 equals()</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-对象参数"><span class="nav-number">2.</span> <span class="nav-text">1. 对象参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-对象的状态与行为"><span class="nav-number">2.1.</span> <span class="nav-text">1.1. 对象的状态与行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-方法的参数"><span class="nav-number">2.2.</span> <span class="nav-text">1.2. 方法的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-返回值"><span class="nav-number">2.3.</span> <span class="nav-text">1.3. 返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-多个参数"><span class="nav-number">2.4.</span> <span class="nav-text">1.4. 多个参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-参数传递"><span class="nav-number">2.5.</span> <span class="nav-text">1.5. 参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-要点"><span class="nav-number">2.6.</span> <span class="nav-text">1.6. 要点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-封装-Encapsulation"><span class="nav-number">3.</span> <span class="nav-text">2. 封装(Encapsulation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-初始化实例变量"><span class="nav-number">4.</span> <span class="nav-text">3. 初始化实例变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-实例变量与局部变量"><span class="nav-number">5.</span> <span class="nav-text">4. 实例变量与局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-变量的比较"><span class="nav-number">6.</span> <span class="nav-text">5. 变量的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 ==</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-equals"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 equals()</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -498,7 +472,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -559,13 +533,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

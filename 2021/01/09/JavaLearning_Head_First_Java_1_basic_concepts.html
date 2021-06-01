@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！">
+  <meta name="description" content="前言 重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head First Java]--1 基础概念">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;01&#x2F;09&#x2F;JavaLearning_Head_First_Java_1_basic_concepts.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！">
+<meta property="og:description" content="前言 重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;blob&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;JavaProgramStructure.PNG?raw=true">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;JavaClassStructure.PNG">
@@ -293,7 +293,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>493</span>
+              <span>469</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,24 +312,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！ <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>重新开始学习Java，同时为找工作开始做准备，加油。从《Head First Java》开始吧！<br><a id="more"></a></p>
 </blockquote>
-<h3 id="java的工作方式">1. Java的工作方式</h3>
-<p>基于Java写出应用程序并在任意设备上运行主要分为4步： &gt; 1. 源代码。编写源码文件 &gt; 2. 编译器。用编译器运行源代码，检查错误 &gt; 3. 输出。编译器对源码编译输出字节文件，编译后的<code>字节文件与平台无关</code> &gt; 4. Java虚拟机。Java虚拟机可以读取及执行字节文件</p>
-<h3 id="java的程序结构">2. Java的程序结构</h3>
-<p>类存在于源文件里，方法存在于类中，语句存在于方法中。 <img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/JavaLearning/HeadFirstJava/JavaProgramStructure.PNG?raw=true" alt="Java程序结构" /></p>
-<h4 id="源文件">源文件</h4>
-<p>源文件(<code>.java</code>)带有类定义，类用于表示程序的一个组件。</p>
-<h4 id="类">类</h4>
-<p>类带有一个或多个方法。 <img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JavaClassStructure.PNG" alt="Java类的结构" /></p>
-<h4 id="方法">方法</h4>
-<p>在方法中包含需要执行的指令，方法由一组语句组成，可以当作一个函数或过程。</p>
-<h4 id="tips"><code>Tips</code></h4>
-<h5 id="java中integer与boolean不兼容">Java中integer与boolean不兼容</h5>
-<p>Java中integer与boolean不兼容，所以int类型不能用作条件，如： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (x) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在Java中执行会报错，需要将其修改为boolean类型变量来实现相同功能： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isHot = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">while</span> (isHot) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-Java的工作方式"><a href="#1-Java的工作方式" class="headerlink" title="1. Java的工作方式"></a>1. Java的工作方式</h3><p>基于Java写出应用程序并在任意设备上运行主要分为4步：</p>
+<blockquote>
+<ol>
+<li>源代码。编写源码文件</li>
+<li>编译器。用编译器运行源代码，检查错误</li>
+<li>输出。编译器对源码编译输出字节文件，编译后的<code>字节文件与平台无关</code></li>
+<li>Java虚拟机。Java虚拟机可以读取及执行字节文件</li>
+</ol>
+</blockquote>
+<h3 id="2-Java的程序结构"><a href="#2-Java的程序结构" class="headerlink" title="2. Java的程序结构"></a>2. Java的程序结构</h3><p>类存在于源文件里，方法存在于类中，语句存在于方法中。<br><img src="https://github.com/wwwwwyj/image_repository/blob/master/img/blog/JavaLearning/HeadFirstJava/JavaProgramStructure.PNG?raw=true" alt="Java程序结构"></p>
+<h4 id="源文件"><a href="#源文件" class="headerlink" title="源文件"></a>源文件</h4><p>源文件(<code>.java</code>)带有类定义，类用于表示程序的一个组件。</p>
+<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p>类带有一个或多个方法。<br><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JavaClassStructure.PNG" alt="Java类的结构"></p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>在方法中包含需要执行的指令，方法由一组语句组成，可以当作一个函数或过程。</p>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a><code>Tips</code></h4><h5 id="Java中integer与boolean不兼容"><a href="#Java中integer与boolean不兼容" class="headerlink" title="Java中integer与boolean不兼容"></a>Java中integer与boolean不兼容</h5><p>Java中integer与boolean不兼容，所以int类型不能用作条件，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (x) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Java中执行会报错，需要将其修改为boolean类型变量来实现相同功能：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> isHot = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">while</span> (isHot) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -397,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java的工作方式"><span class="nav-number">2.</span> <span class="nav-text">1. Java的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java的程序结构"><span class="nav-number">3.</span> <span class="nav-text">2. Java的程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#源文件"><span class="nav-number">3.1.</span> <span class="nav-text">源文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类"><span class="nav-number">3.2.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-number">3.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tips"><span class="nav-number">3.4.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#java中integer与boolean不兼容"><span class="nav-number">3.4.1.</span> <span class="nav-text">Java中integer与boolean不兼容</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Java的工作方式"><span class="nav-number">2.</span> <span class="nav-text">1. Java的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Java的程序结构"><span class="nav-number">3.</span> <span class="nav-text">2. Java的程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#源文件"><span class="nav-number">3.1.</span> <span class="nav-text">源文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类"><span class="nav-number">3.2.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法"><span class="nav-number">3.3.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">3.4.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java中integer与boolean不兼容"><span class="nav-number">3.4.1.</span> <span class="nav-text">Java中integer与boolean不兼容</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,7 +413,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -474,13 +474,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">267k</span>
+    <span title="站点总字数">287k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
