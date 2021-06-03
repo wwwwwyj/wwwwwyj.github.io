@@ -1,3 +1,5 @@
+https://wuyunjie.top/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html
+https://wuyunjie.top/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html
 https://wuyunjie.top/2021/05/31/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_9_Case_and_practice_of_class_loading_and_execution_subsystem.html
 https://wuyunjie.top/2021/05/28/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_8_Virtual_machine_bytecode_execution_engine.html
 https://wuyunjie.top/2021/05/27/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_7_Virtual_machine_class_loading_mechanism.html
@@ -6,5 +8,3 @@ https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Featu
 https://wuyunjie.top/2021/05/26/JZ13_the_odd_numbers_come_before_the_even_numbers.html
 https://wuyunjie.top/2021/05/26/JZ12_Integer_power.html
 https://wuyunjie.top/2021/05/26/JZ11_Number_of_1s_in_binary.html
-https://wuyunjie.top/2021/05/26/JZ10_Rectangular_coverage.html
-https://wuyunjie.top/2021/05/26/JZ9_Jumping_expanding.html

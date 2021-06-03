@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（n≤39）">
+  <meta name="description" content="一、问题描述 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（n≤39）">
 <meta name="keywords" content="剑指offer,面试复习,刷题记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-7-斐波那契数列">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;25&#x2F;JZ7_Fibonacci_sequence.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（n≤39）">
+<meta property="og:description" content="一、问题描述 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（n≤39）">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-05-25T09:28:54.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,23 +309,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><p>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（<code>n≤39</code>）<br><a id="more"></a></p>
+        <h3 id="一问题描述">一、问题描述</h3>
+<p>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0，第1项是1）。（<code>n≤39</code>） <a id="more"></a></p>
 <p><strong>示例:</strong></p>
 <blockquote>
-<p>输入:  4<br>返回值: 3</p>
+<p>输入: 4 返回值: 3</p>
 </blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>斐波那契数列的标准公式为：</p>
-<script type="math/tex; mode=display">
-F(1)=1\\F(2)=2\\F(n)=F(n-1)+F(n-2)(n \geq 3, n \in N^*)</script><h4 id="1-递归"><a href="#1-递归" class="headerlink" title="1. 递归"></a>1. 递归</h4><p>可以发现很符合递归的定义，所以递归是一种直接的思路。但递归法的时间复杂度过高($O(2^n)$)。</p>
-<h4 id="2-迭代"><a href="#2-迭代" class="headerlink" title="2. 迭代"></a>2. 迭代</h4><ul>
-<li><p>另一种方法是直接利用循环，将$F(n), F(n-1), F(n-2)$保存在三个临时变量内，不断迭代计算出最终值。时间复杂度位($O(n)$)。</p>
-</li>
-<li><p>继续对空间进行优化，因为$F(n)$只在计算第$n$项的时候使用，所以可以只存储$F(n)$和$F(n-2)$，$F(n-1)$可以由$F(n)-F(n-2)$计算得到</p>
-</li>
+<h3 id="二解题思路">二、解题思路</h3>
+<p>斐波那契数列的标准公式为： <span class="math display">\[
+F(1)=1\\F(2)=2\\F(n)=F(n-1)+F(n-2)(n \geq 3, n \in N^*)
+\]</span></p>
+<h4 id="递归">1. 递归</h4>
+<p>可以发现很符合递归的定义，所以递归是一种直接的思路。但递归法的时间复杂度过高(<span class="math inline">\(O(2^n)\)</span>)。</p>
+<h4 id="迭代">2. 迭代</h4>
+<ul>
+<li><p>另一种方法是直接利用循环，将<span class="math inline">\(F(n), F(n-1), F(n-2)\)</span>保存在三个临时变量内，不断迭代计算出最终值。时间复杂度位(<span class="math inline">\(O(n)\)</span>)。</p></li>
+<li><p>继续对空间进行优化，因为<span class="math inline">\(F(n)\)</span>只在计算第<span class="math inline">\(n\)</span>项的时候使用，所以可以只存储<span class="math inline">\(F(n)\)</span>和<span class="math inline">\(F(n-2)\)</span>，<span class="math inline">\(F(n-1)\)</span>可以由<span class="math inline">\(F(n)-F(n-2)\)</span>计算得到</p></li>
 </ul>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="1-递归法"><a href="#1-递归法" class="headerlink" title="1. 递归法"></a>1. 递归法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">return</span> Fibonacci(n-<span class="number">1</span>) + Fibonacci(n-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-迭代法"><a href="#2-迭代法" class="headerlink" title="2. 迭代法"></a>2. 迭代法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_1 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            FibArray_n = FibArray_n_1 + FibArray_n_2;</span><br><span class="line">            FibArray_n_2 = FibArray_n_1;</span><br><span class="line">            FibArray_n_1 = FibArray_n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FibArray_n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-优化的迭代法-只使用两个变量"><a href="#3-优化的迭代法-只使用两个变量" class="headerlink" title="3. 优化的迭代法(只使用两个变量)"></a>3. 优化的迭代法(只使用两个变量)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            FibArray_n = FibArray_n + FibArray_n_1;</span><br><span class="line">            FibArray_n_1 = FibArray_n - FibArray_n_1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FibArray_n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三代码">三、代码</h3>
+<h4 id="递归法">1. 递归法</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">return</span> Fibonacci(n-<span class="number">1</span>) + Fibonacci(n-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="迭代法">2. 迭代法</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_1 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            FibArray_n = FibArray_n_1 + FibArray_n_2;</span><br><span class="line">            FibArray_n_2 = FibArray_n_1;</span><br><span class="line">            FibArray_n_1 = FibArray_n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FibArray_n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="优化的迭代法只使用两个变量">3. 优化的迭代法(只使用两个变量)</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> n;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> FibArray_n_1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">            FibArray_n = FibArray_n + FibArray_n_1;</span><br><span class="line">            FibArray_n_1 = FibArray_n - FibArray_n_1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> FibArray_n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -394,7 +401,7 @@ F(1)=1\\F(2)=2\\F(n)=F(n-1)+F(n-2)(n \geq 3, n \in N^*)</script><h4 id="1-递归
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-递归"><span class="nav-number">2.1.</span> <span class="nav-text">1. 递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-迭代"><span class="nav-number">2.2.</span> <span class="nav-text">2. 迭代</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-递归法"><span class="nav-number">3.1.</span> <span class="nav-text">1. 递归法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-迭代法"><span class="nav-number">3.2.</span> <span class="nav-text">2. 迭代法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-优化的迭代法-只使用两个变量"><span class="nav-number">3.3.</span> <span class="nav-text">3. 优化的迭代法(只使用两个变量)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归"><span class="nav-number">2.1.</span> <span class="nav-text">1. 递归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代"><span class="nav-number">2.2.</span> <span class="nav-text">2. 迭代</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归法"><span class="nav-number">3.1.</span> <span class="nav-text">1. 递归法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代法"><span class="nav-number">3.2.</span> <span class="nav-text">2. 迭代法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化的迭代法只使用两个变量"><span class="nav-number">3.3.</span> <span class="nav-text">3. 优化的迭代法(只使用两个变量)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,7 +417,7 @@ F(1)=1\\F(2)=2\\F(n)=F(n-1)+F(n-2)(n \geq 3, n \in N^*)</script><h4 id="1-递归
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -471,13 +478,13 @@ F(1)=1\\F(2)=2\\F(n)=F(n-1)+F(n-2)(n \geq 3, n \in N^*)</script><h4 id="1-递归
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">287k</span>
+    <span title="站点总字数">307k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:21</span>
+    <span title="站点阅读时长">4:39</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

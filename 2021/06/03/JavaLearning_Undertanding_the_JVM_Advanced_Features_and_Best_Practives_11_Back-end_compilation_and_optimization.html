@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="前言  后端编译器的编译速度及编译结果质量高低，是衡量Java虚拟机性能最重要的一个指标。">
+<meta name="keywords" content="Learning,Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java学习|深入理解Java虚拟机]--11 后端编译与优化">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;03&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="前言  后端编译器的编译速度及编译结果质量高低，是衡量Java虚拟机性能最重要的一个指标。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;InteractionBetweenInterpreterAndCompiler.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;TieredCompilation.PNG">
+<meta property="og:updated_time" content="2021-06-03T14:31:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;InteractionBetweenInterpreterAndCompiler.PNG">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[Java学习|深入理解Java虚拟机]--11 后端编译与优化 | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Java学习|深入理解Java虚拟机]--11 后端编译与优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-03 22:31:10" itemprop="dateCreated datePublished" datetime="2021-06-03T22:31:10+08:00">2021-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|深入理解Java虚拟机]--11 后端编译与优化" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>后端编译器的编译速度及编译结果质量高低，是衡量Java虚拟机性能最重要的一个指标。 <a id="more"></a></p>
+</blockquote>
+<p>如果把字节码看作是程序语言的一种<code>中间表示形式（Intermediate Representation，IR）</code>， 那编译器无论在何时、在何种状态下把Class文件转换成与本地基础设施（硬件指令集、操作系统）相关的二进制机器码，它都可以视为整个编译过程的<code>后端</code>。</p>
+<h3 id="即时编译器">1. 即时编译器</h3>
+<p>目前主流的两款商用Java虚拟机（<code>HotSpot</code>、<code>OpenJ9</code>）里，Java程序最初都是通过<code>解释器（Interpreter）</code>进行解释执行的，当虚拟机发现某个方法或代码块的运行特别频繁，就会把这些代码认定为<code>“热点代码”（Hot Spot Code）</code>，为了提高热点代码的执行效率，在运行时，虚拟机将会把这些代码编译成本地机器码，并以各种手段尽可能地进行代码优化，运行时完成这个任务的后端编译器被称为<strong><code>即时编译器</code></strong>。</p>
+<h4 id="解释器与编译器">1.1 解释器与编译器</h4>
+<p>目前主流的商用Java虚拟机都采用<strong><u>解释器与编译器并存</u></strong>的运行架构，解释器与编译器两者各有优势：</p>
+<ul>
+<li>当程序需要<strong>迅速启动和执行</strong>的时候，解释器可以首先发挥作用，<u>省去编译的时间，立即运行</u>。</li>
+<li>当程序启动后，随着时间的推移，编译器逐渐发挥作用，<u>把越来越多的代码编译成本地代码</u>，这样可以<strong>减少解释器的中间损耗，获得更高的执行效率</strong>。</li>
+<li>当程序运行环境中<strong>内存资源限制较大</strong>，可以使用解释执行节约内存，反之可以使用编译执行来提升效率。</li>
+<li>解释器还可以作为编译器激进优化时后备的<code>“逃生门”</code>，让编译器根据概率选择一些不能保证所有情况都正确，但<u>大多数时候都能提升运行速度的优化手段</u>，当激进优化的假设不成立，如加载了新类以后，类型继承结构出现变化、出现<code>“罕见陷阱”（Uncommon Trap）</code>时可以通过<code>逆优化（Deoptimization）</code>退回到解释状态继续执行。</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/InteractionBetweenInterpreterAndCompiler.PNG" alt="解释器与编译器的交互" /><figcaption aria-hidden="true">解释器与编译器的交互</figcaption>
+</figure>
+<p><code>HotSpot</code>虚拟机中内置了两个（或三个）<code>即时编译器</code>：</p>
+<ul>
+<li>其中两个编译器存在已久，分别被称为<code>“客户端编译器”（Client Compiler）</code>和<code>“服务端编译器”（Server Compiler）</code>，或者简称为<code>C1编译器</code>和<code>C2编译器</code>（部分资料和JDK源码中<code>C2</code>也叫<code>Opto</code>编译器）</li>
+<li>第三个是在<code>JDK 10</code>时才出现的、长期目标是代替<code>C2</code>的<code>Graal</code>编译器。目前还处于实验状态。</li>
+</ul>
+<p><code>分层编译（Tiered Compilation）</code>的工作模式出现以前，<code>HotSpot</code>虚拟机通常是采用解释器与其中一个编译器直接搭配的方式工作。</p>
+<ul>
+<li>解释器与编译器搭配使用的方式在虚拟机中被称为<code>“混合模式”（Mixed Mode）</code></li>
+<li>用户可以使用参数<code>“-Xint”</code>强制虚拟机运行于<code>“解释模式”（Interpreted Mode）</code>，这时候编译器<strong>完全不介入</strong>工作，全部代码都使用解释方式执行。</li>
+<li>也可以使用参数<code>“-Xcomp”</code>强制虚拟机运行于<code>“编译模式”（Compiled Mode）</code>，这时候将<strong>优先</strong>采用编译方式执行程序，但是<u>解释器仍然要在编译无法进行的情况下介入执行过程</u>。</li>
+</ul>
+<p>为了在<u>程序启动响应速度与运行效率</u>之间达到最佳平衡，HotSpot虚拟机在编译子系统中加入了<code>分层编译</code>的功能，分层编译根据编译器<u><strong>编译、优化的规模与耗时</strong></u>，划分出不同的编译层次：</p>
+<ul>
+<li>第0层。程序<strong>纯解释执行</strong>，并且解释器不开启<code>性能监控功能（Profiling）</code>。</li>
+<li>第1层。使用<code>客户端编译器</code>将字节码编译为本地代码来运行，进行简单可靠的<u>稳定优化</u>，<u>不开启</u>性能监控功能。</li>
+<li>第2层。使用<code>客户端编译器</code>执行，仅开启<u>方法及回边次数统计</u>等<strong>有限</strong>的性能监控功能。</li>
+<li>第3层。使用<code>客户端编译器</code>执行，开启<strong>全部</strong>性能监控，还会收集如<u>分支跳转、虚方法调用版本</u>等全部的统计信息。</li>
+<li>第4层。使用<code>服务端编译器</code>将字节码编译为本地代码，服务端编译器会启用更多<u>编译耗时更长的优化</u>，还会根据性能监控信息进行一些不可靠的<u>激进优化</u>。</li>
+</ul>
+<p>实施分层编译后，解释器、客户端编译器和服务端编译器就会<strong>同时工作</strong>，热点代码都可能会被多次编译：</p>
+<ul>
+<li>用客户端编译器获取更高的编译速度</li>
+<li>用服务端编译器来获取更好的编译质量</li>
+<li>在解释执行的时候也无须额外承担收集性能监控信息的任务</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/TieredCompilation.PNG" alt="分层编译的交互关系" /><figcaption aria-hidden="true">分层编译的交互关系</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Learning/" rel="tag"># Learning</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html" rel="next" title="[Java学习|深入理解Java虚拟机]--10 前端编译与优化">
+                  <i class="fa fa-chevron-left"></i> [Java学习|深入理解Java虚拟机]--10 前端编译与优化
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#即时编译器"><span class="nav-number">2.</span> <span class="nav-text">1. 即时编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解释器与编译器"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 解释器与编译器</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">307k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:39</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

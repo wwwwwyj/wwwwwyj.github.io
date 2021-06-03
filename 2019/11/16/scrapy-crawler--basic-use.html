@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言最近大数据课需要用到爬虫爬数据，发现scrapy这个爬虫库还蛮好用的，记录一下它的基本用法。">
+  <meta name="description" content="前言 最近大数据课需要用到爬虫爬数据，发现scrapy这个爬虫库还蛮好用的，记录一下它的基本用法。">
 <meta name="keywords" content="学习记录,python,scrapy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy爬虫-基础使用">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;16&#x2F;scrapy-crawler--basic-use.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言最近大数据课需要用到爬虫爬数据，发现scrapy这个爬虫库还蛮好用的，记录一下它的基本用法。">
+<meta property="og:description" content="前言 最近大数据课需要用到爬虫爬数据，发现scrapy这个爬虫库还蛮好用的，记录一下它的基本用法。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;scrapy&#x2F;scrapy_architecture.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;scrapy&#x2F;scrapy_folder.png">
@@ -295,7 +295,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -314,9 +314,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近大数据课需要用到爬虫爬数据，发现<code>scrapy</code>这个爬虫库还蛮好用的，记录一下它的基本用法。<br><a id="more"></a></p>
-<h3 id="scrapy框架"><a href="#scrapy框架" class="headerlink" title="scrapy框架"></a><code>scrapy</code>框架</h3><p>如下是<code>scrapy</code>架构图，绿色箭头表示组件及在系统中发生的数据流。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_architecture.png" alt="scrapy architecture"></p>
+        <h3 id="前言">前言</h3>
+<p>最近大数据课需要用到爬虫爬数据，发现<code>scrapy</code>这个爬虫库还蛮好用的，记录一下它的基本用法。 <a id="more"></a></p>
+<h3 id="scrapy框架"><code>scrapy</code>框架</h3>
+<p>如下是<code>scrapy</code>架构图，绿色箭头表示组件及在系统中发生的数据流。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_architecture.png" alt="scrapy architecture" /><figcaption aria-hidden="true">scrapy architecture</figcaption>
+</figure>
 <blockquote>
 <ul>
 <li><strong>Scrapy Engine</strong> 控制数据流在组件中的流动，并在相应动作发生时触发事件</li>
@@ -328,29 +332,25 @@
 </ul>
 </blockquote>
 <p>具体可以参考官网<a href="https://scrapy-chs.readthedocs.io/zh_CN/0.24/topics/architecture.html" target="_blank" rel="noopener">架构概览</a></p>
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>可以通过<code>scrapy</code>命令直接生成一个框架模板，主要有以下命令：</p>
-<blockquote>
-<ul>
-<li>创建项目：scrapy startproject xxx</li>
-<li>创建爬虫：scrapy genspider xxx（爬虫名） xxx.com （爬取域）</li>
-<li>生成文件：scrapy crawl xxx -o xxx.type (生成 <code>type</code> 类型的文件)</li>
-<li>运行爬虫：scrapy crawl XXX</li>
-<li>列出所有爬虫：scrapy list</li>
-<li>获得配置信息：scrapy settings [options]</li>
-</ul>
-</blockquote>
+<h3 id="简单使用">简单使用</h3>
+<p>可以通过<code>scrapy</code>命令直接生成一个框架模板，主要有以下命令： &gt; - 创建项目：scrapy startproject xxx &gt; - 创建爬虫：scrapy genspider xxx（爬虫名） xxx.com （爬取域） &gt; - 生成文件：scrapy crawl xxx -o xxx.type (生成 <code>type</code> 类型的文件) &gt; - 运行爬虫：scrapy crawl XXX &gt; - 列出所有爬虫：scrapy list &gt; - 获得配置信息：scrapy settings [options]</p>
 <p>如下是生成的一个爬虫项目的目录信息：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_folder.png" alt="project folder"></p>
-<p>简单的爬虫主要需要修改的就是 <code>items.py</code> 和 <code>example.py</code> 文件。其它比较高端的功能暂时也没用上：</p>
-<blockquote>
-<p><code>items.py</code> 创建容器的地方，爬取的信息分别放到不同容器里。item是保存爬取数据的容器，使用的方法和字典差不多, 将需要提取的信息在这里定义以下就可以了<br><code>example.py</code> 爬虫文件。负责解析start_url下载的Response 对象，根据item提取数据; 如果有新的url则加入爬取队列，负责进一步处理，URL的Request 对象</p>
-</blockquote>
-<h3 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h3><p>我这里主要是用的 <code>Xpath</code> 来解析文件, 语法还是比较简单的, 而且容易使用, 可以在 <code>chrome</code> 内使用插件 <code>XPath Helper</code> 来在网页内调试。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/xpath.png" alt="Xpath"></p>
-<p>但是有时候 <code>XPath Helper</code> 的解析语句在 <code>scrapy</code> 得到的结果不太兼容, 可以用 <code>scrapy</code> 命令行进一步调试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell &lt;url&gt;</span><br></pre></td></tr></table></figure><br>两者结合起来, 基本上就可以写出合理的爬虫解析语句了。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_shell.png" alt="scrapy shell"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_folder.png" alt="project folder" /><figcaption aria-hidden="true">project folder</figcaption>
+</figure>
+<p>简单的爬虫主要需要修改的就是 <code>items.py</code> 和 <code>example.py</code> 文件。其它比较高端的功能暂时也没用上： &gt; <code>items.py</code> 创建容器的地方，爬取的信息分别放到不同容器里。item是保存爬取数据的容器，使用的方法和字典差不多, 将需要提取的信息在这里定义以下就可以了 &gt; <code>example.py</code> 爬虫文件。负责解析start_url下载的Response 对象，根据item提取数据; 如果有新的url则加入爬取队列，负责进一步处理，URL的Request 对象</p>
+<h3 id="数据解析">数据解析</h3>
+<p>我这里主要是用的 <code>Xpath</code> 来解析文件, 语法还是比较简单的, 而且容易使用, 可以在 <code>chrome</code> 内使用插件 <code>XPath Helper</code> 来在网页内调试。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/xpath.png" alt="Xpath" /><figcaption aria-hidden="true">Xpath</figcaption>
+</figure>
+<p>但是有时候 <code>XPath Helper</code> 的解析语句在 <code>scrapy</code> 得到的结果不太兼容, 可以用 <code>scrapy</code> 命令行进一步调试 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell &lt;url&gt;</span><br></pre></td></tr></table></figure> 两者结合起来, 基本上就可以写出合理的爬虫解析语句了。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/scrapy/scrapy_shell.png" alt="scrapy shell" /><figcaption aria-hidden="true">scrapy shell</figcaption>
+</figure>
 <p>xpath具体语法可以参考<a href="https://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">XPath 教程</a>, 基本上跟着调试调试就懂了。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote>
+<h3 id="参考文献">参考文献</h3>
+<blockquote>
 <ul>
 <li><a href="https://www.jianshu.com/p/7dee0837b3d2" target="_blank" rel="noopener">scrapy学习</a></li>
 <li><a href="https://www.jianshu.com/p/cecb29c04cd2" target="_blank" rel="noopener">爬虫框架Scrapy个人总结（详细）熟悉</a></li>
@@ -441,7 +441,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -502,13 +502,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">287k</span>
+    <span title="站点总字数">307k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:21</span>
+    <span title="站点阅读时长">4:39</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

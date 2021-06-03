@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="问题之前遇到一个困扰已久的问题, 使用 conda&#x2F;pip install 安装库时一直显示代理有问题, 由于目标计算机积极拒绝，无法连接。">
+  <meta name="description" content="问题 之前遇到一个困扰已久的问题, 使用 conda&#x2F;pip install 安装库时一直显示代理有问题, 由于目标计算机积极拒绝，无法连接。">
 <meta name="keywords" content="Debug,Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pip&#x2F;conda install 由于目标计算机积极拒绝，无法连接">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;23&#x2F;Pip-conda-install-unable-to-connect-bug.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="问题之前遇到一个困扰已久的问题, 使用 conda&#x2F;pip install 安装库时一直显示代理有问题, 由于目标计算机积极拒绝，无法连接。">
+<meta property="og:description" content="问题 之前遇到一个困扰已久的问题, 使用 conda&#x2F;pip install 安装库时一直显示代理有问题, 由于目标计算机积极拒绝，无法连接。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-23T14:04:26.000Z">
 <meta name="twitter:card" content="summary">
@@ -290,7 +290,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>538</span>
+              <span>556</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -309,18 +309,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>之前遇到一个困扰已久的问题, 使用 <code>conda/pip install</code> 安装库时一直显示代理有问题, <code>由于目标计算机积极拒绝，无法连接</code>。<a id="more"></a><br>一开始一直以为是我的代理设置出现了问题，改了很多次系统代理设置，但一直没有效果。而且这个问题也使得我的谷歌浏览器无法实现科学上网。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>最后终于通过修改注册表解决了这个问题，主要操作如下：</p>
-<blockquote>
-<ol>
-<li>通过<code>Win+R</code>快捷键，输入<code>regedit</code>，打开注册表编辑器</li>
-<li>找到<code>HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Internet Settings</code></li>
-<li>将以 <strong>Proxy</strong> 开头的条目都删除</li>
-</ol>
-</blockquote>
+        <h3 id="问题">问题</h3>
+<p>之前遇到一个困扰已久的问题, 使用 <code>conda/pip install</code> 安装库时一直显示代理有问题, <code>由于目标计算机积极拒绝，无法连接</code>。<a id="more"></a> 一开始一直以为是我的代理设置出现了问题，改了很多次系统代理设置，但一直没有效果。而且这个问题也使得我的谷歌浏览器无法实现科学上网。</p>
+<h3 id="解决">解决</h3>
+<p>最后终于通过修改注册表解决了这个问题，主要操作如下： &gt; 1. 通过<code>Win+R</code>快捷键，输入<code>regedit</code>，打开注册表编辑器 &gt; 2. 找到<code>HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Internet Settings</code> &gt; 3. 将以 <strong>Proxy</strong> 开头的条目都删除</p>
 <p>之后一切就都回复正常了。这个改注册表的方法还挺万用的，有时候会出现无法连上网但是无法访问百度的问题，也可通过删除<code>HKEY_CURRENT_USER/Software/Microsoft/Windows/CurrentVersion/Internet Settings/Connections</code>下的相关条目来解决。</p>
 <p>应该是由于科学上网后系统代理出现啥Bug，通过删除注册表可以实现初始化吧。</p>
-<h3 id="查看文献"><a href="#查看文献" class="headerlink" title="查看文献"></a>查看文献</h3><blockquote>
+<h3 id="查看文献">查看文献</h3>
+<blockquote>
 <ul>
 <li><a href="https://blog.csdn.net/lezeqe/article/details/94913345" target="_blank" rel="noopener">解决：pip install 由于目标计算机积极拒绝，无法连接</a></li>
 <li><a href="https://blog.csdn.net/weixin_43323092/article/details/82962023" target="_blank" rel="noopener">解决系统代理被篡改/pip提示“目标计算机积极拒绝，无法连接”的方法</a></li>
@@ -409,7 +405,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -470,13 +466,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">287k</span>
+    <span title="站点总字数">307k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:21</span>
+    <span title="站点阅读时长">4:39</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
