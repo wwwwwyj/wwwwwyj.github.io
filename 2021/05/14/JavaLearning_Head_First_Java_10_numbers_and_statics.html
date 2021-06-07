@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  盘算一下。">
+  <meta name="description" content="前言 盘算一下。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--10 数字和静态">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;14&#x2F;JavaLearning_Head_First_Java_10_numbers_and_statics.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  盘算一下。">
+<meta property="og:description" content="前言 盘算一下。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;mathMethods.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;wrapperClasses.PNG">
@@ -316,13 +316,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>盘算一下。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>盘算一下。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="静态static">1. 静态（static）</h3>
-<h4 id="静态方法">1.1 静态方法</h4>
-<p>在<code>Java</code>中没有<code>全局(global)</code>方法。但有些类中的方法不需要实例变量，为这样的类在堆上建立实例时很浪费的。</p>
+<h3 id="1-静态（static）"><a href="#1-静态（static）" class="headerlink" title="1. 静态（static）"></a>1. 静态（static）</h3><h4 id="1-1-静态方法"><a href="#1-1-静态方法" class="headerlink" title="1.1 静态方法"></a>1.1 静态方法</h4><p>在<code>Java</code>中没有<code>全局(global)</code>方法。但有些类中的方法不需要实例变量，为这样的类在堆上建立实例时很浪费的。</p>
 <blockquote>
 <p><code>Math</code>方法是最接近全局的方法。</p>
 </blockquote>
@@ -338,8 +335,7 @@
 <p>静态方法不能调用非静态的变量。静态方法无法引用到该类的任何实例变量，静态方法也不能调用非静态的方法。</p>
 </blockquote>
 <p>可以用实例变量来调用静态方法，但编译器会解析出原来的类，并不会知道是哪个对象引用调用的该静态方法。</p>
-<h4 id="静态变量">1.2 静态变量</h4>
-<p>静态变量的值对所有实例来说都相同，而且该变量被所有实例共享。比如要计算当前<code>Duck</code>实例的数量，或许可以在构造函数中递增计算器：</p>
+<h4 id="1-2-静态变量"><a href="#1-2-静态变量" class="headerlink" title="1.2 静态变量"></a>1.2 静态变量</h4><p>静态变量的值对所有实例来说都相同，而且该变量被所有实例共享。比如要计算当前<code>Duck</code>实例的数量，或许可以在构造函数中递增计算器：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">     <span class="keyword">int</span> duckCount = <span class="number">0</span>;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         duckCount++;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但由于<code>duckCount</code>是实例变量，每个<code>Duck</code>对象都会将其初始化为0。而将其设置为静态变量可以实现所需要的功能：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> duckCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         duckCount++;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSize</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">         size = s;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> size;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -356,8 +352,6 @@
 <p>被标记为<code>final</code>的变量代表该变量初始化后就不会改动，是一个常数。而静态的<code>final</code>变量在类加载后就会一致维持原值。</p>
 <blockquote>
 <p><code>静态初始化程序(static initializer)</code>是一段在加载类时会执行的程序代码，会在其他程序可以使用该类前执行，所有适合放置<code>静态final变量</code>在该部分。</p>
-</blockquote>
-<blockquote>
 <p>根据<code>命名惯例(naming convention)</code>，常数变量的名称应该都是大写字母！</p>
 </blockquote>
 <p><code>静态final变量</code>可以通过两种方法初始化：</p>
@@ -371,21 +365,13 @@
 <li><code>final</code>类代表不能继承该类；</li>
 </ul>
 </blockquote>
-<h3 id="数字">2. 数字</h3>
-<h4 id="math方法">2.1 <code>Math</code>方法</h4>
-<p>下面是对<code>Math</code>方法的一些结束：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/mathMethods.PNG" alt="Math方法" /><figcaption aria-hidden="true"><code>Math</code>方法</figcaption>
-</figure>
-<h4 id="primitive主数据类型包装">2.2 <code>primitive</code>主数据类型包装</h4>
-<p>把<code>primitive</code>主数据类型当作对象来处理，需要一个包装该数据类型的类。每个<code>primitive</code>主数据类型都有一个包装类，存放在<code>java.lang</code>这个包中。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/wrapperClasses.PNG" alt="包装类" /><figcaption aria-hidden="true">包装类</figcaption>
-</figure>
+<h3 id="2-数字"><a href="#2-数字" class="headerlink" title="2. 数字"></a>2. 数字</h3><h4 id="2-1-Math方法"><a href="#2-1-Math方法" class="headerlink" title="2.1 Math方法"></a>2.1 <code>Math</code>方法</h4><p>下面是对<code>Math</code>方法的一些结束：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/mathMethods.PNG" alt="`Math`方法"></p>
+<h4 id="2-2-primitive主数据类型包装"><a href="#2-2-primitive主数据类型包装" class="headerlink" title="2.2 primitive主数据类型包装"></a>2.2 <code>primitive</code>主数据类型包装</h4><p>把<code>primitive</code>主数据类型当作对象来处理，需要一个包装该数据类型的类。每个<code>primitive</code>主数据类型都有一个包装类，存放在<code>java.lang</code>这个包中。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/wrapperClasses.PNG" alt="包装类"></p>
 <p>包装类将<code>primitive</code>主数据类型名称第一个字母大写，以符合命名惯例。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 包装值</span></span><br><span class="line"><span class="keyword">int</span> i = <span class="number">288</span>;</span><br><span class="line">Integer iWrap = <span class="keyword">new</span> Integer(i);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解开包装</span></span><br><span class="line"><span class="keyword">int</span> unWrapped = iWrap.intValue();</span><br></pre></td></tr></table></figure>
-<h4 id="autoboxing">2.3 <code>autoboxing</code></h4>
-<p><code>java 5.0</code>以后加入了<code>autoboxing</code>，自动将<code>primitive</code>主数据类型转换成包装过的对象。</p>
+<h4 id="2-3-autoboxing"><a href="#2-3-autoboxing" class="headerlink" title="2.3 autoboxing"></a>2.3 <code>autoboxing</code></h4><p><code>java 5.0</code>以后加入了<code>autoboxing</code>，自动将<code>primitive</code>主数据类型转换成包装过的对象。</p>
 <blockquote>
 <p>但依旧无法直接声明<code>ArrayList&lt;int&gt;</code>，因为<code>generic</code>类型的规则是只能指定类或接口类型，因此<code>ArrayList&lt;int&gt;</code>无法通过编译。但可以把该包装对象的<code>primitive</code>主数据类型直接放入<code>ArrayList</code>中。</p>
 </blockquote>
@@ -393,16 +379,21 @@
 <ul>
 <li><p>方法的参数</p>
 <p>参数是包装类型，可以传入相应的<code>primitive</code>主数据类型。反之亦然。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">takeNumber</span><span class="params">(Integer i)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">takeNumber</span><span class="params">(Integer i)</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>返回值</p>
-<p>如果方法声明为返回某些<code>primitive</code>主数据类型，也可以返回兼容的包装类型。</p></li>
+<p>如果方法声明为返回某些<code>primitive</code>主数据类型，也可以返回兼容的包装类型。</p>
+</li>
 <li><p><code>boolean</code>表达式</p>
-<p>可以使用<code>Boolean</code>包装类型</p></li>
+<p>可以使用<code>Boolean</code>包装类型</p>
+</li>
 <li><p>数值运算</p>
 <p>可以直接对包装类型进行数值运算：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer i = <span class="keyword">new</span> Integer(<span class="number">42</span>); </span><br><span class="line">i++;</span><br><span class="line"></span><br><span class="line">Integer j = <span class="keyword">new</span> Integer(<span class="number">5</span>); </span><br><span class="line">Integer k = j + <span class="number">3</span>;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer i = <span class="keyword">new</span> Integer(<span class="number">42</span>); </span><br><span class="line">i++;</span><br><span class="line"></span><br><span class="line">Integer j = <span class="keyword">new</span> Integer(<span class="number">5</span>); </span><br><span class="line">Integer k = j + <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>赋值</p>
-<p>将包装类型赋值给<code>primitive</code>主数据类型或相反。</p></li>
+<p>将包装类型赋值给<code>primitive</code>主数据类型或相反。</p>
+</li>
 </ul>
 <p>包装内也有实用的静态方法，比如字符串和主数据类型的转化：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = Integer.parseInt(<span class="string">"2"</span>);</span><br><span class="line"><span class="keyword">double</span> d = Double.parseDouble(“<span class="number">420.24</span>”);</span><br></pre></td></tr></table></figure>
@@ -410,32 +401,22 @@
 <p>注意没有<code>Boolean.parseBoolean()</code>方法，但<code>Boolean</code>构造函数可以用<code>String</code>类型创建对象。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d = <span class="number">42.5</span>;</span><br><span class="line">String doubleString = <span class="string">""</span> + d; <span class="comment">// "+"运算符是Java中唯一重载过的运算符，作为字符串拼接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> d = <span class="number">42.5</span>;</span><br><span class="line">String doubleString = Double.toString(d);</span><br></pre></td></tr></table></figure>
-<h4 id="数字格式">2.4 数字格式</h4>
-<p>Java中数字与日期的<code>格式化</code>功能没有结合在输入/输出功能上。该功能在<code>java 5.0</code>以后由<code>java.lang</code>中的<code>Formatter</code>类来提供，该类的功能加入到了部分输入/输出类和<code>String</code>中。可以直接调用<strong>静态</strong>的<code>String.format()</code>来实现格式设定。</p>
+<h4 id="2-4-数字格式"><a href="#2-4-数字格式" class="headerlink" title="2.4 数字格式"></a>2.4 数字格式</h4><p>Java中数字与日期的<code>格式化</code>功能没有结合在输入/输出功能上。该功能在<code>java 5.0</code>以后由<code>java.lang</code>中的<code>Formatter</code>类来提供，该类的功能加入到了部分输入/输出类和<code>String</code>中。可以直接调用<strong>静态</strong>的<code>String.format()</code>来实现格式设定。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String s = String.format(<span class="string">"%, d"</span>, <span class="number">1000000000</span>); <span class="comment">// 将数字以带逗号的形式格式化</span></span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure>
 <p>格式化主要由两个主要部分组成：</p>
-<ol type="1">
+<ol>
 <li><strong>格式指令</strong>。概述要输出的特殊格式。</li>
 <li><strong>要格式化的值</strong>。</li>
 </ol>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/formatString.PNG" alt="格式化" /><figcaption aria-hidden="true">格式化</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/formatString.PNG" alt="格式化"></p>
 <p>格式化说明中，跟在<code>百分号(%)</code>后面包括类型指示(如<code>d</code>或<code>f</code>)的每个东西都是格式化指令，类型指示后的字符被视作直接输出的字符串。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/formatSpecifier.PNG" alt="格式化说明" /><figcaption aria-hidden="true">格式化说明</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/formatSpecifier.PNG" alt="格式化说明"></p>
 <blockquote>
 <p>类型是唯一的必填项</p>
-</blockquote>
-<blockquote>
 <p><code>format()</code>使用<code>可变参数列表(variable argument lists, varargs)</code>来对应有不同数目排列组合的参数。</p>
 </blockquote>
-<h4 id="日期格式">2.5 日期格式</h4>
-<p><code>Date</code>类型是Java上表示时间用的，数值与日期时间格式化的主要差别在于日期格式的类型是用<code>"t"</code>开头的两个字符表示：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/dateFormat.PNG" alt="日期格式" /><figcaption aria-hidden="true">日期格式</figcaption>
-</figure>
+<h4 id="2-5-日期格式"><a href="#2-5-日期格式" class="headerlink" title="2.5 日期格式"></a>2.5 日期格式</h4><p><code>Date</code>类型是Java上表示时间用的，数值与日期时间格式化的主要差别在于日期格式的类型是用<code>&quot;t&quot;</code>开头的两个字符表示：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/dateFormat.PNG" alt="日期格式"></p>
 <p><code>java.util.Date</code>适合用于查看当前日期时间，但许多功能已经停用。更多功能推荐使用API <code>java.util.Calendar</code>。<code>Calendar</code>是一个抽象类，当需要<code>Calendar</code>类型时，需要从<code>JVM</code>获取一个子类实例。需要用到静态方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Calendar cal = Calendar.getInstance();</span><br></pre></td></tr></table></figure>
 <p>通过调用<code>getInstance()</code>会返回一个具体子类的实例。一般默认返回<code>java.util.GregorianCalendar</code>的实例。<code>Calendar</code>类的几个关键特性：</p>
@@ -444,9 +425,7 @@
 <li>日期和时间可以运算。</li>
 <li>日期与时间可以用<code>milliseconds</code>表示。即可以将日期转化为微秒，也可以将微秒转换为日期。(相对于<code>1970年1月1日</code>的微秒数)。</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/CalendarExample.PNG" alt="Calendar示例" /><figcaption aria-hidden="true">Calendar示例</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/CalendarExample.PNG" alt="Calendar示例"></p>
 
     </div>
 
@@ -514,7 +493,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态static"><span class="nav-number">2.</span> <span class="nav-text">1. 静态（static）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态方法"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#静态变量"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 静态变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">3.</span> <span class="nav-text">2. 数字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#math方法"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Math方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#primitive主数据类型包装"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 primitive主数据类型包装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#autoboxing"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 autoboxing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字格式"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 数字格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日期格式"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 日期格式</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-静态（static）"><span class="nav-number">2.</span> <span class="nav-text">1. 静态（static）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-静态方法"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 静态方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-静态变量"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 静态变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-数字"><span class="nav-number">3.</span> <span class="nav-text">2. 数字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Math方法"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Math方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-primitive主数据类型包装"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 primitive主数据类型包装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-autoboxing"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 autoboxing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-数字格式"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 数字格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-日期格式"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 日期格式</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -530,7 +509,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -591,13 +570,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">317k</span>
+    <span title="站点总字数">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:48</span>
+    <span title="站点阅读时长">5:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。">
+  <meta name="description" content="前言 在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。">
 <meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--7 虚拟机类加载机制">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;27&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_7_Virtual_machine_class_loading_mechanism.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。">
+<meta property="og:description" content="前言 在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;ClassLifeCycle.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;ParentsDelegation.PNG">
@@ -313,13 +313,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>在Class文件中描述的各类信息，最终都需要加载到虚拟机中之后才能被运行和使用。<br><a id="more"></a></p>
 </blockquote>
 <p>Java虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这个过程被称作虚拟机的<code>类加载机制</code>。</p>
-<h3 id="类加载的时机">1. 类加载的时机</h3>
-<p>一个类型<strong><u>从被加载到虚拟机内存中开始，到卸载出内存为止</u></strong>，它的整个生命周期将会经历七个阶段:</p>
+<h3 id="1-类加载的时机"><a href="#1-类加载的时机" class="headerlink" title="1. 类加载的时机"></a>1. 类加载的时机</h3><p>一个类型<strong><u>从被加载到虚拟机内存中开始，到卸载出内存为止</u></strong>，它的整个生命周期将会经历七个阶段:</p>
 <ul>
 <li>加载（Loading）</li>
 <li>验证（Verification）</li>
@@ -330,9 +328,7 @@
 <li>卸载（Unloading）</li>
 </ul>
 <p>其中验证、准备、解析三个部分统称为连接（Linking）。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ClassLifeCycle.PNG" alt="类的生命周期" /><figcaption aria-hidden="true">类的生命周期</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ClassLifeCycle.PNG" alt="类的生命周期"></p>
 <blockquote>
 <p>解析阶在某些情况下可以在初始化阶段之后再开始，这是为了支持Java语言的<code>运行时绑定</code>特性（也称为<code>动态绑定</code>或<code>晚期绑定</code>）。</p>
 </blockquote>
@@ -340,73 +336,63 @@
 <ul>
 <li>遇到<code>new</code>、<code>getstatic</code>、<code>putstatic</code>或<code>invokestatic</code>这四条字节码指令时，如果类型没有进行过初始化，则需要先触发其初始化阶段；</li>
 <li>使用<code>java.lang.reflect</code>包的方法对类型进行反射调用的时候，如果类型没有进行过初始化，则需要先触发其初始化；</li>
-<li>当初始化类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化；
-<ul>
+<li>当初始化类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化；<ul>
 <li>一个<code>接口</code>在初始化时，并不要求其父接口全部都完成了初始化，只有在真正使用到父接口的时候（如引用接口中定义的常量）才会初始化。</li>
-</ul></li>
+</ul>
+</li>
 <li>当虚拟机启动时，用户需要指定一个要执行的<code>主类（包含main()方法的那个类）</code>，虚拟机会先初始化这个主类；</li>
 <li>当使用<code>JDK 7</code>新加入的<code>动态语言支持</code>时，如果一个<code>java.lang.invoke.MethodHandle</code>实例最后的解析的方法句柄对应的类没有进行过初始化，则需要先触发其初始化；</li>
 <li>当一个接口中定义了<code>JDK 8</code>新加入的默认方法（被default关键字修饰的接口方法）时，如果有这个接口的实现类发生了初始化，那该接口要在其之前被初始化；</li>
 </ul>
-<h3 id="类加载的过程">2. 类加载的过程</h3>
-<h4 id="加载">2.1 加载</h4>
-<p><code>“加载”（Loading）</code>阶段是整个<code>“类加载”（Class Loading）</code>过程中的一个阶段，在加载阶段，Java虚拟机需要完成以下三件事情：</p>
-<ol type="1">
+<h3 id="2-类加载的过程"><a href="#2-类加载的过程" class="headerlink" title="2. 类加载的过程"></a>2. 类加载的过程</h3><h4 id="2-1-加载"><a href="#2-1-加载" class="headerlink" title="2.1 加载"></a>2.1 加载</h4><p><code>“加载”（Loading）</code>阶段是整个<code>“类加载”（Class Loading）</code>过程中的一个阶段，在加载阶段，Java虚拟机需要完成以下三件事情：</p>
+<ol>
 <li>通过一个类的全限定名来获取定义此类的<code>二进制字节流</code>。</li>
 <li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
 <li>在内存中生成一个代表这个类的<code>java.lang.Class</code>对象，作为方法区这个类的各种数据的访问入口。</li>
 </ol>
 <p>开发人员通过定义自己的类加载器去控制字节流的获取方式（重写一个类加载器的<code>findClass()</code>或<code>loadClass()</code>方法），实现根据自己的想法来赋予应用程序获取运行代码的动态性。</p>
-<h4 id="验证">2.2 验证</h4>
-<p>验证是连接阶段的第一步，这一阶段的目的是<u>确保Class文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求，保证这些信息被当作代码运行后不会危害虚拟机自身的安全</u>。从整体上看，验证阶段大致上会完成下面四个阶段的检验动作：文件格式验证、元数据验证、字节 码验证和符号引用验证。</p>
-<h5 id="文件格式验证">2.2.1 文件格式验证</h5>
-<p>验证字节流是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理。</p>
+<h4 id="2-2-验证"><a href="#2-2-验证" class="headerlink" title="2.2 验证"></a>2.2 验证</h4><p>验证是连接阶段的第一步，这一阶段的目的是<u>确保Class文件的字节流中包含的信息符合《Java虚拟机规范》的全部约束要求，保证这些信息被当作代码运行后不会危害虚拟机自身的安全</u>。从整体上看，验证阶段大致上会完成下面四个阶段的检验动作：文件格式验证、元数据验证、字节 码验证和符号引用验证。</p>
+<h5 id="2-2-1-文件格式验证"><a href="#2-2-1-文件格式验证" class="headerlink" title="2.2.1 文件格式验证"></a>2.2.1 文件格式验证</h5><p>验证字节流是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理。</p>
 <p>该验证阶段的主要目的是<u><strong>保证输入的字节流能正确地解析并存储于方法区之内，格式上符合描述一个Java类型信息的要求。</strong></u>这阶段的验证是<strong>基于二进制字节流进行的</strong>，只有通过了这个阶段的验证之后，这段字节流才被允许进入Java虚拟机内存的方法区中进行存储。</p>
-<h5 id="元数据验证">2.2.2 元数据验证</h5>
-<p>对字节码描述的信息进行<code>语义分析</code>，以保证其描述的信息符合《Java语言规范》的要求。</p>
-<h5 id="字节码验证">2.2.3 字节码验证</h5>
-<p>通过<code>数据流分析</code>和<code>控制流分析</code>，确定程序语义是合法的、符合逻辑的。</p>
+<h5 id="2-2-2-元数据验证"><a href="#2-2-2-元数据验证" class="headerlink" title="2.2.2 元数据验证"></a>2.2.2 元数据验证</h5><p>对字节码描述的信息进行<code>语义分析</code>，以保证其描述的信息符合《Java语言规范》的要求。</p>
+<h5 id="2-2-3-字节码验证"><a href="#2-2-3-字节码验证" class="headerlink" title="2.2.3 字节码验证"></a>2.2.3 字节码验证</h5><p>通过<code>数据流分析</code>和<code>控制流分析</code>，确定程序语义是合法的、符合逻辑的。</p>
 <p>这阶段对类的方法体（Class文件中的Code属性）进行校验分析，保证被校验类的方法在运行时不会做出危害虚拟机安全的行为。</p>
-<h5 id="符号引用验证">2.2.4 符号引用验证</h5>
-<p>符号引用验证可以看作是<strong><u>对类自身以外（常量池中的各种符号引用）的各类信息进行匹配性校验</u></strong>，即该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。</p>
+<h5 id="2-2-4-符号引用验证"><a href="#2-2-4-符号引用验证" class="headerlink" title="2.2.4 符号引用验证"></a>2.2.4 符号引用验证</h5><p>符号引用验证可以看作是<strong><u>对类自身以外（常量池中的各种符号引用）的各类信息进行匹配性校验</u></strong>，即该类是否缺少或者被禁止访问它依赖的某些外部类、方法、字段等资源。</p>
 <p>该校验过程发生在虚拟机<u>将符号引用转化为直接引用</u>的时候，这个转化动作将在连接的第三阶段——解析阶段中发生。</p>
-<h4 id="准备">2.3 准备</h4>
-<p>准备阶段是正式<u><strong>为类中定义的变量（即静态变量，被static修饰的变量）分配内存并设置类变量初始值</strong></u>的阶段。</p>
+<h4 id="2-3-准备"><a href="#2-3-准备" class="headerlink" title="2.3 准备"></a>2.3 准备</h4><p>准备阶段是正式<u><strong>为类中定义的变量（即静态变量，被static修饰的变量）分配内存并设置类变量初始值</strong></u>的阶段。</p>
 <p>两个容易产生混淆的概念：</p>
 <ul>
 <li>此时进行内存分配的仅包括类变量，而不包括实例变量，实例变量将会在对象实例化时随着对象一起分配在Java堆中。</li>
-<li>这里所说的初始值“通常情况”下是<code>数据类型的零值</code>。
-<ul>
+<li>这里所说的初始值“通常情况”下是<code>数据类型的零值</code>。<ul>
 <li>比如对于<code>public static int value = 123;</code>，变量value在准备阶段过后的初始值为0，把 <code>value</code>赋值为<code>123</code>的<code>putstatic</code>指令是程序被编译后，存放于类构造器<code>&lt;clinit&gt;()</code>方法之中，所以把<code>value</code>赋值为<code>123</code>的动作要到<strong>类的初始化阶段</strong>才会被执行。</li>
 <li>如果类字段的字段属性表中存在<code>ConstantValue</code>属性，那在准备阶段变量值就会被初始化为<code>ConstantValue</code>属性所指定的初始值(比如<code>public static final int value = 123;</code>)</li>
-</ul></li>
 </ul>
-<h4 id="解析">2.4 解析</h4>
-<p>解析阶段是Java虚拟机<strong>将常量池内的符号引用替换为直接引用</strong>的过程。</p>
+</li>
+</ul>
+<h4 id="2-4-解析"><a href="#2-4-解析" class="headerlink" title="2.4 解析"></a>2.4 解析</h4><p>解析阶段是Java虚拟机<strong>将常量池内的符号引用替换为直接引用</strong>的过程。</p>
 <ul>
-<li><code>符号引用（Symbolic References）</code>：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的<strong>字面量</strong>，只要使用时能无歧义地定位到目标即可。
-<ul>
+<li><code>符号引用（Symbolic References）</code>：符号引用以一组符号来描述所引用的目标，符号可以是任何形式的<strong>字面量</strong>，只要使用时能无歧义地定位到目标即可。<ul>
 <li>符号引用与虚拟机实现的内存布局无关，引 用的目标并不一定是已经加载到虚拟机内存当中的内容。</li>
-</ul></li>
-<li><code>直接引用（Direct References）</code>：直接引用是可以直接指向目标的指针、相对偏移量或者是一个能间接定位到目标的句柄。
-<ul>
+</ul>
+</li>
+<li><code>直接引用（Direct References）</code>：直接引用是可以直接指向目标的指针、相对偏移量或者是一个能间接定位到目标的句柄。<ul>
 <li>直接引用是和虚拟机实现的内存布局直接相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。</li>
 <li>如果有了直接引用，那引用的目标必定已经在虚拟机的内存中存在。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>虚拟机实现可以对第一次解析的结果进行缓存(除<code>invokedynamic</code>指令以外)，譬如在运行时直接引用常量池中的记录，并把常量标识为已解析状态，从而避免解析动作重复进行。无论是否真正执行了多次解析动作，Java虚拟机都需要保证的是在同一个实体中：</p>
 <ul>
 <li>如果一个符号引用之前已经被成功解析过，那么后续的引用解析请求就应当一直能够成功；</li>
-<li>如果第一次解析失败了，其他指令对这个符号的解析请求也应该收到相同的异常，哪怕这个请求的符号在后来已成功加载进Java虚拟机内存之中。</li>
+<li>如果第一次解析失败了，其他指令对这个符号的解析请求也应该收到相同的异常，哪怕这个请求的符号在后来已成功加载进Java虚拟机内存之中。 </li>
 </ul>
 <p>对于<code>invokedynamic</code>指令，上面的规则就不成立了。当碰到某个前面已经由<code>invokedynamic</code>指令触发过解析的符号引用时，并不意味着这个解析结果对于其他<code>invokedynamic</code>指令也同样生效。</p>
 <ul>
 <li><code>invokedynamic</code>指令的目的本来就是用于动态语言支持，它对应的引用称为<code>“动态调用点限定符 （Dynamically-Computed Call Site Specifier）”</code>，这里<code>“动态”</code>的含义是指<u><strong>必须等到程序实际运行到这条指令时，解析动作才能进行</strong></u>。</li>
 </ul>
 <p>解析动作主要针对<u><strong>类或接口</strong></u>、<u><strong>字段</strong></u>、<u><strong>类方法</strong></u>、<u><strong>接口方法</strong></u>、<u><strong>方法类型</strong></u>、<u><strong>方法句柄</strong></u>和<u><strong>调用点限定符</strong></u>这7类符号引用进行。</p>
-<h5 id="类或接口的解析">2.4.1 类或接口的解析</h5>
-<p>假设当前代码所处的类为<code>D</code>，如果要把一个从未解析过的符号引用<code>N</code>解析为一个类或接口<code>C</code>的直接引用，那虚拟机完成整个解析的过程需要包括以下3个步骤：</p>
-<ol type="1">
+<h5 id="2-4-1-类或接口的解析"><a href="#2-4-1-类或接口的解析" class="headerlink" title="2.4.1 类或接口的解析"></a>2.4.1 类或接口的解析</h5><p>假设当前代码所处的类为<code>D</code>，如果要把一个从未解析过的符号引用<code>N</code>解析为一个类或接口<code>C</code>的直接引用，那虚拟机完成整个解析的过程需要包括以下3个步骤：</p>
+<ol>
 <li>如果<code>C</code>不是一个数组类型，那虚拟机将会把代表<code>N</code>的全限定名传递给<code>D</code>的类加载器去加载这个类<code>C</code>。</li>
 <li>如果<code>C</code>是一个数组类型，并且数组的元素类型为对象，也就是<code>N</code>的描述符会是类似“<code>[Ljava/lang/Integer</code>”的形式，那将会按照第一点的规则加载数组元素类型。</li>
 <li>如果上面两步没有出现任何异常，那么<code>C</code>在虚拟机中实际上已经成为一个有效的类或接口了，但在解析完成前还要进行符号引用验证，确认<code>D</code>是否具备对<code>C</code>的访问权限。如果发现不具备访问权限， 将抛出<code>java.lang.IllegalAccessError</code>异常。</li>
@@ -414,38 +400,35 @@
 <p>如果我们说一个<code>D</code>拥有<code>C</code>的访问权限，那就意味着以下3条规则中至少有其中一条成立：</p>
 <ul>
 <li>被访问类<code>C</code>是<code>public</code>的，并且与访问类<code>D</code>处于同一个模块。</li>
-<li>被访问类<code>C</code>是<code>public</code>的，不与访问类<code>D</code>处于同一个模块，但是<code>被访问类C</code>的模块允许<code>访问类D</code>的模块进行访问。</li>
+<li>被访问类<code>C</code>是<code>public</code>的，不与访问类<code>D</code>处于同一个模块，但是<code>被访问类C</code>的模块允许<code>访问类D</code>的模块进行访问。 </li>
 <li>被访问类<code>C</code>不是<code>public</code>的，但是它与访问类<code>D</code>处于同一个包中。</li>
 </ul>
-<h5 id="字段解析">2.4.2 字段解析</h5>
-<p>要解析一个未被解析过的字段符号引用，首先将会对字段表内<code>class_index</code>项中索引的<code>CONSTANT_Class_info</code>符号引用进行解析，也就是<strong><u>字段所属的类或接口的符号引用</u></strong>。</p>
+<h5 id="2-4-2-字段解析"><a href="#2-4-2-字段解析" class="headerlink" title="2.4.2 字段解析"></a>2.4.2 字段解析</h5><p>要解析一个未被解析过的字段符号引用，首先将会对字段表内<code>class_index</code>项中索引的<code>CONSTANT_Class_info</code>符号引用进行解析，也就是<strong><u>字段所属的类或接口的符号引用</u></strong>。</p>
 <p>如果解析成功完成，那把这个字段所属的类或接口用<code>C</code>表示，按照如下步骤对C进行后续字段的搜索：</p>
-<ol type="1">
+<ol>
 <li>如果<code>C</code>本身就包含了<strong>简单名称</strong>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
 <li>如果在<code>C</code>中实现了接口，将会按照继承关系从下往上递归搜索各个接口和它的父接口， 如果接口中包含了<strong>简单名称</strong>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
 <li>如果<code>C</code>不是<code>java.lang.Object</code>的话，将会按照继承关系从下往上递归搜索其父类，如果在父类中包含了<code>简单名称</code>，<strong>字段描述符</strong>都与目标相匹配的字段，则返回这个字段的直接引用，查找结束。</li>
 <li>否则，查找失败，抛出<code>java.lang.NoSuchFieldError</code>异常。</li>
 </ol>
 <p>如果查找过程成功返回了引用，将会对这个字段进行权限验证。</p>
-<h5 id="方法解析">2.4.3 方法解析</h5>
-<p>方法解析的第一个步骤也是需要先解析出方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，那么依然用<code>C</code>表示这个类，接下来虚拟机将会按照如下步骤进行后续的方法搜索：</p>
-<ol type="1">
+<h5 id="2-4-3-方法解析"><a href="#2-4-3-方法解析" class="headerlink" title="2.4.3 方法解析"></a>2.4.3 方法解析</h5><p>方法解析的第一个步骤也是需要先解析出方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，那么依然用<code>C</code>表示这个类，接下来虚拟机将会按照如下步骤进行后续的方法搜索：</p>
+<ol>
 <li>由于Class文件格式中<strong><u>类的方法和接口的方法符号引用的常量类型定义是分开的</u></strong>，如果在类的方法表中发现<code>class_index</code>中索引的<code>C</code>是个接口的话，那就直接抛出<code>java.lang.IncompatibleClassChangeError</code>异常。</li>
 <li>在类<code>C</code>中查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
 <li>在类<code>C</code>的父类中递归查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
 <li>在类<code>C</code>实现的接口列表及它们的父接口之中递归查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果存在匹配的方法，说明类<code>C</code>是一个抽象类，这时候查找结束，抛出<code>java.lang.AbstractMethodError</code>异常。</li>
-<li>否则，宣告方法查找失败，抛出<code>java.lang.NoSuchMethodError</code>。</li>
+<li>否则，宣告方法查找失败，抛出<code>java.lang.NoSuchMethodError</code>。 </li>
 </ol>
 <p>最后，如果查找过程成功返回了直接引用，将会对这个方法进行权限验证。</p>
-<h5 id="接口方法解析">2.4.4 接口方法解析</h5>
-<p>接口方法也是需要先解析出接口方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，依然用<code>C</code>表示这个接口，接下来虚拟机将会按照如下步骤进行后续的接口方法搜索：</p>
-<ol type="1">
+<h5 id="2-4-4-接口方法解析"><a href="#2-4-4-接口方法解析" class="headerlink" title="2.4.4 接口方法解析"></a>2.4.4 接口方法解析</h5><p>接口方法也是需要先解析出接口方法表的<code>class_index</code>项中索引的方法所属的类或接口的符号引用，如果解析成功，依然用<code>C</code>表示这个接口，接下来虚拟机将会按照如下步骤进行后续的接口方法搜索：</p>
+<ol>
 <li>与类的方法解析相反，如果在接口方法表中发现<code>class_index</code>中的索引<code>C</code>是个类而不是接口，那么就直接抛出<code>java.lang.IncompatibleClassChangeError</code>异常。</li>
 <li>在接口<code>C</code>中查找是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。</li>
-<li>在接口<code>C</code>的父接口中递归查找，直到<code>java.lang.Object</code>类（接口方法的查找范围也会包括Object类中的方法）为止，看是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。
-<ul>
+<li>在接口<code>C</code>的父接口中递归查找，直到<code>java.lang.Object</code>类（接口方法的查找范围也会包括Object类中的方法）为止，看是否有<strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，如果有则返回这个方法的直接引用，查找结束。<ul>
 <li>由于Java的<u>接口允许多重继承</u>，如果C的不同父接口中存有<u>多个</u><strong>简单名称</strong>，<strong>描述符</strong>都与目标相匹配的方法，那将会从这多个方法中返回其中一个并结束查找，不同发行商实现的<code>Javac</code>编译器有可能会按照<u><strong>更严格的约束拒绝编译这种代码来避免不确定性</strong></u>。</li>
-</ul></li>
+</ul>
+</li>
 <li>否则，宣告方法查找失败，抛出<code>java.lang.NoSuchMethodError</code>异常。</li>
 </ol>
 <blockquote>
@@ -454,8 +437,7 @@
 <li>但在<code>JDK 9</code>中增加了<u>接口的静态私有方法</u>，也有了模块化的访问约束，所以接口方法的访问也完全有可能因访问权限控制而出现<code>java.lang.IllegalAccessError</code>异常。</li>
 </ul>
 </blockquote>
-<h4 id="初始化">2.5 初始化</h4>
-<blockquote>
+<h4 id="2-5-初始化"><a href="#2-5-初始化" class="headerlink" title="2.5 初始化"></a>2.5 初始化</h4><blockquote>
 <p>直到初始化阶段，Java虚拟机才真正开始执行类中编写的Java程序代码，将主导权移交给应用程序。</p>
 </blockquote>
 <p>初始化阶段就是执行类构造器<code>&lt;clinit&gt;()</code>方法的过程。</p>
@@ -470,15 +452,12 @@
 <li>Java虚拟机必须保证一个类的<code>&lt;clinit&gt;()</code>方法方法在多线程环境中被正确地加锁同步。</li>
 <li>同一个类加载器下，一个类型只会被初始化一次。</li>
 </ul>
-<h3 id="类加载器">3. 类加载器</h3>
-<p>实现<code>“通过一个类的全限定名来获取描述该类的二进制字节流”</code>这个动作的代码被称为<code>“类加载器”（Class Loader）</code>。</p>
-<h4 id="类与类加载器">3.1 类与类加载器</h4>
-<p>对于任意一个类，都必须由加载它的类加载器和这个类本身一起共同确立其在Java虚拟机中的<strong><u>唯一性</u></strong>，每一个类加载器都拥有一个独立的类名称空间。</p>
+<h3 id="3-类加载器"><a href="#3-类加载器" class="headerlink" title="3. 类加载器"></a>3. 类加载器</h3><p>实现<code>“通过一个类的全限定名来获取描述该类的二进制字节流”</code>这个动作的代码被称为<code>“类加载器”（Class Loader）</code>。</p>
+<h4 id="3-1-类与类加载器"><a href="#3-1-类与类加载器" class="headerlink" title="3.1 类与类加载器"></a>3.1 类与类加载器</h4><p>对于任意一个类，都必须由加载它的类加载器和这个类本身一起共同确立其在Java虚拟机中的<strong><u>唯一性</u></strong>，每一个类加载器都拥有一个独立的类名称空间。</p>
 <blockquote>
 <p>比较两个类是否“相等”，只有在这两个类是由同一个类加载器加载的前提下才有意义，只要加载它们的类加载器不同，那这两个类就<strong>必定不相等</strong>。</p>
 </blockquote>
-<h4 id="双亲委派模型">3.2 双亲委派模型</h4>
-<p>Java虚拟机的角度来看，只存在两种不同的类加载器：</p>
+<h4 id="3-2-双亲委派模型"><a href="#3-2-双亲委派模型" class="headerlink" title="3.2 双亲委派模型"></a>3.2 双亲委派模型</h4><p>Java虚拟机的角度来看，只存在两种不同的类加载器：</p>
 <ul>
 <li><code>启动类加载器（Bootstrap ClassLoader）</code>，这个类加载器是虚拟机自身的一部分；</li>
 <li>其他所有的类加载器，这些类加载器都由Java语言实现，<strong><u>独立存在于虚拟机外部</u></strong>，并且全都继承自抽象类 <code>java.lang.ClassLoader</code>。</li>
@@ -494,9 +473,7 @@
 <li>增加除了磁盘位置之外的Class文件来源</li>
 <li>通过类加载器实现类的隔离、重载等功能。</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ParentsDelegation.PNG" alt="双亲委派模型" /><figcaption aria-hidden="true">双亲委派模型</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/ParentsDelegation.PNG" alt="双亲委派模型"></p>
 <p><code>“双亲委派模型（Parents Delegation Model）”</code>要求除了顶层的启动类加载器外，其余的类加载器都应有自己的父类加载器。</p>
 <blockquote>
 <p>类加载器之间的父子关系一般不是以<code>继承（Inheritance）</code>来实现的，而是通常使用<code>组合（Composition）</code>关系来复用父加载器的代码。</p>
@@ -506,8 +483,7 @@
 <li>如果一个类加载器收到了类加载的请求，首先把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到最顶层的启动类加载器中；</li>
 <li>只有当父加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去完成加载。</li>
 </ul>
-<h4 id="破坏双亲委派模型">3.3 破坏双亲委派模型</h4>
-<p>直到Java模块化出现为止，双亲委派模型主要出现过3次较大规模“被破坏”的情况：</p>
+<h4 id="3-3-破坏双亲委派模型"><a href="#3-3-破坏双亲委派模型" class="headerlink" title="3.3 破坏双亲委派模型"></a>3.3 破坏双亲委派模型</h4><p>直到Java模块化出现为止，双亲委派模型主要出现过3次较大规模“被破坏”的情况：</p>
 <ul>
 <li>第一次“被破坏”其实发生在双亲委派模型出现之前——即<code>JDK 1.2</code>面世以前。</li>
 <li>第二次“被破坏”是由这个模型自身的缺陷导致的，有基础类型要调用回用户的代码。</li>
@@ -518,7 +494,7 @@
 <li>每一个程序模块（<code>OSGi</code>中称为<code>Bundle</code>）都有一个自己的类加载器，当需要更换一个<code>Bundle</code>时，就把<code>Bundle</code>连同类加载器一起换掉以实现代码的热替换。</li>
 </ul>
 <p>在<code>OSGi</code>环境下，类加载器发展为更加复杂的网状结构，当收到类加载请求时，<code>OSGi</code>将按照下面的顺序进行类搜索：</p>
-<ol type="1">
+<ol>
 <li>将以<code>java.*</code>开头的类，委派给父类加载器加载。</li>
 <li>否则，将委派列表名单内的类，委派给父类加载器加载。</li>
 <li>否则，将<code>Import</code>列表中的类，委派给<code>Export</code>这个类的<code>Bundle</code>的类加载器加载。</li>
@@ -527,8 +503,7 @@
 <li>否则，查找<code>Dynamic Import</code>列表的<code>Bundle</code>，委派给对应<code>Bundle</code>的类加载器加载。</li>
 <li>否则，类查找失败。</li>
 </ol>
-<h3 id="java模块化系统">4. Java模块化系统</h3>
-<p><code>JDK 9</code>中引入的<code>Java模块化系统（Java Platform Module System，JPMS）</code>能够实现模块化的关键目标——可配置的封装隔离机制。<code>JDK 9</code>的模块除了简单地充当代码的容器，还包含以下内容：</p>
+<h3 id="4-Java模块化系统"><a href="#4-Java模块化系统" class="headerlink" title="4. Java模块化系统"></a>4. Java模块化系统</h3><p><code>JDK 9</code>中引入的<code>Java模块化系统（Java Platform Module System，JPMS）</code>能够实现模块化的关键目标——可配置的封装隔离机制。<code>JDK 9</code>的模块除了简单地充当代码的容器，还包含以下内容：</p>
 <ul>
 <li>依赖其他模块的列表。</li>
 <li>导出的包列表，即其他模块可以使用的列表。</li>
@@ -541,27 +516,23 @@
 <li><code>JDK 9</code>之前基于<code>类路径（ClassPath）</code>来查找依赖的<strong>可靠性问题</strong>。</li>
 <li>原来类路径上跨<code>JAR</code>文件的<code>public</code>类型的<strong>可访问性问题</strong>。</li>
 </ul>
-<h4 id="模块的兼容性">4.1 模块的兼容性</h4>
-<p><code>JDK 9</code>提出了与<code>“类路径”（ClassPath）</code>相对应的<code>“模块路径”（ModulePath）</code>的概念，使<u><strong>可配置的封装隔离机制</strong></u>能够兼容传统的类路径查找机制。</p>
+<h4 id="4-1-模块的兼容性"><a href="#4-1-模块的兼容性" class="headerlink" title="4.1 模块的兼容性"></a>4.1 模块的兼容性</h4><p><code>JDK 9</code>提出了与<code>“类路径”（ClassPath）</code>相对应的<code>“模块路径”（ModulePath）</code>的概念，使<u><strong>可配置的封装隔离机制</strong></u>能够兼容传统的类路径查找机制。</p>
 <p>模块化系统将按照以下规则来保证使用传统类路径依赖的Java程序可以不经修改地直接运行在<code>JDK 9</code>及以后的Java版本上：</p>
 <ul>
 <li><strong>JAR文件在类路径的访问规则</strong>：所有类路径下的<code>JAR</code>文件及其他资源文件，都被视为自动打包在一个<code>匿名模块（Unnamed Module）</code>里，这个匿名模块<strong>几乎是没有任何隔离的</strong>，它可以看到和使用<u>类路径上所有的包</u>、<u>JDK系统模块中所有的导出包</u>，以及<u>模块路径上所有模块中导出的包</u>。</li>
 <li><strong>模块在模块路径的访问规则</strong>：模块路径下的<code>具名模块（Named Module）</code>只能访问到它<u>依赖定义中列明依赖的模块和包</u>，匿名模块里所有的内容对具名模块来说都是不可见的，即<strong><u>具名模块看不见传统JAR包的内容</u></strong>。</li>
 <li><strong>JAR文件在模块路径的访问规则</strong>：如果把一个传统的、不包含模块定义的JAR文件放置到模块路径中，它就会变成一个<code>自动模块（Automatic Module）</code>。尽管不包含<code>module-info.class</code>，但自动模块将默认依赖于整个模块路径中的所有模块，因此可以访问到<u>所有模块导出的</u>包，自动模块也<strong>默认导出自己所有的包</strong>。</li>
 </ul>
-<h4 id="模块化下的类加载器">4.2 模块化下的类加载器</h4>
-<p><code>JDK 9</code>为了模块化系统的顺利施行，模块化下的类加载器发生了一些变动，主要包括以下几个方面：</p>
+<h4 id="4-2-模块化下的类加载器"><a href="#4-2-模块化下的类加载器" class="headerlink" title="4.2 模块化下的类加载器"></a>4.2 模块化下的类加载器</h4><p><code>JDK 9</code>为了模块化系统的顺利施行，模块化下的类加载器发生了一些变动，主要包括以下几个方面：</p>
 <ul>
 <li><code>扩展类加载器（Extension Class Loader）</code>被<code>平台类加载器（Platform Class Loader）</code>取代。</li>
 <li><code>平台类加载器</code>和<code>应用程序类加载器</code>都不再派生自<code>java.net.URLClassLoader</code>，现在启动类加载器、平台类加载器、应用程序类加载器全都继承于 <code>jdk.internal.loader.BuiltinClassLoader</code>。<code>BuiltinClassLoader</code>中实现了新的模块化架构下<u>类如何从模块中加载的逻辑</u>，以及<u>模块中资源可访问性的处理</u>。</li>
-<li><code>JDK 9</code>中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。
-<ul>
+<li><code>JDK 9</code>中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。<ul>
 <li>当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类<u>是否能够归属到某一个系统模块中</u>，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。</li>
-</ul></li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JDK9ClassLoaderDelegation.PNG" alt="JDK 9后的类加载器委派关系" /><figcaption aria-hidden="true">JDK 9后的类加载器委派关系</figcaption>
-</figure>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JDK9ClassLoaderDelegation.PNG" alt="JDK 9后的类加载器委派关系"></p>
 
     </div>
 
@@ -630,7 +601,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的时机"><span class="nav-number">2.</span> <span class="nav-text">1. 类加载的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载的过程"><span class="nav-number">3.</span> <span class="nav-text">2. 类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加载"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 验证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件格式验证"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 文件格式验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#元数据验证"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 元数据验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字节码验证"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 字节码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#符号引用验证"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类或接口的解析"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 类或接口的解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段解析"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 字段解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法解析"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 方法解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接口方法解析"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类加载器"><span class="nav-number">4.</span> <span class="nav-text">3. 类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与类加载器"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 类与类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 双亲委派模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#破坏双亲委派模型"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 破坏双亲委派模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java模块化系统"><span class="nav-number">5.</span> <span class="nav-text">4. Java模块化系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模块的兼容性"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 模块的兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块化下的类加载器"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 模块化下的类加载器</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-类加载的时机"><span class="nav-number">2.</span> <span class="nav-text">1. 类加载的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类加载的过程"><span class="nav-number">3.</span> <span class="nav-text">2. 类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-加载"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-验证"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 验证</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-文件格式验证"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 文件格式验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-元数据验证"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 元数据验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-字节码验证"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 字节码验证</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-4-符号引用验证"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-准备"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-解析"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-1-类或接口的解析"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 类或接口的解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-2-字段解析"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 字段解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-3-方法解析"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 方法解析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-4-接口方法解析"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-初始化"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-类加载器"><span class="nav-number">4.</span> <span class="nav-text">3. 类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-类与类加载器"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 类与类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-双亲委派模型"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 双亲委派模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-破坏双亲委派模型"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 破坏双亲委派模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Java模块化系统"><span class="nav-number">5.</span> <span class="nav-text">4. Java模块化系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-模块的兼容性"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 模块的兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-模块化下的类加载器"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 模块化下的类加载器</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -646,7 +617,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -707,13 +678,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">317k</span>
+    <span title="站点总字数">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:48</span>
+    <span title="站点阅读时长">5:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述  Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.">
+  <meta name="description" content="一、问题描述 Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--35. Search Insert Position">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;04&#x2F;24&#x2F;LeetCode--35-Search-Insert-Position.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述  Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.">
+<meta property="og:description" content="一、问题描述 Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:48:10.706Z">
 <meta name="twitter:card" content="summary">
@@ -297,7 +297,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>991</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -316,22 +316,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<blockquote>
-<p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order. <a id="more"></a> You may assume no duplicates in the array.</p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.<br><a id="more"></a><br>You may assume no duplicates in the array.</p>
 </blockquote>
-<p><strong>Example 1:</strong> &gt; Input: [1,3,5,6], 5 &gt; Output: 2</p>
-<p><strong>Example 2:</strong> &gt; Input: [1,3,5,6], 2 &gt; Output: 1</p>
-<p><strong>Example 3:</strong> &gt; Input: [1,3,5,6], 7 &gt; Output: 4</p>
-<p><strong>Example 4:</strong> &gt; Input: [1,3,5,6], 0 &gt; Output: 0</p>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>显然，这道题还是可以使用二分查找求解。使用二分搜索查找target，若找到了，直接返回找到的下标。若target不存在，二分搜索结束后，low所指向的位置就是target插入的位置。</p>
-<h3 id="三代码">三、代码</h3>
-<h4 id="二分查找">二分查找</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = nums.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low &lt;= high)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &gt; target) high = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="解法2">解法2</h4>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = nums.size();</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &lt; target) low = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> high = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> high;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<p><strong>Example 1:</strong></p>
+<blockquote>
+<p>Input: [1,3,5,6], 5<br>Output: 2</p>
+</blockquote>
+<p><strong>Example 2:</strong></p>
+<blockquote>
+<p>Input: [1,3,5,6], 2<br>Output: 1</p>
+</blockquote>
+<p><strong>Example 3:</strong></p>
+<blockquote>
+<p>Input: [1,3,5,6], 7<br>Output: 4</p>
+</blockquote>
+<p><strong>Example 4:</strong></p>
+<blockquote>
+<p>Input: [1,3,5,6], 0<br>Output: 0</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>显然，这道题还是可以使用二分查找求解。使用二分搜索查找target，若找到了，直接返回找到的下标。若target不存在，二分搜索结束后，low所指向的位置就是target插入的位置。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = nums.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span>(low &lt;= high)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &gt; target) high = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = nums.size();</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &lt; target) low = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> high = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> high;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -347,16 +353,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/04/24/LeetCode--36-Valid-Sudoku.html" rel="next" title="LeetCode--36. Valid Sudoku">
-                  <i class="fa fa-chevron-left"></i> LeetCode--36. Valid Sudoku
+                <a href="/2019/04/23/LeetCode--34-Find-First-and-Last-Position-of-Element-in-Sorted-Array.html" rel="next" title="LeetCode--34. Find First and Last Position of Element in Sorted Array">
+                  <i class="fa fa-chevron-left"></i> LeetCode--34. Find First and Last Position of Element in Sorted Array
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/04/25/fifth-week-LeetCode.html" rel="prev" title="第五周LeetCode">
-                  第五周LeetCode <i class="fa fa-chevron-right"></i>
+                <a href="/2019/04/24/LeetCode--36-Valid-Sudoku.html" rel="prev" title="LeetCode--36. Valid Sudoku">
+                  LeetCode--36. Valid Sudoku <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -397,7 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二分查找"><span class="nav-number">3.1.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解法2"><span class="nav-number">3.2.</span> <span class="nav-text">解法2</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二分查找"><span class="nav-number">3.1.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解法2"><span class="nav-number">3.2.</span> <span class="nav-text">解法2</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,7 +419,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -474,13 +480,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">317k</span>
+    <span title="站点总字数">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:48</span>
+    <span title="站点阅读时长">5:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

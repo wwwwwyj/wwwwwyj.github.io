@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述  Implement atoi which converts a string to an integer.">
+  <meta name="description" content="一、问题描述 Implement atoi which converts a string to an integer.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--8. String to Integer (atoi)">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;03&#x2F;31&#x2F;LeetCode--8-String-to-Integer-atoi.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述  Implement atoi which converts a string to an integer.">
+<meta property="og:description" content="一、问题描述 Implement atoi which converts a string to an integer.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:38:50.079Z">
 <meta name="twitter:card" content="summary">
@@ -316,31 +316,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<blockquote>
-<p>Implement <strong>atoi</strong> which converts a string to an integer. <a id="more"></a> The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them as a numerical value.</p>
-</blockquote>
-<blockquote>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Implement <strong>atoi</strong> which converts a string to an integer.<br><a id="more"></a><br>The function first discards as many whitespace characters as necessary until the first non-whitespace character is found. Then, starting from this character, takes an optional initial plus or minus sign followed by as many numerical digits as possible, and interprets them as a numerical value.</p>
 <p>The string can contain additional characters after those that form the integral number, which are ignored and have no effect on the behavior of this function.</p>
-</blockquote>
-<blockquote>
 <p>If the first sequence of non-whitespace characters in str is not a valid integral number, or if no such sequence exists because either str is empty or it contains only whitespace characters, no conversion is performed.</p>
-</blockquote>
-<blockquote>
 <p>If no valid conversion could be performed, a zero value is returned.</p>
 </blockquote>
-<p><strong>Note:</strong> - Only the space character ' ' is considered as whitespace character. - Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.</p>
-<p><strong>Example1:</strong> &gt;Input: "42" &gt;Output: 42</p>
-<p><strong>Example2:</strong> &gt;Input: " -42" &gt;Output: -42 &gt;Explanation: The first non-whitespace character is '-', which is the minus sign.Then take as many numerical digits as possible, which gets 42.</p>
-<p><strong>Example3:</strong> &gt;Input: "4193 with words" &gt;Output: 4193 &gt;Explanation: Conversion stops at digit '3' as the next character is not a numerical digit.</p>
-<p><strong>Example4:</strong> &gt;Input: "words and 987" &gt;Output: 0 &gt;Explanation: The first non-whitespace character is 'w', which is not a numerical digit or a +/- sign. Therefore no valid conversion could be performed.</p>
-<p><strong>Example5:</strong> &gt;Input: "-91283472332" &gt;Output: -2147483648 &gt;Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer. Thefore INT_MIN (−231) is returned.</p>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>题目大致意思是：将一个字符串转换成一个数，这个字符串有很多种情况需要考虑： 1. 忽略字符串头部的空白(只把" "当做空白) 2. 数字可能带正负号 3. 若数字超过INT表示范围，则若上溢，返回INT最大值；若下溢，返回INT最小值 4. 如果除1,2情况外，第一个字符不是数字，视为无效值，返回0 5. 如果数字后出现非数字，则截断，不考虑后面的字符。</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Only the space character ‘ ‘ is considered as whitespace character.</li>
+<li>Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.</li>
+</ul>
+<p><strong>Example1:</strong></p>
+<blockquote>
+<p>Input: “42”<br>Output: 42</p>
+</blockquote>
+<p><strong>Example2:</strong></p>
+<blockquote>
+<p>Input: “   -42”<br>Output: -42<br>Explanation: The first non-whitespace character is ‘-‘, which is the minus sign.Then take as many numerical digits as possible, which gets 42.</p>
+</blockquote>
+<p><strong>Example3:</strong></p>
+<blockquote>
+<p>Input: “4193 with words”<br>Output: 4193<br>Explanation: Conversion stops at digit ‘3’ as the next character is not a numerical digit.</p>
+</blockquote>
+<p><strong>Example4:</strong></p>
+<blockquote>
+<p>Input: “words and 987”<br>Output: 0<br>Explanation: The first non-whitespace character is ‘w’, which is not a numerical digit or a +/- sign. Therefore no valid conversion could be performed.</p>
+</blockquote>
+<p><strong>Example5:</strong></p>
+<blockquote>
+<p>Input: “-91283472332”<br>Output: -2147483648<br>Explanation: The number “-91283472332” is out of the range of a 32-bit signed integer. Thefore INT_MIN (−231) is returned.</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目大致意思是：将一个字符串转换成一个数，这个字符串有很多种情况需要考虑：</p>
+<ol>
+<li>忽略字符串头部的空白(只把” “当做空白)</li>
+<li>数字可能带正负号</li>
+<li>若数字超过INT表示范围，则若上溢，返回INT最大值；若下溢，返回INT最小值</li>
+<li>如果除1,2情况外，第一个字符不是数字，视为无效值，返回0</li>
+<li>如果数字后出现非数字，则截断，不考虑后面的字符。</li>
+</ol>
 <p>所以，只需要将这些情况考虑进来，把字符串进行直接处理即可。判断溢出时，可以用long来保存结果，最后再判断值是否溢出；也可以直接计算过程中对INT进行判断。这里用的后一种方法。这道题在判断溢出时，思路类似于[7.Reverse Integer]这道题。</p>
-<h3 id="三代码">三、代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,sign=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//去空格</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;str[i]==<span class="string">' '</span>;i++);</span><br><span class="line">        <span class="comment">//取符号</span></span><br><span class="line">        <span class="keyword">if</span>(str[i]==<span class="string">'-'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sign=<span class="number">1</span>;i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'+'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(str[i]&gt;=<span class="string">'0'</span>&amp;&amp;str[i]&lt;=<span class="string">'9'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(sign==<span class="number">0</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">            <span class="keyword">if</span>(sign==<span class="number">1</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MIN;</span><br><span class="line">            </span><br><span class="line">            result=result*<span class="number">10</span>+(str[i]-<span class="string">'0'</span>);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sign) result=-result;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">myAtoi</span><span class="params">(<span class="built_in">string</span> str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i,sign=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//去空格</span></span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;str[i]==<span class="string">' '</span>;i++);</span><br><span class="line">        <span class="comment">//取符号</span></span><br><span class="line">        <span class="keyword">if</span>(str[i]==<span class="string">'-'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sign=<span class="number">1</span>;i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'+'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(str[i]&gt;=<span class="string">'0'</span>&amp;&amp;str[i]&lt;=<span class="string">'9'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(sign==<span class="number">0</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">            <span class="keyword">if</span>(sign==<span class="number">1</span>&amp;&amp;(INT_MAX-(str[i]-<span class="string">'0'</span>))/<span class="number">10</span>&lt;result) <span class="keyword">return</span> INT_MIN;</span><br><span class="line">            </span><br><span class="line">            result=result*<span class="number">10</span>+(str[i]-<span class="string">'0'</span>);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sign) result=-result;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -406,7 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -422,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">106</span>
+          <span class="site-state-item-count">108</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -483,13 +499,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">317k</span>
+    <span title="站点总字数">330k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:48</span>
+    <span title="站点阅读时长">5:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

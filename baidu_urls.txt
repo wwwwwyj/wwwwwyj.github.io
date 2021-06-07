@@ -1,3 +1,5 @@
+https://wuyunjie.top/2021/06/07/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_13_Thread_safety_and_lock_optimization.html
+https://wuyunjie.top/2021/06/06/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_12_Java_memory_model_and_threads.html
 https://wuyunjie.top/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html
 https://wuyunjie.top/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html
 https://wuyunjie.top/2021/05/31/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_9_Case_and_practice_of_class_loading_and_execution_subsystem.html
@@ -6,5 +8,3 @@ https://wuyunjie.top/2021/05/27/JavaLearning_Undertanding_the_JVM_Advanced_Featu
 https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_6_Class_file_structure.html
 https://wuyunjie.top/2021/05/26/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_5_Tuning_case_study_and_practice.html
 https://wuyunjie.top/2021/05/26/JZ13_the_odd_numbers_come_before_the_even_numbers.html
-https://wuyunjie.top/2021/05/26/JZ12_Integer_power.html
-https://wuyunjie.top/2021/05/26/JZ11_Number_of_1s_in_binary.html
