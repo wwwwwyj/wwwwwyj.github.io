@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="前言 Java中所使用的并发机制依赖于JVM的实现和CPU的指令">
+<meta name="keywords" content="Learning,Java,Java并发编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java学习|Java并发编程的艺术]--2 Java并发机制的底层实现原理">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;13&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="前言 Java中所使用的并发机制依赖于JVM的实现和CPU的指令">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;CPUTerm.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;objectHeadLength.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;objectHeadStructure.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;objectHeadMarkWord.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;objectHeadMarkWord64.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;BiasedLock.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;LightweightLock.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;LockAdAndDisad.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;CPUTerm2.PNG">
+<meta property="og:updated_time" content="2021-07-13T02:01:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter2&#x2F;CPUTerm.png">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[Java学习|Java并发编程的艺术]--2 Java并发机制的底层实现原理 | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Java学习|Java并发编程的艺术]--2 Java并发机制的底层实现原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-13 10:01:19" itemprop="dateCreated datePublished" datetime="2021-07-13T10:01:19+08:00">2021-07-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">Java并发编程</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|Java并发编程的艺术]--2 Java并发机制的底层实现原理" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p><code>Java中所使用的并发机制依赖于JVM的实现和CPU的指令</code><br><a id="more"></a></p>
+</blockquote>
+<h3 id="1-volatile的应用"><a href="#1-volatile的应用" class="headerlink" title="1. volatile的应用"></a>1. <code>volatile</code>的应用</h3><p><code>volatile</code>是<strong>轻量级</strong>的<code>synchronized</code>，它在多处理器开发中保证了共享变量的<code>“可见性”</code>。</p>
+<blockquote>
+<p><code>可见性</code>是<u>当一个线程修改一个共享变量时，另外一个线程能读到这个修改的值</u>。</p>
+</blockquote>
+<h4 id="1-1-volatile的定义与实现原理"><a href="#1-1-volatile的定义与实现原理" class="headerlink" title="1.1 volatile的定义与实现原理"></a>1.1 <code>volatile</code>的定义与实现原理</h4><p>Java编程语言允许线程访问共享变量，为了确保共享变量能被<code>准确</code>和<code>一致</code>地更新，线程应该确保通过<code>排他锁</code>单独获得这个变量。如果一个字段被声明成<code>volatile</code>，Java线程内存模型确保<u>所有线程看到这个变量的值是一致的</u>。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/CPUTerm.png" alt="CPU的术语定义"></p>
+<p>有<code>volatile</code>变量修饰的共享变量进行写操作时会有一行<code>Lock</code>前缀的指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x01a3de1d: movb $0×0,0×1104800(%esi);</span><br><span class="line">0x01a3de24: lock addl $0×0,(%esp);</span><br></pre></td></tr></table></figure>
+<p><code>Lock</code>指令在多核处理器下会:</p>
+<ul>
+<li>将当前处理器缓存行的数据<strong>写回到系统内存</strong>。</li>
+<li>写回内存的操作会使在其他CPU里缓存了该内存地址的数据<strong>无效</strong>。在多处理器下，理由<code>缓存一致性协议</code>保证各个处理器的缓存是一致的，每个处理器通过<strong>嗅探</strong>在总线上传播的数据来检查自己缓存的值是不是过期了，当处理器发现自己缓存行对应的内存地址被修改，就会将当前处理器的缓存行设置成<code>无效状态</code>，当处理器对这个数据进行修改操作的时候，会重新从系统内存中把数据读到处理器缓存里。</li>
+</ul>
+<p><code>volatile</code>的两条实现原则：</p>
+<ul>
+<li><code>Lock</code>前缀指令会引起处理器缓存回写到内存。</li>
+<li>一个处理器的缓存回写到内存会导致其他处理器的缓存无效。</li>
+</ul>
+<h4 id="1-2-volatile的使用优化"><a href="#1-2-volatile的使用优化" class="headerlink" title="1.2 volatile的使用优化"></a>1.2 <code>volatile</code>的使用优化</h4><p>队列集合类<code>LinkedTransferQueue</code>在使用<code>volatile</code>变量时，用一种追加字节的方式来优化队列出队和入队的性能。<code>LinkedTransferQueue</code>的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 队列中的头部节点 */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">final</span> PaddedAtomicReference&lt;QNode&gt; head;</span><br><span class="line"><span class="comment">/** 队列中的尾部节点 */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">final</span> PaddedAtomicReference&lt;QNode&gt; tail;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">PaddedAtomicReference</span> &lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AtomicReference</span> &lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">	<span class="comment">// 使用很多4个字节的引用追加到64个字节</span></span><br><span class="line">	Object p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, pa, pb, pc, pd, pe;</span><br><span class="line"></span><br><span class="line">    PaddedAtomicReference(T r) &#123;</span><br><span class="line">		<span class="keyword">super</span>(r);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AtomicReference</span> &lt;<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">volatile</span> V value;</span><br><span class="line">	<span class="comment">// 省略其他代码</span></span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p>类<code>LinkedTransferQueue</code>使用一个内部类<code>PaddedAtomicReference</code>来定义队列的<strong>头节点（head）</strong>和<strong>尾节点（tail）</strong>，这个内部类相对于父类 <code>AtomicReference</code>只将共享变量追加到<code>64</code>字节。</p>
+<p>主要原因是一些处理器的<code>L1</code>、<code>L2</code>或<code>L3</code>缓存的高速缓存行是64个字节宽，不支持部分填充缓存行。如果队列的头节点和尾节点都不足64字节的话，处理器会将它们都<strong><u>读到同一个高速缓存行中</u></strong>，当一 个处理器试图修改头节点时，会将整个缓存行锁定，那么在缓存一致性机制的作用下，会导致其他处理器不能访问自己高速缓存中的尾节点，严重影响到队列的入队和出队效率。</p>
+<p>通过追加到64字节的方式来填满高速缓冲区的缓存行，避免头节点和尾节点加载到同一个缓存行，使头、尾节点在修改时不会互相锁定。但在两种场景下不应该使用这种方式：</p>
+<ul>
+<li>缓存行非64字节宽的处理器。</li>
+<li>共享变量不会被频繁地写。</li>
+</ul>
+<blockquote>
+<p><code>Java 7</code>会淘汰或重新排列无用字段，需要使用其他追加字节的方式</p>
+</blockquote>
+<h3 id="2-synchronized的实现原理与应用"><a href="#2-synchronized的实现原理与应用" class="headerlink" title="2.  synchronized的实现原理与应用"></a>2.  <code>synchronized</code>的实现原理与应用</h3><p><code>synchronized</code>被称呼为<strong>重量级锁</strong>。随着<code>Java SE 1.6</code>对<code>synchronized</code>的优化，它变得轻量级了。下利用<code>synchronized</code>实现同步的基础：<strong>Java中的每一个对象都可以作为锁</strong>。</p>
+<ul>
+<li>对于<strong>普通同步方法</strong>，锁是当前实例对象。</li>
+<li>对于<strong>静态同步方法</strong>，锁是当前类的<code>Class</code>对象。</li>
+<li>对于<strong>同步方法块</strong>，锁是<code>Synchonized</code>括号里配置的对象。</li>
+</ul>
+<p>当一个线程试图<u>访问同步代码块</u>时，它首先<strong>必须得到锁，退出或抛出异常时必须释放锁</strong>。<code>JVM</code>基于进入和退出<code>Monitor对象</code>来实现<strong>方法同步</strong>和<strong>代码块同步</strong>：</p>
+<ul>
+<li><code>代码块同步</code>是使用<code>monitorenter</code>和<code>monitorexit</code>指令实现的；<ul>
+<li><code>monitorenter</code>指令是在编译后插入到同步代码块的开始位置；</li>
+<li><code>monitorexit</code>是插入到方法结束处和异常处；</li>
+<li><code>JVM</code>要保证每个<code>monitorenter</code>必须有对应的<code>monitorexit</code>与之配对；</li>
+<li>任何对象都有一个<code>monitor</code>与之关联，当且仅当一个<code>monitor</code>被持有后，它将处于<strong>锁定状态</strong>。线程执行到<code>monitorenter</code>指令时，将会尝试获取对象所对应的<code>monitor</code>的所有权，即尝试获得对象的锁。</li>
+</ul>
+</li>
+<li><code>方法同步</code>是使用另外一种方式实现的，细节在<strong>JVM规范</strong>里并没有详细说明。方法的同步同样可以使用这两个指令来实现。</li>
+</ul>
+<h4 id="2-1-Java对象头"><a href="#2-1-Java对象头" class="headerlink" title="2.1 Java对象头"></a>2.1 Java对象头</h4><p><code>synchronized</code>用的锁是存在<strong>Java对象</strong>头里的。Java对象头里的<code>Mark Word</code>里默认存储对象的<code>HashCode</code>、分代年龄和锁标记位。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/objectHeadLength.PNG" alt="Java对象头的长度"></p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/objectHeadStructure.PNG" alt="Java对象头的存储结构"></p>
+<p>在运行期间，<code>Mark Word</code>里存储的数据会随着锁标志位的变化而变化。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/objectHeadMarkWord.PNG" alt="Mark Word的状态变化"></p>
+<p><code>64位虚拟机</code>下，<code>Mark Word</code>是<code>64bit</code>大小的，其存储结构如下：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/objectHeadMarkWord64.PNG" alt="Mark Word的状态变化(64bits)"></p>
+<h4 id="2-2-锁的升级与对比"><a href="#2-2-锁的升级与对比" class="headerlink" title="2.2 锁的升级与对比"></a>2.2 锁的升级与对比</h4><p>在<code>Java SE 1.6</code>中，锁一共有<code>4</code>种状态，级别从低到高依次是：<code>无锁状态</code>、<code>偏向锁状态</code>、<code>轻量级锁状态</code>和<code>重量级锁状态</code>，这几个状态会随着竞争情况逐渐升级。</p>
+<blockquote>
+<ul>
+<li><p><strong>锁可以升级但不能降级</strong>，意味着偏向锁升级成轻量级锁后不能降级成偏向锁。</p>
+</li>
+<li><p>引入了<code>“偏向锁”</code>和<code>“轻量级锁”</code>，是为了<u>减少获得锁和释放锁带来的性能消耗</u>。</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/BiasedLock.PNG" alt="偏向锁"></p>
+<h5 id="2-2-1-偏向锁"><a href="#2-2-1-偏向锁" class="headerlink" title="2.2.1 偏向锁"></a>2.2.1 偏向锁</h5><p>大多数情况下，锁不仅不存在多线程竞争，而且<u><strong>总是由同一线程多次获得</strong></u>，为了让线程获得锁的代价更低而引入了偏向锁。当一个线程访问同步块并获取锁时，会在对象头和栈帧中的锁记录里存储<strong>锁偏向的线程ID</strong>，以后该线程在进入和退出同步块时不需要进行<code>CAS</code>操作来加锁和解锁，只需简单地测试一下对象头的<code>Mark Word</code>里<u><strong>是否存储着指向当前线程的偏向锁</strong></u>。</p>
+<ul>
+<li>如果测试成功，表示线程已经获得了锁。</li>
+<li>如果测试失败，则需要再测试一下<code>Mark Word</code>中偏向锁的标识是否设置成<code>1</code>（表示当前是偏向锁）。如果没有设置，则使用<code>CAS</code>竞争锁；如果设置了，则尝试使用<code>CAS</code>将对象头的偏向锁指向当前线程。</li>
+</ul>
+<p>偏向锁使用了一种<u>等到竞争出现才释放锁的机制</u>，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。偏向锁的撤销，需要等待<strong>全局安全点</strong>（在这个时间点上没有正在执行的字节码）。</p>
+<ul>
+<li>首先暂停拥有偏向锁的线程；</li>
+<li>然后检查持有偏向锁的线程是否活着：<ul>
+<li>如果线程不处于活动状态，则将对象头设置成无锁状态；</li>
+<li>如果线程仍然活着，拥有偏向锁的栈会被执行，遍历偏向对象的锁记录，栈中的锁记录和对象头的<code>Mark Word</code>要么重新偏向于其他 线程，要么恢复到无锁或者标记对象不适合作为偏向锁。</li>
+</ul>
+</li>
+<li>最后唤醒暂停的线程。</li>
+</ul>
+<h5 id="2-2-2-轻量级锁"><a href="#2-2-2-轻量级锁" class="headerlink" title="2.2.2 轻量级锁"></a>2.2.2 轻量级锁</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/LightweightLock.PNG" alt="轻量级锁"></p>
+<h6 id="2-2-2-1-轻量级锁加锁"><a href="#2-2-2-1-轻量级锁加锁" class="headerlink" title="2.2.2.1 轻量级锁加锁"></a>2.2.2.1 轻量级锁加锁</h6><p>线程在执行同步块之前，<code>JVM</code>会先在当前线程的<strong>栈桢</strong>中创建<u>用于存储锁记录</u>的空间，并将对象头中的<code>Mark Word</code>复制到锁记录中，官方称为<code>Displaced Mark Word</code>。然后线程尝试使用<code>CAS</code>将对象头中的<code>Mark Word</code>替换为指向锁记录的指针。如果成功，当前线程获得锁，如果失败，表示其他线程竞争锁，当前线程便尝试使用<strong>自旋</strong>来获取锁。</p>
+<h6 id="2-2-2-2-轻量级锁解锁"><a href="#2-2-2-2-轻量级锁解锁" class="headerlink" title="2.2.2.2 轻量级锁解锁"></a>2.2.2.2 轻量级锁解锁</h6><p>轻量级解锁时，会使用原子的<code>CAS</code>操作将<code>Displaced Mark Word</code>替换回到对象头，如果成功，则表示没有竞争发生。如果失败，表示当前锁存在竞争，锁就会<strong>膨胀</strong>成重量级锁。因为<code>自旋</code>会消耗CPU，为了避免无用的自旋（比如获得锁的线程被阻塞住了），一旦锁升级成重量级锁，就不会再恢复到轻量级锁状态。</p>
+<h4 id="2-2-3-锁的优缺点对比"><a href="#2-2-3-锁的优缺点对比" class="headerlink" title="2.2.3 锁的优缺点对比"></a>2.2.3 锁的优缺点对比</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/LockAdAndDisad.PNG" alt="锁的优缺点的对比"></p>
+<h3 id="3-原子操作的实现原理"><a href="#3-原子操作的实现原理" class="headerlink" title="3. 原子操作的实现原理"></a>3. 原子操作的实现原理</h3><p>原子操作（atomic operation）指“不可被中断的一个或一系列操作”。</p>
+<h4 id="3-1-术语定义"><a href="#3-1-术语定义" class="headerlink" title="3.1 术语定义"></a>3.1 术语定义</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter2/CPUTerm2.PNG" alt="术语定义"></p>
+<h4 id="3-2-实现原子操作"><a href="#3-2-实现原子操作" class="headerlink" title="3.2 实现原子操作"></a>3.2 实现原子操作</h4><p><code>32位IA-32处理器</code>使用<strong><u>基于对缓存加锁</u></strong>或<strong><u>总线加锁</u></strong>的方式来实现多处理器之间的原子操作。</p>
+<ul>
+<li>首先处理器会自动保证<strong>基本的内存操作</strong>的原子性。处理器保证从系统内存中读取或者写入一个字节是原子的，即当一个处理器读取一个字节时，其他处理器不能访问这个字节的内存地址。</li>
+<li>但是处理器不能自动保证<strong>复杂的内存操作</strong>的原子性，比如<u>跨总线宽度</u>、<u>跨多个缓存行</u>和<u>跨页表</u>的访问。</li>
+</ul>
+<p>处理器提供<strong>总线锁定</strong>和<strong>缓存锁定</strong>两个机制来<u>保证复杂内存操作的原子性</u>。</p>
+<h5 id="3-2-1-总线锁保证原子性"><a href="#3-2-1-总线锁保证原子性" class="headerlink" title="3.2.1 总线锁保证原子性"></a>3.2.1 总线锁保证原子性</h5><p>总线锁就是使用处理器提供的一个<code>LOCK＃</code>信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住，那么该处理器可以<strong>独占共享内存</strong>。</p>
+<h5 id="3-2-2-缓存锁保证原子性"><a href="#3-2-2-缓存锁保证原子性" class="headerlink" title="3.2.2 缓存锁保证原子性"></a>3.2.2 缓存锁保证原子性</h5><p>同一时刻只需保证对某个内存地址的操作是原子性即可，但总线锁定把CPU和内存之间的通信锁住了，锁定期间其他处理器<u><strong>不能操作其他内存地址的数据</strong></u>，所以总线锁定的开销比较大，目前处理器在某些场合下<u>使用缓存锁定代替总线锁定来进行优化</u>。</p>
+<p><code>“缓存锁定”</code>是指内存区域如果被缓存在处理器的缓存行中，并且在<code>Lock</code>操作期间被锁定，那么当它执行锁操作回写到内存时，处理器不在总线上声言<code>LOCK＃</code>信号，而是<strong><u>修改内部的内存地址</u></strong>，并允许它的缓存一致性机制来保证操作的原子 性，因为<u>缓存一致性机制会阻止同时修改由两个以上处理器缓存的内存区域数据</u>，当其他处理器回写已被锁定的缓存行的数据时，会使缓存行无效。</p>
+<p><strong>有两种情况下处理器不会使用缓存锁定</strong>：</p>
+<ul>
+<li>当操作的数据不能被缓存在处理器内部，或操作的数据跨多个缓存行（cache line）时，处理器会调用总线锁定。</li>
+<li>有些处理器不支持缓存锁定。</li>
+</ul>
+<h4 id="3-3-Java实现原子操作"><a href="#3-3-Java实现原子操作" class="headerlink" title="3.3 Java实现原子操作"></a>3.3 Java实现原子操作</h4><p>在<code>Java</code>中可以通过<strong>锁</strong>和<strong>循环CAS</strong>的方式来实现原子操作：</p>
+<h5 id="3-3-1-使用循环CAS实现原子操作"><a href="#3-3-1-使用循环CAS实现原子操作" class="headerlink" title="3.3.1 使用循环CAS实现原子操作"></a>3.3.1 使用<code>循环CAS</code>实现原子操作</h5><p>JVM中的<code>CAS操作</code>利用了处理器提供的<code>CMPXCHG</code>指令实现的，自旋CAS实现的基本思路是<u><strong>循环进行CAS操作直到成功为止</strong></u>。从<code>Java 1.5</code>开始，<code>JDK</code>的并发包里提供了一些类来支持原子操作，如<code>AtomicBoolean</code>、<code>AtomicInteger</code>和<code>AtomicLong</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> AtomicInteger atomicI = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"><span class="comment">/** * 使用CAS实现线程安全计数器 */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">safeCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (;;) &#123;</span><br><span class="line">		<span class="keyword">int</span> i = atomicI.get();</span><br><span class="line">		<span class="keyword">boolean</span> suc = atomicI.compareAndSet(i, ++i);</span><br><span class="line">		<span class="keyword">if</span> (suc) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-3-2-CAS实现原子操作的三大问题"><a href="#3-3-2-CAS实现原子操作的三大问题" class="headerlink" title="3.3.2 CAS实现原子操作的三大问题"></a>3.3.2 CAS实现原子操作的三大问题</h5><ol>
+<li><strong>ABA问题</strong>。因为<code>CAS</code>需要在操作值的时候，检查值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是<code>A</code>，变成了<code>B</code>，又变成了<code>A</code>，那么使用<code>CAS</code>进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是<strong><u>使用版本号</u></strong>。<code>JDK</code>的<code>Atomic</code>包里提供了一个类<code>AtomicStampedReference</code>来解决<code>ABA</code>问题。这个类的<code>compareAndSet</code>方法：<ul>
+<li>首先检查当前引用是否等于预期引用；</li>
+<li>然后检查当前标志是否等于预期标志；</li>
+<li>如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。</li>
+</ul>
+</li>
+<li><strong>循环时间长开销大</strong>。自旋<code>CAS</code>如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持<code>pause指令</code>，那么效率会有一定的提升。pause指令有两个作用：<ul>
+<li><strong>延迟流水线执行指令（de-pipeline）</strong>，使CPU不会消耗过多的执行资源；</li>
+<li>避免在退出循环的时候因<code>内存顺序冲突（Memory Order Violation）</code>而引起<code>CPU流水线被清空（CPU Pipeline Flush）</code>，从而提高CPU的执行效率。</li>
+</ul>
+</li>
+<li><strong>只能保证一个共享变量的原子操作</strong>。对多个共享变量操作时，循环<code>CAS</code>就无法保证操作的原子性，这个时候就可以用<strong>锁</strong>。JDK也提供了<code>AtomicReference</code>类来保证引用对象之间的原子性，就可以把多个变量放在一个对象里来进行<code>CAS操作</code>。</li>
+</ol>
+<h5 id="3-3-3-使用锁机制实现原子操作"><a href="#3-3-3-使用锁机制实现原子操作" class="headerlink" title="3.3.3 使用锁机制实现原子操作"></a>3.3.3 使用锁机制实现原子操作</h5><p>锁机制保证了只有获得锁的线程才能够操作锁定的内存区域。除了<code>偏向锁</code>，JVM实现锁的方式都用了<code>循环 CAS</code>，即当一个线程想进入同步块的时候<strong>使用循环CAS的方式来<u>获取锁</u></strong>，当它退出同步块的时候<strong>使用循环CAS<u>释放锁</u></strong>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Learning/" rel="tag"># Learning</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"># Java并发编程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/07/12/JavaLearning_The_art_of_concurrent_programming_in_Java-1-Challenges-of-concurrent-programming.html" rel="next" title="[Java学习|Java并发编程的艺术]--1 并发编程的挑战">
+                  <i class="fa fa-chevron-left"></i> [Java学习|Java并发编程的艺术]--1 并发编程的挑战
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" rel="prev" title="[Java学习|Java并发编程的艺术]--3 Java内存模型">
+                  [Java学习|Java并发编程的艺术]--3 Java内存模型 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-volatile的应用"><span class="nav-number">2.</span> <span class="nav-text">1. volatile的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-volatile的定义与实现原理"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 volatile的定义与实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-volatile的使用优化"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 volatile的使用优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-synchronized的实现原理与应用"><span class="nav-number">3.</span> <span class="nav-text">2.  synchronized的实现原理与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Java对象头"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Java对象头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-锁的升级与对比"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 锁的升级与对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-偏向锁"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 偏向锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-轻量级锁"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 轻量级锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-2-1-轻量级锁加锁"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">2.2.2.1 轻量级锁加锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-2-2-轻量级锁解锁"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2.2.2.2 轻量级锁解锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-锁的优缺点对比"><span class="nav-number">3.3.</span> <span class="nav-text">2.2.3 锁的优缺点对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-原子操作的实现原理"><span class="nav-number">4.</span> <span class="nav-text">3. 原子操作的实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-术语定义"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 术语定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-实现原子操作"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 实现原子操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-1-总线锁保证原子性"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 总线锁保证原子性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-2-缓存锁保证原子性"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.2.2 缓存锁保证原子性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Java实现原子操作"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 Java实现原子操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-1-使用循环CAS实现原子操作"><span class="nav-number">4.3.1.</span> <span class="nav-text">3.3.1 使用循环CAS实现原子操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-2-CAS实现原子操作的三大问题"><span class="nav-number">4.3.2.</span> <span class="nav-text">3.3.2 CAS实现原子操作的三大问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-3-使用锁机制实现原子操作"><span class="nav-number">4.3.3.</span> <span class="nav-text">3.3.3 使用锁机制实现原子操作</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">402k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:06</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
