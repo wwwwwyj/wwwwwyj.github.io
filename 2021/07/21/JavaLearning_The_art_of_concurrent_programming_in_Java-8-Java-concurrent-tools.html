@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="前言  CountDownLatch、CyclicBarrier和Semaphore工具类提供了一种并发流程控制的手段，Exchanger工具类则提供了在线程间交换数据的一种手段。">
+<meta name="keywords" content="Learning,Java,Java并发编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java学习|Java并发编程的艺术]--8 Java中的并发工具类">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;21&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="前言  CountDownLatch、CyclicBarrier和Semaphore工具类提供了一种并发流程控制的手段，Exchanger工具类则提供了在线程间交换数据的一种手段。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-21T09:14:21.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[Java学习|Java并发编程的艺术]--8 Java中的并发工具类 | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Java学习|Java并发编程的艺术]--8 Java中的并发工具类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-21 17:14:21" itemprop="dateCreated datePublished" datetime="2021-07-21T17:14:21+08:00">2021-07-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">Java并发编程</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|Java并发编程的艺术]--8 Java中的并发工具类" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>CountDownLatch</code>、<code>CyclicBarrier</code>和<code>Semaphore</code>工具类提供了一种<strong><u>并发流程控制</u></strong>的手段，<code>Exchanger</code>工具类则提供了在<strong><u>线程间交换数据</u></strong>的一种手段。 <a id="more"></a></p>
+</blockquote>
+<h3 id="等待多线程完成的countdownlatch">1. 等待多线程完成的<code>CountDownLatch</code></h3>
+<p>要实现主线程等待所有线程完成操作，最简单的做法是使用<code>join()</code>方法。<code>join</code>用于让当前执行线程等待<code>join</code>线程执行结束。原理是不停检查<code>join</code>线程是否存活，如果<code>join</code>线程存活则让当前线程永远等待。<code>join</code>线程中止后，线程的<code>this.notifyAll()</code>方法会被调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line">	wait(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>CountDownLatch</code>允许一个或多个线程等待其他线程完成操作，比<code>join</code>的功能更多。</p>
+<ul>
+<li><code>CountDownLatch</code>的构造函数接收一个<code>int</code>类型的参数作为计数器，表示需要等待<code>N</code>个点完成。</li>
+<li>调用<code>CountDownLatch</code>的<code>countDown</code>方法时，<code>N</code>就会减<code>1</code>；</li>
+<li><code>CountDownLatch</code>的<code>await</code>方法会阻塞当前线程，直到<code>N</code>变成零。</li>
+</ul>
+<blockquote>
+<p>由于<code>countDown</code>方法可以用在<strong><u>任何地方</u></strong>，所以这里说的<code>N</code>个点，可以是<code>N</code>个线程，也可以是<code>1</code>个线程里的<code>N</code>个执行步骤。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountDownLatchTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> CountDownLatch c = <span class="keyword">new</span> CountDownLatch(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="number">1</span>);</span><br><span class="line">                c.countDown();</span><br><span class="line">                System.out.println(<span class="number">2</span>);</span><br><span class="line">                c.countDown();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">        c.await();</span><br><span class="line">        System.out.println(<span class="string">"3"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="同步屏障cyclicbarrier">2. 同步屏障<code>CyclicBarrier</code></h3>
+<p><code>CyclicBarrier</code>的字面意思是<strong><u>可循环使用（Cyclic）</u></strong>的<u><strong>屏障（Barrier）</strong></u>。让一 组线程到达一个屏障（也可以叫同步点）时被阻塞，直到最后一个线程到达屏障时，屏障才会开门，所有被屏障拦截的线程才会继续运行。</p>
+<h4 id="cyclicbarrier简介">2.1 <code>CyclicBarrier</code>简介</h4>
+<p><code>CyclicBarrier</code>默认的构造方法是<code>CyclicBarrier(int parties)</code>，其参数表示屏障拦截的线程数量，每个线程调用<code>await</code>方法告诉<code>CyclicBarrier</code>我已经到达了屏障，然后当前线程被阻塞。</p>
+<p><code>CyclicBarrier</code>还提供一个更高级的构造函数<code>CyclicBarrier(int parties, Runnable barrierAction)</code>，用于在线程到达屏障时，优先执行<code>barrierAction</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a new &#123;<span class="doctag">@code</span> CyclicBarrier&#125; that will trip when the</span></span><br><span class="line"><span class="comment"> * given number of parties (threads) are waiting upon it, and which</span></span><br><span class="line"><span class="comment"> * will execute the given barrier action when the barrier is tripped,</span></span><br><span class="line"><span class="comment"> * performed by the last thread entering the barrier.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> parties the number of threads that must invoke &#123;<span class="doctag">@link</span> #await&#125;</span></span><br><span class="line"><span class="comment"> *        before the barrier is tripped</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> barrierAction the command to execute when the barrier is</span></span><br><span class="line"><span class="comment"> *        tripped, or &#123;<span class="doctag">@code</span> null&#125; if there is no action</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IllegalArgumentException if &#123;<span class="doctag">@code</span> parties&#125; is less than 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CyclicBarrier</span><span class="params">(<span class="keyword">int</span> parties, Runnable barrierAction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (parties &lt;= <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">this</span>.parties = parties;</span><br><span class="line">    <span class="keyword">this</span>.count = parties;</span><br><span class="line">    <span class="keyword">this</span>.barrierCommand = barrierAction;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a new &#123;<span class="doctag">@code</span> CyclicBarrier&#125; that will trip when the</span></span><br><span class="line"><span class="comment"> * given number of parties (threads) are waiting upon it, and</span></span><br><span class="line"><span class="comment"> * does not perform a predefined action when the barrier is tripped.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> parties the number of threads that must invoke &#123;<span class="doctag">@link</span> #await&#125;</span></span><br><span class="line"><span class="comment"> *        before the barrier is tripped</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> IllegalArgumentException if &#123;<span class="doctag">@code</span> parties&#125; is less than 1</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CyclicBarrier</span><span class="params">(<span class="keyword">int</span> parties)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(parties, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>CyclicBarrier</code>可以用于<u><strong>多线程计算数据，最后合并计算结果的场景</strong></u>。</p>
+</blockquote>
+<h4 id="cyclicbarrier和countdownlatch的区别">2.2 <code>CyclicBarrier</code>和<code>CountDownLatch</code>的区别</h4>
+<p><code>CountDownLatch</code>的计数器只能使用一次，<code>CyclicBarrier</code>的计数器可以使用<code>reset()</code>方法重置。<code>CyclicBarrier</code>还提供其他有用的方法：</p>
+<ul>
+<li><code>getNumberWaiting</code>方法可以获得<code>CyclicBarrier</code>阻塞的线程数量。</li>
+<li><code>isBroken()</code>方法用来了解阻塞的线程是否被中断。</li>
+</ul>
+<h3 id="控制并发线程数的semaphore">3. 控制并发线程数的<code>Semaphore</code></h3>
+<p><code>Semaphore（信号量）</code>是用来控制<strong><u>同时访问特定资源的线程数量</u></strong>，它通过协调各个线程，以保证合理的使用公共资源。</p>
+<h4 id="应用场景">3.1 应用场景</h4>
+<p><code>Semaphore</code>可以用于做<strong><u>流量控制</u></strong>，特别是公用资源有限的应用场景，比如数据库连接。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SemaphoreTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THREAD_COUNT = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Semaphore s = <span class="keyword">new</span> Semaphore(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; THREAD_COUNT; i++) &#123;</span><br><span class="line">            threadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        s.acquire();</span><br><span class="line">                        System.out.println(<span class="string">"save data"</span>);</span><br><span class="line">                        s.release();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="其他方法">3.2 其他方法</h4>
+<ul>
+<li><code>intavailablePermits()</code>：返回此信号量中当前可用的许可证数。</li>
+<li><code>intgetQueueLength()</code>：返回正在等待获取许可证的线程数。</li>
+<li><code>booleanhasQueuedThreads()</code>：是否有线程正在等待获取许可证。</li>
+<li><code>void reducePermits(int reduction)</code>：减少<code>reduction</code>个许可证，是个<code>protected</code>方法。</li>
+<li><code>Collection getQueuedThreads()</code>：返回所有等待获取许可证的线程集合，是个<code>protected</code>方法。</li>
+</ul>
+<h3 id="线程间交换数据的exchanger">4. 线程间交换数据的<code>Exchanger</code></h3>
+<p><code>Exchanger（交换者）</code>是一个用于<strong><u>线程间协作</u></strong>的工具类。<code>Exchanger</code>用于进行<strong><u>线程间的数据交换</u></strong>。</p>
+<ul>
+<li>它提供一个<code>同步点</code>，在这个同步点，两个线程通过<code>exchange</code>方法交换彼此的数据，如果第一个线程先执行<code>exchange()</code>方法，它会一直等待第二个线程也执行<code>exchange</code>方法；</li>
+<li>当两个线程都到达同步点时，这两个线程就可以交换数据，将本线程生产出来的数据传递给对方；</li>
+<li>可以使用<code>exchange(V x，longtimeout，TimeUnit unit)</code>设置最大等待时长。</li>
+</ul>
+<h4 id="应用场景-1">4.1 应用场景</h4>
+<ul>
+<li><code>Exchanger</code>可以用于<strong><u>遗传算法</u></strong>，遗传算法里需要选出两个人作为配对对象，这时候会交换两人的数据。</li>
+<li><code>Exchanger</code>也可以用于<strong><u>校对工作</u></strong>。如对两份录入数据进行校对，看看是否录入一致。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExchangerTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Exchanger&lt;String&gt; exgr = <span class="keyword">new</span> Exchanger&lt;String&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ExecutorService threadPool = Executors.newFixedThreadPool(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        threadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    String A = <span class="string">"银行流水A"</span>; <span class="comment">// A录入银行流水数据</span></span><br><span class="line">                    String B = exgr.exchange(A);</span><br><span class="line">                    System.out.println(<span class="string">"A和B数据是否一致："</span> + A.equals(B) + <span class="string">"，A录入的是："</span>+ A + <span class="string">"，B录入是："</span> + B);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        threadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    String B = <span class="string">"银行流水B"</span>; <span class="comment">// B录入银行流水数据</span></span><br><span class="line">                    String A = exgr.exchange(<span class="string">"B"</span>);</span><br><span class="line">                    System.out.println(<span class="string">"A和B数据是否一致："</span> + A.equals(B) + <span class="string">"，A录入的是："</span>+ A + <span class="string">"，B录入是："</span> + B);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Learning/" rel="tag"># Learning</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag"># Java并发编程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-7-Java-atomic-class.html" rel="next" title="[Java学习|Java并发编程的艺术]--7 Java中的13个原子操作类">
+                  <i class="fa fa-chevron-left"></i> [Java学习|Java并发编程的艺术]--7 Java中的13个原子操作类
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-9-Java-thread-pool.html" rel="prev" title="[Java学习|Java并发编程的艺术]--9 Java中的线程池">
+                  [Java学习|Java并发编程的艺术]--9 Java中的线程池 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等待多线程完成的countdownlatch"><span class="nav-number">2.</span> <span class="nav-text">1. 等待多线程完成的CountDownLatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步屏障cyclicbarrier"><span class="nav-number">3.</span> <span class="nav-text">2. 同步屏障CyclicBarrier</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cyclicbarrier简介"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 CyclicBarrier简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cyclicbarrier和countdownlatch的区别"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 CyclicBarrier和CountDownLatch的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制并发线程数的semaphore"><span class="nav-number">4.</span> <span class="nav-text">3. 控制并发线程数的Semaphore</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他方法"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 其他方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程间交换数据的exchanger"><span class="nav-number">5.</span> <span class="nav-text">4. 线程间交换数据的Exchanger</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景-1"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 应用场景</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">437k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:37</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

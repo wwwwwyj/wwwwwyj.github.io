@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言第一章主要介绍课程概览，shell的一些基础知识。">
+  <meta name="description" content="前言 第一章主要介绍课程概览，shell的一些基础知识。">
 <meta name="keywords" content="学习记录,MIT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT 6.NULL(一) Course overview + the shell">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2020&#x2F;05&#x2F;27&#x2F;MIT-6-NULL-one-Course-overview-plus-the-shell.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言第一章主要介绍课程概览，shell的一些基础知识。">
+<meta property="og:description" content="前言 第一章主要介绍课程概览，shell的一些基础知识。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_introduction.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_path.png">
@@ -304,7 +304,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,59 +323,64 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><a href="https://missing-semester-cn.github.io/2020/course-shell/" target="_blank" rel="noopener">第一章</a>主要介绍课程概览，shell的一些基础知识。<br><a id="more"></a><br>课程分为11个时长一小时的讲座，每次围绕一个特定主题。第一次课程主要介绍了shell的使用，这是计算机的一个对外接口，这次课程介绍的许多工具都要通过shell来操作。</p>
-<h3 id="主题-1-The-Shell"><a href="#主题-1-The-Shell" class="headerlink" title="主题 1: The Shell"></a>主题 1: The Shell</h3><h4 id="shell简介"><a href="#shell简介" class="headerlink" title="shell简介"></a>shell简介</h4><p>图形界面等交互式接口会限制我们对计算机的操作，比如无法在GUI上点击一个不存在的按钮。所以需要用到最根本的文字接口：<strong>Shell</strong>。大部分<strong>Shell</strong>的核心功能都是：<code>它允许你执行程序，输入并获取某种半结构化都输出。</code>课程中使用<code>Bourne Again SHell</code>, 简称 <code>“bash”</code>。</p>
-<h4 id="shell使用"><a href="#shell使用" class="headerlink" title="shell使用"></a>shell使用</h4><p>这里我通过虚拟机安装的ubuntu系统完成课程中的各个实验。首先打开终端，有提示符</p>
-<blockquote>
-<p><code>wuyunjie@ubuntu:~$</code> </p>
-</blockquote>
+        <h3 id="前言">前言</h3>
+<p><a href="https://missing-semester-cn.github.io/2020/course-shell/" target="_blank" rel="noopener">第一章</a>主要介绍课程概览，shell的一些基础知识。 <a id="more"></a> 课程分为11个时长一小时的讲座，每次围绕一个特定主题。第一次课程主要介绍了shell的使用，这是计算机的一个对外接口，这次课程介绍的许多工具都要通过shell来操作。</p>
+<h3 id="主题-1-the-shell">主题 1: The Shell</h3>
+<h4 id="shell简介">shell简介</h4>
+<p>图形界面等交互式接口会限制我们对计算机的操作，比如无法在GUI上点击一个不存在的按钮。所以需要用到最根本的文字接口：<strong>Shell</strong>。大部分<strong>Shell</strong>的核心功能都是：<code>它允许你执行程序，输入并获取某种半结构化都输出。</code>课程中使用<code>Bourne Again SHell</code>, 简称 <code>“bash”</code>。</p>
+<h4 id="shell使用">shell使用</h4>
+<p>这里我通过虚拟机安装的ubuntu系统完成课程中的各个实验。首先打开终端，有提示符 &gt; <code>wuyunjie@ubuntu:~$</code></p>
 <p>这是shell最主要的文本接口。它告诉你，当前登陆用户是<code>wuyunjie</code>，主机名是 <code>missing</code> 并且当前的工作目录（”current working directory”）或者说当前所在的位置是<code>~</code> (表示 “home”)。 <code>$</code>符号表示您现在的身份不是<code>root</code>用户。可以在其中输入 <em>命令</em> ，命令最终会被shell解析。课程用到的例子如下：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_introduction.png" alt="Shell Introduction"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_introduction.png" alt="Shell Introduction" /><figcaption aria-hidden="true">Shell Introduction</figcaption>
+</figure>
 <p>首先执行了 <code>date</code> 程序，打印出当前的日前和时间。然后，shell等待输入其他命令。</p>
-<p>可以在执行命令的同时向程序传递 <code>参数</code>，比如<code>echo hello</code>中，<code>hello</code>是指定输入给<code>echo</code>程序的参数。shell基于<strong>空格</strong>分割命令并进行解析，然后执行第一个单词代表的程序，并将后续的单词作为程序可以访问的参数。如果希望传递的参数中包含空格（例如一个名为 My Photos 的文件夹），要么用使用单引号，双引号将<code>包含空格的参数</code>包裹起来，要么使用转义符号<code>\</code>进行处理(My\ Photos)。</p>
+<p>可以在执行命令的同时向程序传递 <code>参数</code>，比如<code>echo hello</code>中，<code>hello</code>是指定输入给<code>echo</code>程序的参数。shell基于<strong>空格</strong>分割命令并进行解析，然后执行第一个单词代表的程序，并将后续的单词作为程序可以访问的参数。如果希望传递的参数中包含空格（例如一个名为 My Photos 的文件夹），要么用使用单引号，双引号将<code>包含空格的参数</code>包裹起来，要么使用转义符号<code>\</code>进行处理(My Photos)。</p>
 <p>shell其实也是一个编程环境，它具备<code>变量、条件、循环和函数</code>。当在shell中执行命令时，实际上是在<code>执行一段shell可以解释执行的简短代码</code>。如果要求shell执行某个指令，但是该指令并不是shell所了解的编程关键字，那么它会去查询 <em>环境变量</em> <code>$PATH</code>，它会列出当shell接到某条指令时，进行程序搜索的路径。要确定某个程序名代表的是哪个具体的程序(程序的路径)，可以使用 <code>which</code> 命令。</p>
-<h4 id="shell中的路径"><a href="#shell中的路径" class="headerlink" title="shell中的路径"></a>shell中的路径</h4><p>shell中的路径是一组<em>被分割的目录</em>，在 Linux 和 macOS 上使用 <code>/</code> 分割，而在Windows上是 <code>\</code> 。路径 <code>/</code> 代表的是系统的根目录，在Windows上每个盘都有一个根目录（例如： C:\）。</p>
+<h4 id="shell中的路径">shell中的路径</h4>
+<p>shell中的路径是一组<em>被分割的目录</em>，在 Linux 和 macOS 上使用 <code>/</code> 分割，而在Windows上是 <code>\</code> 。路径 <code>/</code> 代表的是系统的根目录，在Windows上每个盘都有一个根目录（例如： C:）。</p>
 <p>Linux文件系统中如果某个路径以 <code>/</code> 开头，那么它是一个 <em>绝对路径</em>，其他的都术语 <em>相对路径</em>。相对路径是指相对于<em>当前工作目录</em>的路径，当前工作目录可以使用 <code>pwd</code> 命令来获取。此外，切换目录需要使用 <code>cd</code> 命令。在路径中，<code>.</code> 表示的是当前目录，而 <code>..</code> 表示上级目录。</p>
 <p>为了查看指定目录下包含哪些文件，我们使用 <code>ls</code> 命令。大多数的命令接受<em>标记和选项</em>，它们以 <code>-</code> 开头。通常，在执行程序时使用 <code>-h</code> 或 <code>--help</code> 标记可以打印帮助信息，以便了解有哪些可用的标记或选项。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_path.png" alt="Shell Path"></p>
-<p><code>ls -l</code>命令可以打印出更加详细地列出目录下文件或文件夹的信息。</p>
-<ol>
-<li>首先，本行第一个字符 <code>d</code> 表示是一个目录。</li>
-<li>然后接下来的九个字符，每三个字符 (<code>rwx</code>).构成一组。它们分别代表了<code>文件所有者</code>，<code>用户组</code>以及<code>其他所有人</code>具有的权限。其中 <code>-</code> 表示该用户不具备相应的权限，<code>w</code>表示”<em>可修改</em>“，<code>x</code>表示“<em>可执行</em>”，<code>r</code>表示”<code>可读</code>“。</li>
-</ol>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_path.png" alt="Shell Path" /><figcaption aria-hidden="true">Shell Path</figcaption>
+</figure>
+<p><code>ls -l</code>命令可以打印出更加详细地列出目录下文件或文件夹的信息。 1. 首先，本行第一个字符 <code>d</code> 表示是一个目录。 2. 然后接下来的九个字符，每三个字符 (<code>rwx</code>).构成一组。它们分别代表了<code>文件所有者</code>，<code>用户组</code>以及<code>其他所有人</code>具有的权限。其中 <code>-</code> 表示该用户不具备相应的权限，<code>w</code>表示"<em>可修改</em>"，<code>x</code>表示“<em>可执行</em>”，<code>r</code>表示”<code>可读</code>“。</p>
 <p>还有一些比较常用的命令：<code>mv</code> （用于重命名或移动文件）、 <code>cp</code> (拷贝文件)以及 <code>mkdir</code> (新建文件夹)。可以使用 <code>man</code> 查阅某条命令的文档（用户手册），比如<code>man ls</code>。</p>
-<h4 id="“流”和”管道”"><a href="#“流”和”管道”" class="headerlink" title="“流”和”管道”"></a>“流”和”管道”</h4><h5 id="流"><a href="#流" class="headerlink" title="流"></a>流</h5><p>在shell中，程序有两个主要的“流”：<strong>输入流</strong>和<strong>输出流</strong>。</p>
-<ol>
-<li>当程序尝试读取信息时，它们会从输入流中进行读取；</li>
-<li>当程序打印信息时，它们会将信息输出到输出流中。<br>通常，一个程序的输入输出流都是终端。我们也可以重定向这些流！</li>
-</ol>
+<h4 id="流和管道">"流"和"管道"</h4>
+<h5 id="流">流</h5>
+<p>在shell中，程序有两个主要的“流”：<strong>输入流</strong>和<strong>输出流</strong>。 1. 当程序尝试读取信息时，它们会从输入流中进行读取； 2. 当程序打印信息时，它们会将信息输出到输出流中。 通常，一个程序的输入输出流都是终端。我们也可以重定向这些流！</p>
 <p>最简单的重定向是 <code>&lt; file</code> 和 <code>&gt; file</code>。这两个命令可以将程序的输入输出流分别重定向到文件。还可以使用 <code>&gt;&gt;</code> 来向一个文件追加内容。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_stream.png" alt="Shell Stream"></p>
-<h5 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h5><p>使用管道（ <em>pipes</em>），能够更好的利用文件重定向。<code>|</code> 操作符允许我们将一个程序的输出和另外一个程序的输入连接起来。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_pipe.png" alt="Shell Pipe"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_stream.png" alt="Shell Stream" /><figcaption aria-hidden="true">Shell Stream</figcaption>
+</figure>
+<h5 id="管道">管道</h5>
+<p>使用管道（ <em>pipes</em>），能够更好的利用文件重定向。<code>|</code> 操作符允许我们将一个程序的输出和另外一个程序的输入连接起来。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_pipe.png" alt="Shell Pipe" /><figcaption aria-hidden="true">Shell Pipe</figcaption>
+</figure>
 <p>可以发现 <code>&gt;</code> 会将之后的单词视为文件名导致，是文件上的重定向。而 <code>|</code> 可以是不同程序之间的重定向。之前总感觉这个地方很混乱，也没仔细深究，现在也算补了一个坑。</p>
-<h4 id="功能全面又强大的工具"><a href="#功能全面又强大的工具" class="headerlink" title="功能全面又强大的工具"></a>功能全面又强大的工具</h4><p>对于大多数的类Unix系统，<code>根用户</code>（<code>root</code>用户）是非常特殊的。根用户<strong>几乎不受任何限制</strong>，他可以创建、读取、更新和删除系统中的任何文件。当遇到<code>拒绝访问（permission denied）</code>的错误时，通常是因为必须是根用户才能操作。</p>
-<blockquote>
-<p>通常在我们并不会以根用户的身份直接登陆系统，因为这样可能会因为某些错误的操作而破坏系统。取而代之的是我们会在需要的时候使用 <code>sudo</code> 命令。顾名思义，它的作用是可以以 <code>su</code>（<code>super user</code> 或 <code>root</code>的简写）的身份 <strong>do</strong> 一些事情。 </p>
-</blockquote>
+<h4 id="功能全面又强大的工具">功能全面又强大的工具</h4>
+<p>对于大多数的类Unix系统，<code>根用户</code>（<code>root</code>用户）是非常特殊的。根用户<strong>几乎不受任何限制</strong>，他可以创建、读取、更新和删除系统中的任何文件。当遇到<code>拒绝访问（permission denied）</code>的错误时，通常是因为必须是根用户才能操作。 &gt; 通常在我们并不会以根用户的身份直接登陆系统，因为这样可能会因为某些错误的操作而破坏系统。取而代之的是我们会在需要的时候使用 <code>sudo</code> 命令。顾名思义，它的作用是可以以 <code>su</code>（<code>super user</code> 或 <code>root</code>的简写）的身份 <strong>do</strong> 一些事情。</p>
 <p>比如有一件事情是必须作为根用户才能做的，那就是<strong>Linux</strong>下向 <code>sysfs</code> 文件写入内容。系统被挂在在 <code>/sys</code> 下，<code>sysfs</code> 文件则暴露了一些内核（kernel）参数。 因此不需要借助任何专用的工具，就可以轻松地在运行期间配置系统内核。</p>
 <p>课程里那个改屏幕亮度的例子没实现，不知道是不是由于虚拟机配置的关系，这里直接把他的内容摘过来：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo find -L /sys/class/backlight -maxdepth 2 -name <span class="string">'*brightness*'</span></span></span><br><span class="line">/sys/class/backlight/thinkpad_screen/brightness</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /sys/class/backlight/thinkpad_screen</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo <span class="built_in">echo</span> 3 &gt; brightness</span></span><br><span class="line">An error occurred while redirecting file 'brightness'</span><br><span class="line">open: Permission denied</span><br></pre></td></tr></table></figure>
 <p>尽管用了<code>sudo</code>，但仍然报错了。<code>|</code>、<code>&gt;</code>、和 <code>&lt;</code> 是通过shell执行的，而不是被各个程序单独执行。 <code>echo</code> 等程序并不知道 <code>|</code> 的存在，它们只知道从自己的输入输出流中进行读写。 对于上面这种情况， shell在设置 <code>sudo echo</code> 前尝试打开 <code>brightness</code> 文件并写入，但是系统拒绝了shell的操作因为此时shell不是根用户。可以将上述操作修改为 <code>echo 3 | sudo tee brightness</code>，打开 <code>/sys</code> 文件的是 <code>tee</code> 这个程序，并且该程序以 <code>root</code> 权限在运行，因此操作可以进行。</p>
-<h3 id="课后练习"><a href="#课后练习" class="headerlink" title="课后练习"></a>课后练习</h3><ol>
+<h3 id="课后练习">课后练习</h3>
+<ol type="1">
 <li>前面1-7还好，是对shell的一个熟悉。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise.png" alt="Shell exercise1"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise.png" alt="Shell exercise1" /><figcaption aria-hidden="true">Shell exercise1</figcaption>
+</figure>
 <p>主要简单了解了一下<code>shebang</code>，即在脚本开头由字符数字符号和感叹号（<code>＃!</code>）组成的字符序列。当使用带有<code>Shebang</code>的文本文件时，程序加载机制会将文件的其余行解析为解释器指令。加载程序执行指定的解释程序，将尝试运行脚本时最初使用的路径作为参数传递给它，以便程序可以将文件用作输入数据。</p>
-<p><code>shebang</code> 解释器指令的形式如下：</p>
-<blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!interpreter [optional-arg]</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+<p><code>shebang</code> 解释器指令的形式如下： &gt; <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!interpreter [optional-arg]</span></span><br></pre></td></tr></table></figure></p>
 <p><code>interpreter</code>是解释器的绝对路径，<code>optional-arg</code>是表示单个参数的字符串，可选。</p>
-<ol>
+<ol start="2" type="1">
 <li>8题需要查到<em>最后更改日期信息</em>，并且将其写入文件，这里主要就是如何找到<code>last-modified</code>这一行。刚开始使用<code>find</code>，但它适用于查找文件，查找文本更多用的<code>grep</code>。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise2.png" alt="Shell exercise2"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise2.png" alt="Shell exercise2" /><figcaption aria-hidden="true">Shell exercise2</figcaption>
+</figure>
 
     </div>
 
@@ -443,7 +448,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题-1-The-Shell"><span class="nav-number">2.</span> <span class="nav-text">主题 1: The Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell简介"><span class="nav-number">2.1.</span> <span class="nav-text">shell简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell使用"><span class="nav-number">2.2.</span> <span class="nav-text">shell使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell中的路径"><span class="nav-number">2.3.</span> <span class="nav-text">shell中的路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“流”和”管道”"><span class="nav-number">2.4.</span> <span class="nav-text">“流”和”管道”</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#流"><span class="nav-number">2.4.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道"><span class="nav-number">2.4.2.</span> <span class="nav-text">管道</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#功能全面又强大的工具"><span class="nav-number">2.5.</span> <span class="nav-text">功能全面又强大的工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习"><span class="nav-number">3.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题-1-the-shell"><span class="nav-number">2.</span> <span class="nav-text">主题 1: The Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell简介"><span class="nav-number">2.1.</span> <span class="nav-text">shell简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell使用"><span class="nav-number">2.2.</span> <span class="nav-text">shell使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell中的路径"><span class="nav-number">2.3.</span> <span class="nav-text">shell中的路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流和管道"><span class="nav-number">2.4.</span> <span class="nav-text">&quot;流&quot;和&quot;管道&quot;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#流"><span class="nav-number">2.4.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道"><span class="nav-number">2.4.2.</span> <span class="nav-text">管道</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#功能全面又强大的工具"><span class="nav-number">2.5.</span> <span class="nav-text">功能全面又强大的工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习"><span class="nav-number">3.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -459,7 +464,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">118</span>
+          <span class="site-state-item-count">121</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -520,13 +525,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">402k</span>
+    <span title="站点总字数">437k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:06</span>
+    <span title="站点阅读时长">6:37</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
