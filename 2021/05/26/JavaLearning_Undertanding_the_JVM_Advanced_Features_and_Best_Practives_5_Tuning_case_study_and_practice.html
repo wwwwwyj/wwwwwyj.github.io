@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
+  <meta name="description" content="前言 Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
 <meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--5 调优案例分析与实战">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;26&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_5_Tuning_case_study_and_practice.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
+<meta property="og:description" content="前言 Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-05-26T11:55:06.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,46 +309,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p><code>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。</code> <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p><code>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。</code><br><a id="more"></a></p>
 </blockquote>
-<h3 id="案例分析">1. 案例分析</h3>
-<p>如何在不改变已有软硬件版本和规格的前提下，调整部署和配置策略去解决或者缓解问题。</p>
-<h4 id="大内存硬件上的程序部署策略">1.1 大内存硬件上的程序部署策略</h4>
-<p>案例描述：</p>
+<h3 id="1-案例分析"><a href="#1-案例分析" class="headerlink" title="1. 案例分析"></a>1. 案例分析</h3><p>如何在不改变已有软硬件版本和规格的前提下，调整部署和配置策略去解决或者缓解问题。</p>
+<h4 id="1-1-大内存硬件上的程序部署策略"><a href="#1-1-大内存硬件上的程序部署策略" class="headerlink" title="1.1 大内存硬件上的程序部署策略"></a>1.1 大内存硬件上的程序部署策略</h4><p>案例描述：</p>
 <blockquote>
 <p>升级网址服务器硬件后，<code>HotSpot</code>虚拟机是以服务端模式运行，默认使用的是吞吐量优先收集器，回收<code>12GB</code>的<code>Java</code>堆，一次<code>Full GC</code>的停顿时间就高达14秒。过大的堆内存进行回收时带来的长时间的停顿，将Java堆分配的内存重新缩小到<code>1.5GB</code>或者<code>2GB</code>，这样的确可以避免长时间停顿，但是在硬件上的投资就显得非常浪费。</p>
 </blockquote>
 <p>解决方式：</p>
 <p>目前单体应用在较大内存的硬件上主要部署方式为：</p>
 <blockquote>
-<ol type="1">
-<li>通过一个<u>单独的Java虚拟机</u>实例来管理大量的Java堆内存。
-<ul>
+<ol>
+<li>通过一个<u>单独的Java虚拟机</u>实例来管理大量的Java堆内存。<ul>
 <li>这种部署方式必须把应用的<code>Full GC</code>频率控制得足够低，至少要低到不会在用户使用过程中发生。这样可以通过在深夜执行<code>定时任务的方式触发Full GC</code>甚至是<code>自动重启应用服务器</code>来保持内存可用空间在一个稳定的水平。</li>
-</ul></li>
-<li>同时使用若干个Java虚拟机，建立<u>逻辑集群</u>来利用硬件资源。
-<ul>
+</ul>
+</li>
+<li>同时使用若干个Java虚拟机，建立<u>逻辑集群</u>来利用硬件资源。<ul>
 <li>做法是在一台物理机器上启动多个应用服务器进程，为每个服务器进程分配不同端口，然后在前端搭建一个负载均衡器，以反向代理的方式来分配访问请求。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 </blockquote>
 <p>最后的部署方案是调整为建立<code>5</code>个<code>32</code>位<code>JDK</code>的逻辑集群，每个进程按<code>2GB</code>内存计算（其中堆固定为<code>1.5GB</code>），占用了 <code>10GB</code>内存。另外建立一个<code>Apache</code>服务作为前端均衡代理作为访问门户。</p>
-<h4 id="集群间同步导致的内存溢出">1.2 集群间同步导致的内存溢出</h4>
-<p>案例描述：</p>
+<h4 id="1-2-集群间同步导致的内存溢出"><a href="#1-2-集群间同步导致的内存溢出" class="headerlink" title="1.2 集群间同步导致的内存溢出"></a>1.2 集群间同步导致的内存溢出</h4><p>案例描述：</p>
 <blockquote>
 <p>构成一个亲合式集群，使用<code>JBossCache</code>构建了一个全局缓存来解决数据库中<u>读写频繁、竞争激烈</u>对性能影响较大的问题，全局缓存启用后，服务正常使用了一段较长的时间，最近不定期出现多次的内存溢出问题。</p>
 </blockquote>
 <p>解决方式：</p>
 <blockquote>
 <ul>
-<li><p><code>JBossCache</code>是基于自家的<code>JGroups</code>进行集群间的数据通信，<code>JGroups</code>使用协议栈的方式来实现收发数据包的各种所需特性自由组合，数据包接收和发送时要经过每层协议栈的<code>up()</code>和<code>down()</code>方法，其中的<code>NAKACK</code>栈用于<u>保障各个包的有效顺序以及重发</u>。</p></li>
-<li><p>也有<code>MIS</code>系统实现方式上的缺陷。网络情况不能满足传输要求时，重发数据在内存中不断堆积，很快就产生了内存溢出。</p></li>
+<li><p><code>JBossCache</code>是基于自家的<code>JGroups</code>进行集群间的数据通信，<code>JGroups</code>使用协议栈的方式来实现收发数据包的各种所需特性自由组合，数据包接收和发送时要经过每层协议栈的<code>up()</code>和<code>down()</code>方法，其中的<code>NAKACK</code>栈用于<u>保障各个包的有效顺序以及重发</u>。</p>
+</li>
+<li><p>也有<code>MIS</code>系统实现方式上的缺陷。网络情况不能满足传输要求时，重发数据在内存中不断堆积，很快就产生了内存溢出。</p>
+</li>
 </ul>
 </blockquote>
-<h4 id="堆外内存导致的溢出错误">1.3 堆外内存导致的溢出错误</h4>
-<p>案例描述：</p>
+<h4 id="1-3-堆外内存导致的溢出错误"><a href="#1-3-堆外内存导致的溢出错误" class="headerlink" title="1.3 堆外内存导致的溢出错误"></a>1.3 堆外内存导致的溢出错误</h4><p>案例描述：</p>
 <blockquote>
 <p>基于<code>B/S</code>的电子考试系统服务端不定时抛出内存溢出异常。尝试过把堆内存调到最大，<code>32</code>位系统最多到 <code>1.6GB</code>基本无法再加大了，而且开大了基本没效果，抛出内存溢出异常好像还更加频繁。</p>
 </blockquote>
@@ -367,8 +364,7 @@
 <li>Socket缓存区：每个Socket连接都Receive和Send两个缓存区，如果无法分配，可能会抛出<code>IOException：Too many open files</code>异常。</li>
 <li>JNI代码：如果代码中使用了JNI调用本地库，占用的是Java虚拟机的本地方法栈和本地内存的。</li>
 </ul>
-<h4 id="外部命令导致系统缓慢">1.4 外部命令导致系统缓慢</h4>
-<p>案例描述：</p>
+<h4 id="1-4-外部命令导致系统缓慢"><a href="#1-4-外部命令导致系统缓慢" class="headerlink" title="1.4 外部命令导致系统缓慢"></a>1.4 外部命令导致系统缓慢</h4><p>案例描述：</p>
 <blockquote>
 <p>一个数字校园应用系统，发现请求响应时间比较慢，通过操作系统的<code>mpstat</code>工具发现处理器使用率很高，但是<u>系统中占用绝大多数处理器资源的程序并不是该应用本身</u>。通过<code>dtrace</code>脚本发现最消耗处理器资源的竟然是<code>“fork”</code>系统调用，<code>“fork”</code>系统调用是Linux用来产生新进程的，在Java虚拟机中，用户编写的Java代码通常最多只会创建新的线程，不应当有进程的产生。</p>
 </blockquote>
@@ -377,8 +373,7 @@
 <p>每个用户请求的处理都需要执行一个外部<code>Shell</code>脚本来获得系统的一些信息。执行这个Shell脚本是通过Java的<code>Runtime.getRuntime().exec()</code>方法来调用的。即使外部命令本身能很快执行完毕，频繁调用时创建进程的开销也会非常可观。</p>
 <p>去掉这个Shell脚本执行的语句，改为使用Java的<code>API</code>去获取这些信息后，系统很快恢复了正常。</p>
 </blockquote>
-<h4 id="服务器虚拟机进程崩溃">1.5 服务器虚拟机进程崩溃</h4>
-<p>案例描述：</p>
+<h4 id="1-5-服务器虚拟机进程崩溃"><a href="#1-5-服务器虚拟机进程崩溃" class="headerlink" title="1.5 服务器虚拟机进程崩溃"></a>1.5 服务器虚拟机进程崩溃</h4><p>案例描述：</p>
 <blockquote>
 <p>一个基于B/S的MIS系统，正常运行一段时间后，最近发现在运行期间频繁出现集群节点的虚拟机进程自动关闭的现象，留下了一个<code>hs_err_pid###.log</code>文件后，虚拟机进程就消失了。</p>
 </blockquote>
@@ -387,8 +382,7 @@
 <p>由于MIS系统的用户多，待办事项变化很快，为了不被<code>OA系统</code>速度拖累，使用了<strong>异步的方式</strong>调用 Web服务，但由于两边服务速度的完全不对等，时间越长就累积了越多Web服务没有调用完成，导致在等待的线程和Socket连接越来越多，最终超过虚拟机的承受能力后导致虚拟机进程崩溃。</p>
 <p>修复<code>OA门户</code>无法使用的集成接口，并将异步调用改为<u>生产者/消费者模式</u>的消息队列实现后，系统恢复正常。</p>
 </blockquote>
-<h4 id="不恰当数据结构导致内存占用过大">1.6 不恰当数据结构导致内存占用过大</h4>
-<p>案例描述：</p>
+<h4 id="1-6-不恰当数据结构导致内存占用过大"><a href="#1-6-不恰当数据结构导致内存占用过大" class="headerlink" title="1.6 不恰当数据结构导致内存占用过大"></a>1.6 不恰当数据结构导致内存占用过大</h4><p>案例描述：</p>
 <blockquote>
 <p>一个后台<code>RPC</code>服务器，业务上需要每 10分钟加载一个约<code>80MB</code>的数据文件到内存进行数据分析，这些数据会在内存中形成超过100万个<code>HashMap&lt;Long，Long&gt;Entry</code>，在这段时间里面<code>Minor GC</code>就会造成超过<code>500毫秒</code>的停顿，对于这种长度的停顿时间就接受不了了。</p>
 </blockquote>
@@ -399,8 +393,7 @@
 <li>这里产生问题的根本原因是用<code>HashMap&lt;Long, Long&gt;</code>结构来存储数据文件空间效率太低了，只有<code>Key</code>和<code>Value</code>所存放的两个长整型数据是有效数据，空间效率为有效数据除以全部内存空间，即16字节/88字节=18%。</li>
 </ul>
 </blockquote>
-<h4 id="由windows虚拟内存导致的长时间停顿">1.7 由Windows虚拟内存导致的长时间停顿</h4>
-<p>案例描述：</p>
+<h4 id="1-7-由Windows虚拟内存导致的长时间停顿"><a href="#1-7-由Windows虚拟内存导致的长时间停顿" class="headerlink" title="1.7 由Windows虚拟内存导致的长时间停顿"></a>1.7 由Windows虚拟内存导致的长时间停顿</h4><p>案例描述：</p>
 <blockquote>
 <p>一个带<code>心跳检测功能</code>的GUI桌面程序，每15秒会发送一次心跳检测信号，如果对方30秒以内都没有信号返回，那就认为和对方程序的连接已经断开。程序上线后发现心跳检测有误报的可能，原因是程序会偶尔出现间隔约一分钟的时间完全无日志输出，处于停顿状态。</p>
 </blockquote>
@@ -410,8 +403,7 @@
 <li>程序在最小化时它的工作内存被自动交换到磁盘的页面文件之中了，这样发生垃圾收集时就有可能因为恢复页面文件的操作导致不正常的垃圾收集停顿。在Java的GUI程序中要避免这种现象，可以加入参数“<code>-Dsun.awt.keepWorkingSetOnMinimize=true</code>”来解决。</li>
 </ul>
 </blockquote>
-<h4 id="由安全点导致长时间停顿">1.8 由安全点导致长时间停顿</h4>
-<p>案例描述：</p>
+<h4 id="1-8-由安全点导致长时间停顿"><a href="#1-8-由安全点导致长时间停顿" class="headerlink" title="1.8 由安全点导致长时间停顿"></a>1.8 由安全点导致长时间停顿</h4><p>案例描述：</p>
 <blockquote>
 <p>一个比较大的承担公共计算任务的离线HBase集群，因为集群读写压力较大，而离线分析任务对延迟又不会特别敏感，所以将<code>-XX:MaxGCPauseMillis</code>参数设置到了<em>500毫秒</em>。不过运行一段时间后发现垃圾收集的停顿经常达到<em>3秒</em>以 上，而且实际垃圾收集器进行回收的动作就只占其中的几百毫秒。</p>
 </blockquote>
@@ -490,7 +482,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析"><span class="nav-number">2.</span> <span class="nav-text">1. 案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大内存硬件上的程序部署策略"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 大内存硬件上的程序部署策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群间同步导致的内存溢出"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 集群间同步导致的内存溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆外内存导致的溢出错误"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 堆外内存导致的溢出错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部命令导致系统缓慢"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 外部命令导致系统缓慢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器虚拟机进程崩溃"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 服务器虚拟机进程崩溃</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不恰当数据结构导致内存占用过大"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 不恰当数据结构导致内存占用过大</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#由windows虚拟内存导致的长时间停顿"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 由Windows虚拟内存导致的长时间停顿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#由安全点导致长时间停顿"><span class="nav-number">2.8.</span> <span class="nav-text">1.8 由安全点导致长时间停顿</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-案例分析"><span class="nav-number">2.</span> <span class="nav-text">1. 案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-大内存硬件上的程序部署策略"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 大内存硬件上的程序部署策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-集群间同步导致的内存溢出"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 集群间同步导致的内存溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-堆外内存导致的溢出错误"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 堆外内存导致的溢出错误</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-外部命令导致系统缓慢"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 外部命令导致系统缓慢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-服务器虚拟机进程崩溃"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 服务器虚拟机进程崩溃</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-不恰当数据结构导致内存占用过大"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 不恰当数据结构导致内存占用过大</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-由Windows虚拟内存导致的长时间停顿"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 由Windows虚拟内存导致的长时间停顿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-由安全点导致长时间停顿"><span class="nav-number">2.8.</span> <span class="nav-text">1.8 由安全点导致长时间停顿</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -506,7 +498,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -519,7 +511,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -567,13 +559,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">450k</span>
+    <span title="站点总字数">480k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:49</span>
+    <span title="站点阅读时长">7:16</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

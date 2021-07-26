@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。">
+  <meta name="description" content="前言 从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。">
 <meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--10 前端编译与优化">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;02&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。">
+<meta property="og:description" content="前言 从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;javacComplierProcess.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;javacComplierCode.PNG">
@@ -315,9 +315,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。<br><a id="more"></a></p>
 </blockquote>
 <p><code>Java</code>有<code>3</code>类编译过程：</p>
 <ul>
@@ -326,102 +325,83 @@
 <li><strong>提前编译器</strong>：常称<code>AOT编译器</code>（<code>Ahead Of Time Compiler</code>），直接把程序编译成与目标机器指令集相关的二进制代码。<code>JDK</code>的<code>Jaotc</code>、<code>GNU Compiler for the Java（GCJ）</code>、<code>Excelsior JET</code>。</li>
 </ul>
 <p>Java中即时编译器在运行期的优化过程，支撑了<strong>程序执行效率的不断提升</strong>；而前端编译器在编译期的优化过程，则是支撑着<strong>程序员的编码效率和语言使用者的幸福感的提高</strong>。</p>
-<h3 id="javac编译器">1. <code>Javac</code>编译器</h3>
-<p><code>Javac</code>编译器不像<code>HotSpot</code>虚拟机那样使用<code>C++</code>语言（包含少量<code>C</code>语言）实现，它本身就是一个由<code>Java</code>语言编写的程序。</p>
-<h4 id="javac的源码与调试">1.1 <code>Javac</code>的源码与调试</h4>
-<p><code>javac</code>的发展历史：</p>
+<h3 id="1-Javac编译器"><a href="#1-Javac编译器" class="headerlink" title="1. Javac编译器"></a>1. <code>Javac</code>编译器</h3><p><code>Javac</code>编译器不像<code>HotSpot</code>虚拟机那样使用<code>C++</code>语言（包含少量<code>C</code>语言）实现，它本身就是一个由<code>Java</code>语言编写的程序。</p>
+<h4 id="1-1-Javac的源码与调试"><a href="#1-1-Javac的源码与调试" class="headerlink" title="1.1 Javac的源码与调试"></a>1.1 <code>Javac</code>的源码与调试</h4><p><code>javac</code>的发展历史：</p>
 <ul>
 <li><code>JDK 6</code>以前，<code>Javac</code>并不属于标准<code>Java SE API</code>，它实现代码单独存放在<code>tools.jar</code>中。</li>
 <li><code>JDK 6</code>发布时通过了<code>JSR 199</code>编译器<code>API</code>的提案，使得<code>Javac</code>编译器的实现代码晋升成为标准Java类库之一，它的源码就改为放在<code>JDK_SRC_HOME/langtools/src/share/classes/com/sun/tools/javac</code>中</li>
 <li><code>JDK 9</code>时，整个<code>JDK</code>所有的<code>Java</code>类库都采用模块化进行重构划分，<code>Javac</code>编译器就被挪到了<code>jdk.compiler</code>模块（路径为：<code>JDK_SRC_HOME/src/jdk.compiler/share/classes/com/sun/tools/javac</code>）里面</li>
 </ul>
 <p>从<code>Javac</code>代码的总体结构来看，编译过程大致可以分为<code>1</code>个准备过程和<code>3</code>个处理过程：</p>
-<ol type="1">
+<ol>
 <li><strong>准备过程</strong>：初始化插入式注解处理器。</li>
-<li><strong>解析与填充符号表过程</strong>，包括：
-<ul>
+<li><strong>解析与填充符号表过程</strong>，包括：<ul>
 <li><strong>词法、语法分析</strong>。将源代码的字符流转变为标记集合，构造出抽象语法树。</li>
 <li><strong>填充符号表</strong>。产生符号地址和符号信息。</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>插入式注解处理器的注解处理过程</strong>：插入式注解处理器的执行阶段。</li>
-<li><strong>分析与字节码生成过程</strong>，包括：
-<ul>
+<li><strong>分析与字节码生成过程</strong>，包括：<ul>
 <li><strong>标注检查</strong>。对语法的静态信息进行检查。</li>
 <li><strong>数据流及控制流分析</strong>。对程序动态运行过程进行检查。</li>
 <li><strong>解语法糖</strong>。将简化代码编写的语法糖还原为原有的形式。</li>
 <li><strong>字节码生成</strong>。将前面各个步骤所生成的信息转化成字节码。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/javacComplierProcess.PNG" alt="Javac的编译过程" /><figcaption aria-hidden="true">Javac的编译过程</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/javacComplierProcess.PNG" alt="Javac的编译过程"></p>
 <p>Javac编译动作的入口是<code>com.sun.tools.javac.main.JavaCompiler</code>类:</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/javacComplierCode.PNG" alt="Javac编译过程的主体代码" /><figcaption aria-hidden="true">Javac编译过程的主体代码</figcaption>
-</figure>
-<h4 id="解析与填充符号表">1.2 解析与填充符号表</h4>
-<p>解析过程包括了<code>词法分析</code>和<code>语法分析</code>两个步骤：</p>
-<h5 id="词法语法分析">1.2.1 词法、语法分析</h5>
-<ul>
-<li><strong>词法分析</strong>是将源代码的字符流转变为<code>标记（Token）</code>集合的过程，单个字符是<u>程序编写</u>时的最小元素，但标记才是<u>编译</u>时的最小元素。
-<ul>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/javacComplierCode.PNG" alt="Javac编译过程的主体代码"></p>
+<h4 id="1-2-解析与填充符号表"><a href="#1-2-解析与填充符号表" class="headerlink" title="1.2 解析与填充符号表"></a>1.2 解析与填充符号表</h4><p>解析过程包括了<code>词法分析</code>和<code>语法分析</code>两个步骤：</p>
+<h5 id="1-2-1-词法、语法分析"><a href="#1-2-1-词法、语法分析" class="headerlink" title="1.2.1 词法、语法分析"></a>1.2.1 词法、语法分析</h5><ul>
+<li><strong>词法分析</strong>是将源代码的字符流转变为<code>标记（Token）</code>集合的过程，单个字符是<u>程序编写</u>时的最小元素，但标记才是<u>编译</u>时的最小元素。<ul>
 <li>词法分析过程由<code>com.sun.tools.javac.parser.Scanner</code>类来实现。</li>
-</ul></li>
-<li><strong>语法分析</strong>是根据标记序列构造抽象语法树的过程，<code>抽象语法树（Abstract Syntax Tree，AST）</code>是一种用来描述程序代码语法结构的树形表示方式，抽象语法树的每一个节点都代表着程序代码中的一个<code>语法结构（Syntax Construct）</code>，例如<u>包、类型、修饰符、运算符、接口、返回值</u>甚至连<u>代码注释</u>等都可以是一种特定的语法结构。
-<ul>
+</ul>
+</li>
+<li><strong>语法分析</strong>是根据标记序列构造抽象语法树的过程，<code>抽象语法树（Abstract Syntax Tree，AST）</code>是一种用来描述程序代码语法结构的树形表示方式，抽象语法树的每一个节点都代表着程序代码中的一个<code>语法结构（Syntax Construct）</code>，例如<u>包、类型、修饰符、运算符、接口、返回值</u>甚至连<u>代码注释</u>等都可以是一种特定的语法结构。<ul>
 <li>语法分析过程由<code>com.sun.tools.javac.parser.Parser</code>类实现的</li>
 <li>抽象语法树是以<code>com.sun.tools.javac.tree.JCTree</code> 类表示的。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>经过词法和语法分析生成语法树以后，编译器就不会再对源码字符流进行操作了，<u><strong>后续的操作都建立在抽象语法树之上</strong></u>。</p>
-<h5 id="填充符号表">1.2.2 填充符号表</h5>
-<p><code>符号表（Symbol Table）</code>是由一组<u><strong>符号地址</strong></u>和<u><strong>符号信息</strong></u>构成的数据结构。符号表中所登记的信息在编译的不同阶段都要被用到。</p>
+<h5 id="1-2-2-填充符号表"><a href="#1-2-2-填充符号表" class="headerlink" title="1.2.2 填充符号表"></a>1.2.2 填充符号表</h5><p><code>符号表（Symbol Table）</code>是由一组<u><strong>符号地址</strong></u>和<u><strong>符号信息</strong></u>构成的数据结构。符号表中所登记的信息在编译的不同阶段都要被用到。</p>
 <ul>
 <li>在语义分析的过程中，符号表所登记的内容将用于语义检查和产生中间代码</li>
 <li>在目标代码生成阶段，当对符号名进行地址分配时，符号表是地址分配的直接依据。</li>
 <li>填充符号表的过程由<code>com.sun.tools.javac.comp.Enter</code>类实现。</li>
 </ul>
-<h4 id="注解处理器">1.3 注解处理器</h4>
-<p><code>注解（Annotations）</code>在设计上原本是与普通的Java代码一样，都只会在程序运行期间发挥作用的。但在<code>JDK 6</code>中设计了一组被称为<code>“插入式注解处理器”</code>的标准API，可以提前至编译期对代码中的特定注解进行处理，从而影响到前端编译器的工作过程。</p>
+<h4 id="1-3-注解处理器"><a href="#1-3-注解处理器" class="headerlink" title="1.3 注解处理器"></a>1.3 注解处理器</h4><p><code>注解（Annotations）</code>在设计上原本是与普通的Java代码一样，都只会在程序运行期间发挥作用的。但在<code>JDK 6</code>中设计了一组被称为<code>“插入式注解处理器”</code>的标准API，可以提前至编译期对代码中的特定注解进行处理，从而影响到前端编译器的工作过程。</p>
 <ul>
 <li><code>插入式注解处理器</code>可以看作是一组编译器的<strong>插件</strong>，它允许<strong>读取</strong>、<strong>修改</strong>、<strong>添加</strong>抽象语法树中的<strong>任意元素</strong>。如果这些插件在处理注解期间对语法树进行过修改，编译器将回到解析及填充符号表的过程重新处理，直到所有插入式注解处理器都没有再对语法树进行修改为止，每一次循环过程称为一个<code>轮次（Round）</code>。</li>
 </ul>
-<h4 id="语义分析与字节码生成">1.4 语义分析与字节码生成</h4>
-<p>抽象语法树能够表示一个<code>结构正确</code>的源程序，但无法保证源程序的<code>语义是符合逻辑</code>的。语义分析的主要任务则是<u><strong>对结构上正确的源程序进行上下文相关性质的检查</strong></u>，譬如进行<u>类型检查</u>、<u>控制流检查</u>、<u>数据流检查</u>，等等。</p>
-<h5 id="标注检查">1.4.1 标注检查</h5>
-<p>语义分析过程可分为<strong>标注检查</strong>和<strong>数据及控制流分析</strong>两个步骤。</p>
+<h4 id="1-4-语义分析与字节码生成"><a href="#1-4-语义分析与字节码生成" class="headerlink" title="1.4 语义分析与字节码生成"></a>1.4 语义分析与字节码生成</h4><p>抽象语法树能够表示一个<code>结构正确</code>的源程序，但无法保证源程序的<code>语义是符合逻辑</code>的。语义分析的主要任务则是<u><strong>对结构上正确的源程序进行上下文相关性质的检查</strong></u>，譬如进行<u>类型检查</u>、<u>控制流检查</u>、<u>数据流检查</u>，等等。</p>
+<h5 id="1-4-1-标注检查"><a href="#1-4-1-标注检查" class="headerlink" title="1.4.1 标注检查"></a>1.4.1 标注检查</h5><p>语义分析过程可分为<strong>标注检查</strong>和<strong>数据及控制流分析</strong>两个步骤。</p>
 <p>标注检查步骤要检查的内容包括诸如<u>变量使用前是否已被声明</u>、<u>变量与赋值之间的数据类型是否能够匹配</u>，等等。还会顺便进行一个称为<code>常量折叠（Constant Folding）</code>的代码优化。</p>
-<h5 id="数据及控制流分析">1.4.2 数据及控制流分析</h5>
-<p><code>数据流分析</code>和<code>控制流分析</code>是对程序上下文逻辑更进一步的验证，它可以检查出诸如<u>程序局部变量在使用前是否有赋值</u>、<u>方法的每条路径是否都有返回值</u>、<u>是否所有的受查异常都被正确处理</u>等问题。</p>
-<h5 id="解语法糖">1.4.3 解语法糖</h5>
-<p><code>语法糖（Syntactic Sugar）</code>，也称<code>糖衣语法</code>，指的是在计算机语言中添加的某种语法，这种语法对语言的编译结果和功能并没有实际影响， 但是却能更方便程序员使用该语言。通常来说使用语法糖能够<em>减少代码量、增加程序的可读性</em>。</p>
+<h5 id="1-4-2-数据及控制流分析"><a href="#1-4-2-数据及控制流分析" class="headerlink" title="1.4.2 数据及控制流分析"></a>1.4.2 数据及控制流分析</h5><p><code>数据流分析</code>和<code>控制流分析</code>是对程序上下文逻辑更进一步的验证，它可以检查出诸如<u>程序局部变量在使用前是否有赋值</u>、<u>方法的每条路径是否都有返回值</u>、<u>是否所有的受查异常都被正确处理</u>等问题。</p>
+<h5 id="1-4-3-解语法糖"><a href="#1-4-3-解语法糖" class="headerlink" title="1.4.3 解语法糖"></a>1.4.3 解语法糖</h5><p><code>语法糖（Syntactic Sugar）</code>，也称<code>糖衣语法</code>，指的是在计算机语言中添加的某种语法，这种语法对语言的编译结果和功能并没有实际影响， 但是却能更方便程序员使用该语言。通常来说使用语法糖能够<em>减少代码量、增加程序的可读性</em>。</p>
 <p>Java中最常见的语法糖包括了<strong><u>泛型</u></strong>、<u><strong>变长参数</strong></u>、<strong><u>自动装箱拆箱</u></strong>，等等，它们在编译阶段被还原回原始的基础语法结构，这个过程就称为<code>解语法糖</code>。</p>
-<h5 id="字节码生成">1.4.4 字节码生成</h5>
-<p>字节码生成阶段不仅仅是把前面各个步骤所生成的信息（语法树、符号表）转化成字节码指令写到磁盘中，编译器还进行了<u>少量的代码添加和转换工作</u>。</p>
+<h5 id="1-4-4-字节码生成"><a href="#1-4-4-字节码生成" class="headerlink" title="1.4.4 字节码生成"></a>1.4.4 字节码生成</h5><p>字节码生成阶段不仅仅是把前面各个步骤所生成的信息（语法树、符号表）转化成字节码指令写到磁盘中，编译器还进行了<u>少量的代码添加和转换工作</u>。</p>
 <ul>
 <li>实例构造器<code>&lt;init&gt;()</code>方法和类构造器<code>&lt;clinit&gt;()</code>方法就是在这个阶段被添加到语法树之中的。</li>
 </ul>
 <p>完成了对语法树的遍历和调整之后，就会把填充了所有所需信息的符号表交到<code>com.sun.tools.javac.jvm.ClassWriter</code>类手上，由这个类的<code>writeClass()</code>方法输出字节码，生成最终的Class 文件。</p>
-<h3 id="java语法糖的味道">2. Java语法糖的味道</h3>
-<p>语法糖虽然不会提供实质性的功能改进，但是它们或能提高效率，或能提升语法的严谨性，或能减少编码出错的机会。</p>
-<h4 id="泛型">2.1 泛型</h4>
-<p><code>泛型</code>的本质是<code>参数化类型（Parameterized Type）</code>或者<code>参数化多态（Parametric Polymorphism）</code>的应用，即可以将操作的数据类型指定为方法签名中的一种特殊参数，这种参数类型能够用在类、接口和方法的创建中，分别构成泛型类、泛型接口和泛型方法。</p>
-<h5 id="java与c的泛型">2.1.1 Java与C#的泛型</h5>
-<p><code>Java</code>选择的泛型实现方式叫作<code>“类型擦除式泛型”（Type Erasure Generics）</code>，而<code>C#</code>选择的泛型实现方式是<code>“具现化式泛型”（Reified Generics）</code>。</p>
+<h3 id="2-Java语法糖的味道"><a href="#2-Java语法糖的味道" class="headerlink" title="2. Java语法糖的味道"></a>2. Java语法糖的味道</h3><p>语法糖虽然不会提供实质性的功能改进，但是它们或能提高效率，或能提升语法的严谨性，或能减少编码出错的机会。</p>
+<h4 id="2-1-泛型"><a href="#2-1-泛型" class="headerlink" title="2.1 泛型"></a>2.1 泛型</h4><p><code>泛型</code>的本质是<code>参数化类型（Parameterized Type）</code>或者<code>参数化多态（Parametric Polymorphism）</code>的应用，即可以将操作的数据类型指定为方法签名中的一种特殊参数，这种参数类型能够用在类、接口和方法的创建中，分别构成泛型类、泛型接口和泛型方法。</p>
+<h5 id="2-1-1-Java与C-的泛型"><a href="#2-1-1-Java与C-的泛型" class="headerlink" title="2.1.1 Java与C#的泛型"></a>2.1.1 Java与C#的泛型</h5><p><code>Java</code>选择的泛型实现方式叫作<code>“类型擦除式泛型”（Type Erasure Generics）</code>，而<code>C#</code>选择的泛型实现方式是<code>“具现化式泛型”（Reified Generics）</code>。</p>
 <ul>
 <li><code>C#</code>里面泛型无论在程序源码里面、编译后的中间语言表示（<code>Intermediate Language</code>）里面，抑或是运行期的<code>CLR</code>里面都是切实存在的，有着自己独立的虚方法表和类型数据。</li>
-<li><code>Java</code>语言中的泛型只在程序源码中存在，在编译后的字节码文件中，全部泛型都被替换为原来的<code>裸类型（Raw Type）</code>，并且在相应的地方插入了强制转型代码。
-<ul>
+<li><code>Java</code>语言中的泛型只在程序源码中存在，在编译后的字节码文件中，全部泛型都被替换为原来的<code>裸类型（Raw Type）</code>，并且在相应的地方插入了强制转型代码。<ul>
 <li>对于运行期的Java语言来说，<code>ArrayList&lt;int&gt;</code>与<code>ArrayList&lt;String&gt;</code>其实是同一个类型。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>Java的类型<code>擦除式泛型</code>无论在使用效果上还是运行效率上，几乎是全面落后于<code>C#</code>的<code>具现化式泛型</code>，而它的<u><strong>唯一优势</strong></u>是：</p>
 <blockquote>
 <p><code>擦除式泛型</code>的实现几乎只需要在<code>Javac</code>编译器上做出改进即可，不需要改动字节码、不需要改动Java虚拟机，也保证了以前没有使用泛型的库可以直接运行在Java 5.0之上。</p>
 </blockquote>
-<h5 id="类型擦除">2.1.2 类型擦除</h5>
-<p>为了保证以前编译出来的<code>Class</code>文件可以在<code>Java 5.0</code>引入泛型之后继续运行，大体上有两条路可以选择：</p>
-<ol type="1">
+<h5 id="2-1-2-类型擦除"><a href="#2-1-2-类型擦除" class="headerlink" title="2.1.2 类型擦除"></a>2.1.2 类型擦除</h5><p>为了保证以前编译出来的<code>Class</code>文件可以在<code>Java 5.0</code>引入泛型之后继续运行，大体上有两条路可以选择：</p>
+<ol>
 <li>需要泛型化的类型（主要是容器类型），以前有的就保持不变，然后平行地加一套泛型化版本的新类型。</li>
 <li>直接把已有的类型泛型化，即让所有需要泛型化的已有类型都原地泛型化，不添加任何平行于已有类型的泛型版。</li>
 </ol>
@@ -431,51 +411,54 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; ilist = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">ArrayList&lt;String&gt; slist = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">ArrayList list; <span class="comment">// 裸类型</span></span><br><span class="line">list = ilist;</span><br><span class="line">list = slist;</span><br></pre></td></tr></table></figure>
 <p>如何实现裸类型又有两种选择：</p>
-<ol type="1">
+<ol>
 <li>在运行期由<code>Java</code>虚拟机来自动地、真实地构造出<code>ArrayList&lt;Integer&gt;</code>这样的类型，并且自动实现从<code>ArrayList&lt;Integer&gt;</code>派生自<code>ArrayList</code>的继承关系来满足裸类型的定义；</li>
 <li>简单粗暴地直接在编译时把<code>ArrayList&lt;Integer&gt;</code>还原回<code>ArrayList</code>，只在<u>元素访问</u>、<u>修改</u>时自动插入一些<u>强制类型转换和检查指令</u>。</li>
 </ol>
 <p>显然Java选择了后一种实现方式。可以看一个<code>Java</code>泛型擦除的例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 泛型擦除前的例子</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">    map.put(<span class="string">"hello"</span>, <span class="string">"你好"</span>);</span><br><span class="line">    map.put(<span class="string">"how are you?"</span>, <span class="string">"吃了没？"</span>);</span><br><span class="line">    System.out.println(map.get(<span class="string">"hello"</span>));</span><br><span class="line">    System.out.println(map.get(<span class="string">"how are you?"</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 泛型擦除后的例子</span></span><br><span class="line"><span class="comment"> * 上一段Java代码编译成Class文件，然后再用字节码反编译工具进行反编译的结果</span></span><br><span class="line"><span class="comment"> * 泛型类型都变回了裸类型，只在元素访问时插入了从Object到String的强制转型代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map.put(<span class="string">"hello"</span>, <span class="string">"你好"</span>);</span><br><span class="line">    map.put(<span class="string">"how are you?"</span>, <span class="string">"吃了没？"</span>);</span><br><span class="line">    System.out.println((String) map.get(<span class="string">"hello"</span>));</span><br><span class="line">    System.out.println((String) map.get(<span class="string">"how are you?"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>类型擦除带来的缺陷：</p>
-<ol type="1">
+<ol>
 <li><p>使用擦除法实现泛型直接导致了对<code>原始类型（Primitive Types）</code>数据的支持又成了新的麻烦</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 原始类型的泛型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">ArrayList&lt;<span class="keyword">int</span>&gt; ilist = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line">ArrayList&lt;<span class="keyword">long</span>&gt; llist = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">long</span>&gt;();</span><br><span class="line">ArrayList list;</span><br><span class="line">list = ilist;</span><br><span class="line">list = llist;</span><br></pre></td></tr></table></figure>
 <p>由于Java不支持<code>int</code>、<code>long</code>与<code>Object</code>之间的强制转型，所以泛型擦除后在需要插入强制转型代码的地方就无法进行了。Java给出的解决方案简单粗暴：</p>
 <blockquote>
 <p>不支持原生类型的泛型，使用<code>ArrayList&lt;Integer&gt;</code>、<code>ArrayList&lt;Long&gt;</code>，遇到原生类型时自动装箱、拆箱。</p>
-</blockquote></li>
+</blockquote>
+</li>
 <li><p>运行期无法取到泛型类型信息，会让一些代码变得相当啰嗦</p>
 <p><code>Java</code>不支持如下泛型的用法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeErasureGenerics</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">(Object item)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (item <span class="keyword">instanceof</span> E) &#123; <span class="comment">// 不合法，无法对泛型进行实例判断</span></span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">		E newItem = <span class="keyword">new</span> E(); <span class="comment">// 不合法，无法使用泛型创建对象</span></span><br><span class="line">		E[] itemArray = <span class="keyword">new</span> E[<span class="number">10</span>]; <span class="comment">// 不合法，无法使用泛型创建数组</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这些限制都是由于<u><strong>运行期Java虚拟机无法取得泛型类型</strong></u>而导致的，要实现类似操作，需要写一个泛型版本的从<code>List</code>到数组的转换方法，由于不能从<code>List</code>中取得参数化类型<code>T</code>，所以不得不从一个额外参数中再传入一个数组的组件类型进去。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T[] convert(List&lt;T&gt; list, Class&lt;T&gt; componentType) &#123;</span><br><span class="line">	T[] array = (T[])Array.newInstance(componentType, list.size());</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T[] convert(List&lt;T&gt; list, Class&lt;T&gt; componentType) &#123;</span><br><span class="line">	T[] array = (T[])Array.newInstance(componentType, list.size());</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>丧失了一些面向对象思想应有的优雅，带来了一些模棱两可的模糊状况</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTypes</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"invoke method(List&lt;String&gt; list)"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"invoke method(List&lt;Integer&gt; list)"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因为参数<code>List&lt;String&gt;</code>和<code>List&lt;Integer&gt;</code>编译之后都被擦除了，变成了同一种的裸类型<code>List</code>，类型擦除导致这两个方法的特征签名变得一模一样，无法重载。</p></li>
+<p>因为参数<code>List&lt;String&gt;</code>和<code>List&lt;Integer&gt;</code>编译之后都被擦除了，变成了同一种的裸类型<code>List</code>，类型擦除导致这两个方法的特征签名变得一模一样，无法重载。</p>
+</li>
 </ol>
-<h5 id="值类型与未来的泛型">2.1.3 值类型与未来的泛型</h5>
-<p>Oracle建立了一个名为<code>Valhalla</code>的语言改进项目，希望改进Java语言留下的各种缺陷。</p>
+<h5 id="2-1-3-值类型与未来的泛型"><a href="#2-1-3-值类型与未来的泛型" class="headerlink" title="2.1.3 值类型与未来的泛型"></a>2.1.3 值类型与未来的泛型</h5><p>Oracle建立了一个名为<code>Valhalla</code>的语言改进项目，希望改进Java语言留下的各种缺陷。</p>
 <p>在<code>Valhalla</code>项目中规划了几种不同的新泛型实现方案，被称为<code>Model 1</code>到<code>Model 3</code>，泛型类型有可能被：</p>
 <ul>
 <li><strong>具现化</strong></li>
-<li>继续维持<strong>类型擦除以</strong>保持兼容
-<ul>
+<li>继续维持<strong>类型擦除以</strong>保持兼容<ul>
 <li>泛型的参数化类型也可以选择不被完全地擦除掉，而是相对完整地记录在Class文件中，能够在运行期被使用</li>
 <li>也可以指定编译器默认要擦除哪些类型。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>相对于使用不同方式实现泛型，目前比较明确的是未来的Java应该会提供<code>“值类型”（Value Type）</code>的语言层面的支持。</p>
 <blockquote>
 <ul>
-<li><p><code>值类型</code>可以与<code>引用类型</code>一样，具有<u>构造函数</u>、<u>方法</u>或是<u>属性字段</u>，等等</p></li>
-<li><p><code>值类型</code>与<code>引用类型</code>的区别在于<u><strong>它在赋值的时候通常是整体复制，而不是像引用类型那样传递引用的</strong></u>。</p></li>
-<li><p>值类型的实例很容易实现分配在方法的调用栈上的，值类型可以随着当前方法的退出而自动释放，不会给垃圾收集子系统带来任何压力。</p></li>
+<li><p><code>值类型</code>可以与<code>引用类型</code>一样，具有<u>构造函数</u>、<u>方法</u>或是<u>属性字段</u>，等等</p>
+</li>
+<li><p><code>值类型</code>与<code>引用类型</code>的区别在于<u><strong>它在赋值的时候通常是整体复制，而不是像引用类型那样传递引用的</strong></u>。</p>
+</li>
+<li>值类型的实例很容易实现分配在方法的调用栈上的，值类型可以随着当前方法的退出而自动释放，不会给垃圾收集子系统带来任何压力。</li>
 </ul>
 </blockquote>
 <p>Java的值类型方案被称为<code>“内联类型”</code>，计划通过一个新的关键字<code>inline</code>来定义，字节码层面也有专门与原生类型对应的以<code>Q</code>开头的新的操作码（譬如<code>iload</code>对应<code>qload</code>）来支撑。</p>
-<h4 id="自动装箱拆箱与遍历循环">2.2 自动装箱、拆箱与遍历循环</h4>
-<p><code>自动装箱</code>、<code>自动拆箱</code>与<code>遍历循环</code>（<code>for-each循环</code>）是Java语言里面被使用最多的语法糖。</p>
+<h4 id="2-2-自动装箱、拆箱与遍历循环"><a href="#2-2-自动装箱、拆箱与遍历循环" class="headerlink" title="2.2 自动装箱、拆箱与遍历循环"></a>2.2 自动装箱、拆箱与遍历循环</h4><p><code>自动装箱</code>、<code>自动拆箱</code>与<code>遍历循环</code>（<code>for-each循环</code>）是Java语言里面被使用最多的语法糖。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自动装箱、拆箱与遍历循环</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i : list) &#123;</span><br><span class="line">		sum += i;</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自动装箱、拆箱与遍历循环编译之后</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	List list = Arrays.asList( <span class="keyword">new</span> Integer[] &#123;</span><br><span class="line">		Integer.valueOf(<span class="number">1</span>),</span><br><span class="line">		Integer.valueOf(<span class="number">2</span>),</span><br><span class="line">		Integer.valueOf(<span class="number">3</span>),</span><br><span class="line">		Integer.valueOf(<span class="number">4</span>) &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (Iterator localIterator = list.iterator(); localIterator.hasNext(); ) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = ((Integer)localIterator.next()).intValue();</span><br><span class="line">        sum += i;</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>自动装箱</code>、<code>拆箱</code>在编译之后被转化成了对应的包装和还原方法，如<code>Integer.valueOf()</code>与<code>Integer.intValue()</code>方法</li>
@@ -485,58 +468,50 @@
 <p>自动装箱的陷阱</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Integer a = <span class="number">1</span>;</span><br><span class="line">    Integer b = <span class="number">2</span>;</span><br><span class="line">    Integer c = <span class="number">3</span>;</span><br><span class="line">    Integer d = <span class="number">3</span>;</span><br><span class="line">    Integer e = <span class="number">321</span>;</span><br><span class="line">    Integer f = <span class="number">321</span>;</span><br><span class="line">    Long g = <span class="number">3L</span>;</span><br><span class="line">    </span><br><span class="line">    System.out.println(c == d);</span><br><span class="line">    System.out.println(e == f);</span><br><span class="line">    System.out.println(c == (a + b));</span><br><span class="line">    System.out.println(c.equals(a + b));</span><br><span class="line">    System.out.println(g == (a + b));</span><br><span class="line">    System.out.println(g.equals(a + b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果为：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/TrapOfAutoBoxing.PNG" alt="自动装箱的陷阱" /><figcaption aria-hidden="true">自动装箱的陷阱</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/TrapOfAutoBoxing.PNG" alt="自动装箱的陷阱"></p>
 <ul>
 <li><p>对于前两个结果，基于<code>==</code>比较，但返回结果不一样，查看Integer内部源码发现，有一个静态内部类的缓存池<code>IntegerCache</code>，缓存范在为<code>-128~127</code>的数，超过这个范围的<code>Integer</code>值都是<code>new</code>出来的新对象。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/IntegerValueOf.PNG" alt="ValueOf" /><figcaption aria-hidden="true">ValueOf</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/IntegerValueOf.PNG" alt="ValueOf"></p>
 <ul>
 <li>直接使用<code>==</code>比较符，比较的是引用的堆地址，所以<code>c</code>与<code>d</code>都是同一个堆地址，返回<code>true</code>；<code>e</code>和<code>f</code>是创建的两个不同的对象，返回<code>false</code>。从变量表也可以看出来：</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/TrapOfAutoBoxingVariable.PNG" alt="变量表" /><figcaption aria-hidden="true">变量表</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/TrapOfAutoBoxingVariable.PNG" alt="变量表"></p>
 <ul>
 <li><code>Integer</code>缓存了<code>-128~127</code>之间的数，这是在类加载期间就完成的。以后需要的时候直接指向它就可以了，省去了构造对象的开支，提高了效率。</li>
-</ul></li>
-<li><p>包装类的<code>“==”</code>运算在不遇到算术运算的情况下不会自动拆箱，以及它们<code>equals()</code>方法不处理数据转型的关系</p></li>
 </ul>
-<h4 id="条件编译">2.4 条件编译</h4>
-<p>Java语言可以进行条件编译，方法就是使用条件为常量的<code>if</code>语句。</p>
+</li>
+<li><p>包装类的<code>“==”</code>运算在不遇到算术运算的情况下不会自动拆箱，以及它们<code>equals()</code>方法不处理数据转型的关系</p>
+</li>
+</ul>
+<h4 id="2-4-条件编译"><a href="#2-4-条件编译" class="headerlink" title="2.4 条件编译"></a>2.4 条件编译</h4><p>Java语言可以进行条件编译，方法就是使用条件为常量的<code>if</code>语句。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    	System.out.println(<span class="string">"block 1"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   		System.out.println(<span class="string">"block 2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反编译结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"block 1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>只能使用条件为常量的<code>if</code>语句才能达到上述效果。根据布尔常量值的真假，编译器将会把分支中不成立的代码块消除掉，这一工作将在编译器解除语法糖阶段（<code>com.sun.tools.javac.comp.Lower</code>类中）完成。</p>
 <blockquote>
 <p>条件编译的实现方式使用了<code>if</code>语句，所以它必须遵循最基本的Java语法，只能写在方法体内部，因此它只能实现语句<code>基本块（Block）</code>级别的条件编译，而没有办法实现根据条件调整整个Java类的结构。</p>
 </blockquote>
-<h3 id="实战插入式注解处理器">3. 实战：插入式注解处理器</h3>
-<h4 id="实战目标">3.1 实战目标</h4>
-<p>使用<code>注解处理器API</code>来编写一款拥有自己编码风格的校验工具：<code>NameCheckProcessor</code>。<code>NameCheckProcessor</code>的目标定为对Java程序命名进行检查，Java程序命名推荐（而不是强制）应当符合下列格式的书写规范：</p>
+<h3 id="3-实战：插入式注解处理器"><a href="#3-实战：插入式注解处理器" class="headerlink" title="3. 实战：插入式注解处理器"></a>3. 实战：插入式注解处理器</h3><h4 id="3-1-实战目标"><a href="#3-1-实战目标" class="headerlink" title="3.1 实战目标"></a>3.1 实战目标</h4><p>使用<code>注解处理器API</code>来编写一款拥有自己编码风格的校验工具：<code>NameCheckProcessor</code>。<code>NameCheckProcessor</code>的目标定为对Java程序命名进行检查，Java程序命名推荐（而不是强制）应当符合下列格式的书写规范：</p>
 <ul>
 <li><strong>类（或接口）</strong>：符合<u>驼式命名法</u>，<u>首字母大写</u>。</li>
 <li><strong>方法</strong>：符合<u>驼式命名法</u>，<u>首字母小写</u>。</li>
-<li><strong>字段</strong>：
-<ul>
+<li><strong>字段</strong>：<ul>
 <li><strong>类或实例变量</strong>。符合驼式命名法，首字母小写。</li>
 <li><strong>常量</strong>。要求<strong>全部由大写字母或下划线</strong>构成，并且<u>第一个字符不能是下划线</u>。</li>
-</ul></li>
 </ul>
-<h4 id="代码实现">3.2 代码实现</h4>
-<p>实现<code>注解处理器</code>的代码需要继承抽象类<code>javax.annotation.processing.AbstractProcessor</code>。</p>
+</li>
+</ul>
+<h4 id="3-2-代码实现"><a href="#3-2-代码实现" class="headerlink" title="3.2 代码实现"></a>3.2 代码实现</h4><p>实现<code>注解处理器</code>的代码需要继承抽象类<code>javax.annotation.processing.AbstractProcessor</code>。</p>
 <ul>
-<li>这个抽象类中只有一个子类必须实现的抽象方法：<code>“process()”</code>，它是Javac编译器在执行注解处理器代码时要调用的过程。
-<ul>
+<li>这个抽象类中只有一个子类必须实现的抽象方法：<code>“process()”</code>，它是Javac编译器在执行注解处理器代码时要调用的过程。<ul>
 <li>从这个方法的第一个参数<code>“annotations”</code>中获取到此<code>注解处理器</code>所要处理的<code>注解集合</code>。</li>
 <li>从第二个参数<code>“roundEnv”</code>中访问到当前这个<code>轮次（Round）</code>中的抽象语法树节点，每个语法树节点在这里都表示为一个<code>Element</code>。</li>
-</ul></li>
+</ul>
+</li>
 <li>实例变量<code>“processingEnv”</code>是<code>AbstractProcessor</code>中的一个<code>protected</code>变量，在注解处理器初始化的时候（<code>init()</code>方法执行的时候）创建，继承了<code>AbstractProcessor</code>的注解处理器代码可以直接访问它。它代表了注解处理器框架提供的一个<code>上下文环境</code>，要<u>创建新的代码</u>、<u>向编译器输出信息</u>、<u>获取其他工具类</u>等都需要用到这个实例变量。</li>
-<li>还有两个经常配合着使用的注解，分别是：
-<ul>
+<li>还有两个经常配合着使用的注解，分别是：<ul>
 <li><code>@SupportedAnnotationTypes</code>，代表了这个注解处理器对哪些注解感兴趣，可以使用星号<code>“*”</code>作为通配符代表对所有的注解都感兴趣</li>
 <li><code>@SupportedSourceVersion</code>，指出这个注解处理器可以处理哪些版本的Java代码。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>如果不需要改变或添加抽象语法树中的内容，<code>process()</code> 方法可以返回<code>false</code>，通知编译器这个轮次中的代码未发生变化，无须构造新的<code>JavaCompiler</code>实例。</p>
 <p>注解处理器<code>NameCheckProcessor</code>：</p>
@@ -615,7 +590,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javac编译器"><span class="nav-number">2.</span> <span class="nav-text">1. Javac编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#javac的源码与调试"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Javac的源码与调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解析与填充符号表"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 解析与填充符号表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#词法语法分析"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 词法、语法分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#填充符号表"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 填充符号表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注解处理器"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 注解处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语义分析与字节码生成"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 语义分析与字节码生成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标注检查"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 标注检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据及控制流分析"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 数据及控制流分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解语法糖"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 解语法糖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字节码生成"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 字节码生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java语法糖的味道"><span class="nav-number">3.</span> <span class="nav-text">2. Java语法糖的味道</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#泛型"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#java与c的泛型"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 Java与C#的泛型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类型擦除"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 类型擦除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#值类型与未来的泛型"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 值类型与未来的泛型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动装箱拆箱与遍历循环"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 自动装箱、拆箱与遍历循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#条件编译"><span class="nav-number">3.3.</span> <span class="nav-text">2.4 条件编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战插入式注解处理器"><span class="nav-number">4.</span> <span class="nav-text">3. 实战：插入式注解处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实战目标"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 实战目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 代码实现</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Javac编译器"><span class="nav-number">2.</span> <span class="nav-text">1. Javac编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Javac的源码与调试"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Javac的源码与调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-解析与填充符号表"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 解析与填充符号表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-词法、语法分析"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 词法、语法分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-填充符号表"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 填充符号表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-注解处理器"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 注解处理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-语义分析与字节码生成"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 语义分析与字节码生成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-标注检查"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 标注检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-数据及控制流分析"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 数据及控制流分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-解语法糖"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 解语法糖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-4-字节码生成"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 字节码生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Java语法糖的味道"><span class="nav-number">3.</span> <span class="nav-text">2. Java语法糖的味道</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-泛型"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-Java与C-的泛型"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 Java与C#的泛型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-类型擦除"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 类型擦除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-值类型与未来的泛型"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 值类型与未来的泛型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-自动装箱、拆箱与遍历循环"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 自动装箱、拆箱与遍历循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-条件编译"><span class="nav-number">3.3.</span> <span class="nav-text">2.4 条件编译</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-实战：插入式注解处理器"><span class="nav-number">4.</span> <span class="nav-text">3. 实战：插入式注解处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-实战目标"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 实战目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-代码实现"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 代码实现</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -631,7 +606,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -644,7 +619,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -692,13 +667,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">450k</span>
+    <span title="站点总字数">480k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:49</span>
+    <span title="站点阅读时长">7:16</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

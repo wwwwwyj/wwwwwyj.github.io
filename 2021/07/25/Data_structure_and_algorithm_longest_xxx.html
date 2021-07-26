@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="1. 介绍经常遇见一类问题，求最长字串，最长递增序列等等，大部分求解的思路都类型，可以用动态规划求解。但遇到一些变种后，问题常常变得很困难，这里对这类问题进行一个归纳。">
+<meta name="keywords" content="面试复习,数据结构和算法,算法,最值问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[数据结构和算法|求最长的XXX]">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;25&#x2F;Data_structure_and_algorithm_longest_xxx.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="1. 介绍经常遇见一类问题，求最长字串，最长递增序列等等，大部分求解的思路都类型，可以用动态规划求解。但遇到一些变种后，问题常常变得很困难，这里对这类问题进行一个归纳。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-07-25T11:57:33.000Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/07/25/Data_structure_and_algorithm_longest_xxx.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[数据结构和算法|求最长的XXX] | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/25/Data_structure_and_algorithm_longest_xxx.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [数据结构和算法|求最长的XXX]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-25 19:57:33" itemprop="dateCreated datePublished" datetime="2021-07-25T19:57:33+08:00">2021-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构和算法</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/25/Data_structure_and_algorithm_longest_xxx.html" class="post-meta-item leancloud_visitors" data-flag-title="[数据结构和算法|求最长的XXX]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/25/Data_structure_and_algorithm_longest_xxx.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/25/Data_structure_and_algorithm_longest_xxx.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>经常遇见一类问题，求最长字串，最长递增序列等等，大部分求解的思路都类型，可以用动态规划求解。但遇到一些变种后，问题常常变得很困难，这里对这类问题进行一个归纳。</p>
+<a id="more"></a>
+<h3 id="2-题解"><a href="#2-题解" class="headerlink" title="2.  题解"></a>2.  题解</h3><h4 id="2-1-leetcode-1027-最长等差数列"><a href="#2-1-leetcode-1027-最长等差数列" class="headerlink" title="2.1 leetcode-1027. 最长等差数列"></a>2.1 leetcode-1027. 最长等差数列</h4><blockquote>
+<p>给定一个整数数组 <code>A</code>，返回 <code>A</code> 中最长等差子序列的长度。</p>
+<p>回想一下，<code>A</code> 的子序列是列表 <code>A[i_1], A[i_2], ..., A[i_k]</code> 其中 <code>0 &lt;= i_1 &lt; i_2 &lt; ... &lt; i_k &lt;= A.length - 1</code>。并且如果 <code>B[i+1] - B[i]( 0 &lt;= i &lt; B.length - 1)</code> 的值都相同，那么序列 <code>B</code> 是等差的。</p>
+</blockquote>
+<p>可以用<code>dp[i][diff]</code>表示以第<code>i</code>个数为结尾，以<code>diff</code>为差值的最长子序列长度，那么可以写出其状态转移方程：</p>
+<script type="math/tex; mode=display">
+dp[i][diff] =
+\begin{cases}
+    \operatorname{max}(dp[i][diff], dp[j][diff] + 1) &, dp[i-1][diff] > 0 \\ 
+    \operatorname{max}(dp[i][diff], 2) &, else \\ 
+\end{cases}
+\\ 1 \leq j < i</script><p>即当要加入第<code>i</code>个元素时，考虑将其与之前第<code>j</code>个元素构成一个等差数列的子序列，此时有两种情况：</p>
+<ul>
+<li><p>之前以 <code>diff = nums[i] - nums[j]</code>组成的最长数列长度为<code>dp[j][diff]</code>（大于<code>0</code>），加入第<code>i</code>个数后，序列长度加<code>1</code>；</p>
+</li>
+<li><p>之前不存在以 <code>diff = nums[i] - nums[j]</code>组成的数列，则当前两个数组成新序列，此时最大长度为<code>2</code>。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestArithSeqLength</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numsLen = nums.length, longest = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[numsLen][<span class="number">20002</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; numsLen; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i-<span class="number">1</span>; j &gt;= <span class="number">0</span> ; j--) &#123;</span><br><span class="line">                <span class="keyword">int</span> diff = nums[j] - nums[i] + <span class="number">10000</span>;</span><br><span class="line">                dp[i][diff] = Math.max(dp[i][diff], dp[j][diff] == <span class="number">0</span> ? <span class="number">2</span> : dp[j][diff] + <span class="number">1</span>);</span><br><span class="line">                longest = Math.max(longest, dp[i][diff]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-墨奇科技笔试-最长的连续的等差子数组的长度"><a href="#2-2-墨奇科技笔试-最长的连续的等差子数组的长度" class="headerlink" title="2.2 墨奇科技笔试-最长的连续的等差子数组的长度"></a>2.2 墨奇科技笔试-最长的连续的等差子数组的长度</h4><blockquote>
+<p>有一个整数数组，允许替换一个数字，返回替换后数组中最长的连续的等差子数组的长度。例如将8 5 2 0替换为8 5 2 -1，返回4。</p>
+</blockquote>
+<p>应该也可以用动态规划解决，而且是连续的子序列，应该状态不会太多。初步想法是，需要设置的状态有两个，一个是当前是否修改过数组，另一个是需要处理子序列长度为<code>3</code>时修改的方式：</p>
+<ul>
+<li>修改第一个节点使得符合之后的序列；</li>
+<li>修改最后一个节点使得符合之前的序列。</li>
+</ul>
+<p>但这样会使得状态更新变得很复杂。使用了同学介绍的快慢指针方法，先固定一个点，遍历从这个点开始往后走可以到达的最大长度，记录下最值。为了解决上面存在两种修改方式的问题，使用了正反两遍的遍历：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSub</span> <span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> longest = <span class="number">2</span>, last = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">int</span> n = nums.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> diff = nums[i] - nums[i-<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff == last) <span class="keyword">continue</span>; <span class="comment">// 减枝</span></span><br><span class="line">        <span class="keyword">else</span> last = diff;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> j = i;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; n &amp;&amp; nums[j] - nums[j-<span class="number">1</span>] == diff) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (j &lt; n) &#123;</span><br><span class="line">            <span class="keyword">int</span> oldValue = nums[j];</span><br><span class="line">            <span class="keyword">int</span> oldIndex = j;</span><br><span class="line"></span><br><span class="line">            nums[j] = nums[j-<span class="number">1</span>] + diff;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; n &amp;&amp; nums[j] - nums[j-<span class="number">1</span>] == diff) j++;</span><br><span class="line">            nums[oldIndex] = oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">        longest = Math.max(longest, j - i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n-<span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">int</span> diff = nums[i] - nums[i+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff == last) <span class="keyword">continue</span>; <span class="comment">// 减枝</span></span><br><span class="line">        <span class="keyword">else</span> last = diff;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> j = i;</span><br><span class="line">        <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; nums[j] - nums[j+<span class="number">1</span>] == diff) &#123;</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> oldValue = nums[j];</span><br><span class="line">            <span class="keyword">int</span> oldIndex = j;</span><br><span class="line"></span><br><span class="line">            nums[j] = nums[j+<span class="number">1</span>] + diff;</span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; nums[j] - nums[j+<span class="number">1</span>] == diff) j--;</span><br><span class="line">            nums[oldIndex] = oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">        longest = Math.max(longest, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> longest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管例子都过了，但提交的时候没过，也没找到问题在哪。</p>
+<h4 id="2-3-leetcode-674-最长连续递增序列"><a href="#2-3-leetcode-674-最长连续递增序列" class="headerlink" title="2.3 leetcode-674. 最长连续递增序列"></a>2.3 leetcode-674. 最长连续递增序列</h4><blockquote>
+<p>给定一个未经排序的整数数组，找到最长且 连续递增的子序列，并返回该序列的长度。</p>
+<p>连续递增的子序列 可以由两个下标 <code>l</code> 和 <code>r</code>（<code>l &lt; r</code>）确定，如果对于每个 <code>l &lt;= i &lt; r</code>，都有 <code>nums[i] &lt; nums[i + 1]</code> ，那么子序列 <code>[nums[l], nums[l + 1], ..., nums[r - 1], nums[r]]</code> 就是连续递增子序列。</p>
+</blockquote>
+<p>这个题很简答，用动态规划解决的经典问题，而且由于要求是连续的，降低了问题的难度。用<code>dp[i]</code>表示以第<code>i</code>个元素结尾的最长递增子序列长度，转移方程可以表示为：</p>
+<script type="math/tex; mode=display">
+dp[i] =
+\begin{cases}
+    dp[i-1] + 1 &, nums[i] > nums[i-1] \\ 
+    1 &, else \\ 
+\end{cases}</script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLengthOfLCIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> pre = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> maxLen = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            pre = nums[i] &gt; nums[i-<span class="number">1</span>] ? pre + <span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">            maxLen = Math.max(pre, maxLen);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-leetcode-718-最长重复子数组"><a href="#2-4-leetcode-718-最长重复子数组" class="headerlink" title="2.4 leetcode-718. 最长重复子数组"></a>2.4 leetcode-718. 最长重复子数组</h4><blockquote>
+<p>给两个整数数组 <code>A</code> 和 <code>B</code> ，返回两个数组中公共的、长度最长的子数组的长度。</p>
+</blockquote>
+<p>最长字串问题，用<code>dp[i][j]</code>表示以<code>A</code>的第<code>i</code>个字符串结尾和<code>B</code>的第<code>j</code>个字符串结尾的最长子串长度，可以得到转移方程：</p>
+<script type="math/tex; mode=display">
+dp[i+1][j+1] =
+\begin{cases}
+    dp[i][j] + 1 &, nums1[i] == nums2[j] \\ 
+    0 &, else \\ 
+\end{cases}</script><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findLength</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = nums1.length;</span><br><span class="line">        <span class="keyword">int</span> n = nums2.length;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> longest = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m ; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n ; j++) &#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = nums1[i] == nums2[j]? dp[i][j] + <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">                longest = Math.max(longest, dp[i+<span class="number">1</span>][j+<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-leetcode-1218-最长定差子序列"><a href="#2-5-leetcode-1218-最长定差子序列" class="headerlink" title="2.5 leetcode-1218. 最长定差子序列"></a>2.5 leetcode-1218. 最长定差子序列</h4><blockquote>
+<p>给你一个整数数组 <code>arr</code> 和一个整数 <code>difference</code>，请你找出并返回 <code>arr</code> 中最长等差子序列的长度，该子序列中相邻元素之间的差等于 <code>difference</code> 。</p>
+<p>子序列 是指在不改变其余元素顺序的情况下，通过删除一些元素或不删除任何元素而从 <code>arr</code> 派生出来的序列。</p>
+</blockquote>
+<p>一开始想用<code>dp[i]</code>表示以第<code>i</code>个数结尾的最长子序列，但难以找到<code>nums[i]-difference</code>这个数的位置或者是否存在，想到了之前遇到的类似用空间换时间的方法，因为是有序的所以直接存储<code>dp[nums[i]]</code>作为以当前这个数结尾的符合定差的子序列长度，状态转移方程为：</p>
+<script type="math/tex; mode=display">
+dp[nums[i]] = dp[nums[i]-difference]</script><p>实际上也可以用<code>HashMap</code>来实现这个数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSubsequence</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> difference)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">400004</span>];</span><br><span class="line">        <span class="keyword">if</span>(difference!=<span class="number">0</span>) Arrays.fill(dp, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">int</span> longest = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> cur = arr[i] + <span class="number">20000</span>;</span><br><span class="line">            dp[cur + difference] = dp[cur] + <span class="number">1</span>;</span><br><span class="line">            longest = Math.max(longest, dp[cur]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HashMap</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSubsequence</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> difference)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> longest = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> curLen = map.getOrDefault(arr[i] - difference, <span class="number">0</span> ) + <span class="number">1</span>;</span><br><span class="line">            map.put(arr[i], curLen);</span><br><span class="line"></span><br><span class="line">            longest = Math.max(longest, curLen);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-6-leetcode-300-最长递增子序列"><a href="#2-6-leetcode-300-最长递增子序列" class="headerlink" title="2.6 leetcode-300. 最长递增子序列"></a>2.6 leetcode-300. 最长递增子序列</h4><blockquote>
+<p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+</blockquote>
+<p>用<code>dp[i]</code>表示以第<code>i</code>个元素结尾得到的最长递增子序列，与连续递增子序列类似，状态转移方程相同。不同的是，需要遍历第<code>i</code>个元素之前的所有数字。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length, longest = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        Arrays.fill(dp, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j]) &#123;</span><br><span class="line">                    dp[i] = Math.max(dp[i], dp[j]+<span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                longest = Math.max(dp[i], longest);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> longest;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-7-leetcode-1143-最长公共子序列"><a href="#2-7-leetcode-1143-最长公共子序列" class="headerlink" title="2.7 leetcode-1143. 最长公共子序列"></a>2.7 leetcode-1143. 最长公共子序列</h4><blockquote>
+<p>给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。</p>
+<p>一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。</p>
+<ul>
+<li>例如，”ace” 是 “abcde” 的子序列，但 “aec” 不是 “abcde” 的子序列。</li>
+</ul>
+<p>两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。</p>
+</blockquote>
+<p>最长字串问题，用<code>dp[i][j]</code>表示以<code>A</code>的第<code>i</code>个字符串结尾和<code>B</code>的第<code>j</code>个字符串结尾的最长子串长度，转移方程与连续子串类似。唯一不同是需要遍历所有<code>i</code>和<code>j</code>的情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = text1.length(), n = text2.length();</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (text1.charAt(i-<span class="number">1</span>) == text2.charAt(j-<span class="number">1</span>)) &#123;</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = Math.max(dp[i][j-<span class="number">1</span>], dp[i-<span class="number">1</span>][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[m][n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/" rel="tag"># 面试复习</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构和算法</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%9C%80%E5%80%BC%E9%97%AE%E9%A2%98/" rel="tag"># 最值问题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/07/24/null.html" rel="next" title="[数据结构和算法|贪心算法]">
+                  <i class="fa fa-chevron-left"></i> [数据结构和算法|贪心算法]
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/07/25/Data_structure_and_algorithm_longest_xxx.html" rel="prev" title="[数据结构和算法|求素数的方法]">
+                  [数据结构和算法|求素数的方法] <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-介绍"><span class="nav-number">1.</span> <span class="nav-text">1. 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-题解"><span class="nav-number">2.</span> <span class="nav-text">2.  题解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-leetcode-1027-最长等差数列"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 leetcode-1027. 最长等差数列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-墨奇科技笔试-最长的连续的等差子数组的长度"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 墨奇科技笔试-最长的连续的等差子数组的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-leetcode-674-最长连续递增序列"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 leetcode-674. 最长连续递增序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-leetcode-718-最长重复子数组"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 leetcode-718. 最长重复子数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-leetcode-1218-最长定差子序列"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 leetcode-1218. 最长定差子序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-leetcode-300-最长递增子序列"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 leetcode-300. 最长递增子序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-7-leetcode-1143-最长公共子序列"><span class="nav-number">2.7.</span> <span class="nav-text">2.7 leetcode-1143. 最长公共子序列</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">128</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">480k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

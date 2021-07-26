@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述  You&amp;apos;re given strings J representing the types of stones that are jewels, and S representing the stones you have. Each character in S is a type of stone you have. You want to know how many of">
+  <meta name="description" content="一、问题描述 You’re given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--771. Jewels and Stones">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;03&#x2F;28&#x2F;LeetCode--771-Jewels-and-Stones.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述  You&amp;apos;re given strings J representing the types of stones that are jewels, and S representing the stones you have. Each character in S is a type of stone you have. You want to know how many of">
+<meta property="og:description" content="一、问题描述 You’re given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:49:17.343Z">
 <meta name="twitter:card" content="summary">
@@ -316,25 +316,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<blockquote>
-<p>You're given strings J representing the types of stones that are jewels, and S representing the stones you have. Each character in S is a type of stone you have. You want to know how many of the stones you have are also jewels. <a id="more"></a> The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" is considered a different type of stone from "A".</p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>You’re given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.<br><a id="more"></a><br>The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so “a” is considered a different type of stone from “A”.</p>
 </blockquote>
-<p><strong>Example 1:</strong> &gt;Input: J = "aA", S = "aAAbbbb" &gt;Output: 3</p>
-<p><strong>Example 2:</strong> &gt;Input: J = "z", S = "ZZ" &gt;Output: 0</p>
-<p><strong>Note:</strong> &gt; - S and J will consist of letters and have length at most 50. &gt; - The characters in J are distinct.</p>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>1.这是一道很简单的题，只需要逐个判断字符串 <strong>S</strong> 中的每个字符,是否在字符串 <strong>J</strong> 中出现过。设置一个计数器count，每次判断后更新该计数器，带遍历完整个字符串，即可得出最终结果。比较字符串的过程中，应用了string库里的find()函数。 2.在看别人提交的解法中，看见了另外一种比较有趣的方法，建立了一个与字符ASCII码大小相同的数组，每次判断字符是否存在，只需直接在数组内查看该字符ASCII码对应的位置是否为1，这是一种空间换时间的方法。</p>
-<h3 id="三代码">三、代码</h3>
-<ol type="1">
-<li>解法1</li>
+<p><strong>Example 1:</strong></p>
+<blockquote>
+<p>Input: J = “aA”, S = “aAAbbbb”<br>Output: 3</p>
+</blockquote>
+<p><strong>Example 2:</strong></p>
+<blockquote>
+<p>Input: J = “z”, S = “ZZ”<br>Output: 0</p>
+</blockquote>
+<p><strong>Note:</strong></p>
+<blockquote>
+<ul>
+<li>S and J will consist of letters and have length at most 50.</li>
+<li>The characters in J are distinct.</li>
+</ul>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>1.这是一道很简单的题，只需要逐个判断字符串 <strong>S</strong> 中的每个字符,是否在字符串 <strong>J</strong> 中出现过。设置一个计数器count，每次判断后更新该计数器，带遍历完整个字符串，即可得出最终结果。比较字符串的过程中，应用了string库里的find()函数。<br>2.在看别人提交的解法中，看见了另外一种比较有趣的方法，建立了一个与字符ASCII码大小相同的数组，每次判断字符是否存在，只需直接在数组内查看该字符ASCII码对应的位置是否为1，这是一种空间换时间的方法。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
+<li>解法1 </li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;S.length();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(J.find(S[i]) != J.npos)</span><br><span class="line">            &#123;</span><br><span class="line">                ++count;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+<ol>
 <li>解法2</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> exist[<span class="number">256</span>] = &#123;<span class="number">0</span>&#125;; </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; J.length();i++) &#123;</span><br><span class="line">            exist[J.at(i)] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; S.length();i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (exist[S.at(i)]) &#123;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
     </div>
 
     
@@ -400,7 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -416,7 +424,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-count">128</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -429,7 +437,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -477,13 +485,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">450k</span>
+    <span title="站点总字数">480k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:49</span>
+    <span title="站点阅读时长">7:16</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
