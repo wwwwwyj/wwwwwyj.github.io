@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
+  <meta name="description" content="一、问题描述 输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
 <meta name="keywords" content="剑指offer,面试复习,刷题记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-11-二进制中1的个数">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;26&#x2F;JZ11_Number_of_1s_in_binary.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
+<meta property="og:description" content="一、问题描述 输入一个整数，输出该数32位二进制表示中1的个数。其中负数用补码表示。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-05-26T05:01:12.000Z">
 <meta name="twitter:card" content="summary">
@@ -290,7 +290,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>856</span>
+              <span>857</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -309,23 +309,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><p>输入一个整数，输出该数<code>32</code>位二进制表示中<code>1</code>的个数。其中负数用补码表示。<br><a id="more"></a></p>
+        <h3 id="一问题描述">一、问题描述</h3>
+<p>输入一个整数，输出该数<code>32</code>位二进制表示中<code>1</code>的个数。其中负数用补码表示。 <a id="more"></a></p>
 <p><strong>示例1</strong></p>
 <blockquote>
-<p>输入：10<br>返回值：2</p>
+<p>输入：10 返回值：2</p>
 </blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><h4 id="1-位运算"><a href="#1-位运算" class="headerlink" title="1. 位运算"></a>1. 位运算</h4><p>考查的应该就是位操作吧。实际上要统计<code>1</code>的个数很简单，只需要将整数逐位右移，统计最低位<code>1</code>的出现次数。判断最低为是否为<code>1</code>可以使用等式：<code>n &amp; 1</code>，结果为<code>1</code>即为<code>1</code>，否则为<code>0</code>。</p>
+<h3 id="二解题思路">二、解题思路</h3>
+<h4 id="位运算">1. 位运算</h4>
+<p>考查的应该就是位操作吧。实际上要统计<code>1</code>的个数很简单，只需要将整数逐位右移，统计最低位<code>1</code>的出现次数。判断最低为是否为<code>1</code>可以使用等式：<code>n &amp; 1</code>，结果为<code>1</code>即为<code>1</code>，否则为<code>0</code>。</p>
 <p>这里有一个需要注意的点是，由于整数是补码表示，所以在右移的时候，若数字为负数会将高位自动补<code>1</code>。这里刚好之前学到<code>Java</code>里有一个无符号右移的运算符: <code>&gt;&gt;&gt;</code>，可以直接解决这个问题。</p>
 <ul>
-<li><a href="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">[Java学习|Head_First_Java]—十大遗珠之憾</a></li>
+<li><a href="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">[Java学习|Head_First_Java]--十大遗珠之憾</a></li>
 </ul>
-<h4 id="2-技巧法"><a href="#2-技巧法" class="headerlink" title="2. 技巧法"></a>2. 技巧法</h4><p>考虑二进制数：<code>val :1101000</code>, <code>val-1: 1100111</code> 那么<code>val &amp; （val-1） : 1100000</code>。即：</p>
+<h4 id="技巧法">2. 技巧法</h4>
+<p>考虑二进制数：<code>val :1101000</code>, <code>val-1: 1100111</code> 那么<code>val &amp; （val-1） : 1100000</code>。即：</p>
 <blockquote>
 <p>如果一个整数不为0，那么这个整数至少有一位是1。如果我们把这个整数减1，那么原来处在整数最右边的1就会变为0，原来在1后面的所有的0都会变成1(如果最右边的1后面还有0的话)。其余所有位将不会受到影响。</p>
 </blockquote>
 <p>把一个整数减去<code>1</code>，再和原整数做与运算，会把该整数最右边一个<code>1</code>变成<code>0</code>.那么一个整数的二进制有多少个<code>1</code>，就可以进行多少次这样的操作。</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="1-位运算-1"><a href="#1-位运算-1" class="headerlink" title="1. 位运算"></a>1. 位运算</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes += (n &amp; <span class="number">1</span>);</span><br><span class="line">            n = n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-技巧法："><a href="#2-技巧法：" class="headerlink" title="2. 技巧法："></a>2. 技巧法：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes++;</span><br><span class="line">            n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三代码">三、代码</h3>
+<h4 id="位运算-1">1. 位运算</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes += (n &amp; <span class="number">1</span>);</span><br><span class="line">            n = n &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="技巧法-1">2. 技巧法：</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">NumberOf1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfOnes = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n != <span class="number">0</span>)&#123;</span><br><span class="line">            numOfOnes++;</span><br><span class="line">            n = n &amp; (n - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> numOfOnes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -394,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-位运算"><span class="nav-number">2.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-技巧法"><span class="nav-number">2.2.</span> <span class="nav-text">2. 技巧法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-位运算-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-技巧法："><span class="nav-number">3.2.</span> <span class="nav-text">2. 技巧法：</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算"><span class="nav-number">2.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技巧法"><span class="nav-number">2.2.</span> <span class="nav-text">2. 技巧法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位运算-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. 位运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#技巧法-1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 技巧法：</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,20 +417,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -471,13 +478,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

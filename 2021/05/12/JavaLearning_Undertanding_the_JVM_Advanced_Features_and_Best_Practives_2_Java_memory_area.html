@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
+  <meta name="description" content="前言  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
 <meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--2 Java内存区域与内存溢出异常">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;12&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_2_Java_memory_area.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
+<meta property="og:description" content="前言  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;runtimeDataArea.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;markWord.PNG">
@@ -307,7 +307,7 @@
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -319,14 +319,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。</code><br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里面的人却想出来。</code> <a id="more"></a></p>
 </blockquote>
 <p>在<code>Java</code>虚拟机自动内存管理机制的帮助下，不再需要为每一个new操作去写配对的<code>delete/free</code>代码，不容易出现内存泄漏和内存溢出问题。</p>
 <p>但也因此，如果不了解虚拟机是怎样使用内存的，一旦出现内存泄漏和溢出方面的问题，那排查错误、修正问题将会成为一项异常艰难的工作。</p>
-<h3 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1 运行时数据区域"></a>1 运行时数据区域</h3><p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为<strong>若干个不同的数据区域</strong>。这些区域有各自的用途，以及创建和销毁的时间，Java虚拟机所管理的内存将会包括以下几个运行时数据区域：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/runtimeDataArea.PNG" alt="Java虚拟机运行时数据区"></p>
-<h4 id="1-1-程序计数器"><a href="#1-1-程序计数器" class="headerlink" title="1.1 程序计数器"></a>1.1 程序计数器</h4><p><code>程序计数器（Program Counter Register）</code>是一块较小的内存空间，它可以看作是当前线程所执行的字节码的<strong>行号指示器</strong>。字节码解释器工作时就是通过改变这个计数器的值来<strong>选取下一条需要执行的字节码指令</strong>。</p>
+<h3 id="运行时数据区域">1 运行时数据区域</h3>
+<p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为<strong>若干个不同的数据区域</strong>。这些区域有各自的用途，以及创建和销毁的时间，Java虚拟机所管理的内存将会包括以下几个运行时数据区域：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/runtimeDataArea.PNG" alt="Java虚拟机运行时数据区" /><figcaption aria-hidden="true">Java虚拟机运行时数据区</figcaption>
+</figure>
+<h4 id="程序计数器">1.1 程序计数器</h4>
+<p><code>程序计数器（Program Counter Register）</code>是一块较小的内存空间，它可以看作是当前线程所执行的字节码的<strong>行号指示器</strong>。字节码解释器工作时就是通过改变这个计数器的值来<strong>选取下一条需要执行的字节码指令</strong>。</p>
 <blockquote>
 <p>程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
 </blockquote>
@@ -338,7 +343,8 @@
 <blockquote>
 <p>此内存区域是唯 一一个在《Java虚拟机规范》中没有规定任何<code>OutOfMemoryError情况</code>的区域。</p>
 </blockquote>
-<h4 id="1-2-Java虚拟机栈"><a href="#1-2-Java虚拟机栈" class="headerlink" title="1.2 Java虚拟机栈"></a>1.2 Java虚拟机栈</h4><p><code>Java虚拟机栈（Java Virtual Machine Stack）</code>描述的是<strong>Java<code>方法</code>执行的线程内存模型</strong>：每个<code>方法</code>被执行的时候，Java虚拟机都会同步创建一个<code>栈帧（Stack Frame）</code>用于存储<em>局部变量表、操作数栈、动态连接、方法出口</em>等信息。</p>
+<h4 id="java虚拟机栈">1.2 Java虚拟机栈</h4>
+<p><code>Java虚拟机栈（Java Virtual Machine Stack）</code>描述的是<strong>Java<code>方法</code>执行的线程内存模型</strong>：每个<code>方法</code>被执行的时候，Java虚拟机都会同步创建一个<code>栈帧（Stack Frame）</code>用于存储<em>局部变量表、操作数栈、动态连接、方法出口</em>等信息。</p>
 <blockquote>
 <p><code>Java虚拟机栈（Java Virtual Machine Stack）</code>也是线程<code>私有</code>的，它的生命周期与线程相同。</p>
 </blockquote>
@@ -354,7 +360,8 @@
 <li>如果Java虚拟机栈容量可以<em>动态扩展</em>，当栈扩展时无法申请到足够的内存会抛出<code>OutOfMemoryError异常</code></li>
 </ul>
 </blockquote>
-<h4 id="1-3-本地方法栈"><a href="#1-3-本地方法栈" class="headerlink" title="1.3 本地方法栈"></a>1.3 本地方法栈</h4><p><code>本地方法栈（Native Method Stacks）</code>与虚拟机栈所发挥的作用是非常相似的，其<strong>区别</strong>只是：</p>
+<h4 id="本地方法栈">1.3 本地方法栈</h4>
+<p><code>本地方法栈（Native Method Stacks）</code>与虚拟机栈所发挥的作用是非常相似的，其<strong>区别</strong>只是：</p>
 <blockquote>
 <p>虚拟机栈为虚拟机执行Java方法（也就是字节码）服务；</p>
 <p>本地方法栈则是为虚拟机使用到的本地（Native）方法服务。</p>
@@ -363,7 +370,8 @@
 <blockquote>
 <p>本地方法栈规定了<code>StackOverflowError</code>和<code>OutOfMemoryError</code>异常。</p>
 </blockquote>
-<h4 id="1-4-Java堆"><a href="#1-4-Java堆" class="headerlink" title="1.4 Java堆"></a>1.4 Java堆</h4><p><code>Java堆（Java Heap）</code>唯一目的就是<strong>存放对象实例</strong>，Java世界里<em>“几乎”</em>所有的对象实例都在这里分配内存。Java堆是被所有线程<code>共享</code>的一块内存区域，在虚拟机启动时创建，也是虚拟机所管理的内存中<em>最大</em>的一块。</p>
+<h4 id="java堆">1.4 Java堆</h4>
+<p><code>Java堆（Java Heap）</code>唯一目的就是<strong>存放对象实例</strong>，Java世界里<em>“几乎”</em>所有的对象实例都在这里分配内存。Java堆是被所有线程<code>共享</code>的一块内存区域，在虚拟机启动时创建，也是虚拟机所管理的内存中<em>最大</em>的一块。</p>
 <blockquote>
 <p>在《Java虚拟机规范》中对Java堆的描述是：<code>“所有的对象实例以及数组都应当在堆上分配”</code></p>
 </blockquote>
@@ -372,7 +380,8 @@
 <blockquote>
 <p>如果在Java堆中没有内存完成实例分配，并且堆也无法再扩展时，Java虚拟机将会抛出<code>OutOfMemoryError异常</code>。</p>
 </blockquote>
-<h4 id="1-5-方法区"><a href="#1-5-方法区" class="headerlink" title="1.5 方法区"></a>1.5 方法区</h4><p><code>方法区（Method Area）</code>用于存储<strong>已被虚拟机加载</strong>的<em>类型信息、常量、静态变量、即时编译器编译后的代码缓存</em>等数据。与Java堆一样，是各个线程<code>共享</code>的内存区域。</p>
+<h4 id="方法区">1.5 方法区</h4>
+<p><code>方法区（Method Area）</code>用于存储<strong>已被虚拟机加载</strong>的<em>类型信息、常量、静态变量、即时编译器编译后的代码缓存</em>等数据。与Java堆一样，是各个线程<code>共享</code>的内存区域。</p>
 <blockquote>
 <p>《Java虚拟机规范》中把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫作<code>“非堆”（Non-Heap）</code></p>
 </blockquote>
@@ -388,9 +397,12 @@
 <p>除了和Java堆一样不需要连续的内存和可以选择固定大小或者可扩展外，甚至还可以选择<strong>不实现垃圾收集</strong>。</p>
 <blockquote>
 <p>这区域的内存回收目标主要是针<strong>对常量池的回收</strong>和<strong>对类型的卸载</strong></p>
+</blockquote>
+<blockquote>
 <p>如果方法区无法满足新的内存分配需求时，将抛出 <code>OutOfMemoryError异常</code>。</p>
 </blockquote>
-<h4 id="1-6-运行时常量池"><a href="#1-6-运行时常量池" class="headerlink" title="1.6 运行时常量池"></a>1.6 运行时常量池</h4><p><code>运行时常量池（Runtime Constant Pool）</code>是<strong>方法区的一部分</strong>。<code>Class文件</code>中有一项信息是<code>常量池表（Constant Pool Table）</code>，用于存放编译期生成的各种<strong>字面量</strong>与<strong>符号引用</strong>，这部分内容将在类加载后存放到方法区的运行时常量池中。</p>
+<h4 id="运行时常量池">1.6 运行时常量池</h4>
+<p><code>运行时常量池（Runtime Constant Pool）</code>是<strong>方法区的一部分</strong>。<code>Class文件</code>中有一项信息是<code>常量池表（Constant Pool Table）</code>，用于存放编译期生成的各种<strong>字面量</strong>与<strong>符号引用</strong>，这部分内容将在类加载后存放到方法区的运行时常量池中。</p>
 <blockquote>
 <p>Class文件中还包括类的<em>版本、字段、方法、接口等描述信息</em></p>
 </blockquote>
@@ -398,7 +410,8 @@
 <blockquote>
 <p>当常量池无法再申请到内存时会抛出<code>OutOfMemoryError异常</code>。</p>
 </blockquote>
-<h4 id="1-7-直接内存"><a href="#1-7-直接内存" class="headerlink" title="1.7 直接内存"></a>1.7 直接内存</h4><p><code>直接内存（Direct Memory）</code>并不是虚拟机运行时数据区的一部分。</p>
+<h4 id="直接内存">1.7 直接内存</h4>
+<p><code>直接内存（Direct Memory）</code>并不是虚拟机运行时数据区的一部分。</p>
 <blockquote>
 <p>在<code>JDK 1.4</code>中新加入了<code>NIO（New Input/Output）类</code>，引入了一种基于<code>通道（Channel）</code>与<code>缓冲区 （Buffer）</code>的I/O方式，它可以使用<strong><code>Native函数库</code>直接分配堆外内存</strong>，然后通过一个存储在Java堆里面的<code>DirectByteBuffer</code>对象作为<strong>这块内存的引用</strong>进行操作。</p>
 <p>避免了在<code>Java堆</code>和<code>Native堆</code>中来回复制数据。</p>
@@ -407,21 +420,23 @@
 <blockquote>
 <p>动态扩展时可能会出现 <code>OutOfMemoryError异常</code>。</p>
 </blockquote>
-<h3 id="2-HotSpot虚拟机对象探秘"><a href="#2-HotSpot虚拟机对象探秘" class="headerlink" title="2. HotSpot虚拟机对象探秘"></a>2. <code>HotSpot</code>虚拟机对象探秘</h3><h4 id="2-1-对象的创建"><a href="#2-1-对象的创建" class="headerlink" title="2.1 对象的创建"></a>2.1 对象的创建</h4><p>在虚拟机中<code>(普通)对象</code>的创建过程如下：</p>
+<h3 id="hotspot虚拟机对象探秘">2. <code>HotSpot</code>虚拟机对象探秘</h3>
+<h4 id="对象的创建">2.1 对象的创建</h4>
+<p>在虚拟机中<code>(普通)对象</code>的创建过程如下：</p>
 <blockquote>
-<ol>
+<ol type="1">
 <li>当Java虚拟机遇到一条<code>字节码new指令</code>时，首先将去检查这个指令的参数是否能在<code>常量池</code>中定位到一个类的<code>符号引用</code>，并且检查这个符号引用代表的类是否已被<strong>加载、解析和初始化</strong>过。如果没有，必须先执行相应的<strong>类加载过程</strong>。</li>
-<li>在类加载检查通过后，接下来虚拟机将为新生对象<strong>分配内存</strong>。<em>对象所需内存的大小在类加载完成后便可完全确定</em>，为对象分配空间的任务实际上便等同于把一块<u>确定大小</u>的内存块从<code>Java堆</code>中划分出来。<ul>
+<li>在类加载检查通过后，接下来虚拟机将为新生对象<strong>分配内存</strong>。<em>对象所需内存的大小在类加载完成后便可完全确定</em>，为对象分配空间的任务实际上便等同于把一块<u>确定大小</u>的内存块从<code>Java堆</code>中划分出来。
+<ul>
 <li><code>“指针碰撞”（Bump The Pointer）</code>。如果Java堆中内存是<strong>绝对规整</strong>的，所有被<u>使用过的内存都被放在一边，空闲的内存被放在另一边，中间放着一个指针作为分界点的指示器</u>。那所分配内存就仅仅是把指针向空闲空间方向挪动一段与对象大小相等的距离，这种分配方式称为“指针碰撞”。</li>
 <li><code>“空闲列表”（Free List）</code>。如果Java堆中的内存是<strong>不规整</strong>的，已被使用的内存和空闲的内存相互交错在一起，<u>虚拟机就必须维护一个列表，记录上哪些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录</u>。</li>
 <li>Java堆是否规整<u>由所采用的垃圾收集器是否带有<code>空间压缩整理（Compact）</code>的能力决定</u>。</li>
-<li>为了保证对象创建过程<code>线程安全</code>，有两种方法：<ul>
+<li>为了保证对象创建过程<code>线程安全</code>，有两种方法：
+<ul>
 <li>对分配内存空间的动作进行<code>同步处理</code>——实际上虚拟机是采用<code>CAS配上失败重试</code>的方式保证<strong>更新操作的原子性</strong>；</li>
 <li><u>把内存分配的动作按照线程划分在不同的空间之中进行</u>，即每个线程在Java堆中<strong>预先分配一小块内存</strong>，称为<code>本地线程分配缓冲（Thread Local Allocation Buffer，TLAB）</code>。线程要分配内存，就在该线程的本地缓冲区中分配，<u>只有本地缓冲区用完了，分配新的缓存区时才需要同步锁定</u>。</li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
+</ul></li>
 <li>内存分配完成之后，虚拟机必须将分配到的内存空间（但不包括对象头）都<strong><code>初始化为零值</code></strong>，如果使用了<code>TLAB</code>，这一项工作也可以提前至<code>TLAB</code>分配时进行。</li>
 <li>Java虚拟机对对象进行<strong>必要的设置</strong>，例如<u>对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的<code>GC</code>分代年龄等</u>信息。这些信息存放在对象的<code>对象头（Object Header）</code>之中。</li>
 </ol>
@@ -430,22 +445,27 @@
 <blockquote>
 <p><strong>构造函数</strong>，即<code>Class文件</code>中的<code>&lt;init&gt;()</code>方法还没有执行，<u>所有的字段都为默认的零值，对象需要的其他资源和状态信息也还没有按照预定的意图构造好</u>。</p>
 </blockquote>
-<h4 id="2-2-对象的内存布局"><a href="#2-2-对象的内存布局" class="headerlink" title="2.2 对象的内存布局"></a>2.2 对象的内存布局</h4><p>在<code>HotSpot虚拟机</code>里，对象在堆内存中的存储布局可以划分为三个部分：<code>对象头（Header）</code>、<code>实例数据（Instance Data）</code>和<code>对齐填充（Padding）</code>。</p>
-<h5 id="2-2-1-对象头"><a href="#2-2-1-对象头" class="headerlink" title="2.2.1 对象头"></a>2.2.1 对象头</h5><p>对象头部分包括两类信息：</p>
-<ol>
+<h4 id="对象的内存布局">2.2 对象的内存布局</h4>
+<p>在<code>HotSpot虚拟机</code>里，对象在堆内存中的存储布局可以划分为三个部分：<code>对象头（Header）</code>、<code>实例数据（Instance Data）</code>和<code>对齐填充（Padding）</code>。</p>
+<h5 id="对象头">2.2.1 对象头</h5>
+<p>对象头部分包括两类信息：</p>
+<ol type="1">
 <li>第一类是用于存储<strong>对象自身的<code>运行时数据</code></strong>，如<u>哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁、偏向线程ID、偏向时间戳</u>等。官方称它为<code>“Mark Word”</code>。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/markWord.PNG" alt="HotSpot虚拟机对象头`Mark Word`"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/markWord.PNG" alt="HotSpot虚拟机对象头Mark Word" /><figcaption aria-hidden="true">HotSpot虚拟机对象头<code>Mark Word</code></figcaption>
+</figure>
 <blockquote>
 <p><code>Mark Word</code>被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间。</p>
 </blockquote>
-<ol>
+<ol start="2" type="1">
 <li>另外一部分是<strong><code>类型指针</code></strong>，即<u>对象指向它的类型元数据的指针</u>，Java虚拟机通过这个指针来确定该对象是哪个类的实例。</li>
 </ol>
 <blockquote>
 <p>此外，如果对象是一个<code>Java数组</code>，那在对象头中还必须有一块用于<u>记录数组长度</u>的数据。</p>
 </blockquote>
-<h5 id="2-2-2-实例数据"><a href="#2-2-2-实例数据" class="headerlink" title="2.2.2 实例数据"></a>2.2.2 实例数据</h5><p>实例数据部分是对象真正存储的有效信息，即我们在程序代码里面<u>所定义的各种类型的字段内容</u>。</p>
+<h5 id="实例数据">2.2.2 实例数据</h5>
+<p>实例数据部分是对象真正存储的有效信息，即我们在程序代码里面<u>所定义的各种类型的字段内容</u>。</p>
 <blockquote>
 <p>存储顺序会受到虚拟机分配策略参数和字段在Java源码中定义顺序的影响。</p>
 <ul>
@@ -453,23 +473,31 @@
 <li>在满足这个前提条件的情况下，在父类中定义的变量会出现在子类之前</li>
 </ul>
 </blockquote>
-<h5 id="2-2-3-对齐填充"><a href="#2-2-3-对齐填充" class="headerlink" title="2.2.3 对齐填充"></a>2.2.3 对齐填充</h5><p>对齐填充<em>不是必然存在</em>的，它仅仅起着<code>占位符</code>的作用。主要由于HotSpot虚拟机的自动内存管理系统要求<u>对象起始地址必须是8字节的整数倍</u>。</p>
-<h4 id="2-3-对象的访问定位"><a href="#2-3-对象的访问定位" class="headerlink" title="2.3 对象的访问定位"></a>2.3 对象的访问定位</h4><p>Java程序会通过栈上的reference数据来操作堆上的具体对象。主流的访问方式主要有<code>使用句柄</code>和<code>直接指针</code>两种：</p>
-<ol>
+<h5 id="对齐填充">2.2.3 对齐填充</h5>
+<p>对齐填充<em>不是必然存在</em>的，它仅仅起着<code>占位符</code>的作用。主要由于HotSpot虚拟机的自动内存管理系统要求<u>对象起始地址必须是8字节的整数倍</u>。</p>
+<h4 id="对象的访问定位">2.3 对象的访问定位</h4>
+<p>Java程序会通过栈上的reference数据来操作堆上的具体对象。主流的访问方式主要有<code>使用句柄</code>和<code>直接指针</code>两种：</p>
+<ol type="1">
 <li><code>使用句柄</code>。Java堆中将可能会划分出一块内存来作为<code>句柄池</code>，<code>reference</code>中存储的就是对象的<code>句柄地址</code>，而句柄中包含了<u>对象实例数据与类型数据</u>各自具体的<strong>地址信息</strong>。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/handleAccess.PNG" alt="通过句柄访问对象"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/handleAccess.PNG" alt="通过句柄访问对象" /><figcaption aria-hidden="true">通过句柄访问对象</figcaption>
+</figure>
 <blockquote>
 <p>最大好处就是reference中存储的是稳定句柄地址，在对象被移动时<strong>只会改变句柄中的实例数据指针</strong>，而 <code>reference</code>本身不需要被修改。可以理解为只需要移动对象实例数据。</p>
 </blockquote>
-<ol>
+<ol start="2" type="1">
 <li><code>直接指针</code>。Java堆中对象的内存布局需要考虑<u>如何放置访问类型数据的相关信息</u>，<code>reference</code>中存储的直接就是对象地址，如果只是访问对象本身的话，就不需要多一次间接访问的开销。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/pointerAccess.PNG" alt="通过直接指针访问对象"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/pointerAccess.PNG" alt="通过直接指针访问对象" /><figcaption aria-hidden="true">通过直接指针访问对象</figcaption>
+</figure>
 <blockquote>
 <p>最大的好处就是速度更快，它节省了一次指针定位的时间开销。</p>
 </blockquote>
-<h3 id="3-OutOfMemoryError异常处理"><a href="#3-OutOfMemoryError异常处理" class="headerlink" title="3. OutOfMemoryError异常处理"></a>3. <code>OutOfMemoryError</code>异常处理</h3><h4 id="3-1-Java堆溢出"><a href="#3-1-Java堆溢出" class="headerlink" title="3.1 Java堆溢出"></a>3.1 Java堆溢出</h4><p>为了捕捉堆溢出，书中实现了如下异常测试程序：</p>
+<h3 id="outofmemoryerror异常处理">3. <code>OutOfMemoryError</code>异常处理</h3>
+<h4 id="java堆溢出">3.1 Java堆溢出</h4>
+<p>为了捕捉堆溢出，书中实现了如下异常测试程序：</p>
 <blockquote>
 <p>Java堆用于储存对象实例，我们只要不断地创建对象，并且保证<strong><code>GC Roots</code>到对象之间有可达路径</strong>来避免垃圾回收机制清除这些对象，那么随着对象数量的增加，总容量触及最大堆的容量限制后就会产生内存溢出异常。</p>
 </blockquote>
@@ -481,36 +509,47 @@
 </ul>
 </blockquote>
 <p>运行结果如下：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/heapOOM.PNG" alt="HeapOOM测试结果"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/heapOOM.PNG" alt="HeapOOM测试结果" /><figcaption aria-hidden="true">HeapOOM测试结果</figcaption>
+</figure>
 <p>要解决这个内存区域的异常，常规的处理方法是首先通过内存映像分析工具对Dump出来的堆转储快照进行分析。</p>
 <blockquote>
 <p>这里使用的是<code>IDEA</code>的插件<code>jprofiler</code>，安装方法参考文章：<a href="https://blog.csdn.net/wytocsdn/article/details/79258247" target="_blank" rel="noopener">Intellij IDEA集成JProfiler性能分析神器</a></p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/heapOOMJprofiler.PNG" alt="HeapOOM Jprofiler结果"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/heapOOMJprofiler.PNG" alt="HeapOOM Jprofiler结果" /><figcaption aria-hidden="true">HeapOOM Jprofiler结果</figcaption>
+</figure>
 <p>第一步首先应确认内存中<code>导致OOM的对象是</code>否是必要的，也就是要先分清楚到底是出现了<code>内存泄漏（Memory Leak）</code>还是<code>内存溢出（Memory Overflow）</code>。</p>
 <ul>
 <li>如果是内存泄漏，可进一步通过工具查看泄漏对象到<code>GC Roots</code>的<code>引用链</code></li>
 <li>如果不是内存泄漏，换句话说就是内存中的对象确实都是必须存活的，那就应当检查Java虚拟机的堆参数设置，与机器的内存对比，看看是否还有向上调整的空间。</li>
 </ul>
-<h4 id="3-2-虚拟机栈和本地方法栈溢出"><a href="#3-2-虚拟机栈和本地方法栈溢出" class="headerlink" title="3.2 虚拟机栈和本地方法栈溢出"></a>3.2 虚拟机栈和本地方法栈溢出</h4><p>HotSpot虚拟机中并不区分虚拟机栈和本地方法栈，因此对于HotSpot来说，<code>-Xoss参数</code>（设置本地方法栈大小）虽然存在，但实际上是没有任何效果的，<strong>栈容量只能由-<code>Xss参数</code>来设定</strong>。</p>
+<h4 id="虚拟机栈和本地方法栈溢出">3.2 虚拟机栈和本地方法栈溢出</h4>
+<p>HotSpot虚拟机中并不区分虚拟机栈和本地方法栈，因此对于HotSpot来说，<code>-Xoss参数</code>（设置本地方法栈大小）虽然存在，但实际上是没有任何效果的，<strong>栈容量只能由-<code>Xss参数</code>来设定</strong>。</p>
 <p>先将实验范围限制在单线程中操作，尝试下面行为是否能让HotSpot虚拟机产生<code>OutOfMemoryError</code>异常：</p>
-<ol>
+<ol type="1">
 <li>使用<code>-Xss参数</code>减少栈内存容量。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * VM Args：-Xss128k</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> zzm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaVMStackSOF</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> stackLength = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackLeak</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        JavaVMStackSOF oom = <span class="keyword">new</span> JavaVMStackSOF();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            oom.stackLeak();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"stack length:"</span> + oom.stackLength);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JavaVMStackSOF.PNG" alt="JavaVMStackSOF结果"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JavaVMStackSOF.PNG" alt="JavaVMStackSOF结果" /><figcaption aria-hidden="true">JavaVMStackSOF结果</figcaption>
+</figure>
 <blockquote>
 <p>栈容量最小值主要取决于操作系统内存分页大小</p>
 </blockquote>
-<ol>
+<ol start="2" type="1">
 <li>定义大量的本地变量，增大此方法帧中本地变量表的长度。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaVMStackSOF2</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> stackLength = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> unused1, unused2, unused3, unused4, unused5,</span><br><span class="line">                unused6, unused7, unused8, unused9, unused10,</span><br><span class="line">                unused11, unused12, unused13, unused14, unused15,</span><br><span class="line">                unused16, unused17, unused18, unused19, unused20,</span><br><span class="line">                unused21, unused22, unused23, unused24, unused25,</span><br><span class="line">                unused26, unused27, unused28, unused29, unused30,</span><br><span class="line">                unused31, unused32, unused33, unused34, unused35,</span><br><span class="line">                unused36, unused37, unused38, unused39, unused40,</span><br><span class="line">                unused41, unused42, unused43, unused44, unused45,</span><br><span class="line">                unused46, unused47, unused48, unused49, unused50,</span><br><span class="line">                unused51, unused52, unused53, unused54, unused55,</span><br><span class="line">                unused56, unused57, unused58, unused59, unused60,</span><br><span class="line">                unused61, unused62, unused63, unused64, unused65,</span><br><span class="line">                unused66, unused67, unused68, unused69, unused70,</span><br><span class="line">                unused71, unused72, unused73, unused74, unused75,</span><br><span class="line">                unused76, unused77, unused78, unused79, unused80,</span><br><span class="line">                unused81, unused82, unused83, unused84, unused85,</span><br><span class="line">                unused86, unused87, unused88, unused89, unused90,</span><br><span class="line">                unused91, unused92, unused93, unused94, unused95,</span><br><span class="line">                unused96, unused97, unused98, unused99, unused100;</span><br><span class="line">        stackLength ++;</span><br><span class="line">        test();</span><br><span class="line">        unused1 = unused2 = unused3 = unused4 = unused5 =</span><br><span class="line">        unused6 = unused7 = unused8 = unused9 = unused10 =</span><br><span class="line">        unused11 = unused12 = unused13 = unused14 = unused15 =</span><br><span class="line">        unused16 = unused17 = unused18 = unused19 = unused20 =</span><br><span class="line">        unused21 = unused22 = unused23 = unused24 = unused25 =</span><br><span class="line">        unused26 = unused27 = unused28 = unused29 = unused30 =</span><br><span class="line">        unused31 = unused32 = unused33 = unused34 = unused35 =</span><br><span class="line">        unused36 = unused37 = unused38 = unused39 = unused40 =</span><br><span class="line">        unused41 = unused42 = unused43 = unused44 = unused45 =</span><br><span class="line">        unused46 = unused47 = unused48 = unused49 = unused50 =</span><br><span class="line">        unused51 = unused52 = unused53 = unused54 = unused55 =</span><br><span class="line">        unused56 = unused57 = unused58 = unused59 = unused60 =</span><br><span class="line">        unused61 = unused62 = unused63 = unused64 = unused65 =</span><br><span class="line">        unused66 = unused67 = unused68 = unused69 = unused70 =</span><br><span class="line">        unused71 = unused72 = unused73 = unused74 = unused75 =</span><br><span class="line">        unused76 = unused77 = unused78 = unused79 = unused80 =</span><br><span class="line">        unused81 = unused82 = unused83 = unused84 = unused85 =</span><br><span class="line">        unused86 = unused87 = unused88 = unused89 = unused90 =</span><br><span class="line">        unused91 = unused92 = unused93 = unused94 = unused95 =</span><br><span class="line">        unused96 = unused97 = unused98 = unused99 = unused100 = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            test();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Error e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"stack length:"</span> + stackLength);</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JavaVMStackSOF.PNG" alt="JavaVMStackSOF2结果"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/JavaVMStackSOF.PNG" alt="JavaVMStackSOF2结果" /><figcaption aria-hidden="true">JavaVMStackSOF2结果</figcaption>
+</figure>
 <blockquote>
 <p>出现<code>StackOverflowError</code>异常时，会有明确错误堆栈可供分析，相对而言比较容易定位到问题所在。</p>
 </blockquote>
-<h4 id="3-3-方法区和运行时常量池溢出"><a href="#3-3-方法区和运行时常量池溢出" class="headerlink" title="3.3 方法区和运行时常量池溢出"></a>3.3 方法区和运行时常量池溢出</h4><h5 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h5><p><code>String::intern()</code>是一个本地方法，它的作用是：</p>
+<h4 id="方法区和运行时常量池溢出">3.3 方法区和运行时常量池溢出</h4>
+<h5 id="运行时常量池-1">运行时常量池</h5>
+<p><code>String::intern()</code>是一个本地方法，它的作用是：</p>
 <ul>
 <li>如果字符串常量池中已经包含一个等于此String对象的字符串，则返回代表池中这个字符串的String对象的引用；</li>
 <li>否则，会将此String对象包含的字符串添加到常量池中，并且返回此String对象的引用。</li>
@@ -520,20 +559,20 @@
 <p>这里没有安装<code>JDK 6</code>就没测试了，按书中所述，会出现如下异常：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.OutOfMemoryError: PermGen space</span><br><span class="line">	at java.lang.String.intern(Native Method)</span><br><span class="line">	at org.fenixsoft.oom.RuntimeConstantPoolOOM.main(RuntimeConstantPoolOOM.java: <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
 <p><code>“PermGen space”</code>说明运行时常量池的确是属于方法区的一部分。使用<code>JDK 7</code>或更高版本的<code>JDK</code>并不会得到相同的结果，因为自<code>JDK 7</code>起，原本<u>存放在永久代的字符串常量池被移至Java堆之中</u>，所以在<code>JDK 7</code>及以上版 本，限制方法区的容量对该测试用例来说是毫无意义的。</p>
-<h5 id="字符串常量池的实现方式的影响"><a href="#字符串常量池的实现方式的影响" class="headerlink" title="字符串常量池的实现方式的影响"></a>字符串常量池的实现方式的影响</h5><p>对于字符串常量池的实现引出了对<code>String.intern()</code>这个方法的影响，见如下代码：</p>
+<h5 id="字符串常量池的实现方式的影响">字符串常量池的实现方式的影响</h5>
+<p>对于字符串常量池的实现引出了对<code>String.intern()</code>这个方法的影响，见如下代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RuntimeConstantPoolOOM2</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String str1 = <span class="keyword">new</span> StringBuilder(<span class="string">"计算机"</span>).append(<span class="string">"软件"</span>).toString();</span><br><span class="line">        System.out.println(str1.intern() == str1);</span><br><span class="line">        String str2 = <span class="keyword">new</span> StringBuilder(<span class="string">"ja"</span>).append(<span class="string">"va"</span>).toString();</span><br><span class="line">        System.out.println(str2.intern() == str2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <ul>
-<li><p>在<code>JDK 6</code>中运行，会得到<strong>两个<code>false</code></strong>。在<code>JDK 6</code>中，<code>intern()</code>方法会<strong>把首次遇到的字符串实例复制到永久代的字符串常量池中存储</strong>，返回的也是<u>永久代里面这个字符串实例</u>的引用，而由<code>StringBuilder</code>创建的字符串对象实例<strong>在Java堆</strong>上，所以必然不可能是同一个引用，结果将返回false。</p>
-</li>
+<li><p>在<code>JDK 6</code>中运行，会得到<strong>两个<code>false</code></strong>。在<code>JDK 6</code>中，<code>intern()</code>方法会<strong>把首次遇到的字符串实例复制到永久代的字符串常量池中存储</strong>，返回的也是<u>永久代里面这个字符串实例</u>的引用，而由<code>StringBuilder</code>创建的字符串对象实例<strong>在Java堆</strong>上，所以必然不可能是同一个引用，结果将返回false。</p></li>
 <li><p>在<code>JDK 7</code>中运行，会得到一个<code>true</code>和一个<code>false</code>。<code>JDK 7</code>的<code>intern()</code>方法<strong>不需要再拷贝字符串的实例到永久代</strong>，<u>字符串常量池已经移到Java堆中，那只需要在常量池里记录一下首次出现的实例引用即可</u>，因此intern()返回的引用和由<code>StringBuilder</code>创建的那个字符串实例就是同一个。</p>
 <ul>
 <li>对<code>str2</code>比较返回<code>false</code>，这是因为<code>“java”</code>这个字符串在执行<code>StringBuilder.toString()</code>之前就已经出现过了，字符串常量池中已经有它的引用。<code>“java”</code>在加载<code>sun.misc.Version</code>这个类的时候进入常量池</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </blockquote>
-<h5 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h5><p>方法区的主要职责是用于存放类型的相关信息，如<u>类名、访问修饰符、常量池、字段描述、方法描述</u>等。对于这部分区域的测试，基本的思路是<strong>运行时产生大量的类去填满方法区，直到溢出为止</strong>。作者借助了<code>CGLib</code>直接操作字节码运行时生成了大量的动态类。</p>
+<h5 id="方法区-1">方法区</h5>
+<p>方法区的主要职责是用于存放类型的相关信息，如<u>类名、访问修饰符、常量池、字段描述、方法描述</u>等。对于这部分区域的测试，基本的思路是<strong>运行时产生大量的类去填满方法区，直到溢出为止</strong>。作者借助了<code>CGLib</code>直接操作字节码运行时生成了大量的动态类。</p>
 <blockquote>
 <p>类似这样的代码确实可能会<strong>出现在实际应用</strong>中：当前的很多主流框架，如<code>Spring</code>、<code>Hibernate</code>对类进行增强时，都会使用到<code>CGLib</code>这类字节码技术。</p>
 </blockquote>
@@ -546,10 +585,13 @@
 <li><code>-XX：MinMetaspaceFreeRatio</code>：作用是在垃圾收集之后控制最小的元空间剩余容量的百分比，可减少因为元空间不足导致的垃圾收集的频率。</li>
 </ul>
 </blockquote>
-<h4 id="3-4-本机直接内存溢出"><a href="#3-4-本机直接内存溢出" class="headerlink" title="3.4 本机直接内存溢出"></a>3.4 本机直接内存溢出</h4><p><code>直接内存（Direct Memory）</code>的容量大小可通过<code>-XX：MaxDirectMemorySize</code>参数来指定，如果不去指定，则默认与<code>Java堆最大值</code>（由<code>-Xmx</code>指定）一致。</p>
+<h4 id="本机直接内存溢出">3.4 本机直接内存溢出</h4>
+<p><code>直接内存（Direct Memory）</code>的容量大小可通过<code>-XX：MaxDirectMemorySize</code>参数来指定，如果不去指定，则默认与<code>Java堆最大值</code>（由<code>-Xmx</code>指定）一致。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* VM Args：-Xmx20M -XX:MaxDirectMemorySize=10M</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> zzm</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectMemoryOOM</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> _1MB = <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Field unsafeField = Unsafe.class.getDeclaredFields()[0];</span><br><span class="line">        unsafeField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        Unsafe unsafe = (Unsafe) unsafeField.get(<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            unsafe.allocateMemory(_1MB);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通 过反射获取<code>Unsafe</code>实例进行内存分配，虽然使用<code>DirectByteBuffer</code>分配内存也会抛出<code>内存溢出异常</code>，但它抛出异常时并没有真正向操作系统申请分配内存，而是<u>通过计算得知内存无法分配就会在代码里手动抛出溢出异常</u>，真正申请分配内存的方法是<code>Unsafe::allocateMemory()</code>。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/DirectMemoryOOM.PNG" alt="DirectMemoryOOM结果"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/DirectMemoryOOM.PNG" alt="DirectMemoryOOM结果" /><figcaption aria-hidden="true">DirectMemoryOOM结果</figcaption>
+</figure>
 <p>如果发现内存溢出之后产生的<code>Dump文件</code>很小，而程序中又直接或间接使用了<code>DirectMemory</code>（<strong>典型的间接使用就是<code>NIO</code></strong>），可以考虑重点检查一下直接内存方面的原因。</p>
 
     </div>
@@ -619,7 +661,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-运行时数据区域"><span class="nav-number">2.</span> <span class="nav-text">1 运行时数据区域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-程序计数器"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Java虚拟机栈"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java虚拟机栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-本地方法栈"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 本地方法栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Java堆"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Java堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-方法区"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 方法区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-运行时常量池"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 运行时常量池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-直接内存"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 直接内存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-HotSpot虚拟机对象探秘"><span class="nav-number">3.</span> <span class="nav-text">2. HotSpot虚拟机对象探秘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-对象的创建"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 对象的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-对象的内存布局"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 对象的内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-对象头"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 对象头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-实例数据"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 实例数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-对齐填充"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 对齐填充</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-对象的访问定位"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 对象的访问定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-OutOfMemoryError异常处理"><span class="nav-number">4.</span> <span class="nav-text">3. OutOfMemoryError异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Java堆溢出"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Java堆溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-虚拟机栈和本地方法栈溢出"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 虚拟机栈和本地方法栈溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-方法区和运行时常量池溢出"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 方法区和运行时常量池溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运行时常量池"><span class="nav-number">4.3.1.</span> <span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串常量池的实现方式的影响"><span class="nav-number">4.3.2.</span> <span class="nav-text">字符串常量池的实现方式的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法区"><span class="nav-number">4.3.3.</span> <span class="nav-text">方法区</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-本机直接内存溢出"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 本机直接内存溢出</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时数据区域"><span class="nav-number">2.</span> <span class="nav-text">1 运行时数据区域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#程序计数器"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 程序计数器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java虚拟机栈"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java虚拟机栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地方法栈"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 本地方法栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java堆"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Java堆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法区"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 方法区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行时常量池"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 运行时常量池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直接内存"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 直接内存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotspot虚拟机对象探秘"><span class="nav-number">3.</span> <span class="nav-text">2. HotSpot虚拟机对象探秘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的创建"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 对象的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的内存布局"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 对象的内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象头"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 对象头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例数据"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 实例数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对齐填充"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 对齐填充</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象的访问定位"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 对象的访问定位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#outofmemoryerror异常处理"><span class="nav-number">4.</span> <span class="nav-text">3. OutOfMemoryError异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java堆溢出"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Java堆溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机栈和本地方法栈溢出"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 虚拟机栈和本地方法栈溢出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法区和运行时常量池溢出"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 方法区和运行时常量池溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运行时常量池-1"><span class="nav-number">4.3.1.</span> <span class="nav-text">运行时常量池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串常量池的实现方式的影响"><span class="nav-number">4.3.2.</span> <span class="nav-text">字符串常量池的实现方式的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法区-1"><span class="nav-number">4.3.3.</span> <span class="nav-text">方法区</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本机直接内存溢出"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 本机直接内存溢出</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -635,20 +677,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -696,13 +738,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

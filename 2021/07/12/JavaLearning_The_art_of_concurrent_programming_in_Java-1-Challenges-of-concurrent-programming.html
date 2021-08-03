@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题">
+  <meta name="description" content="前言  并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题">
 <meta name="keywords" content="Learning,Java,Java并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Java并发编程的艺术]--1 并发编程的挑战">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;12&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-1-Challenges-of-concurrent-programming.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题">
+<meta property="og:description" content="前言  并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-07-12T13:15:56.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,27 +309,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会
-面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题</code><br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题</code> <a id="more"></a></p>
 </blockquote>
-<h3 id="1-上下文切换"><a href="#1-上下文切换" class="headerlink" title="1. 上下文切换"></a>1. 上下文切换</h3><p>CPU通过<u>给每个线程分配CPU时间片来实现多线程</u>。<strong>时间片</strong>是<code>CPU</code>分配给各个线程的时间，一般是几十毫秒（ms）。<code>CPU</code>通过时间片分配算法来循环执行任务，在切换任务前会保存上一个任务的状态，以便下次切换回来时可以再加载这个任务的状态。所以<u>任务从保存到再加载的过程</u>就是一次<strong>上下文切换（CS，<code>Content Switch</code>）</strong>。</p>
-<h4 id="1-1-多线程的效率"><a href="#1-1-多线程的效率" class="headerlink" title="1.1 多线程的效率"></a>1.1 多线程的效率</h4><p>并发执行并不一定比串行执行快，比如下面代码：</p>
+<h3 id="上下文切换">1. 上下文切换</h3>
+<p>CPU通过<u>给每个线程分配CPU时间片来实现多线程</u>。<strong>时间片</strong>是<code>CPU</code>分配给各个线程的时间，一般是几十毫秒（ms）。<code>CPU</code>通过时间片分配算法来循环执行任务，在切换任务前会保存上一个任务的状态，以便下次切换回来时可以再加载这个任务的状态。所以<u>任务从保存到再加载的过程</u>就是一次<strong>上下文切换（CS，<code>Content Switch</code>）</strong>。</p>
+<h4 id="多线程的效率">1.1 多线程的效率</h4>
+<p>并发执行并不一定比串行执行快，比如下面代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Concurrency.Chapter1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcurrencyTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> count = <span class="number">1000000l</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        concurrency();</span><br><span class="line">        serial();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">concurrency</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">                    a += <span class="number">5</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">            b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> time = System.currentTimeMillis() - start;</span><br><span class="line">        thread.join();</span><br><span class="line">        System.out.println(<span class="string">"concurrency :"</span> + time+<span class="string">"ms,b="</span>+b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">serial</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">            a += <span class="number">5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">            b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> time = System.currentTimeMillis() - start;</span><br><span class="line">        System.out.println(<span class="string">"serial:"</span> + time+<span class="string">"ms,b="</span>+b+<span class="string">",a="</span>+a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当并发执行累加操作<strong>不超过百万次</strong>时，速度会比串行执行累加操作要慢。因为<code>线程有创建和上下文切换的开销</code>。</p>
-<h4 id="1-2-上下文切换次数和时长"><a href="#1-2-上下文切换次数和时长" class="headerlink" title="1.2 上下文切换次数和时长"></a>1.2 上下文切换次数和时长</h4><p>可以度量上下文切换带来的消耗的工具：</p>
+<h4 id="上下文切换次数和时长">1.2 上下文切换次数和时长</h4>
+<p>可以度量上下文切换带来的消耗的工具：</p>
 <ul>
 <li><code>Lmbench3</code>：可以测量上下文切换的<strong>时长</strong>。</li>
 <li><code>vmstat</code>：可以测量上下文切换的<strong>次数</strong>。</li>
 </ul>
-<h4 id="1-3-减少上下文切换"><a href="#1-3-减少上下文切换" class="headerlink" title="1.3 减少上下文切换"></a>1.3 减少上下文切换</h4><p>减少上下文切换的方法有<code>无锁并发编程</code>、<code>CAS算法</code>、使用<code>最少线程</code>和使用<code>协程</code>。</p>
+<h4 id="减少上下文切换">1.3 减少上下文切换</h4>
+<p>减少上下文切换的方法有<code>无锁并发编程</code>、<code>CAS算法</code>、使用<code>最少线程</code>和使用<code>协程</code>。</p>
 <ul>
 <li><code>无锁并发编程</code>。多线程竞争锁时，会引起上下文切换，所以多线程处理数据时，可以用一 些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。</li>
 <li><code>CAS算法</code>。Java的<code>Atomic</code>包使用<code>CAS算法</code>来更新数据，而不需要加锁。</li>
 <li>使用<code>最少线程</code>。避免创建不需要的线程，创建过多线程会造成大量线程都处于等待状态。</li>
 <li><code>协程</code>。在单线程里实现多任务的调度，并在单线程里维持多个任务间的切换。</li>
 </ul>
-<h3 id="2-死锁"><a href="#2-死锁" class="headerlink" title="2. 死锁"></a>2. 死锁</h3><p>一旦产生死锁，就会造成系统功能不可用。如下代码会引发死锁，使线程<code>t1</code>和线程<code>t2</code>互相等待对方释放锁：</p>
+<h3 id="死锁">2. 死锁</h3>
+<p>一旦产生死锁，就会造成系统功能不可用。如下代码会引发死锁，使线程<code>t1</code>和线程<code>t2</code>互相等待对方释放锁：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Concurrency.Chapter1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeadLockDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String A = <span class="string">"A"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String B = <span class="string">"B"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> DeadLockDemo().deadLock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">deadLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (A) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.currentThread().sleep(<span class="number">2000</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">synchronized</span> (B) &#123;</span><br><span class="line">                        System.out.println(<span class="string">"1"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (B) &#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (A) &#123;</span><br><span class="line">                        System.out.println(<span class="string">"2"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>避免死锁的几个常见方法。</p>
 <ul>
@@ -338,17 +343,22 @@
 <li>尝试使用定时锁，使用<code>lock.tryLock(timeout)</code>来替代使用内部锁机制。</li>
 <li>对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况。</li>
 </ul>
-<h3 id="3-资源限制的挑战"><a href="#3-资源限制的挑战" class="headerlink" title="3. 资源限制的挑战"></a>3. 资源限制的挑战</h3><h4 id="3-1-资源限制"><a href="#3-1-资源限制" class="headerlink" title="3.1 资源限制"></a>3.1 资源限制</h4><p>资源限制是指在进行并发编程时，<u>程序的执行速度受限于计算机硬件资源或软件资源</u>。</p>
+<h3 id="资源限制的挑战">3. 资源限制的挑战</h3>
+<h4 id="资源限制">3.1 资源限制</h4>
+<p>资源限制是指在进行并发编程时，<u>程序的执行速度受限于计算机硬件资源或软件资源</u>。</p>
 <ul>
 <li>硬件资源限制有带宽的上传/下载速度、硬盘读写速度和CPU的处理速度。</li>
 <li>软件资源限制有数据库的连接数和socket连接数等。</li>
 </ul>
-<h4 id="3-2-资源限制引发的问题"><a href="#3-2-资源限制引发的问题" class="headerlink" title="3.2 资源限制引发的问题"></a>3.2 资源限制引发的问题</h4><p>如果将某段串行的代码并发执行，因为受限于资源，仍然在串行执行，这时候程序不仅不会加快执行，反而会更慢，因为<code>增加了上下文切换和资源调度的时间</code>。</p>
-<h4 id="3-3-何解决资源限制的问题"><a href="#3-3-何解决资源限制的问题" class="headerlink" title="3.3 何解决资源限制的问题"></a>3.3 何解决资源限制的问题</h4><ul>
+<h4 id="资源限制引发的问题">3.2 资源限制引发的问题</h4>
+<p>如果将某段串行的代码并发执行，因为受限于资源，仍然在串行执行，这时候程序不仅不会加快执行，反而会更慢，因为<code>增加了上下文切换和资源调度的时间</code>。</p>
+<h4 id="何解决资源限制的问题">3.3 何解决资源限制的问题</h4>
+<ul>
 <li>对于硬件资源限制，可以考虑<strong>使用集群</strong>并行执行程序。</li>
 <li>对于软件资源限制，可以考虑<strong>使用资源池</strong>将资源复用。</li>
 </ul>
-<h4 id="3-4-资源限制情况下并发编程"><a href="#3-4-资源限制情况下并发编程" class="headerlink" title="3.4 资源限制情况下并发编程"></a>3.4 资源限制情况下并发编程</h4><p>根据不同的资源限制调整程序的并发度。</p>
+<h4 id="资源限制情况下并发编程">3.4 资源限制情况下并发编程</h4>
+<p>根据不同的资源限制调整程序的并发度。</p>
 
     </div>
 
@@ -417,7 +427,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-上下文切换"><span class="nav-number">2.</span> <span class="nav-text">1. 上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-多线程的效率"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 多线程的效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-上下文切换次数和时长"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 上下文切换次数和时长</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-减少上下文切换"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 减少上下文切换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-死锁"><span class="nav-number">3.</span> <span class="nav-text">2. 死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-资源限制的挑战"><span class="nav-number">4.</span> <span class="nav-text">3. 资源限制的挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-资源限制"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 资源限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-资源限制引发的问题"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 资源限制引发的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-何解决资源限制的问题"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 何解决资源限制的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-资源限制情况下并发编程"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 资源限制情况下并发编程</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文切换"><span class="nav-number">2.</span> <span class="nav-text">1. 上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程的效率"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 多线程的效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上下文切换次数和时长"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 上下文切换次数和时长</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少上下文切换"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 减少上下文切换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">3.</span> <span class="nav-text">2. 死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源限制的挑战"><span class="nav-number">4.</span> <span class="nav-text">3. 资源限制的挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资源限制"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 资源限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源限制引发的问题"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 资源限制引发的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#何解决资源限制的问题"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 何解决资源限制的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#资源限制情况下并发编程"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 资源限制情况下并发编程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -433,20 +443,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -494,13 +504,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

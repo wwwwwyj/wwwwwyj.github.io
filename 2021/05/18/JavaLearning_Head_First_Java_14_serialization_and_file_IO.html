@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 对象可以被序列化也可以展开。">
+  <meta name="description" content="前言  对象可以被序列化也可以展开。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--14 序列化和文件的输入&#x2F;输出">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;18&#x2F;JavaLearning_Head_First_Java_14_serialization_and_file_IO.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 对象可以被序列化也可以展开。">
+<meta property="og:description" content="前言  对象可以被序列化也可以展开。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;chainStreams.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;Deserialization.PNG">
@@ -296,7 +296,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
+              <span>4.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -315,10 +315,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>对象可以被序列化也可以展开。<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>对象可以被序列化也可以展开。 <a id="more"></a></p>
 </blockquote>
-<h3 id="1-存储对象"><a href="#1-存储对象" class="headerlink" title="1. 存储对象"></a>1. 存储对象</h3><p>存储对象状态的数据格式（主要讨论两种）：</p>
+<h3 id="存储对象">1. 存储对象</h3>
+<p>存储对象状态的数据格式（主要讨论两种）：</p>
 <ul>
 <li>序列化(serialization)。将被序列化的对象写到文件中，然后让程序去文件中读取序列化的对象并把他们展开变回状态。</li>
 <li>纯文本文件。用可解析的特殊字符写到文件中，比如用<code>tab</code>字符来分隔数据。</li>
@@ -327,7 +329,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 1. 创建出 FileOutputStream</span></span><br><span class="line">FileOutputStream fileStream = <span class="keyword">new</span> FileOutputStream(<span class="string">"MyGame.ser"</span>); <span class="comment">// 文件不存在会自动创建</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建出 ObjectOutputStream</span></span><br><span class="line">ObjectOutputStream os = <span class="keyword">new</span> ObjectOutputStream(fileStream); <span class="comment">// 可以向文件写入对象，但无法直接连接文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 写入对象</span></span><br><span class="line">os.writeObject(characterOne); <span class="comment">// 将变量所引用的对象序列化并写入文件</span></span><br><span class="line">os.writeObject(characterTwo);</span><br><span class="line">os.writeObject(characterThree);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 关闭 ObjectOutputStream</span></span><br><span class="line">os.close(); <span class="comment">// 关闭所关联的输出串流</span></span><br></pre></td></tr></table></figure>
 <p>Java输入/输出<code>API</code>带有连接类型的<code>串流(chain streams)</code>，代表来源与目的地之间的连接，连接串流将串流与其他串流连接起来。</p>
 <p>串流要两两连接，一个表示连接，另一个是要被调用方法。<code>FileOutputStream</code>把子节写入文件，<code>ObjectOutputStream</code>把对象转换成可以写入串流的数据。当调用<code>ObjectOutputStream</code>的<code>writeObject</code>方法时，对象会被打成串流送到<code>FileOutputStream</code>来写入文件。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/chainStreams.PNG" alt="序列化"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/chainStreams.PNG" alt="序列化" /><figcaption aria-hidden="true">序列化</figcaption>
+</figure>
 <blockquote>
 <p>当对象被序列化时，被该对象引用的实例变量也会被序列化，且所有被引用的对象也会被序列化。</p>
 </blockquote>
@@ -340,11 +344,14 @@
 </blockquote>
 <p>如果某实例变量不能或不应该被序列化，需要标记其为<code>transient</code>(瞬时)。序列化程序会跳过标记的变量：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Chat</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">     <span class="keyword">transient</span> String currentID;</span><br><span class="line"> </span><br><span class="line">     String userName;</span><br><span class="line">     <span class="comment">// more code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-还原对象"><a href="#2-还原对象" class="headerlink" title="2. 还原对象"></a>2. 还原对象</h3><p><code>解序列化(Deserialization)</code>像是序列化的反向操作：</p>
+<h3 id="还原对象">2. 还原对象</h3>
+<p><code>解序列化(Deserialization)</code>像是序列化的反向操作：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 创建FileInputStream</span></span><br><span class="line">FileInputStream fileStream = <span class="keyword">new</span> FileInputStream(<span class="string">"MyGame.ser"</span>); <span class="comment">// 文件不存在会抛出异常</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建ObjectInputStream</span></span><br><span class="line"><span class="comment">// ObjectInputStream可以读取对象，但不能直接连接文件，需要一个连接流(connection stream)</span></span><br><span class="line">ObjectInputStream os = <span class="keyword">new</span> ObjectInputStream(fileStream);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 读取对象</span></span><br><span class="line"><span class="comment">// 每次readObject都会读出下一个对象，读取顺序与写入顺序相同，次数超过会抛出异常</span></span><br><span class="line">Object one = os.readObject();</span><br><span class="line">Object two = os.readObject();</span><br><span class="line">Object three = os.readObject();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 转换对象类型</span></span><br><span class="line"><span class="comment">// 返回值是Object类型，因此必须要转换类型</span></span><br><span class="line">GameCharacter elf = (GameCharacter) one;</span><br><span class="line">GameCharacter troll = (GameCharacter) two;</span><br><span class="line">GameCharacter magician = (GameCharacter) three;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 关闭ObjectInputStream</span></span><br><span class="line"><span class="comment">// FileInputStream会随之自动关闭</span></span><br><span class="line">os.close();</span><br></pre></td></tr></table></figure>
 <p>对象被解序列化时，Java虚拟机会通过尝试在堆上创建新对象，让它维持与被序列化时有相同的状态来恢复对象的原状。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Deserialization.PNG" alt="解序列化"></p>
-<ol>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Deserialization.PNG" alt="解序列化" /><figcaption aria-hidden="true">解序列化</figcaption>
+</figure>
+<ol type="1">
 <li>对象从<code>stream</code>中读出来；</li>
 <li>Java虚拟机通过存储的消息判断出对象的class类型；</li>
 <li>Java虚拟机尝试寻找和加载对象的类。如果Java虚拟机找不到或无法加载该类，则Java虚拟机会抛出异常</li>
@@ -352,17 +359,21 @@
 <li>如果对象在继承树上有不可序列化的祖先类，则该不可序列化类以及它之上的类的构造函数会执行。</li>
 <li>对象的实例变量会被还原成序列化时的状态值。<code>transient</code>变量会被赋值默认值。</li>
 </ol>
-<h3 id="3-将字符串写入文本文件"><a href="#3-将字符串写入文本文件" class="headerlink" title="3. 将字符串写入文本文件"></a>3. 将字符串写入文本文件</h3><p>写入文本数据与写入对象类似，可以使用<code>FileWriter</code>代替<code>FileOutputStream</code>，它不会被连接到<code>ObjectOutputStream</code>上：</p>
+<h3 id="将字符串写入文本文件">3. 将字符串写入文本文件</h3>
+<p>写入文本数据与写入对象类似，可以使用<code>FileWriter</code>代替<code>FileOutputStream</code>，它不会被连接到<code>ObjectOutputStream</code>上：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WriteAFile</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             FileWriter writer = <span class="keyword">new</span> FileWriter(<span class="string">"Foo.txt"</span>);</span><br><span class="line">             writer.write(<span class="string">"hello foo!"</span>);</span><br><span class="line">             writer.close();</span><br><span class="line">         &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">             ex.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>java.io.File</code>类代表磁盘上的文件，但并不是文件中的内容。<code>File</code>没有读写文件的方法，它提供一种比字符串文件名来表示文件更安全的方式。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 创建出代表磁盘文件的File对象</span></span><br><span class="line">File f = <span class="keyword">new</span> File(<span class="string">"MyCode.txt"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立新的目录</span></span><br><span class="line">File dir = <span class="keyword">new</span> File(<span class="string">"Chapter7"</span>); </span><br><span class="line">dir.mkdir();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 列出目录下的内容</span></span><br><span class="line"><span class="keyword">if</span> (dir.isDirectory()) &#123;</span><br><span class="line">	String[] dirContents = dir.list();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dirContents.length; i++) &#123;</span><br><span class="line">		System.out.println(dirContents[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 取得文件或目录的绝对路径</span></span><br><span class="line">System.out.println(dir.getAbsolutePath());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 删除文件或目录</span></span><br><span class="line"><span class="keyword">boolean</span> isDeleted = f.delete();</span><br></pre></td></tr></table></figure>
 <p><strong>缓冲区</strong></p>
 <p>缓冲区可以带来更高的效率。通过<code>BufferedWriter</code>和<code>FileWriter</code>的链接，<code>BufferedWriter</code>可以暂存一些数据，到满的时候在实际写入磁盘，可以减少对磁盘的操作次数。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/buffers.PNG" alt="缓冲区"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/buffers.PNG" alt="缓冲区" /><figcaption aria-hidden="true">缓冲区</figcaption>
+</figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BufferedWriter writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> FileWriter(aFile));</span><br></pre></td></tr></table></figure>
 <p>若想要强制缓冲区立即写入，可以调用以下方法要求立即写入缓冲区内容：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">writer.flush();</span><br></pre></td></tr></table></figure>
-<h3 id="4-读取文本文件"><a href="#4-读取文本文件" class="headerlink" title="4. 读取文本文件"></a>4. 读取文本文件</h3><p>用<code>File</code>对象来表示文件，以<code>FileReader</code>来执行实际的读取，并用<code>BufferedReader</code>来让读取更有效。读取以<code>while</code>循环来逐行进行，知道<code>readLine()</code>的结果为<code>null</code>为止。</p>
+<h3 id="读取文本文件">4. 读取文本文件</h3>
+<p>用<code>File</code>对象来表示文件，以<code>FileReader</code>来执行实际的读取，并用<code>BufferedReader</code>来让读取更有效。读取以<code>while</code>循环来逐行进行，知道<code>readLine()</code>的结果为<code>null</code>为止。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadAFile</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             File myFile = <span class="keyword">new</span> File(<span class="string">"MyText.txt"</span>);</span><br><span class="line">             <span class="comment">// FileReader是字符连接到文本文件的串流</span></span><br><span class="line">             FileReader fileReader = <span class="keyword">new</span> FileReader(myFile);</span><br><span class="line">             <span class="comment">// FileReader链接到BufferedReader以获取更高效率</span></span><br><span class="line">             BufferedReader reader = <span class="keyword">new</span> BufferedReader(fileReader);</span><br><span class="line">             </span><br><span class="line">             <span class="comment">// 用String变量来承接所读取的结果</span></span><br><span class="line">             String line = <span class="keyword">null</span>;</span><br><span class="line">             </span><br><span class="line">             <span class="keyword">while</span> ((line = reader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                 <span class="comment">// 读一行就列出一行</span></span><br><span class="line">                 System.out.println(line);</span><br><span class="line">             &#125;</span><br><span class="line">             reader.close(); </span><br><span class="line">         &#125; <span class="keyword">catch</span>(Exception ex) &#123;</span><br><span class="line">             ex.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解析字符串</strong></p>
 <p>用<code>String</code>的<code>split()</code>方法来解析字符串，<code>split()</code>可以将字符串拆开成<code>String</code>的数组。</p>
@@ -370,9 +381,13 @@
 <p><code>java.nio</code>类可以直接控制<code>buffer</code>。另一个能力是<code>non-blocking</code>的输入/输出，能让输入/输出程序代码在没有东西可读取或写入时不必等待。</p>
 <p><strong>序列化的识别</strong></p>
 <p>版本控制很重要，如果在序列化后修改了类的定义，会伤害兼容性：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/changesForDeserialization.PNG" alt="修改对序列化的影响"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/changesForDeserialization.PNG" alt="修改对序列化的影响" /><figcaption aria-hidden="true">修改对序列化的影响</figcaption>
+</figure>
 <p>每当对象被序列化时，该对象会被盖上一个类版本识别ID，叫做<code>serialVersionUID</code>，根据类的结构消息计算所得。当对象被接序列化时，如果对象被序列化之后有了不同的<code>serialVersionUID</code>，还原操作会失败！</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/serialVersionUID.PNG" alt="serialVersionUID"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/serialVersionUID.PNG" alt="serialVersionUID" /><figcaption aria-hidden="true">serialVersionUID</figcaption>
+</figure>
 
     </div>
 
@@ -440,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-存储对象"><span class="nav-number">2.</span> <span class="nav-text">1. 存储对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-还原对象"><span class="nav-number">3.</span> <span class="nav-text">2. 还原对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将字符串写入文本文件"><span class="nav-number">4.</span> <span class="nav-text">3. 将字符串写入文本文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-读取文本文件"><span class="nav-number">5.</span> <span class="nav-text">4. 读取文本文件</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储对象"><span class="nav-number">2.</span> <span class="nav-text">1. 存储对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还原对象"><span class="nav-number">3.</span> <span class="nav-text">2. 还原对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将字符串写入文本文件"><span class="nav-number">4.</span> <span class="nav-text">3. 将字符串写入文本文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取文本文件"><span class="nav-number">5.</span> <span class="nav-text">4. 读取文本文件</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -456,20 +471,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -517,13 +532,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

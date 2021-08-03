@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="简介 学习NoSQL数据库和云数据库。">
+<meta name="keywords" content="大数据,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[大数据技术原理|第二篇 大数据存储与管理(2)]">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;08&#x2F;03&#x2F;Big_Data_2_store-and-manage-2.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="简介 学习NoSQL数据库和云数据库。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter2&#x2F;CAP.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter2&#x2F;UMP.PNG">
+<meta property="og:updated_time" content="2021-08-03T08:36:51.837Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter2&#x2F;CAP.PNG">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/08/03/Big_Data_2_store-and-manage-2.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[大数据技术原理|第二篇 大数据存储与管理(2)] | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/08/03/Big_Data_2_store-and-manage-2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [大数据技术原理|第二篇 大数据存储与管理(2)]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-08-03 15:02:28 / 修改时间：16:36:51" itemprop="dateCreated datePublished" datetime="2021-08-03T15:02:28+08:00">2021-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/08/03/Big_Data_2_store-and-manage-2.html" class="post-meta-item leancloud_visitors" data-flag-title="[大数据技术原理|第二篇 大数据存储与管理(2)]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/03/Big_Data_2_store-and-manage-2.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/03/Big_Data_2_store-and-manage-2.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="简介">简介</h3>
+<p>学习<code>NoSQL数据库</code>和<code>云数据库</code>。</p>
+<a id="more"></a>
+<h3 id="nosql数据库">1. NoSQL数据库</h3>
+<h4 id="简介-1">1.1 简介</h4>
+<p><code>NoSQL</code>是一种对非关系型数据库的统称，它所采用的数据模型并非传统关系数据库的关系模型，而是类似<code>键/值</code>、<code>列族</code>、<code>文档</code>等非关系模型。<code>NoSQL</code>数据库没有固定的表结构，通常也不存在连接操作，也没有严格遵守<code>ACID</code>约束（原子性、一致性、隔离性和持续性）。<code>NoSQL</code>数据库<u>支持MapReduce风格的编程，可以较好地应用于大数据管理</u>。通常<code>NoSQL</code>数据库具有以下3个特点：</p>
+<ol type="1">
+<li>灵活的可扩展性</li>
+<li>灵活的数据模型</li>
+<li>与云计算紧密融合</li>
+</ol>
+<h4 id="nosql的四大类型">1.2 NoSQL的四大类型</h4>
+<h5 id="键值数据库">1.2.1 键值数据库</h5>
+<p><code>键值数据库（Key-Value Database）</code>会使用一个哈希表，这个表中有一个特定的<code>Key</code>和一个指针指向特定的<code>Value</code>。<code>Key</code>可以用来定位<code>Value</code>，即存储和检索具体的<code>Value</code>。</p>
+<p>键值数据库可以进一步划分：</p>
+<ul>
+<li><code>内存键值数据库</code>，把数据保存在内存，如Memcached和 Redis；</li>
+<li><code>持久化（ Persistent）键值数据库</code>，把数据保存在磁盘，如BerkeleyDB、 Voldmort和Riak。</li>
+</ul>
+<h5 id="列族数据库">1.2.2 列族数据库</h5>
+<p>列族数据库一般采用列族数据模型，数据库由多个行构成，每行数据包含多个列族，不同的行可以具有不同数量的列族，属于同一列族的数据会被存放在一起。</p>
+<h5 id="文档数据库">1.2.3 文档数据库</h5>
+<p>文档数据库中，<strong>文档</strong>是数据库的最小单位。虽然每一种文档数据库的部署都有所不同，但是大都假定文档以某种标准化格式封装并对数据进行加密，同时用多种格式进行解码，包括XML、YAML、JSON和BSON等，或者也可以使用二进制格式（如PDF、微软 Office文档等）。</p>
+<p>文档数据库通过键来定位一个文档，因此可以看成是键值数据库的一个衍生品，而且前者比后者具有更高的查询效率。</p>
+<h5 id="图数据库">1.2.4 图数据库</h5>
+<p>图数据库以图论为基础，图用来表示一个对象集合，包括顶点以及连接顶点的边。图数据库使用图作为数据模型来存储数据，完全不同于键值、列族和文档数据模型，可以高效地存储不同顶点之间的关系。图数据库专门用于处理具有高度相互关联关系的数据，可以高效地处理实体之间的关系，比较适合于社交网络、模式识别、依赖分析、推荐系统以及路径寻找等问题。</p>
+<h4 id="nosql的三大基石">1.3 NoSQL的三大基石</h4>
+<p>NoSQL的三大基石包括<code>CAP</code>、<code>BASE</code>和<code>最终一致性</code>。</p>
+<h5 id="cap">1.3.1 CAP</h5>
+<p><code>CAP</code>指：</p>
+<ul>
+<li>C（<code>Consistency</code>）：一致性。指何一个读操作总是能够读到之前完成的写操作的结果，即多点的数据是一致的。</li>
+<li>A（ <code>Availability</code>）：可用性。指快速获取数据，可以在确定的时间内返回操作结果。</li>
+<li>·P（<code>Tolerance of Network Partition</code>）：分区容忍性。指当出现网络分区的情况时，分离的系统也能够正常运行。</li>
+</ul>
+<p>CAP理论指出，<strong><u>一个分布式系统不可能同时满足一致性、可用性和分区容忍性这3个需求，最多只能同时满足其中2个</u></strong>。</p>
+<ul>
+<li>如果追求一致性，那么就要牺牲可用性，需要处理因为系统不可用而导致的写操作失败的情况；</li>
+<li>如果追求可用性，那么就要预估到可能发生数据不一致的情况，比如，系统的读操作可能不能精确地读取到写操作写入的最新值。</li>
+</ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/CAP.PNG" alt="CAP理论" /><figcaption aria-hidden="true">CAP理论</figcaption>
+</figure>
+<ol type="1">
+<li><code>CA</code>。强调<code>一致性（C）</code>和<code>可用性（A）</code>，放弃<code>分区容忍性（P）</code>，最简单的做法是把所有与事务相关的内容都放到同一台机器上。传统的关系数据库都采用了这种设计原则，因此扩展性都比较差。</li>
+<li><code>CP</code>。强调<code>一致性（C）</code>和<code>分区容忍性（P）</code>，放弃<code>可用性（A）</code>，当出现网络分区的情况时，受影响的服务需要等待数据一致，因此在等待期间就无法对外提供服务。<code>Neo4J</code>、 <code>BigTable</code>和<code>HBase</code>等<code>NoSQL</code>数据库都采用了<code>CP</code>设计原则。</li>
+<li><code>AP</code>。强调<code>可用性（A）</code>和<code>分区容忍性（P）</code>，放弃<code>一致性（C）</code>，允许系统返回不一致的数据。对于<code>Web2.0</code>网站而言，可用性与分区容忍性优先级要高于数据一致性，网站一般会尽量朝着<code>AP</code>的方向设计。在采用<code>AP</code>设计时，也可以不完全放弃一致性，转而采用<strong><u>最终一致性</u></strong>。</li>
+</ol>
+<h5 id="base">1.3.2 BASE</h5>
+<p>一个数据库事务具有<code>ACID</code>四性：</p>
+<ul>
+<li><code>A（Atomicity）</code>：原子性。指事务必须是原子工作单元，对于其数据修改，要么全都执行，要么全都不执行。</li>
+<li><code>C（Consistency）</code>：一致性。指事务在完成时，必须使所有的数据都保持一致状态。</li>
+<li><code>I（Isolation）</code>：隔离性。指由并发事务所做的修改必须与任何其他并发事务所做的修改隔离。</li>
+<li><code>D（Durability）</code>：持久性。指事务完成之后，对于系统的影响是永久性的，该修改即使出现致命的系统故障也将一直保持。</li>
+</ul>
+<p><code>BASE</code>牺牲了<strong>高一致性</strong>，从而获得<strong>可用性</strong>或<strong>可靠性</strong>。<code>BASE</code>（<code>Basically Availble, Soft-state, Eventual consistency</code>）的基本含义是：</p>
+<ul>
+<li><code>基本可用（Basically Availble）</code>：基本可用是指一个分布式系统的一部分发生问题变得不可用时，其他部分仍然可以正常使用也就是允许分区失败的情形出现。</li>
+<li><code>软状态（Soft-state）</code>：指状态可以有一段时间不同步，具有一定的滞后性。当经过短暂延迟后，状态最终一致。</li>
+<li><code>最终一致性（Eventual consistency）</code> ：一致性的类型包括<strong>强一致性</strong>和<strong>弱一致性</strong>，二者的主要区别在于<strong><u>高并发的数据访问操作下，后续操作是否能够获取最新的数据</u></strong>。
+<ul>
+<li>强一致性，指当执行完一次更新操作后，后续的其他读操作就可以保证读到更新后的最新数据；</li>
+<li>弱一致性，指不能保证后续访问读到的都是更新后的最新数据。</li>
+<li>最终一致性是弱一致性的一种特例，允许后续的访问操作可以暂时读不到更新后的数据，但是经过一段时间之后，必须最终读到更新后的数据。</li>
+</ul></li>
+</ul>
+<h5 id="最终一致性">1.3.3 最终一致性</h5>
+<p>最终一致性根据更新数据后各进程访问到数据的时间和方式的不同，又可以进行如下区分。</p>
+<ul>
+<li><strong>因果一致性</strong>。如果进程<code>A</code>通知进程<code>B</code>已经更新了一个数据项，那么进程<code>B</code>的后续访问将获得进程<code>A</code>写入的最新值。而与进程<code>A</code>无因果关系的进程<code>C</code>的访问，仍然遵守一般的最终一致性规则。</li>
+<li><strong>“读己之所写”一致性</strong>。当进程<code>A</code>自己执行一个更新操作之后，它自己总是可以访问到更新过的值，不会看到旧值。</li>
+<li><strong>会话一致性</strong>。把访问存储系统的进程放到<code>会话（Session）</code>的上下文中，只要会话还存在，系统就保证<code>“读己之所写”一致性</code>。</li>
+<li><strong>单调读一致性</strong>。如果进程已经看到过数据对象的某个值，那么任何后续访问都不会返回在那个值之前的值。</li>
+<li><strong>单调写一致性</strong>。系统保证来自同一个进程的写操作顺序执行。</li>
+</ul>
+<h4 id="newsql">1.4 NewSQL</h4>
+<p><code>NewSQL</code>是对各种新的可扩展、高性能数据库的简称，这类数据库不仅具有<code>NoSQL</code>对海量数据的存储管理能力，还保持了传统数据库支持<code>ACID</code>和<code>SQL</code>等特性。<code>NewSQL</code>数据库有两个显著的共同特点：</p>
+<ul>
+<li>都支持关系数据模型；</li>
+<li>都使用<code>SQL</code>作为其主要的接口。</li>
+</ul>
+<h3 id="云数据库">2. 云数据库</h3>
+<h4 id="概述">2.1 概述</h4>
+<p>云数据库是部署和虚拟化在云计算环境中的数据库，云数据库具有高可扩展性、高可用性、采用多租形式和支持资源有效分发等特点。</p>
+<p>在云数据库中，所有数据库功能都是在云端提供的，客户端可以通过网络远程使用云数据库提供的服务。客户端不需要了解云数据库的底层细节，所有的底层硬件都已经被虚拟化，对客户端而言是透明的，就像在使用一个运行在单一服务器上的数据库一样，非常方便容易，同时又可以获得理论上近乎无限的存储和处理能力。</p>
+<h4 id="云数据库系统架构">2.2 云数据库系统架构</h4>
+<p>以阿里集团核心系统数据库团队开发的<code>UMP（ Unified MySQL Platform）</code>系统为例进行介绍。</p>
+<h5 id="ump系统概述">2.2.1 UMP系统概述</h5>
+<p><code>UMP</code>系统是低成本和高性能的<code>MySQL</code>云数据库方案，关键模块采用<code>Erlang</code>语言实现。<code>UMP</code>系统把各种服务器资源划分为资源池，并以资源池为单位把资源分配给<code>MySQL</code>实例。</p>
+<ul>
+<li>系统中包含了一系列组件，这些组件协同工作，以对用户透明的形式提供主从热备、数据备份、迁移、容灾、读写分离、分库分表等一系列服务。</li>
+<li>系统内部划分为3种规格的用户：<code>数据量和流量比较小的用户</code>、<code>中等规模用户</code>以及<code>需要分库分表的用户</code>。</li>
+</ul>
+<p><code>UMP</code>系统架构设计遵循了以下原则。</p>
+<ul>
+<li>保持单一的系统对外入口，并且为系统内部维护单一的资源池。</li>
+<li>消除单点故障，保证服务的高可用性。</li>
+<li>保证系统具有良好的可伸缩性，能够动态地增加、删减计算与存储节点。</li>
+<li>保证分配给用户的资源也是弹性可伸缩的，资源之间相互隔离，确保应用和数据的安全。</li>
+</ul>
+<h5 id="ump系统架构">2.2.2 UMP系统架构</h5>
+<p><code>UMP</code>系统中的角色包括：Controller服务器、Proxy服务器、Agent服务器、Web控制台、日志分析服务器、信息统计服务器、愚公系统；</p>
+<p>依赖的开源组件包括：Mnesia、 LVS、 RabbitMQ和 Zookeeper。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/UMP.PNG" alt="UMP系统架构" /><figcaption aria-hidden="true">UMP系统架构</figcaption>
+</figure>
+<h6 id="mnesia">1. Mnesia</h6>
+<p><code>Mnesia</code>是一个分布式数据库管理系统，适合于电信及其他需要持续运行和具备软实时特性的<code>Erlang</code>应用，是构建电信应用的控制系统平台——<code>开放式电信平台（Open Telecom Platform, OTP）</code>的一部分。</p>
+<p><code>Mnesia</code>支持事务，支持透明的数据分片，利用两阶段锁实现分布式事务，可以线性扩展到至少50个节点。</p>
+<h6 id="rabbitmq">2. RabbitMQ</h6>
+<p><code>RabbitMQ</code>是一个用<code>Erlang</code>开发的工业级的消息队列产品，作为消息传输中间件来使用，可以实现可靠的消息传送。</p>
+<h6 id="zookeeper">3. Zookeeper</h6>
+<p><code>Zookeeper</code>是高效和可靠的协同工作系统，提供分布式锁之类的基本服务（如统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等），用于构建分布式应用，减轻分布式应用程序所承担的协调任务。在UMP系统中， Zookeeper主要发挥3个作用。</p>
+<ul>
+<li><strong>作为全局的配置服务器</strong>。</li>
+<li><strong>提供分布式锁</strong>。</li>
+<li><strong>监控所有MySQL实例</strong>。</li>
+</ul>
+<h6 id="lvs">4. LVS</h6>
+<p><code>LVS（Linux virtual server）</code>即Linux虚拟服务器，是一个虚拟的服务器集群系统。LVS集群采用<code>IP</code>负载均衡技术和基于内容请求分发技术。<code>UMP</code>系统借助于<code>LVS</code>来实现集群内部的负载均衡。</p>
+<h6 id="controller服务器">5. Controller服务器</h6>
+<p>Controller服务器向UMP集群提供各种管理服务，实现集群成员管理、元数据存储、 MySQL实例管理、故障恢复、备份、迁移、扩容等功能。 Controller服务器上运行了一组Mnesia分布式数据库服务，其中存储了各种系统元数据，主要包括集群成员、用户的配置和状态信息，以及用户名到后端 MySQL实例地址的映射关系（或称为“路由表”）等。</p>
+<h6 id="web控制台">6. Web控制台</h6>
+<p>Web控制台向用户提供系统管理界面。</p>
+<h6 id="proxy服务器">7. Proxy服务器</h6>
+<p>Proxy服务器向用户提供访问MySQL数据库的服务，它完全实现了MySQL协议，用户可以使用已有的MySQL客户端连接到 Proxy服务器，Proxy服务器通过用户名获取到用户的认证信息、资源配额的限制以及后台MySQL实例的地址，然后用户的SQL查询请求会被转发到相应的MySQL实例上。</p>
+<h6 id="agent服务器">8. Agent服务器</h6>
+<p>Agent服务器部署在运行MySQL进程的机器上，用来管理每台物理机上的MySQL实例，执行主从切换、创建、删除、备份、迁移等操作，同时还负责收集和分析 MySQL进程的统计信息、慢查询日志（ Slow Query Log）和 bin-log。</p>
+<h6 id="日志分析服务器">9. 日志分析服务器</h6>
+<p>日志分析服务器存储和分析Proxy服务器传入的用户访问日志，并支持实时查询一段时间内的慢日志和统计报表。</p>
+<h6 id="信息统计服务器">10. 信息统计服务器</h6>
+<p>信息统计服务器定期将采集到的用户的连接数、QPS数值以及MySQL实例的进程状态用<code>RRDtool</code>进行统计。</p>
+<h6 id="愚公系统">11. 愚公系统</h6>
+<p>愚公系统是一个全量复制结合<code>bin-log</code>分析进行增量复制的工具，可以实现在不停机的情况下动态扩容、缩容和迁移。</p>
+<h5 id="ump系统功能">2.2.3 UMP系统功能</h5>
+<p>UMP系统是构建在一个大的集群之上的，通过多个组件的协同作业，整个系统实现了对用户透明的容灾、读写分离、分库分表、资源管理、资源调度、资源隔离和数据安全功能。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/07/31/Big_Data_2_store-and-manage.html" rel="next" title="[大数据技术原理|第二篇 大数据存储与管理(1)]">
+                  <i class="fa fa-chevron-left"></i> [大数据技术原理|第二篇 大数据存储与管理(1)]
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nosql数据库"><span class="nav-number">2.</span> <span class="nav-text">1. NoSQL数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nosql的四大类型"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 NoSQL的四大类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#键值数据库"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 键值数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#列族数据库"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 列族数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文档数据库"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 文档数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图数据库"><span class="nav-number">2.2.4.</span> <span class="nav-text">1.2.4 图数据库</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nosql的三大基石"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 NoSQL的三大基石</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#cap"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 CAP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#base"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 BASE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最终一致性"><span class="nav-number">2.3.3.</span> <span class="nav-text">1.3.3 最终一致性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#newsql"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 NewSQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#云数据库"><span class="nav-number">3.</span> <span class="nav-text">2. 云数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#云数据库系统架构"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 云数据库系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ump系统概述"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 UMP系统概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ump系统架构"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 UMP系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#mnesia"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">1. Mnesia</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rabbitmq"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2. RabbitMQ</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#zookeeper"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">3. Zookeeper</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#lvs"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">4. LVS</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#controller服务器"><span class="nav-number">3.2.2.5.</span> <span class="nav-text">5. Controller服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#web控制台"><span class="nav-number">3.2.2.6.</span> <span class="nav-text">6. Web控制台</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#proxy服务器"><span class="nav-number">3.2.2.7.</span> <span class="nav-text">7. Proxy服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#agent服务器"><span class="nav-number">3.2.2.8.</span> <span class="nav-text">8. Agent服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#日志分析服务器"><span class="nav-number">3.2.2.9.</span> <span class="nav-text">9. 日志分析服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#信息统计服务器"><span class="nav-number">3.2.2.10.</span> <span class="nav-text">10. 信息统计服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#愚公系统"><span class="nav-number">3.2.2.11.</span> <span class="nav-text">11. 愚公系统</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ump系统功能"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 UMP系统功能</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">544k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

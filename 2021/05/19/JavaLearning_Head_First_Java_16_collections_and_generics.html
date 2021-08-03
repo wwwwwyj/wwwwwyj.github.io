@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 排序在Java中只是雕虫小技。">
+  <meta name="description" content="前言  排序在Java中只是雕虫小技。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--16 集合与泛型">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;19&#x2F;JavaLearning_Head_First_Java_16_collections_and_generics.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 排序在Java中只是雕虫小技。">
+<meta property="og:description" content="前言  排序在Java中只是雕虫小技。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;collector.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;sortMethod.PNG">
@@ -314,26 +314,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>排序在Java中只是雕虫小技。<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>排序在Java中只是雕虫小技。 <a id="more"></a></p>
 </blockquote>
-<h3 id="1-集合"><a href="#1-集合" class="headerlink" title="1. 集合"></a>1. 集合</h3><p><code>ArrayList</code>是最常用的集合，此外还有一些较为重要的集合：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/collector.PNG" alt="一些集合类"></p>
+<h3 id="集合">1. 集合</h3>
+<p><code>ArrayList</code>是最常用的集合，此外还有一些较为重要的集合：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/collector.PNG" alt="一些集合类" /><figcaption aria-hidden="true">一些集合类</figcaption>
+</figure>
 <p>可以使用<code>TreeSet</code>或<code>Collections.sort()</code>方法对集合元素排序。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(songList);</span><br></pre></td></tr></table></figure>
 <p>若将<code>ArrayList</code>声明为自定义类(如<code>Song</code>)的数组，使用<code>Collections.sort()</code>将无法通过编译。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/sortMethod.PNG" alt="sort方法定义"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/sortMethod.PNG" alt="sort方法定义" /><figcaption aria-hidden="true">sort方法定义</figcaption>
+</figure>
 <blockquote>
 <p><code>sort()</code>方法取只能接受<code>Comparable</code>对象的<code>list</code>。</p>
 </blockquote>
-<h4 id="1-1-Collections接口"><a href="#1-1-Collections接口" class="headerlink" title="1.1 Collections接口"></a>1.1 Collections接口</h4><p><code>Collections</code>主要有<code>3</code>个接口：<code>List</code>，<code>Set</code>和<code>Map</code>。</p>
+<h4 id="collections接口">1.1 Collections接口</h4>
+<p><code>Collections</code>主要有<code>3</code>个接口：<code>List</code>，<code>Set</code>和<code>Map</code>。</p>
 <ul>
 <li><code>List</code>是一种知道索引位置的集合，可以存在重复元素。</li>
 <li><code>Set</code>知道某物是否存在于集合中，它不允许重复。</li>
 <li><code>Map</code>使用成对的键值(<code>key</code>)和数据值(<code>value</code>)，<code>key</code>可以引用相同的对象，但<code>key</code>自身不能重复。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/collectorTree.PNG" alt="Collection API"></p>
-<h4 id="1-2-对象等价"><a href="#1-2-对象等价" class="headerlink" title="1.2 对象等价"></a>1.2 对象等价</h4><ul>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/collectorTree.PNG" alt="Collection API" /><figcaption aria-hidden="true">Collection API</figcaption>
+</figure>
+<h4 id="对象等价">1.2 对象等价</h4>
+<ul>
 <li><code>引用相等性</code>。堆上同一对象的两个引用，引用对堆上同一个对象的两个引用时相等的。如果这两个引用调用<code>hashCode</code>，会得到相同的结果。使用<code>==</code>来比较变量上的子节组合，判断引用是否相等。</li>
 <li><code>对象相等性</code>。堆上的两个不同对象在意义上是相同的，要把两个不同的对象视为相等，需要覆盖<code>hashCode</code>方法与<code>equals</code>方法。</li>
 </ul>
@@ -341,34 +351,35 @@
 <p>要让<code>set</code>把对象视为重复的，必须满足<code>equals</code>和<code>hashCode</code>返回两对象相等。</p>
 </blockquote>
 <p><code>equals</code>和<code>hashCode</code>的相关规定：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/hashCodeEquals.PNG" alt="`equals`和`hashCode`"></p>
-<h4 id="1-3-TreeSet"><a href="#1-3-TreeSet" class="headerlink" title="1.3 TreeSet"></a>1.3 TreeSet</h4><p>使用<code>TreeSet</code>必须使得以下一项为真：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/hashCodeEquals.PNG" alt="equals和hashCode" /><figcaption aria-hidden="true"><code>equals</code>和<code>hashCode</code></figcaption>
+</figure>
+<h4 id="treeset">1.3 TreeSet</h4>
+<p>使用<code>TreeSet</code>必须使得以下一项为真：</p>
 <ul>
-<li><p>集合中的元素必须是有实现<code>Comparable</code>的类型；</p>
-</li>
+<li><p>集合中的元素必须是有实现<code>Comparable</code>的类型；</p></li>
 <li><p>使用重载、取用<code>Comparator</code>参数的构造函数创建<code>TreeSet</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BookCompare bCompare = <span class="keyword">new</span> BookCompare();</span><br><span class="line">TreeSet&lt;Book&gt; tree = <span class="keyword">new</span> TreeSet&lt;Book&gt;(bCompare);</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BookCompare bCompare = <span class="keyword">new</span> BookCompare();</span><br><span class="line">TreeSet&lt;Book&gt; tree = <span class="keyword">new</span> TreeSet&lt;Book&gt;(bCompare);</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="1-4-Map"><a href="#1-4-Map" class="headerlink" title="1.4 Map"></a>1.4 Map</h4><p><code>Map</code>的元素实际上是两个对象：关键词(key)和值(value)。值可以重复，但key不能重复。通过<code>Map</code>可以用名称来取值等等。</p>
+<h4 id="map">1.4 Map</h4>
+<p><code>Map</code>的元素实际上是两个对象：关键词(key)和值(value)。值可以重复，但key不能重复。通过<code>Map</code>可以用名称来取值等等。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String, Integer&gt; scores = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line">scores.put(“Kathy”, <span class="number">42</span>);</span><br><span class="line">scores.put(“Bert”, <span class="number">343</span>);</span><br><span class="line">scores.put(“Skyler”, <span class="number">420</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="2-泛型"><a href="#2-泛型" class="headerlink" title="2. 泛型"></a>2. 泛型</h3><p><code>&lt;&gt;</code>符号代表<code>泛型(generic)</code>正在起作用，它是从<code>Java 5.0</code>开始加入的特质。泛型的主要目的是能够获取有<u>更好的类型安全性的集合</u>。</p>
+<h3 id="泛型">2. 泛型</h3>
+<p><code>&lt;&gt;</code>符号代表<code>泛型(generic)</code>正在起作用，它是从<code>Java 5.0</code>开始加入的特质。泛型的主要目的是能够获取有<u>更好的类型安全性的集合</u>。</p>
 <blockquote>
 <p>在泛型出现前，没有办法什么<code>ArrayList</code>的类型，所以只能用<code>Object</code>来操作。各种对象以引用的形式加入到<code>ArrayList</code>中，出来时会是<code>Object</code>类型的引用。</p>
 </blockquote>
 <p>使用泛型后，能定义<code>ArrayList</code>类型，在取出时还是该类型的引用。此外也不能在该<code>ArrayList</code>中加入非该类的对象。关于泛型几件重要的事：</p>
-<ol>
+<ol type="1">
 <li><p>创建被泛型化类的实例。比如创建<code>ArrayList</code>时必须指定它所容许的对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ArrayList&lt;Song&gt;()</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ArrayList&lt;Song&gt;()</span><br></pre></td></tr></table></figure></li>
 <li><p>声明与指定泛型类型的变量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Song&gt; songList = <span class="keyword">new</span> ArrayList&lt;Song&gt;()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>声明(与调用)取用泛型类型的方法。</p>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Song&gt; songList = <span class="keyword">new</span> ArrayList&lt;Song&gt;()</span><br></pre></td></tr></table></figure></li>
+<li><p>声明(与调用)取用泛型类型的方法。</p></li>
 </ol>
-<h4 id="2-1-泛型的类"><a href="#2-1-泛型的类" class="headerlink" title="2.1 泛型的类"></a>2.1 泛型的类</h4><p>查看泛型化类型，有两个关键的部分：</p>
-<ol>
+<h4 id="泛型的类">2.1 泛型的类</h4>
+<p>查看泛型化类型，有两个关键的部分：</p>
+<ol type="1">
 <li>类的声明。</li>
 <li>新增元素的方法的声明。</li>
 </ol>
@@ -379,23 +390,23 @@
 <li>这里<code>E</code>并不是关键词，硬性规定的。也可以用其他合法字符串来当作类型参数。习惯用法是以单一字母表示。</li>
 </ul>
 </blockquote>
-<h4 id="2-2-泛型的方法"><a href="#2-2-泛型的方法" class="headerlink" title="2.2 泛型的方法"></a>2.2 泛型的方法</h4><p>泛型的类代表类的声明用到类型参数。泛型的方法代表方法的声明特征用到类型参数。</p>
-<ol>
+<h4 id="泛型的方法">2.2 泛型的方法</h4>
+<p>泛型的类代表类的声明用到类型参数。泛型的方法代表方法的声明特征用到类型参数。</p>
+<ol type="1">
 <li><p>使用定义在类声明的类型参数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt; ... </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E o)</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>声明类的类型参数后，就可以直接把该类或接口类型用在任何地方。</p>
-</li>
+<p>声明类的类型参数后，就可以直接把该类或接口类型用在任何地方。</p></li>
 <li><p>使用未定义在类声明的类型参数。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T extends Animal&gt; <span class="function"><span class="keyword">void</span> <span class="title">takeThing</span><span class="params">(ArrayList&lt;T&gt; list)</span></span></span><br></pre></td></tr></table></figure>
-<p>如果类本身未使用类型参数，可以通过在返回类型之前指定给该方法。<code>&lt;T extends Animal&gt;</code>意味着<code>T</code>可以是任意一种<code>Animal</code>。</p>
-</li>
+<p>如果类本身未使用类型参数，可以通过在返回类型之前指定给该方法。<code>&lt;T extends Animal&gt;</code>意味着<code>T</code>可以是任意一种<code>Animal</code>。</p></li>
 </ol>
 <p>这里需要注意的是，以下两种方法的声明合法，但意义不同：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T extends Animal&gt; <span class="function"><span class="keyword">void</span> <span class="title">takeThing</span><span class="params">(ArrayList&lt;T&gt; list)</span></span></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">takeThing</span><span class="params">(ArrayList&lt;Animal&gt; list)</span></span></span><br></pre></td></tr></table></figure>
 <p><code>&lt;T extends Animal&gt;</code>是方法声明的一部分，表示任何被声明未<code>Animal</code>或<code>Animal</code>的子类型的<code>ArrayList</code>是合法的。可以使用<strong>任意一种</strong><code>Animal</code>的<code>ArrayList</code>。</p>
 <p>但下面的方法中<code>ArrayList&lt;Animal&gt; list</code>代表只有<code>ArrayList&lt;Animal&gt;</code>是合法的，也就是它<strong>只能使用</strong><code>Animal</code>的<code>ArrayList</code>。</p>
-<h4 id="2-3-sort-方法中的泛型"><a href="#2-3-sort-方法中的泛型" class="headerlink" title="2.3 sort()方法中的泛型"></a>2.3 <code>sort()</code>方法中的泛型</h4><p>回到<code>sort()</code>方法的定义：</p>
+<h4 id="sort方法中的泛型">2.3 <code>sort()</code>方法中的泛型</h4>
+<p>回到<code>sort()</code>方法的定义：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(List&lt;T&gt; list)</span></span></span><br></pre></td></tr></table></figure>
 <p>实际上<code>Comparable</code>是一个接口，但以泛型的观点，<code>extends</code>代表<code>extends</code>或<code>implement</code>。所以必须实现<code>Comparable</code>才能把类的<code>ArrayList</code>传给<code>sort</code>。只有一个方法需要实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -406,7 +417,8 @@
 <li>调用单一参数的<code>sort(List o)</code>方法代表由<code>List</code>元素上的<code>compareTo</code>方法来决定顺序，需要实现<code>Comparable</code>接口。</li>
 <li>调用<code>sort(List o, Comparator c)</code>方法代表不会调用<code>list</code>元素的<code>compareTo</code>方法，而会使用<code>Comparator</code>的<code>compare</code>方法，这种情况下list元素不需要实现<code>Comparable</code>接口。</li>
 </ul>
-<h4 id="2-4-多态与泛型"><a href="#2-4-多态与泛型" class="headerlink" title="2.4 多态与泛型"></a>2.4 多态与泛型</h4><p>在普通的多态中，定义如下函数：</p>
+<h4 id="多态与泛型">2.4 多态与泛型</h4>
+<p>在普通的多态中，定义如下函数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">takeAnimals</span><span class="params">(ArrayList&lt;Animal&gt; animals)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">for</span>(Animal a: animals) &#123;</span><br><span class="line">         a.eat();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>该方法只能取用<code>ArrayList&lt;Animal&gt;</code>参数，而不能传入<code>ArrayList&lt;Dog&gt;</code>或<code>ArrayList&lt;Cat&gt;</code>，以为如果程序执行如下代码时，会出现类型错误：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">takeAnimals</span><span class="params">(ArrayList&lt;Animal&gt; animals)</span> </span>&#123;</span><br><span class="line">	animals.add(<span class="keyword">new</span> Cat());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -489,7 +501,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-集合"><span class="nav-number">2.</span> <span class="nav-text">1. 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Collections接口"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Collections接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-对象等价"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 对象等价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-TreeSet"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 TreeSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-Map"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Map</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-泛型"><span class="nav-number">3.</span> <span class="nav-text">2. 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-泛型的类"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 泛型的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-泛型的方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 泛型的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-sort-方法中的泛型"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 sort()方法中的泛型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-多态与泛型"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 多态与泛型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合"><span class="nav-number">2.</span> <span class="nav-text">1. 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#collections接口"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Collections接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象等价"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 对象等价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#treeset"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 TreeSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Map</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型"><span class="nav-number">3.</span> <span class="nav-text">2. 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#泛型的类"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 泛型的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#泛型的方法"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 泛型的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort方法中的泛型"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 sort()方法中的泛型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态与泛型"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 多态与泛型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -505,20 +517,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -566,13 +578,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

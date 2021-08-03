@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="简介 《大数据技术原理与应用》的学习笔记，这本书推荐的学习路线如下：">
+<meta name="keywords" content="大数据,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[大数据技术原理|第一篇 大数据基础]">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;30&#x2F;Big_Data_1_basic.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="简介 《大数据技术原理与应用》的学习笔记，这本书推荐的学习路线如下：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;learningPath.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;ComputeSchema.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;hadoopEcoSys.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;hadoopVersion.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;hadoopExample.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;hadoopConfigFile.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;startHDFS.PNG">
+<meta property="og:updated_time" content="2021-07-30T06:12:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter1&#x2F;learningPath.PNG">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/07/30/Big_Data_1_basic.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[大数据技术原理|第一篇 大数据基础] | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/30/Big_Data_1_basic.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [大数据技术原理|第一篇 大数据基础]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-30 14:12:33" itemprop="dateCreated datePublished" datetime="2021-07-30T14:12:33+08:00">2021-07-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/30/Big_Data_1_basic.html" class="post-meta-item leancloud_visitors" data-flag-title="[大数据技术原理|第一篇 大数据基础]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/30/Big_Data_1_basic.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/30/Big_Data_1_basic.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="简介">简介</h3>
+<p>《大数据技术原理与应用》的学习笔记，这本书推荐的学习路线如下：</p>
+<a id="more"></a>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/learningPath.PNG" alt="推荐的学习路线参考书籍" /><figcaption aria-hidden="true">推荐的学习路线参考书籍</figcaption>
+</figure>
+<h3 id="大数据概述">1. 大数据概述</h3>
+<h4 id="大数据的概念">1.1 大数据的概念</h4>
+<p>大数据的 <code>"4v"</code> 指的是大数据的4个特点：</p>
+<ul>
+<li>数据量大（<code>Volume</code>）</li>
+<li>数据类型繁多（<code>Variety</code>）</li>
+<li>处理速度快（<code>Velocity</code>）</li>
+<li>价值密度低（<code>Value</code>）</li>
+</ul>
+<h4 id="大数据的思维方式">1.2 大数据的思维方式</h4>
+<p>大数据时代思维方式的3种转变：</p>
+<ul>
+<li>全样而非抽样</li>
+<li>效率而非精确</li>
+<li>相关而非因果</li>
+</ul>
+<h4 id="大数据计算模式">1.3 大数据计算模式</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/ComputeSchema.PNG" alt="大数据计算模式" /><figcaption aria-hidden="true">大数据计算模式</figcaption>
+</figure>
+<h5 id="批处理计算">1.3.1 批处理计算</h5>
+<p>批处理计算主要解决针对大规模数据的批量处理：</p>
+<ul>
+<li><code>MapReduce</code>。将并行计算过程高度抽象为两个函数——<code>Map</code>和<code>Reduce</code>。</li>
+<li><code>Spark</code>。针对超大数据集合的低延迟集群分布式计算系统，启用内存分布数据集，除可以交互式查询外，还可以优化迭代工作复杂。</li>
+<li><code>MapReduce</code>数据流从一个稳定的来源加工处理后，流出到一个稳定的文件系统（如<code>HDFS</code>）；而<code>Spark</code>使用内存代替<code>HDFS</code>来存储中间结果。</li>
+</ul>
+<h5 id="流计算">1.3.2 流计算</h5>
+<p>流数据是指在时间分布和数量上无限的一系列动态数据集合体，需要采用实时计算的方式给出秒级响应。</p>
+<ul>
+<li>商业级流计算平台。<code>IBM InfoSphere Streams</code> 和 <code>IBM StreamBase</code>等</li>
+<li>开源流计算框架。包括 <code>Twitter Storm</code>、 <code>Yahoo！s4（ Simple Scalable Streaming System）</code>、 <code>Spark Streaming</code>等；</li>
+<li>公司为支持自身业务开发的流计算框架。</li>
+</ul>
+<h5 id="图计算">1.3.3 图计算</h5>
+<p>针对大型图的计算，需要采用图计算模式。</p>
+<ul>
+<li><code>Pregel</code>是一种基于<code>BSP</code>（ <code>Bulk Synchronous Parallel</code>）模型实现的并行图处理系统。<code>Pregel</code>主要用于图遍历、最短路径、 <code>PageRank</code>计算等。</li>
+</ul>
+<h5 id="查询分析计算">1.3.4 查询分析计算</h5>
+<p>针对超大规模数据的存储管理和查询分析，需要提供实时或准实时的响应。</p>
+<ul>
+<li>谷歌公司开发的 <code>Dremel</code> 是一种可扩展的、交互式的实时查询系统，用于只读嵌套数据的分析。通过结合多级树状执行过程和列式数据结构，它能做到几秒内完成对万亿张表的聚合查询。</li>
+<li><code>Cloudera</code>公司参考 <code>Dremel</code> 系统开发了实时查询引擎 <code>Impala</code>，它提供<code>SoL</code>语义，能快速查询存储在 <code>Hadoop</code> 的<code>HDFS</code>和 <code>HBase</code>中的PB级大数据。</li>
+</ul>
+<h4 id="大数据与云计算">1.4 大数据与云计算</h4>
+<h5 id="云计算">1.4.1 云计算</h5>
+<p>云计算实现了<strong><u>通过网络</u></strong>提供<strong>可伸缩的</strong>、<strong>廉价</strong>的分布式计算能力，用户只需要在具备网络接入条件的地方，就可以随时随地获得所需的各种<code>IT</code>资源。云计算代表了<strong><u>以虚拟化技术为核心、以低成本为目标的、动态可扩展的</u></strong>网络应用基础设施，是近年来最有代表性的网络计算技术与模式。</p>
+<p>云计算包括3种典型的服务模式：</p>
+<ul>
+<li><code>IaaS</code>（基础设施即服务）</li>
+<li><code>PaaS</code>（平台即服务）</li>
+<li><code>SaaS</code>（软件即服务）</li>
+</ul>
+<p><code>Iaas</code>将基础设施（计算资源和存储）作为服务出租，<code>PaaS</code>把平台作为服务出租，<code>SaaS</code>把软件作为服务出租。</p>
+<h5 id="云计算关键技术">1.4.2 云计算关键技术</h5>
+<p>云计算的关键技术包括<strong>虚拟化</strong>、<strong>分布式存储</strong>、<strong>分布式计算</strong>、<strong>多租户</strong>等。</p>
+<h6 id="虚拟化">1.4.2.1 <strong>虚拟化</strong></h6>
+<p>虚拟化技术是指将一台计算机虚拟为多台逻辑计算机，在一台计算机上同时运行多个逻辑计算机，每个逻辑计算机可运行不同的操作系统，并且应用程序都可以在相互独立的空间内运行而互不影响，从而显著提高计算机的工作效率。虚拟化的资源可以是硬件（如服务器、磁盘和网络），也可以是软件。</p>
+<p><code>Hyper-V</code>、 <code>VMware</code>、<code>KWM</code>、 <code>Virtualbox</code>、<code>Xen</code>、<code>Qemu</code>等都是非常典型的虚拟化技术。</p>
+<h6 id="分布式存储">1.4.2.2 <strong>分布式存储</strong></h6>
+<ul>
+<li><p><code>GFS</code>（ <code>Google File System</code>）是谷歌公司推出的一款分布式文件系统，可以满足大型、分布式、对大量数据进行访问的应用的需求。</p></li>
+<li><p><code>HDFS</code>（ <code>Hadoop Distributed File System</code>）是对GFS的开源实现，它采用了更加简单的<code>“一次写入、多次读取”</code>文件模型，文件一旦创建、写入并关闭了，之后就只能对它执行读取操作，而不能执行任何修改操作；同时，HDFS是基于Java实现的，具有强大的跨平台兼容性。</p></li>
+<li><p>谷歌公司后来以GFS为基础开发了分布式数据管理系统 <code>Big Table</code>，它是一个<strong>稀疏、分布、持续多维度的排序映射数组</strong>，适合于非结构化数据存储的数据库，具有高可靠性、高性能、可伸缩等特点。<code>HBase</code>是针对 <code>Big Table</code> 的开源实现。</p></li>
+</ul>
+<h6 id="分布式计算">1.4.2.3 分布式计算</h6>
+<p>谷歌公司提出了并行编程模型 <code>MapReduce</code>，<code>MapReduce</code>将复杂的、运行于大规模集群上的并行计算过程抽象为两个函数——<code>Map</code>和 <code>Reduce</code>，并把一个大数据集切分成多个小的数据集，分布到不同的机器上进行并行处理，极大提高了数据处理速度，可以有效满足许多应用对海量数据的批量处理需求。 <code>Hadoop</code> 开源实现了 <code>MapReduce</code> 编程框架，被广泛应用于分布式计算。</p>
+<h6 id="多租户">1.4.2.4 多租户</h6>
+<p>多租户技术目的在于<u>使大量用户能够共享同一堆栈的软硬件资源，每个用户按需使用资源能够对软件服务进行客户化配置，而不影响其他用户的使用</u>。多租户技术的核心包括<strong>数据隔离</strong>、<strong>客户化配置</strong>、<strong>架构扩展</strong>和<strong>性能定制</strong>。</p>
+<h3 id="大数据处理框架hadoop">2. 大数据处理框架<code>Hadoop</code></h3>
+<p><code>Hadoop</code>是一个开源的、可运行于大规模集群上的分布式计算平台，它实现了 <code>MapReduce</code> 计算模型和分布式文件系统<code>HDFS</code>等功能。</p>
+<h4 id="概述">2.1 概述</h4>
+<h5 id="hadoop简介">2.1.1 Hadoop简介</h5>
+<p><code>Hadoop</code>是<code>Apache</code>软件基金会旗下的一个开源分布式计算平台，为用户提供了系统底层细节透明的分布式基础架构。</p>
+<ul>
+<li><code>Hadoop</code>的<strong>核心</strong>是<code>分布式文件系统（ Hadoop Distributed File System, HDFS）</code>和 <code>MapReduce</code>；</li>
+<li><code>HDFS</code>是针对<code>谷歌文件系统（ Google File System, GFS）</code>的开源实现，具有<strong>较高的读写速度</strong>、<strong>很好的容错性</strong>和<strong>可伸缩性</strong>，支持大规模数据的分布式存储，其<u><strong>冗余数据存储的方式很好地保证了数据的安全性</strong></u>。</li>
+<li><code>MapReduce</code>是针对谷歌 <code>MapReduce</code>的开源实现，采用 <code>MapReduce</code> 来整合分布式文件系统上的数据，可保证分析和处理数据的高效性。</li>
+</ul>
+<h5 id="hadoop的特性">2.1.2 Hadoop的特性</h5>
+<p><code>Hadoop</code>是一个能够对大量数据进行分布式处理的软件框架，具有以下几个方面的特性。</p>
+<ul>
+<li><strong>高可靠性</strong>。采用<strong><u>冗余数据存储方式</u></strong>，即使一个副本发生故障，其他副本也可以保证正常对外提供服务。</li>
+<li><strong>高效性</strong>。作为并行分布式计算平台，<code>Hadoop</code>采用<strong>分布式存储</strong>和<strong>分布式处理</strong>两大核心技术，能够高效地处理PB级数据。</li>
+<li><strong>高可扩展性</strong>。<code>Hadoop</code>的设计目标是可以高效稳定地运行在廉价的计算机集群上。</li>
+<li><strong>高容错性</strong>。采用冗余数据存储方式，自动保存数据的多个副本，并且能够<strong><u>自动将失败的任务进行重新分配</u></strong>。</li>
+<li><strong>成本低</strong>。<code>Hadoop</code>采用廉价的计算机集群，成本比较低。</li>
+<li><strong>运行在<code>Linux</code>平台上</strong>。<code>Hadoop</code>是基于<code>Java</code> 语言开发的，可以较好地运行在 <code>Linux</code> 平台上。</li>
+<li><strong>支持多种编程语言</strong>。<code>Hadoop</code>上的应用程序也可以使用其他语言编写。</li>
+</ul>
+<h4 id="hadoop生态系统">2.2 <code>Hadoop</code>生态系统</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/hadoopEcoSys.png" alt="Hadoop生态系统" /><figcaption aria-hidden="true"><code>Hadoop</code>生态系统</figcaption>
+</figure>
+<p>除了核心的<code>HDFS</code>和<code>MapReduce</code>以外，<code>Hadoop</code>生态系统还包括 <code>Zookeeper</code>、<code>HBase</code>、<code>Hive</code>、<code>Pig</code>、<code>Mahout</code>、<code>Sqoop</code>、<code>Flume</code>、<code>Ambari</code>等功能组件。<code>Hadoop2.0</code>中新增 <code>HDFS HA</code> 和分布式资源调度管理框架<code>YARN</code>等。</p>
+<h5 id="hdfs">2.2.1 HDFS</h5>
+<p><code>Hadoop</code>分布式文件系统（ <code>Hadoop Distributed File System, HDFS</code>）是 <code>Hadoop</code>项目的两大核心之一。<code>HDFS</code>具有处理超大数据、流式处理、可以运行在廉价商用服务器上等优点。</p>
+<p><code>HDFS</code>放宽了一部分<code>POSX（Portable Operating System Interface）</code>约束，从而实现以流的形式访问文件系统中的数据，提供高吞吐量应用程序数据访问功能。</p>
+<h5 id="hbase">2.2.2 HBase</h5>
+<p><code>HBase</code>是一个提供高可靠性、高性能、可伸缩、实时读写、分布式的<strong><u>列式数据库</u></strong>，一般采用<code>HDFS</code>作为其底层数据存储，具有强大的<strong><u>非结构化数据存储能力</u></strong>。</p>
+<p><code>HBase</code>与传统关系数据库的一个重要区别是，前者采用<strong><u>基于列的存储</u></strong>，而后者采用<strong><u>基于行的存储</u></strong>。<code>HBase</code>具有良好的横向扩展能力，可以通过不断增加廉价的商用服务器来增加存储能力。</p>
+<h5 id="mapreduce">2.2.3 MapReduce</h5>
+<p><code>Hadoop MapReduce</code>是一种<strong><u>编程模型</u></strong>，用于大规模数据集的<strong><u>并行运算</u></strong>，将复杂的、运行于大规模集群上的并行计算过程高度地抽象到了两个函数——<code>Map</code>和<code>Reduce</code>上。</p>
+<p><code>MapReduce</code>的<strong>核心思想</strong>就是<code>“分而治之”</code>，把输入的数据集切分为若干独立的数据块，分发给一个主节点管理下的各个分节点来共同并行完成；最后，通过整合各个节点的中间结果得到最终结果。</p>
+<h5 id="hive">2.2.4 Hive</h5>
+<p><code>Hive</code>是一个基于Hadoop的<strong><u>数据仓库工具</u></strong>，可以用于对<code>Hadoop</code>文件中的数据集进行<strong>数据整理</strong>、<strong>特殊查询</strong>和<strong>分析存储</strong>。<code>Hive</code>提供了类似于关系数据库<code>SQL</code>语言的查询语言——<code>Hive QL</code>，可以通过<code>Hive QL</code>语句快速实现简单的<code>MapReduce</code>统计，<code>Hive</code>自身可以将<code>Hive QL</code>语句转换为 <code>MapReduce</code> 任务进行运行。</p>
+<h5 id="pig">2.2.5 Pig</h5>
+<p><code>Pig</code>是一种<strong><u>数据流语言和运行环境</u></strong>，适合于使用Hadoop和MapReduce平台来<strong>查询大型半结构化数据集</strong>。</p>
+<p><code>Pig</code> 在<code>MapReduce</code>的基础上创建了更简单的过程语言抽象，为<code>Hadoop</code>应用程序提供了一种更加接近<code>结构化查询语言（SQL）</code>的接口。</p>
+<h5 id="mahout">2.2.6 Mahout</h5>
+<p><code>Mahout</code>是<code>Apache</code>软件基金会旗下的一个开源项目，<strong><u>提供一些可扩展的机器学习领域经典算法的实现</u></strong>。<code>Mahout</code>包含许多实现，包括<strong>聚类、分类、推荐过滤、频繁子项挖掘</strong>。</p>
+<h5 id="zookeeper">2.2.7 Zookeeper</h5>
+<p><code>Zookeeper</code>是针对谷歌<code>Chubby</code>的一个开源实现，是高效和可靠的<strong><u>协同工作系统</u></strong>，提供分布式锁之类的基本服务（如统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等），用于构建分布式应用，减轻分布式应用程序所承担的协调任务。</p>
+<h5 id="fiume">2.2.8 FIume</h5>
+<p><code>Flume</code>是<code>Cloudera</code>提供的一个高可用的、高可靠的、分布式的<strong><u>海量日志采集、聚合和传输的系统</u></strong>。<code>Flume</code>支持在日志系统中定制各类数据发送方，用于收集数据；同时，<code>Flume</code>提供对数据进行简单处理并写到各种数据接受方的能力。</p>
+<h5 id="sqoop">2.2.9 Sqoop</h5>
+<p><code>Sqoop</code>是 <code>SQL-to-Hadoop</code> 的缩写，主要用来在<code>Hadoop</code>和关系数据库之间交换数据，可以改进数据的互操作性。通过 <code>Sqoop</code>可以方便地：</p>
+<ul>
+<li>将数据从<code>MySQL</code>、<code>Oracle</code>、<code>PostgreSQL</code>等关系数据库中导入<code>Hadoop</code>（可以导入<code>HDFS</code>、<code>HBase</code>或<code>Hive</code>）</li>
+<li>将数据从<code>Hadoop</code>导出到关系数据库，使得传统关系数据库和<code>Hadoop</code>之间的数据迁移变得非常方便。</li>
+</ul>
+<p><code>Sqoop</code>主要通过<code>JDBC（Java DataBase Connectivity）</code>和关系数据库进行交互，理论上支持<code>JDBC</code>的关系数据库都可以使 <code>Sqoop</code>和<code>Hadoop</code>进行数据交互。</p>
+<h5 id="ambari">2.2.10 Ambari</h5>
+<p><code>Apache Ambari</code>是一种基于<code>web</code>的工具，支持<code>Apache Hadoop</code>集群的安装、部署、配置和管理。</p>
+<h5 id="yarn">2.2.11 Yarn</h5>
+<p><code>YARN （Yet Another Resource Negotiator，另一种资源协调者）</code>是一种新的 <code>Hadoop</code> 资源管理器，它是一个通用资源管理系统，可为上层应用提供统一的资源管理和调度，它的引入为集群在利用率、资源统一管理和数据共享等方面带来了巨大好处。</p>
+<p><code>YARN</code>的基本思想是将<code>JobTracker</code>的两个主要功能（<strong>资源管理</strong>和<strong>作业调度/监控</strong>）分离，主要方法是<u>创建一个全局的ResourceManager（RM）</u>和<u>若干个针对应用程序的ApplicationMaster（AM）</u>，应用程序是指传统的<code>MapReduce</code>作业或作业的<code>DAG</code>（有向无环图）。</p>
+<h5 id="oozie">2.2.12 Oozie</h5>
+<p><code>Oozie</code>是一种<code>Java Web</code>应用程序，它运行在<code>Java servlet</code>容器——即<code>Tomcat</code>中，可以把多个<code>Map/Reduce</code>作业组合到一个逻辑工作单元中，从而完成更大型的任务。使用数据库来存储以下内容：</p>
+<ul>
+<li>工作流定义</li>
+<li>当前运行的工作流实例，包括实例的状态和变量</li>
+</ul>
+<p><code>Oozie</code>工作流是放置在控制依赖<code>DAG</code>中的一组动作（例如，Hadoop的Map/Reduce作业、Pig作业等），其中指定了动作执行的顺序。</p>
+<h5 id="spark">2.2.13 Spark</h5>
+<p><code>Spark</code> 是专为大规模数据处理而设计的<strong>快速通用</strong>的<code>计算引擎</code>，拥有<code>Hadoop MapReduce</code>所具有的优点；但不同于<code>MapReduce</code>的是——<code>Job</code>中间输出结果可以保存在内存中，从而不再需要读写<code>HDFS</code>，因此<code>Spark</code>能更好地适用于数据挖掘与机器学习等需要迭代的<code>MapReduce</code>的算法。</p>
+<p><code>Spark</code> 是在 <code>Scala</code> 语言中实现的，它将 <code>Scala</code> 用作其应用程序框架，<code>Scala</code> 可以像操作本地集合对象一样轻松地操作分布式数据集。实际上它是对 <code>Hadoop</code> 的补充，可以在 <code>Hadoop</code> 文件系统中并行运行。</p>
+<h5 id="tez">2.2.14 Tez</h5>
+<p><code>Tez</code>是一个针对<code>Hadoop</code>数据处理应用程序的新分布式执行框架。<code>Tez</code>是<code>Apache</code>最新的支持<code>DAG</code>作业的开源计算框架，它可以将多个有依赖的作业转换为一个作业从而大幅提升<code>DAG</code>作业的性能。</p>
+<h5 id="storm">2.2.15 Storm</h5>
+<p><code>Storm</code>为分布式实时计算提供了一组通用原语，可被用于<code>“流处理”</code>之中，实时处理消息并更新数据库。这是管理队列及工作者集群的另一种方式。<code>Storm</code>也可被用于<code>“连续计算”（continuous computation）</code>，对数据流做连续查询，在计算时就将结果以流的形式输出给用户。它还可被用于<code>“分布式RPC”</code>，以并行的方式运行昂贵的运算。</p>
+<h5 id="kafka">2.2.16 kafka</h5>
+<p><code>kafka</code>是由Apache软件基金会开发的一个<strong>开源流处理平台</strong>，由<code>Scala</code>和<code>Java</code>编写。<code>Kafka</code>是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。<code>Kafka</code>的目的是通过<code>Hadoop</code>的并行加载机制来统一线上和离线的消息处理，也是为了通过集群来提供实时的消息</p>
+<h3 id="hadoop-的安装与使用">3. Hadoop 的安装与使用</h3>
+<p><code>Hadoop</code>基本安装配置主要包括以下5个步骤。</p>
+<h4 id="创建-hadoop用户">3.1 创建 Hadoop用户</h4>
+<p>创建一个名为<code>hadoop</code>的用户运行程序，分离权限方便操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ useradd -s /bin/bash -d /home/hadoop -m hadoop</span><br><span class="line">$ passwd hadoop</span><br></pre></td></tr></table></figure>
+<h4 id="安装-java">3.2 安装 Java</h4>
+<p>由于 <code>Hadoop</code> 本身是使用<code>Java</code>语言编写的，因此 <code>Hadoop</code> 的开发和运行都需要<code>Java</code>的支持。</p>
+<p>对于 <code>Ubuntu</code>本身，系统上可能已经预装了<code>Java</code>，它的<code>JDK</code>版本为 <code>openjdk</code>，路径为<code>“/usr/lib/jvm/default-java”</code>，后文中需要配置的 <code>JAVA_HOME</code> 环境变量就可以设置为这个值。</p>
+<p>也可以自行安装<code>Oracle</code>公式的<code>Java</code>版本。</p>
+<h4 id="设置ssh登录权限">3.3 设置SSH登录权限</h4>
+<p>对于 <code>Hadoop</code> 的伪分布和全分布而言，<code>Hadoop</code>名称节点<code>（Name Node）</code>需要启动集群中所有机器的 <code>Hadoop</code> 守护进程，这个过程可以通过<code>SSH</code>登录来实现。为了能够顺利登录每台机器，需要将所有机器配置为名称节点可以无密码登录。</p>
+<p>首先需要让名称节点生成自己的<code>SSH</code>密钥，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -P <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<p>按照默认位置，会存放在用户目录的<code>.ssh/</code>路径下。</p>
+<p>名称节点生成自己的密钥之后，需要将它的公共密钥发送给集群中的其他机器。可以将<code>id_dsa. pub</code>中的内容添加到需要匿名登录的机器的<code>“~/ssh/authorized_keys”</code>目录下，然后名称节点就可以无密码登录这台机器。</p>
+<h4 id="单机安装配置">3.4 单机安装配置</h4>
+<p>将<code>hadoop</code>文件夹解压后，放置到任意文件位置如<code>“/usr/local/hadoop”</code>文件夹下。文件夹的用户和组必须都为 <code>hadoop</code>。</p>
+<p>在 <code>Hadoop</code>的文件夹中下的<code>“etc/hadoop”</code>目录下面放置了配置文件，对于单机安装，首先需要更改 <code>hadoop-env.sh</code> 文件，以配置<code>Hadoop</code>运行的环境变量，这里只需要将<code>JAVA_HOME</code>环境变量指定到本机的<code>JDK</code>目录就可以了，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$export</span> JAVA_HOME=/usr/lib/jvm/default-java</span><br></pre></td></tr></table></figure>
+<p>完成之后，我们可以试着查看<code>Hadoop</code>版本信息，可以运行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$./bin/hadoop version</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/hadoopVersion.PNG" alt="hadoop version" /><figcaption aria-hidden="true">hadoop version</figcaption>
+</figure>
+<p>运行<code>hadoop</code>自带的 <code>WordCount</code>的例子来检测一下<code>Hadoop</code>安装是否成功。</p>
+<ul>
+<li><p>首先在 <code>hadoop</code>目录下新建 <code>input</code>文件夹，用来存放输入数据；</p></li>
+<li><p>然后，将 <code>etc/hadoop</code>文件夹下的配置文件拷贝进 <code>input</code>文件夹中；</p></li>
+<li><p>接下来，在<code>hadoop</code>目录下新建<code>output</code>文件夹，用来存放输出数据；</p></li>
+<li><p>最后，运行示例程序。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ./input</span><br><span class="line">$ cp ./etc/hadoop/*.xml ./input</span><br><span class="line">$ cp ./etc/hadoop/*.xml ./input   <span class="comment"># 将配置文件作为输入文件</span></span><br><span class="line">$ ./bin/hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-*.jar grep ./input ./output <span class="string">'dfs[a-z.]+'</span></span><br><span class="line">$ cat ./output/*          <span class="comment"># 查看运行结果</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>这意味着，在所有的配置文件中，只有一个符合正则表达式的单词，结果正确。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/hadoopExample.PNG" alt="hadoop example" /><figcaption aria-hidden="true">hadoop example</figcaption>
+</figure>
+<h4 id="伪分布式安装配置">3.5 伪分布式安装配置</h4>
+<p>伪分布式安装是指<strong><u>在一台机器上模拟一个小的集群，但是集群中只有一个节点</u></strong>。当<code>Hadoop</code>应用于集群时，不论是伪分布式还是真正的分布式运行，都需要通过配置文件对各组件的协同工作进行设置，最重要的几个配置文件见表。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/hadoopConfigFile.PNG" alt="hadoop配置文件" /><figcaption aria-hidden="true">hadoop配置文件</figcaption>
+</figure>
+<p>要修改该目录下的文件<code>core-site.xml</code>和<code>hdfs-site.xml</code>来达到实现伪分布式配置。修改<code>core-site.xml</code>，将<code>&lt;configure&gt;&lt;/configure&gt;</code>修改为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span>Abase for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>hdfs-site.xml</code>，将<code>&lt;configure&gt;&lt;/configure&gt;</code>修改为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/usr/local/hadoop/tmp/dfs/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置完成后初始化文件系统，执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hdfs namenode -format</span><br></pre></td></tr></table></figure>
+<p>接着使用<code>sbin/start-dfs.sh</code>来开启<code>namenode</code>和<code>datanode</code>，开启后使用命令<code>jps</code>查看是否开启成功，如下图：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter1/startHDFS.PNG" alt="初始化文件系统" /><figcaption aria-hidden="true">初始化文件系统</figcaption>
+</figure>
+<p>之后可以配置<code>yarn</code>，首先复制<code>mapred-site.xml</code>配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp etc/hadoop/mapred-site.xml.template etc/hadoop/mapred-site.xml</span><br></pre></td></tr></table></figure>
+<p>然后修改<code>etc/hadoop/mapred-site.xml</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>etc/hadoop/yarn-site.xml</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>启动资源管理器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./sbin/start-yarn.sh</span><br><span class="line">$ ./sbin/mr-jobhistory-daemon.sh start historyserver <span class="comment">#查看历史任务</span></span><br></pre></td></tr></table></figure>
+<p>关闭资源管理器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./sbin/stop-yarn.sh</span><br><span class="line">$ ./sbin/mr-jobhistory-daemon.sh stop historyserver</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/07/28/Data_structure_and_algorithm_binary_search.html" rel="next" title="[数据结构和算法|二分查找]">
+                  <i class="fa fa-chevron-left"></i> [数据结构和算法|二分查找]
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/07/31/Big_Data_2_store-and-manage.html" rel="prev" title="[大数据技术原理|第二篇 大数据存储与管理(1)]">
+                  [大数据技术原理|第二篇 大数据存储与管理(1)] <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据概述"><span class="nav-number">2.</span> <span class="nav-text">1. 大数据概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#大数据的概念"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 大数据的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大数据的思维方式"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 大数据的思维方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大数据计算模式"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 大数据计算模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#批处理计算"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 批处理计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#流计算"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 流计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图计算"><span class="nav-number">2.3.3.</span> <span class="nav-text">1.3.3 图计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询分析计算"><span class="nav-number">2.3.4.</span> <span class="nav-text">1.3.4 查询分析计算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#大数据与云计算"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 大数据与云计算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#云计算"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 云计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#云计算关键技术"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 云计算关键技术</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#虚拟化"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">1.4.2.1 虚拟化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分布式存储"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">1.4.2.2 分布式存储</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#分布式计算"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">1.4.2.3 分布式计算</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多租户"><span class="nav-number">2.4.2.4.</span> <span class="nav-text">1.4.2.4 多租户</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据处理框架hadoop"><span class="nav-number">3.</span> <span class="nav-text">2. 大数据处理框架Hadoop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hadoop简介"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 Hadoop简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hadoop的特性"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 Hadoop的特性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hadoop生态系统"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Hadoop生态系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hdfs"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 HDFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hbase"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 HBase</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mapreduce"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 MapReduce</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hive"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 Hive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pig"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 Pig</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mahout"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 Mahout</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zookeeper"><span class="nav-number">3.2.7.</span> <span class="nav-text">2.2.7 Zookeeper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fiume"><span class="nav-number">3.2.8.</span> <span class="nav-text">2.2.8 FIume</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sqoop"><span class="nav-number">3.2.9.</span> <span class="nav-text">2.2.9 Sqoop</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ambari"><span class="nav-number">3.2.10.</span> <span class="nav-text">2.2.10 Ambari</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#yarn"><span class="nav-number">3.2.11.</span> <span class="nav-text">2.2.11 Yarn</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#oozie"><span class="nav-number">3.2.12.</span> <span class="nav-text">2.2.12 Oozie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spark"><span class="nav-number">3.2.13.</span> <span class="nav-text">2.2.13 Spark</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tez"><span class="nav-number">3.2.14.</span> <span class="nav-text">2.2.14 Tez</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#storm"><span class="nav-number">3.2.15.</span> <span class="nav-text">2.2.15 Storm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kafka"><span class="nav-number">3.2.16.</span> <span class="nav-text">2.2.16 kafka</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop-的安装与使用"><span class="nav-number">4.</span> <span class="nav-text">3. Hadoop 的安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-hadoop用户"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 创建 Hadoop用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-java"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 安装 Java</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置ssh登录权限"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 设置SSH登录权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单机安装配置"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 单机安装配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪分布式安装配置"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 伪分布式安装配置</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">544k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and r">
+  <meta name="description" content="一、问题描述  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers an">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--2. Add Two Numbers">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;03&#x2F;28&#x2F;LeetCode--2-Add-Two-Numbers.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and r">
+<meta property="og:description" content="一、问题描述  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers an">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:36:39.968Z">
 <meta name="twitter:card" content="summary">
@@ -316,22 +316,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong> and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.<br><a id="more"></a><br>You may assume the two numbers do not contain any leading zero, except the number 0 itself. </p>
-</blockquote>
-<p><strong>Example:</strong></p>
+        <h3 id="一问题描述">一、问题描述</h3>
 <blockquote>
-<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8<br>Explanation: 342 + 465 = 807.</p>
+<p>You are given two <strong>non-empty</strong> linked lists representing two non-negative integers. The digits are stored in <strong>reverse order</strong> and each of their nodes contain a single digit. Add the two numbers and return it as a linked list. <a id="more"></a> You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
 </blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目意思即，两个数是用链表按逆序存储的，现在要求两个数的和。实现算法思想即，模拟一个加法器，按位(这里即每一个链表结点)相加，需要设置一个进位标志位。这里只需要注意几种特殊情况即可：<br>1.两个数不一样长时，需要额外处理；<br>2.如果最终计算结果超过两个数的长度时，需要多增加一位。<br>在实现过程中，用一个新的链表来存储计算结果。<br>在查看讨论区后，发现算法思路大致相同，但是别人的代码更加精简，可以从中借鉴代码的一些简化方法和思想</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><ol>
+<p><strong>Example:</strong> &gt;Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4) &gt;Output: 7 -&gt; 0 -&gt; 8 &gt;Explanation: 342 + 465 = 807.</p>
+<h3 id="二解题思路">二、解题思路</h3>
+<p>题目意思即，两个数是用链表按逆序存储的，现在要求两个数的和。实现算法思想即，模拟一个加法器，按位(这里即每一个链表结点)相加，需要设置一个进位标志位。这里只需要注意几种特殊情况即可： 1.两个数不一样长时，需要额外处理； 2.如果最终计算结果超过两个数的长度时，需要多增加一位。 在实现过程中，用一个新的链表来存储计算结果。 在查看讨论区后，发现算法思路大致相同，但是别人的代码更加精简，可以从中借鉴代码的一些简化方法和思想</p>
+<h3 id="三代码">三、代码</h3>
+<ol type="1">
 <li>解法1</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> CF=<span class="number">0</span>; <span class="comment">//进位</span></span><br><span class="line">        <span class="keyword">int</span> tmp=<span class="number">0</span>; <span class="comment">//每位计算的中间结果</span></span><br><span class="line">        ListNode* result=<span class="keyword">new</span> ListNode(<span class="number">0</span>); <span class="comment">//新链表存储结果，头结点</span></span><br><span class="line">        ListNode* present=result; <span class="comment">//结果链表当前节点</span></span><br><span class="line">        <span class="comment">//两个数都有节点还未计算是，循环按位计算</span></span><br><span class="line">		<span class="keyword">while</span>(l1&amp;&amp;l2)</span><br><span class="line">        &#123;</span><br><span class="line">			<span class="comment">//加法结果</span></span><br><span class="line">            tmp=(l1-&gt;val+l2-&gt;val+CF)%<span class="number">10</span>;</span><br><span class="line">            present-&gt;val=tmp;</span><br><span class="line">            </span><br><span class="line">			<span class="comment">//进位</span></span><br><span class="line">            CF=(l1-&gt;val+l2-&gt;val+CF)/<span class="number">10</span>;</span><br><span class="line">            </span><br><span class="line">			<span class="comment">//链表指针后移</span></span><br><span class="line">			l1=l1-&gt;next;</span><br><span class="line">            l2=l2-&gt;next;</span><br><span class="line">            </span><br><span class="line">			<span class="comment">//如果其中一个数已经加完，不再new新节点</span></span><br><span class="line">            <span class="keyword">if</span>(l1&amp;&amp;l2)</span><br><span class="line">            &#123;</span><br><span class="line">                present-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">                present=present-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//若其中一个数未加完，即比另外一个数要长，需要结合进位进一步处理</span></span><br><span class="line">		<span class="comment">//两个数的处理方式相同</span></span><br><span class="line">        <span class="keyword">while</span>(l1)</span><br><span class="line">        &#123;</span><br><span class="line">			<span class="comment">//有进位，需要加上进位继续处理</span></span><br><span class="line">            <span class="keyword">if</span>(CF==<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                present-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">                present=present-&gt;next;</span><br><span class="line"></span><br><span class="line">                tmp=(l1-&gt;val+CF)%<span class="number">10</span>;</span><br><span class="line">                present-&gt;val=tmp;</span><br><span class="line"></span><br><span class="line">                CF=(l1-&gt;val+CF)/<span class="number">10</span>;</span><br><span class="line">                l1=l1-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">			<span class="comment">//若已经没进位，计算结果后面的数与该数剩下的数相同</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                present-&gt;next=l1;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(l2)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(CF==<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                present-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">                present=present-&gt;next;</span><br><span class="line"></span><br><span class="line">                tmp=(l2-&gt;val+CF)%<span class="number">10</span>;</span><br><span class="line">                present-&gt;val=tmp;</span><br><span class="line"></span><br><span class="line">                CF=(l2-&gt;val+CF)/<span class="number">10</span>;</span><br><span class="line">                l2=l2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                present-&gt;next=l2;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//如果两个数都加完了，还有进位，那么new一个新节点，保存该进位</span></span><br><span class="line">        <span class="keyword">if</span>(CF==<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            present-&gt;next=<span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ol>
+<ol start="2" type="1">
 <li>精简的解法</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        ListNode preHead(0), *p = &amp;preHead;</span><br><span class="line">        <span class="keyword">int</span> extra = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (l1 || l2 || extra) &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = (l1 ? l1-&gt;val : <span class="number">0</span>) + (l2 ? l2-&gt;val : <span class="number">0</span>) + extra;</span><br><span class="line">            extra = sum / <span class="number">10</span>;</span><br><span class="line">            p-&gt;next = <span class="keyword">new</span> ListNode(sum % <span class="number">10</span>);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            l1 = l1 ? l1-&gt;next : l1;</span><br><span class="line">            l2 = l2 ? l2-&gt;next : l2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> preHead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -397,7 +398,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,20 +414,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">129</span>
+          <span class="site-state-item-count">132</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -474,13 +475,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">544k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">8:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
