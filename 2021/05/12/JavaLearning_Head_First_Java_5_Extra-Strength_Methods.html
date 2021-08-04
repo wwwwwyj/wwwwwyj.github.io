@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康">
+  <meta name="description" content="前言 让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head First Java]--5 超强力方法">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;12&#x2F;JavaLearning_Head_First_Java_5_Extra-Strength_Methods.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康">
+<meta property="og:description" content="前言 让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;sunk_site.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;flow_of_sunk_dotcom.PNG">
@@ -304,7 +304,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
+              <span>4.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,90 +323,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>让方法产生更大的作用。创建一个类似战舰的游戏：攻击达康<br><a id="more"></a></p>
 </blockquote>
-<h3 id="创建一个类似战舰的游戏攻击达康">1. 创建一个类似战舰的游戏：攻击达康</h3>
-<h4 id="简介">1.1. 简介</h4>
-<p>一种棋盘类的战舰游戏，目标是猜测对方战舰的坐标，然后轮流开炮攻击，命中数发可以击沉对方战舰。</p>
+<h3 id="1-创建一个类似战舰的游戏：攻击达康"><a href="#1-创建一个类似战舰的游戏：攻击达康" class="headerlink" title="1. 创建一个类似战舰的游戏：攻击达康"></a>1. 创建一个类似战舰的游戏：攻击达康</h3><h4 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1. 简介"></a>1.1. 简介</h4><p>一种棋盘类的战舰游戏，目标是猜测对方战舰的坐标，然后轮流开炮攻击，命中数发可以击沉对方战舰。</p>
 <ul>
 <li><strong>游戏目标</strong>：以最少的猜测次数打掉计算机安排的<code>达康公司(Dot Com)</code>网站。计算机根据表现来评分。</li>
 <li><strong>初始设置</strong>：程序启动后，计算机会在虚拟的<code>7×7</code>方格上安排3个达康网站。然后开始要求猜坐标。</li>
 <li><strong>进行游戏</strong>：目前先在命令栏上进行游戏。计算机根据输入所猜测的位置(比如<code>A3</code>或<code>C5</code>)等，返回命中<code>Hit</code>，未命中<code>Miss</code>或击沉<code>Sunk</code>等回应。清关所有网站后，会列出分数并结束。</li>
 </ul>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/sunk_site.PNG" alt="攻击达康棋盘" /><figcaption aria-hidden="true">攻击达康棋盘</figcaption>
-</figure>
-<h4 id="顶层设计">1.2 顶层设计</h4>
-<p>首先，了解游戏流程。基本思路：</p>
-<ol type="1">
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/sunk_site.PNG" alt="攻击达康棋盘"></p>
+<h4 id="1-2-顶层设计"><a href="#1-2-顶层设计" class="headerlink" title="1.2 顶层设计"></a>1.2 顶层设计</h4><p>首先，了解游戏流程。基本思路：</p>
+<ol>
 <li>玩家启动游戏</li>
 </ol>
 <blockquote>
-<p>A. 计算机创建3个网站 B. 将3个网站停在虚拟战场(棋盘)上</p>
+<p>A. 计算机创建3个网站<br>B. 将3个网站停在虚拟战场(棋盘)上</p>
 </blockquote>
-<ol start="2" type="1">
+<ol>
 <li>游戏开始</li>
 </ol>
 <blockquote>
-<p>重复以下操作直到所有网站被歼灭 A. 提示玩家输入坐标 B. 检查是否命中、未命中或击沉。命中删除格子，击沉删除网站。</p>
+<p>重复以下操作直到所有网站被歼灭<br>A. 提示玩家输入坐标<br>B. 检查是否命中、未命中或击沉。命中删除格子，击沉删除网站。</p>
 </blockquote>
-<ol start="3" type="1">
+<ol>
 <li>游戏结束</li>
 </ol>
 <blockquote>
 <p>根据猜测次数给分。</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/flow_of_sunk_dotcom.PNG" alt="游戏流程图" /><figcaption aria-hidden="true">游戏流程图</figcaption>
-</figure>
-<h4 id="简单的开始">1.3 简单的开始</h4>
-<p>至少需要两个类：<code>Game</code>类和<code>DotCom</code>类。首先从一个简单版本开始。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/flow_of_sunk_dotcom.PNG" alt="游戏流程图"></p>
+<h4 id="1-3-简单的开始"><a href="#1-3-简单的开始" class="headerlink" title="1.3 简单的开始"></a>1.3 简单的开始</h4><p>至少需要两个类：<code>Game</code>类和<code>DotCom</code>类。首先从一个简单版本开始。</p>
 <blockquote>
 <p>只使用一个横列作为棋盘(即一维数组)，并只设定一家达康公司。游戏目标依旧相同。</p>
 </blockquote>
 <p>要注意虚拟的横列是虚幻的，即并没有真正在程序中声明一个一维数组。只需要玩家和计算机直到有3个连续格子会出现在7格的横列中。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simple_sunk_site.PNG" alt="简单版游戏" /><figcaption aria-hidden="true">简单版游戏</figcaption>
-</figure>
-<h3 id="开发类">2 开发类</h3>
-<p>在创建Java程序时，主要依照以下过程：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/process_of_create_javaapp.PNG" alt="Java程序开发基本流程" /><figcaption aria-hidden="true">Java程序开发基本流程</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simple_sunk_site.PNG" alt="简单版游戏"></p>
+<h3 id="2-开发类"><a href="#2-开发类" class="headerlink" title="2 开发类"></a>2 开发类</h3><p>在创建Java程序时，主要依照以下过程：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/process_of_create_javaapp.PNG" alt="Java程序开发基本流程"></p>
 <blockquote>
 <p>最后一条是认真的吗</p>
 </blockquote>
 <p>我们会为每个类写出：<code>伪码(prep code)</code>、<code>测试码(test code)</code>和<code>真实码(real code)</code></p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/prepTestReal.PNG" alt="伪码、测试码和真实码" /><figcaption aria-hidden="true"><code>伪码</code>、<code>测试码</code>和<code>真实码</code></figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/prepTestReal.PNG" alt="`伪码`、`测试码`和`真实码`"></p>
 <blockquote>
 <p><strong>伪码</strong>：帮助我们专注于逻辑而无需考虑程序语法</p>
 <p><strong>测试码</strong>：测试用的程序代码</p>
 <p><strong>真实码</strong>：实际设计出的真正Java程序代码</p>
 </blockquote>
-<h4 id="simpledotcom类">2.1 <code>SimpleDotCom</code>类</h4>
-<h5 id="伪码">伪码</h5>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComPrep.PNG" alt="SimpleDotCom类伪码" /><figcaption aria-hidden="true"><code>SimpleDotCom</code>类伪码</figcaption>
-</figure>
+<h4 id="2-1-SimpleDotCom类"><a href="#2-1-SimpleDotCom类" class="headerlink" title="2.1 SimpleDotCom类"></a>2.1 <code>SimpleDotCom</code>类</h4><h5 id="伪码"><a href="#伪码" class="headerlink" title="伪码"></a>伪码</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComPrep.PNG" alt="`SimpleDotCom`类伪码"></p>
 <p>伪码介于Java程序和正常英语之间，大致包括3个部分：实例变量的声明、方法的声明和方法的逻辑。</p>
 <blockquote>
 <p>伪码最重要的部分是<strong>方法的逻辑</strong>。</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComPrepCode.PNG" alt="SimpleDotCom类伪码" /><figcaption aria-hidden="true"><code>SimpleDotCom</code>类伪码</figcaption>
-</figure>
-<h5 id="测试码">测试码</h5>
-<p>编写方法的实现部分，实现可用的方法程序代码。先编写测试用代码的概念来自于<code>极限编程(Extreme Programming, XP)</code>方法论，可以使我们更快更任意写出程序代码。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Extreme_Programming.PNG" alt="极限编程" /><figcaption aria-hidden="true">极限编程</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComPrepCode.PNG" alt="`SimpleDotCom`类伪码"></p>
+<h5 id="测试码"><a href="#测试码" class="headerlink" title="测试码"></a>测试码</h5><p>编写方法的实现部分，实现可用的方法程序代码。先编写测试用代码的概念来自于<code>极限编程(Extreme Programming, XP)</code>方法论，可以使我们更快更任意写出程序代码。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/Extreme_Programming.PNG" alt="极限编程"></p>
 <p>首先实现<code>SimpleDotCom</code>类中的方法，先实现<code>checkYourself()</code>这个方法。（至于<code>setLocationCells()</code>这个方法，可以很容易直到它是个<code>setter</code>方法）。首先要知道<code>checkYourself()</code>方法应该要测试的部分：</p>
 <blockquote>
-<ol type="1">
+<ol>
 <li><code>SimpleDotCom</code>对象的初始化；</li>
 <li>赋值位置(即一个<code>int</code>数组)；</li>
 <li>创建代表玩家猜测的字符串；</li>
@@ -420,18 +395,13 @@
 <p>思索与编写测试用的程序代码能够帮助我们了解被测试的应用程序应该要做哪些事情。当实作代码完成时，也可以有准备好地测试代码进行验证。</p>
 <p>理想上，先写出一点测试码，然后编写能够通过该测试的方法。之后再编写测试码，编写新的实现使其通过测试。如此循环，就可以证明新加入代码不会破坏原有已经测试过的部分。</p>
 </blockquote>
-<h5 id="真实码">真实码</h5>
-<p>从伪码到真正的Java程序代码之间，不会完美对应，需要有一些调整。下面使<code>checkYourself()</code>方法的实现代码：</p>
+<h5 id="真实码"><a href="#真实码" class="headerlink" title="真实码"></a>真实码</h5><p>从伪码到真正的Java程序代码之间，不会完美对应，需要有一些调整。下面使<code>checkYourself()</code>方法的实现代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleDotCom</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] locationCells;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> numOfHIts = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setLocationCells</span> <span class="params">(<span class="keyword">int</span>[] locations)</span> </span>&#123;</span><br><span class="line">        locationCells = locations;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">checkYourself</span><span class="params">(String userGuess)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> guess = Integer.parseInt(userGuess); <span class="comment">// 字符串转int</span></span><br><span class="line">        String result = <span class="string">"miss"</span>; <span class="comment">// 创建保存返回结果的变量, 以miss作为默认值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> cell: locationCells) &#123; <span class="comment">// 对每个格子重复执行</span></span><br><span class="line">            <span class="keyword">if</span> (guess == cell) &#123; <span class="comment">// 比较格子与猜测值</span></span><br><span class="line">                result = <span class="string">"hit"</span>; <span class="comment">// 命中</span></span><br><span class="line">                numOfHIts++;</span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">// 离开循环</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (numOfHIts == locationCells.length) &#123; <span class="comment">// 判断是否击沉</span></span><br><span class="line">            result = <span class="string">"kill"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(result); <span class="comment">// 显式结果</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result; <span class="comment">// 返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="simpledotcomgame类">2.2 <code>SimpleDotComGame</code>类</h4>
-<h5 id="伪码-1">伪码</h5>
-<p><code>SimpleDotComGame</code>类伪码如下：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComGamePrepCode.PNG" alt="SimpleDotComGame类伪码" /><figcaption aria-hidden="true"><code>SimpleDotComGame</code>类伪码</figcaption>
-</figure>
+<h4 id="2-2-SimpleDotComGame类"><a href="#2-2-SimpleDotComGame类" class="headerlink" title="2.2 SimpleDotComGame类"></a>2.2 <code>SimpleDotComGame</code>类</h4><h5 id="伪码-1"><a href="#伪码-1" class="headerlink" title="伪码"></a>伪码</h5><p><code>SimpleDotComGame</code>类伪码如下：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/simpleDotComGamePrepCode.PNG" alt="`SimpleDotComGame`类伪码"></p>
 <p><code>SimpleDotComGame</code>类需要有以下功能：</p>
 <blockquote>
-<ol type="1">
+<ol>
 <li>创建出<code>SimpleDotCom</code>对象</li>
 <li>初始化赋值该对象</li>
 <li>要求玩家开始猜测</li>
@@ -440,36 +410,25 @@
 <li>显示玩家猜测次数</li>
 </ol>
 </blockquote>
-<h5 id="真实码-1">真实码</h5>
-<p>这里跳过了这个类的测试程序，因为次游戏测试程序只有一个<code>main</code>方法。其代码如下：</p>
+<h5 id="真实码-1"><a href="#真实码-1" class="headerlink" title="真实码"></a>真实码</h5><p>这里跳过了这个类的测试程序，因为次游戏测试程序只有一个<code>main</code>方法。其代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleDotComGame</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> numOfGuesses = <span class="number">0</span>; <span class="comment">// 记录玩家猜测次数</span></span><br><span class="line">        GameHelper helper = <span class="keyword">new</span> GameHelper(); <span class="comment">// 使用该类来获取玩家输入</span></span><br><span class="line"></span><br><span class="line">        SimpleDotCom theDotCom = <span class="keyword">new</span> SimpleDotCom();</span><br><span class="line">        <span class="keyword">int</span> randomNum = (<span class="keyword">int</span>) (Math.random() * <span class="number">5</span>); <span class="comment">// 随机数用作第一格的位置</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] locations = &#123;randomNum, randomNum+<span class="number">1</span>, randomNum+<span class="number">2</span>&#125;;</span><br><span class="line">        theDotCom.setLocationCells(locations);</span><br><span class="line">        <span class="keyword">boolean</span> isAlive = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(isAlive) &#123;</span><br><span class="line">            String guess = helper.getUserInput(<span class="string">"enter a guess number"</span>);</span><br><span class="line">            String result = theDotCom.checkYourself(guess);</span><br><span class="line">            numOfGuesses++;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (result.equals(<span class="string">"kill"</span>)) &#123;</span><br><span class="line">                isAlive = <span class="keyword">false</span>;</span><br><span class="line">                System.out.println(<span class="string">"You took "</span> + numOfGuesses + <span class="string">" guesses!"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其中有一个带有<code>getUserInput</code>方法的类<code>GameHelper</code>。它可以从命令行获取输入，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameHelper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUserInput</span><span class="params">(String prompt)</span> </span>&#123;</span><br><span class="line">        String inputLine = <span class="keyword">null</span>;</span><br><span class="line">        System.out.println(prompt + <span class="string">"  "</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BufferedReader is = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                <span class="keyword">new</span> InputStreamReader(System.in)</span><br><span class="line">            );</span><br><span class="line">            inputLine = is.readLine();</span><br><span class="line">            <span class="keyword">if</span> (inputLine.length() == <span class="number">0</span> ) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"IOException: "</span> + e);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> inputLine;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="要点">2.3 要点</h4>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/keyPointOfChapter5.PNG" alt="要点" /><figcaption aria-hidden="true">要点</figcaption>
-</figure>
-<h3 id="关于for循环">3. 关于<code>for</code>循环</h3>
-<h4 id="基本的for循环">3.1 基本的<code>for</code>循环</h4>
-<p>一个基本的<code>for</code>循环如下：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/regularForLoops.PNG" alt="基本的for循环" /><figcaption aria-hidden="true">基本的<code>for</code>循环</figcaption>
-</figure>
+<h4 id="2-3-要点"><a href="#2-3-要点" class="headerlink" title="2.3 要点"></a>2.3 要点</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/keyPointOfChapter5.PNG" alt="要点"></p>
+<h3 id="3-关于for循环"><a href="#3-关于for循环" class="headerlink" title="3. 关于for循环"></a>3. 关于<code>for</code>循环</h3><h4 id="3-1-基本的for循环"><a href="#3-1-基本的for循环" class="headerlink" title="3.1 基本的for循环"></a>3.1 基本的<code>for</code>循环</h4><p>一个基本的<code>for</code>循环如下：</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/regularForLoops.PNG" alt="基本的`for`循环"></p>
 <p>即重复执行代码100次，编译器解释为:</p>
 <blockquote>
-<ol type="1">
+<ol>
 <li>创建变量<code>i</code>并赋值为<code>0</code>；</li>
 <li>只要<code>i</code>小于<code>100</code>就重复执行；</li>
 <li>每次重复过程最后把<code>i</code>加<code>1</code>。</li>
 </ol>
 </blockquote>
 <p>主要分为三个部分：</p>
-<h5 id="第一部分初始化initialization">第一部分：初始化(initialization)</h5>
-<p>声明和初始化在循环体内的变量，通常将该变量作为<code>计数器</code>。</p>
-<h5 id="第二部分boolean测试boolean-test">第二部分：boolean测试(boolean test)</h5>
-<p>测试条件计算出一个<code>boolean</code>值。可以使boolean表达式，或返回boolean值的方法。</p>
-<h5 id="第三部分重复表达式-iteration-expression">第三部分：重复表达式( iteration expression)</h5>
-<p>安置每趟循环完成后要执行的项目。</p>
+<h5 id="第一部分：初始化-initialization"><a href="#第一部分：初始化-initialization" class="headerlink" title="第一部分：初始化(initialization)"></a>第一部分：初始化(initialization)</h5><p>声明和初始化在循环体内的变量，通常将该变量作为<code>计数器</code>。</p>
+<h5 id="第二部分：boolean测试-boolean-test"><a href="#第二部分：boolean测试-boolean-test" class="headerlink" title="第二部分：boolean测试(boolean test)"></a>第二部分：boolean测试(boolean test)</h5><p>测试条件计算出一个<code>boolean</code>值。可以使boolean表达式，或返回boolean值的方法。</p>
+<h5 id="第三部分：重复表达式-iteration-expression"><a href="#第三部分：重复表达式-iteration-expression" class="headerlink" title="第三部分：重复表达式( iteration expression)"></a>第三部分：重复表达式( iteration expression)</h5><p>安置每趟循环完成后要执行的项目。</p>
 <blockquote>
 <p><code>whlie</code>循环与<code>for</code>循环的区别是，<code>while</code>循环只有<code>boolean</code>测试，它并没有内建的初始化或重复表达式。</p>
 <ul>
@@ -478,17 +437,12 @@
 </ul>
 </blockquote>
 <p>此外，这里可以说明一下前置与后置的递增/递减操作符：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/IncrementDecrementOperator.PNG" alt="基本的for循环" /><figcaption aria-hidden="true">基本的<code>for</code>循环</figcaption>
-</figure>
-<h4 id="加强版的for循环">3.2 加强版的<code>for</code>循环</h4>
-<p>从<code>Java 5.0</code>开始，有加强版的<code>for</code>循环，可以逐个运行数组或其他集合的元素。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/enhancedforloop.PNG" alt="加强版的for循环" /><figcaption aria-hidden="true">加强版的<code>for</code>循环</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/IncrementDecrementOperator.PNG" alt="基本的`for`循环"></p>
+<h4 id="3-2-加强版的for循环"><a href="#3-2-加强版的for循环" class="headerlink" title="3.2 加强版的for循环"></a>3.2 加强版的<code>for</code>循环</h4><p>从<code>Java 5.0</code>开始，有加强版的<code>for</code>循环，可以逐个运行数组或其他集合的元素。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/enhancedforloop.PNG" alt="加强版的`for`循环"></p>
 <p>即对<code>nameArray</code>中每个元素执行一次，编译器解释为:</p>
 <blockquote>
-<ol type="1">
+<ol>
 <li>创建名称为<code>name</code>的<code>String</code>变量；</li>
 <li>将<code>nameArray</code>的第一个元素赋值给<code>name</code>；</li>
 <li>执行重复内容；</li>
@@ -497,10 +451,8 @@
 </ol>
 </blockquote>
 <p>主要分为两个部分：</p>
-<h5 id="第一部分声明循环变量iteration-variable-declaration">第一部分：声明循环变量(iteration variable declaration)</h5>
-<p>声明和初始化用在循环体内的变量，循环过程中该变量的值会不断变化。此变量的类型需要与数组元素类型匹配。</p>
-<h5 id="第二部分要运行的集合the-actual-collection">第二部分：要运行的集合(the actual collection)</h5>
-<p>必须是对数组或其他集合的引用。</p>
+<h5 id="第一部分：声明循环变量-iteration-variable-declaration"><a href="#第一部分：声明循环变量-iteration-variable-declaration" class="headerlink" title="第一部分：声明循环变量(iteration variable declaration)"></a>第一部分：声明循环变量(iteration variable declaration)</h5><p>声明和初始化用在循环体内的变量，循环过程中该变量的值会不断变化。此变量的类型需要与数组元素类型匹配。</p>
+<h5 id="第二部分：要运行的集合-the-actual-collection"><a href="#第二部分：要运行的集合-the-actual-collection" class="headerlink" title="第二部分：要运行的集合(the actual collection)"></a>第二部分：要运行的集合(the actual collection)</h5><p>必须是对数组或其他集合的引用。</p>
 
     </div>
 
@@ -568,7 +520,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个类似战舰的游戏攻击达康"><span class="nav-number">2.</span> <span class="nav-text">1. 创建一个类似战舰的游戏：攻击达康</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">1.1. 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顶层设计"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 顶层设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的开始"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 简单的开始</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发类"><span class="nav-number">3.</span> <span class="nav-text">2 开发类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#simpledotcom类"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 SimpleDotCom类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪码"><span class="nav-number">3.1.1.</span> <span class="nav-text">伪码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试码"><span class="nav-number">3.1.2.</span> <span class="nav-text">测试码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#真实码"><span class="nav-number">3.1.3.</span> <span class="nav-text">真实码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simpledotcomgame类"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 SimpleDotComGame类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪码-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">伪码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#真实码-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">真实码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#要点"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 要点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于for循环"><span class="nav-number">4.</span> <span class="nav-text">3. 关于for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本的for循环"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 基本的for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一部分初始化initialization"><span class="nav-number">4.1.1.</span> <span class="nav-text">第一部分：初始化(initialization)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二部分boolean测试boolean-test"><span class="nav-number">4.1.2.</span> <span class="nav-text">第二部分：boolean测试(boolean test)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三部分重复表达式-iteration-expression"><span class="nav-number">4.1.3.</span> <span class="nav-text">第三部分：重复表达式( iteration expression)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加强版的for循环"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 加强版的for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一部分声明循环变量iteration-variable-declaration"><span class="nav-number">4.2.1.</span> <span class="nav-text">第一部分：声明循环变量(iteration variable declaration)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二部分要运行的集合the-actual-collection"><span class="nav-number">4.2.2.</span> <span class="nav-text">第二部分：要运行的集合(the actual collection)</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建一个类似战舰的游戏：攻击达康"><span class="nav-number">2.</span> <span class="nav-text">1. 创建一个类似战舰的游戏：攻击达康</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-简介"><span class="nav-number">2.1.</span> <span class="nav-text">1.1. 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-顶层设计"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 顶层设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-简单的开始"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 简单的开始</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-开发类"><span class="nav-number">3.</span> <span class="nav-text">2 开发类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-SimpleDotCom类"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 SimpleDotCom类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪码"><span class="nav-number">3.1.1.</span> <span class="nav-text">伪码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试码"><span class="nav-number">3.1.2.</span> <span class="nav-text">测试码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#真实码"><span class="nav-number">3.1.3.</span> <span class="nav-text">真实码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-SimpleDotComGame类"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 SimpleDotComGame类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#伪码-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">伪码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#真实码-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">真实码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-要点"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 要点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-关于for循环"><span class="nav-number">4.</span> <span class="nav-text">3. 关于for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-基本的for循环"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 基本的for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一部分：初始化-initialization"><span class="nav-number">4.1.1.</span> <span class="nav-text">第一部分：初始化(initialization)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二部分：boolean测试-boolean-test"><span class="nav-number">4.1.2.</span> <span class="nav-text">第二部分：boolean测试(boolean test)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三部分：重复表达式-iteration-expression"><span class="nav-number">4.1.3.</span> <span class="nav-text">第三部分：重复表达式( iteration expression)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-加强版的for循环"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 加强版的for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一部分：声明循环变量-iteration-variable-declaration"><span class="nav-number">4.2.1.</span> <span class="nav-text">第一部分：声明循环变量(iteration variable declaration)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二部分：要运行的集合-the-actual-collection"><span class="nav-number">4.2.2.</span> <span class="nav-text">第二部分：要运行的集合(the actual collection)</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -584,7 +536,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -645,13 +597,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 Git 是一个&quot;版本控制&quot;工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过&quot;读档&quot;回退到以前的状态。">
+  <meta name="description" content="前言Git 是一个”版本控制”工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过”读档”回退到以前的状态。">
 <meta name="keywords" content="Git,学习记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git学习--基础">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;23&#x2F;Git-learning-foundation.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 Git 是一个&quot;版本控制&quot;工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过&quot;读档&quot;回退到以前的状态。">
+<meta property="og:description" content="前言Git 是一个”版本控制”工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过”读档”回退到以前的状态。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-23T12:17:31.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,24 +309,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<p><code>Git</code> 是一个"版本控制"工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过"读档"回退到以前的状态。 <a id="more"></a> Git 是<strong>分布式版本控制系统</strong>, 每个项目协作者电脑里都有完整的版本库, 完成修改后, 只需把各自的修改推送给其他人就可以让别人看见自己的修改, 也有充当“中央服务器”的电脑方便“交换”大家的修改。</p>
-<p>这里版本库又名仓库，即<em>repository</em>，可以简单理解成一个目录，这个目录里面的所有文件都可以被<code>Git</code>管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以"还原"。</p>
-<h3 id="git-配置">Git 配置</h3>
-<p>安装 Git 之后, 使用之前需要先进行一些配置, 主要进行如下配置: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Zhang San&quot;            # your name</span><br><span class="line">$ git config --global user.email &quot;zhangsan@foo.com&quot;    # your email</span><br><span class="line">$ git config --global core.editor vim                  # your favourite editor</span><br><span class="line">$ git config --global color.ui true                    # your git color</span><br></pre></td></tr></table></figure> 前两个命令设置基本的用户信息, <code>core.editor</code>可以设置自己喜欢的文本编辑器, <code>color.ui</code> 能为输出到你终端的内容着色，以便你可以凭直观进行快速、简单地分析</p>
-<h3 id="快速使用">快速使用</h3>
-<h4 id="初始化">初始化</h4>
-<p>现在可以开始用<code>Git</code>来管理代码了。首先需要将项目的目录初始化为Git可以管理的仓库, 切换到实验/项目的目录中, 然后输入: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init    # 初始化仓库</span><br></pre></td></tr></table></figure> 我们通过 git clone 命令下载项目, 里面已经包含一些 git 记录, 因此不需要额外进行初始化。</p>
-<h4 id="查看版本信息">查看版本信息</h4>
-<p>主要使用以下两条命令查看版本信息： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git log        # 查看目前为止所有的存档.</span><br><span class="line">$ git status     # 查看与当前存档相比, 哪些文件发生了变化</span><br></pre></td></tr></table></figure></p>
-<h4 id="存档">存档</h4>
-<p>首先你需要使用 git status 查看是否有新的文件或已修改的文件未被跟踪, 可以使用以下命令将修改的文件加入跟踪列表 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add file.c    # 将文件 file.c 加入跟踪列表</span><br></pre></td></tr></table></figure> 如果需要一次添加所有未被跟踪的文件, 也可以使用 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .     # 把工作时的所有变化提交到暂存区, 包括文件内容修改(modified)以及新文件(new), 但不包括被删除的文件</span><br><span class="line">$ git add -u    # 仅监控已经被add的文件(即tracked file), 他会将被修改的文件提交到暂存区。(git add --update的缩写)</span><br><span class="line">$ git add -A    # 是上面两个功能的合集(git add --all的缩写), 提交所有变化</span><br></pre></td></tr></table></figure> 可以通过编辑 <code>.gitignore</code> 文件, 在里面给出需要被 git 忽略的文件和文件类型从而筛选文件。新文件加入跟踪列表, 确认无误后就可以存档了: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit    # 提交工程当前的状态</span><br></pre></td></tr></table></figure> 执行这条命令后, 需要添加本次存档的注释, 可以根据这些注释来区别和寻找不同的存档。</p>
-<h4 id="读档">读档</h4>
-<p>首先使用 git log 来查看已有的存档, 并通过存档的 <code>hash code</code> 来回到过去。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;code&gt;</span><br></pre></td></tr></table></figure> <code>hard</code>模式会把你工作目录中所有未提交的内容清空, 所以需要慎用。</p>
-<h4 id="分支功能">分支功能</h4>
-<p>这就是 <code>Git</code> 的分支功能可以让我们创建不同的世界线, 即在一个时刻, 我们可以做出不同的选择, 使得多个"平行宇宙"并行存在: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch    # 查看所有分支</span><br></pre></td></tr></table></figure> 使用 <code>git init</code> 初始化之后会自动建立主分支 <code>master</code>。可以用以下命令创建一个新的分支: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;分支名&gt;    # 创建并切换分支</span><br></pre></td></tr></table></figure> 我们可以将新分支上的修改合并到主分支上： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;分支名&gt;    # 合并指定分支到当前分支</span><br></pre></td></tr></table></figure></p>
-<h3 id="参考文献">参考文献</h3>
-<blockquote>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>Git</code> 是一个”版本控制”工具, 可以用来管理我们的代码。简单来说, 就是可以像玩游戏一样, 给一定时间的代码存档, 以后就可以通过”读档”回退到以前的状态。<br><a id="more"></a><br>Git 是<strong>分布式版本控制系统</strong>, 每个项目协作者电脑里都有完整的版本库, 完成修改后, 只需把各自的修改推送给其他人就可以让别人看见自己的修改, 也有充当“中央服务器”的电脑方便“交换”大家的修改。</p>
+<p>这里版本库又名仓库，即<em>repository</em>，可以简单理解成一个目录，这个目录里面的所有文件都可以被<code>Git</code>管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以”还原”。</p>
+<h3 id="Git-配置"><a href="#Git-配置" class="headerlink" title="Git 配置"></a>Git 配置</h3><p>安装 Git 之后, 使用之前需要先进行一些配置, 主要进行如下配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Zhang San&quot;            # your name</span><br><span class="line">$ git config --global user.email &quot;zhangsan@foo.com&quot;    # your email</span><br><span class="line">$ git config --global core.editor vim                  # your favourite editor</span><br><span class="line">$ git config --global color.ui true                    # your git color</span><br></pre></td></tr></table></figure><br>前两个命令设置基本的用户信息, <code>core.editor</code>可以设置自己喜欢的文本编辑器, <code>color.ui</code> 能为输出到你终端的内容着色，以便你可以凭直观进行快速、简单地分析</p>
+<h3 id="快速使用"><a href="#快速使用" class="headerlink" title="快速使用"></a>快速使用</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>现在可以开始用<code>Git</code>来管理代码了。首先需要将项目的目录初始化为Git可以管理的仓库, 切换到实验/项目的目录中, 然后输入:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init    # 初始化仓库</span><br></pre></td></tr></table></figure><br>我们通过 git clone 命令下载项目, 里面已经包含一些 git 记录, 因此不需要额外进行初始化。</p>
+<h4 id="查看版本信息"><a href="#查看版本信息" class="headerlink" title="查看版本信息"></a>查看版本信息</h4><p>主要使用以下两条命令查看版本信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git log        # 查看目前为止所有的存档.</span><br><span class="line">$ git status     # 查看与当前存档相比, 哪些文件发生了变化</span><br></pre></td></tr></table></figure></p>
+<h4 id="存档"><a href="#存档" class="headerlink" title="存档"></a>存档</h4><p>首先你需要使用 git status 查看是否有新的文件或已修改的文件未被跟踪, 可以使用以下命令将修改的文件加入跟踪列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add file.c    # 将文件 file.c 加入跟踪列表</span><br></pre></td></tr></table></figure><br>如果需要一次添加所有未被跟踪的文件, 也可以使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .     # 把工作时的所有变化提交到暂存区, 包括文件内容修改(modified)以及新文件(new), 但不包括被删除的文件</span><br><span class="line">$ git add -u    # 仅监控已经被add的文件(即tracked file), 他会将被修改的文件提交到暂存区。(git add --update的缩写)</span><br><span class="line">$ git add -A    # 是上面两个功能的合集(git add --all的缩写), 提交所有变化</span><br></pre></td></tr></table></figure><br>可以通过编辑 <code>.gitignore</code> 文件, 在里面给出需要被 git 忽略的文件和文件类型从而筛选文件。新文件加入跟踪列表, 确认无误后就可以存档了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit    # 提交工程当前的状态</span><br></pre></td></tr></table></figure><br>执行这条命令后, 需要添加本次存档的注释, 可以根据这些注释来区别和寻找不同的存档。</p>
+<h4 id="读档"><a href="#读档" class="headerlink" title="读档"></a>读档</h4><p>首先使用 git log 来查看已有的存档, 并通过存档的 <code>hash code</code> 来回到过去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard &lt;code&gt;</span><br></pre></td></tr></table></figure><br><code>hard</code>模式会把你工作目录中所有未提交的内容清空, 所以需要慎用。</p>
+<h4 id="分支功能"><a href="#分支功能" class="headerlink" title="分支功能"></a>分支功能</h4><p>这就是 <code>Git</code> 的分支功能可以让我们创建不同的世界线, 即在一个时刻, 我们可以做出不同的选择, 使得多个”平行宇宙”并行存在:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch    # 查看所有分支</span><br></pre></td></tr></table></figure><br>使用 <code>git init</code> 初始化之后会自动建立主分支 <code>master</code>。可以用以下命令创建一个新的分支:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b &lt;分支名&gt;    # 创建并切换分支</span><br></pre></td></tr></table></figure><br>我们可以将新分支上的修改合并到主分支上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;分支名&gt;    # 合并指定分支到当前分支</span><br></pre></td></tr></table></figure></p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><blockquote>
 <ul>
 <li><a href="https://nju-projectn.github.io/ics-pa-gitbook/ics2019/git.html" target="_blank" rel="noopener">git快速入门</a></li>
 <li><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></li>
@@ -400,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-配置"><span class="nav-number">2.</span> <span class="nav-text">Git 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速使用"><span class="nav-number">3.</span> <span class="nav-text">快速使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看版本信息"><span class="nav-number">3.2.</span> <span class="nav-text">查看版本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存档"><span class="nav-number">3.3.</span> <span class="nav-text">存档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读档"><span class="nav-number">3.4.</span> <span class="nav-text">读档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支功能"><span class="nav-number">3.5.</span> <span class="nav-text">分支功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-配置"><span class="nav-number">2.</span> <span class="nav-text">Git 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速使用"><span class="nav-number">3.</span> <span class="nav-text">快速使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">3.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看版本信息"><span class="nav-number">3.2.</span> <span class="nav-text">查看版本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存档"><span class="nav-number">3.3.</span> <span class="nav-text">存档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读档"><span class="nav-number">3.4.</span> <span class="nav-text">读档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支功能"><span class="nav-number">3.5.</span> <span class="nav-text">分支功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -416,7 +407,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -477,13 +468,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

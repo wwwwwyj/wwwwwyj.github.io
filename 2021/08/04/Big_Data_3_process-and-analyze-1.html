@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+  <link rel="alternate" href="/atom.xml" title="WuYJ's Blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="5Qe7cJKUxVbZsElTq6w1brLkQhcYBQXjnRmvHbU4JKo">
+  <meta name="baidu-site-verification" content="code-oJllhY8gxe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+  <meta name="description" content="简介介绍大数据处理与分析相关技术的概念与原理。">
+<meta name="keywords" content="大数据,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[大数据技术原理|第三篇 大数据处理与分析(1)]">
+<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;08&#x2F;04&#x2F;Big_Data_3_process-and-analyze-1.html">
+<meta property="og:site_name" content="WuYJ&#39;s Blog">
+<meta property="og:description" content="简介介绍大数据处理与分析相关技术的概念与原理。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;MapReduce.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;MapReduceStage.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;MapReduceStructure.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;YARNDesign.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;YARNStructure.PNG">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;YARNWorkFlow.PNG">
+<meta property="og:updated_time" content="2021-08-04T02:04:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;MapReduce.PNG">
+
+<link rel="canonical" href="https://wuyunjie.top/2021/08/04/Big_Data_3_process-and-analyze-1.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[大数据技术原理|第三篇 大数据处理与分析(1)] | WuYJ's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WuYJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">wuyunjie的小站</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/08/04/Big_Data_3_process-and-analyze-1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [大数据技术原理|第三篇 大数据处理与分析(1)]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-04 10:04:54" itemprop="dateCreated datePublished" datetime="2021-08-04T10:04:54+08:00">2021-08-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/08/04/Big_Data_3_process-and-analyze-1.html" class="post-meta-item leancloud_visitors" data-flag-title="[大数据技术原理|第三篇 大数据处理与分析(1)]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/04/Big_Data_3_process-and-analyze-1.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/04/Big_Data_3_process-and-analyze-1.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>介绍大数据处理与分析相关技术的概念与原理。</p>
+<a id="more"></a>
+<h3 id="1-MapReduce"><a href="#1-MapReduce" class="headerlink" title="1. MapReduce"></a>1. MapReduce</h3><h4 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h4><h5 id="1-1-1-简介"><a href="#1-1-1-简介" class="headerlink" title="1.1.1 简介"></a>1.1.1 简介</h5><p>分布式并行程序可以运行在由大量计算机构成的集群上，从而可以充分利用集群的并行处理能力，同时通过向集群中增加新的计算节点，就可以很容易地实现集群计算能力的扩充。</p>
+<p>在<code>MapReduce</code>中，一个存储在分布式文件系统中的大规模数据集会被切分成许多<strong><u>独立的小数据块</u></strong>，这些小数据块可以被多个<code>Map</code>任务并行处理。<code>MapReduce</code>框架会为每个<code>Map</code>任务输入一个数据子集，<code>Map</code>任务生成的结果会继续作为 <code>Reduce</code>任务的输入，最终由<code>Reduce</code>任务输出最后结果，并写入分布式文件系统。</p>
+<p>适合用<code>MapReduce</code>来处理的数据集需要满足一个前提条件：<strong><u>待处理的数据集可以分解成许多小的数据集，而且每一个小数据集都可以完全并行地进行处理</u></strong>。</p>
+<p><code>MapReduce</code>设计的一个理念就是<code>“计算向数据靠拢”</code>，因为移动数据需要大量的网络传输开销，所以移动计算要比移动数据更加经济。在一个集群中，只要有可能，<code>MapReduce</code>框架就会将<code>Map</code>程序就近地在<code>HDFS</code>数据所在的节点运行，即<u><strong>将计算节点和存储节点放在一起运行，从而减少了节点间的数据移动开销</strong></u>。</p>
+<h5 id="1-1-2-Map和Reduce函数"><a href="#1-1-2-Map和Reduce函数" class="headerlink" title="1.1.2 Map和Reduce函数"></a>1.1.2 Map和Reduce函数</h5><p><code>MapReduce</code>模型的核心是<code>Map</code>函数和<code>Reduce</code>函数，二者都是由应用程序开发者负责具体实现的，程序员只要关注如何实现<code>Map</code>和<code>Reduce</code>函数而不需要处理并行编程中的其他各种复杂问题，如分布式存储、工作调度、负载均衡、容错处理、网络通信等，这些问题都会由<code>MapReduce</code>框架负责处理。</p>
+<p><code>Map</code>函数和<code>Reduce</code>函数都是以<code>&lt;key, value&gt;</code>作为输入，按一定的映射规则转换成另一个或一批<code>&lt;key, value&gt;</code>进行输出。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">输入</th>
+<th style="text-align:center">输出</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Map</td>
+<td style="text-align:center">$<k_1, v_1>$</td>
+<td style="text-align:center">$List(<k_2,v_2>)$</td>
+<td style="text-align:left">1. 将小数据集进一步解析成一批<code>&lt;key, value&gt;</code>对，输入<code>Map</code>函数中进行处理；<br />2. 每一个输入的$<k_1,v_1>$​会输出一批$<k_2,v_2>$​，$<k_2, v_2>$​是计算的中间结果</td>
+</tr>
+<tr>
+<td style="text-align:center">Reduce</td>
+<td style="text-align:center">$<k_2,List(v_2)>$</td>
+<td style="text-align:center">$<k_3,v_3>$</td>
+<td style="text-align:left">输入的中间结果$<k_2，List(v_2)>$中的$List(v_2)$表示是一批属于同一个$k_2$的$value$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>Map</code>函数的输入来自于分布式文件系统的<strong><u>文件块</u></strong>，这些文件块的格式是任意的。文件块是一系列元素的集合，这些元素也是任意类型的，<strong><u>同一个元素不能跨文件块存储</u></strong>。<code>Map</code>函数将输入的元素转换成<code>&lt;key, value&gt;</code>形式的键值对，键和值的类型也是任意的。键没有唯一性，不能作为输出的身份标识，即使是同一输入元素，也可通过一个<code>Map</code>任务生成具有相同键的多个<code>&lt;key,vaue&gt;</code>。</li>
+<li><code>Reduce</code>函数的任务就是将输入的一系列具有相同键的键值对以某种方式组合起来，输出处理后的键值对，输出结果会合并成一个文件。用户可以指定<code>Reduce</code>任务的个数，并通知实现系统，然后主控进程通常会选择一个<code>Hash</code>函数，<code>Map</code>任务输出的每个键都会经过<code>Hash</code>函数计算，并根据哈希结果将该键值对输入相应的<code>Reduce</code>任务来处理。</li>
+</ul>
+<h4 id="1-2-MapReduce的工作流程"><a href="#1-2-MapReduce的工作流程" class="headerlink" title="1.2 MapReduce的工作流程"></a>1.2 MapReduce的工作流程</h4><h5 id="1-2-1-工作流程概述"><a href="#1-2-1-工作流程概述" class="headerlink" title="1.2.1 工作流程概述"></a>1.2.1 工作流程概述</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/MapReduce.PNG" alt="MapReduce"></p>
+<p><code>MapReduce</code>的核心思想可以用<code>“分而治之”</code>来描述，即把一个大的数据集拆分成多个小数据块在多台机器上并行处理。</p>
+<ul>
+<li>一个大的<code>MapReduce</code>作业，首先会被拆分成许多个<code>Map</code>任务在多台机器上并行执行，每个<code>Map</code>任务通常运行在数据存储的节点上，计算和数据就可以放在一起运行，不需要额外的数据传输开销。</li>
+<li>当<code>Map</code>任务结束后，会生成以<code>&lt;key,vaue&gt;</code>形式表示的许多中间结果。这些中间结果会被分发到多个<code>Reduce</code>任务在多台机器上并行执行，具有相同<code>key</code>的<code>&lt;key, value&gt;</code>会被发送到同一个<code>Reduce</code>任务，<code>Reduce</code>任务会对中间结果进行汇总计算得到最后结果，并输出到分布式文件系统中。</li>
+</ul>
+<p>不同的<code>Map</code>任务之间不会进行通信，不同的<code>Reduce</code>任务之间也不会发生任何信息交换；用户不能显式地从一台机器向另一台机器发送消息，所有的数据交换都是通过<code>MapReduce</code>框架自身去实现的。</p>
+<p><code>Map</code>任务的输入文件、<code>Reduce</code>任务的处理结果<strong><u>都是保存在分布式文件系统中的</u></strong>，而<code>Map</code>任务处理得到的<strong><u>中间结果则保存在本地有储中</u></strong>。只有当<code>Map</code>处理全部结束后，<code>Reduce</code>过程才能开始。</p>
+<h5 id="1-2-2-MapReduce的各个执行阶段"><a href="#1-2-2-MapReduce的各个执行阶段" class="headerlink" title="1.2.2 MapReduce的各个执行阶段"></a>1.2.2 MapReduce的各个执行阶段</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/MapReduceStage.PNG" alt="MapReduce的各个执行阶段"></p>
+<p><code>MapReduce</code>算法的执行过程。</p>
+<ol>
+<li><code>MapReduce</code>框架使用<code>InputFormat</code>模块做<code>Map</code>前的<strong><u>预处理</u></strong>，比如验证输入的格式是否符合输入定义；然后，将输入文件切分为逻辑上的多个<code>InputSplit</code><ul>
+<li><strong><u><code>InputSplit</code>是<code>MapReduce</code>对文件进行处理和运算的输入单位</u></strong>，只是一个逻辑概念，每个<code>InputSplit</code>并没有对文件进行实际切割，只是记录了要处理的数据的位置和长度。</li>
+</ul>
+</li>
+<li>通过<code>RecordReader（RR）</code>根据<code>Inputsplit</code>中的信息来处理<code>InputSplit</code>中的具体记录，加载数据并转换为适合<code>Map</code>任务读取的键值对，输入给Map任务。</li>
+<li><code>Map</code>任务会根据用户自定义的映射规则，输出一系列的<code>&lt;key, value&gt;</code>作为中间结果。</li>
+<li>对<code>Map</code>的输出进行一定的<code>分区（Portation）</code>、<code>排序（Sort）</code>、<code>合并（Combine）</code>、<code>归并（Merge）</code>等操作，得到<code>&lt;key, value-list&gt;</code>形式的中间结果，再交给对应的<code>Reduce</code>进行处理，这个过程称为<code>Shuffle</code>。从无序的<code>&lt; key, value&gt;</code>到有序的<code>&lt;key value-list&gt;</code>。</li>
+<li><code>Reduce</code>以一系列<code>&lt;key, value-list&gt;</code>中间结果作为输入，执行用户定义的逻辑，输出结果给<code>OutputFormat</code>模块。</li>
+<li><code>OutputFormat</code>模块验证输出目录是否已经存在以及输出结果类型是否符合配置文件中的配置类型，如果都满足，就输出<code>Reduce</code>的结果到分布式文件系统。</li>
+</ol>
+<h5 id="1-2-3-Shuffle过程"><a href="#1-2-3-Shuffle过程" class="headerlink" title="1.2.3 Shuffle过程"></a>1.2.3 Shuffle过程</h5><h6 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h6><p><code>Shuffle</code>，是指对<code>Map</code>输出结果进行<strong>分区、排序、合并</strong>等处理并交绐<code>Reduce</code>的过程。</p>
+<h6 id="2-Map端的Shuffle过程"><a href="#2-Map端的Shuffle过程" class="headerlink" title="2. Map端的Shuffle过程"></a>2. Map端的Shuffle过程</h6><p><code>Map</code>的输出结果首先被写入缓存，当缓存满时启动溢写操作，把缓存中的数据写人磁盘文件，并清空缓存。当启动溢写操作时，首先需要把缓存中的数据进行分区，然后对每个分区的数据进行<code>排序（Sort）</code>和<code>合并（Combine）</code>，之后再写入磁盘文件。每次溢写操作会生成一个新的磁盘文件，在<code>Map</code>任务全部结束之前，这些溢写文件会被<code>归并（Merge）</code>成一个大的磁盘文件，然后通知相应的<code>Reduce</code>任务来领取属于自己处理的数据。</p>
+<ol>
+<li><p>输入数据和执行<code>Map</code>任务</p>
+<p><code>Map</code>任务的输入数据一般保存在分布式文件系统的文件块中。<code>Map</code>任务接受<code>&lt;key, vale&gt;</code>作为输入后，按一定的映射规则转换成一批<code>&lt;key, value&gt;</code>进行输出。</p>
+</li>
+</ol>
+<ol>
+<li><p>写入缓存</p>
+<p>每个<code>Map</code>任务都会被分配一个缓存，<strong><u><code>Map</code>的输出结果不是立即写入磁盘，而是首先写入缓存</u></strong>。在缓存中积累一定数量的<code>Map</code>输出结果以后，再一次性批量写入磁盘。</p>
+</li>
+</ol>
+<ol>
+<li><p>溢写（分区、排序和合并）</p>
+<ul>
+<li><p><code>Map</code>任务结果占满缓存后，必须启动<code>溢写（Spill）</code>操作，把缓存中的内容一次性写入磁盘，并清空缓存。溢写的过程通常是由另外一个单独的后台线程来完成的，不会影响<code>Map</code>结果往缓存写入，为了保证<code>Map</code>结果能够不停地持续写入缓存，不受溢写过程的影响，就必须让缓存中一直有可用的空间，不能等到全部占满才启动溢写过程，一般会设置一个<strong><u>溢写比例</u></strong>。</p>
+</li>
+<li><p>在溢写到磁盘之前，缓存中的数据首先会被<code>分区（Partition）</code>。<code>MapReduce</code>通过<code>Partitioner</code>接口对这些键值对进行分区，默认采用的分区方式是采用<code>Hash</code>函数对<code>key</code>进行哈希后再用<code>Reduce</code>任务的数量进行取模。 也可以通过重载<code>Partitioner</code>接口来自定义分区方式。</p>
+</li>
+<li><p>对于每个分区内的所有键值对，后台线程会根据<code>key</code>对它们进行<code>内存排序（Sort）</code>，排序是<code>MapReduce</code>的<strong>默认操作</strong>。</p>
+</li>
+<li><p>排序结束后，有一个可选的<code>合并（Combine）</code>操作。如果未定义<code>Combiner</code>函数，就不用进行合并操作。如果事先定义了<code>Combiner</code>函数，则这个时候会执行合并操作，从而减少需要溢写到磁盘的数据量。<code>“合并”</code>，是指将那些具有相同<code>key</code>的<code>&lt;key, value&gt;</code>的<code>value</code>加起来，减少了键值对的数量。</p>
+</li>
+</ul>
+<p>经过分区、排序以及可能发生的合并操作之后，这些缓存中的键值对就可以被写入磁盘，并清空缓存。</p>
+</li>
+</ol>
+<ol>
+<li><p>文件归并</p>
+<p>在<code>Map</code>任务全部结束之前，系统会对所有溢写文件中的数据进行<code>归并（Merge）</code>，生成一个大的溢写文件，这个大的溢写文件中的所有键值对也是经过分区和排序的。所谓<code>“归并”</code>，是指对于具有相同<code>key</code>的键值对会被归并成一个新的键值对。即对于若干个具有相同<code>key</code>的键值对<code>&lt;k,v1&gt;，&lt;k,v2&gt;...&lt;k,vn&gt;</code>会被归并成一个新的键值对<code>&lt;k, &lt;v1, v2, ..., vn&gt;&gt;</code>。</p>
+<p>进行文件归并时，如果磁盘中已经生成的溢写文件的数量超过参数<code>min.num.spills. for.combine</code>的值时，可以再次运行<code>Combiner</code>，对数据进行合并操作，从而减少写入磁盘的数据量。</p>
+</li>
+</ol>
+<p><code>JobTracker</code>会一直监测<code>Map</code>任务的执行，当监测到一个<code>Map</code>任务完成后，就会立即通知相关的<code>Reduce</code>任务来<code>“领取”</code>数据，然后开始<code>Reduce</code>端的<code>Shuffle</code>过程。</p>
+<h6 id="3-Reduce端的Shuffle过程"><a href="#3-Reduce端的Shuffle过程" class="headerlink" title="3. Reduce端的Shuffle过程"></a>3. Reduce端的Shuffle过程</h6><ol>
+<li><p><code>“领取”</code>数据</p>
+<p><code>Map</code>端的<code>Shuffle</code>过程结束后，所有<code>Map</code>输出结果都保存在<code>Map</code>机器的本地磁盘上，<code>Reduce</code>任务需要把这些数据<strong><u><code>“领取”（Fetch）</code>回来存放到自己所在机器的本地磁盘上</u></strong>。</p>
+<ul>
+<li>每个<code>Reduce</code>任务会不断地通过<code>RPC</code>向<code>JobTracker</code>询问Map任务是否已经完成；</li>
+<li><code>JobTracker</code>监测到一个<code>Map</code>任务完成后，就会通知相关的<code>Reduce</code>任务来<code>“领取”</code>数据；</li>
+<li>一旦一个<code>Reduce</code>任务收到<code>JobTracker</code>的通知，它就会到该<code>Map</code>任务所在机器上把属于自己处理的分区数据领取到本地磁盘中。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>归并数据</p>
+<p>从<code>Map</code>端领回的数据会<strong><u>首先被存放在<code>Reduce</code>任务所在机器的缓存中</u></strong>，如果缓存被占满，就会像<code>Map</code>端一样被溢写到磁盘中。由于在<code>Shuffle</code>阶段<code>Reduce</code>任务还没有真正开始执行，可以把内存的大部分空间分配给<code>Shuffle</code>过程作为缓存。</p>
+<p>当溢写过程启动时，具有相同<code>key</code>的键值对会被<code>归并（Merge）</code>，如果用户定义了<code>Combiner</code>，则归并后的数据还可以执行合并操作，减少写入磁盘的数据量。当所有的<code>Map</code>端数据都已经被领回时，多个溢写文件会被归并成一个大文件，归并时还会对键值对进行排序，使得最终大文件中的键值对都是有序的。</p>
+<p>在数据很少的情形下，缓存可以存储所有数据，可以直接在内存中执行归并操作，然后直接输出给<code>Reduce</code>任务。</p>
+</li>
+</ol>
+<ol>
+<li><p>把数据输入给<code>Reduce</code>任务</p>
+<p>磁盘中经过多轮归并后得到的若干个大文件，直接输入给<code>Reduce</code>任务，这样可以减少磁盘读写开销。<code>Reduce</code>任务会执行<code>Reduce</code>函数中定义的各种映射，输出最终结果，并保存到分布式文件系统中。</p>
+</li>
+</ol>
+<h4 id="1-3-MapReduce体系结构"><a href="#1-3-MapReduce体系结构" class="headerlink" title="1.3 MapReduce体系结构"></a>1.3 MapReduce体系结构</h4><p><code>MapReduce</code>体系结构主要由四个部分组成，分别是：<code>Client</code>、<code>JobTracker</code>、<code>TaskTracker</code>以及<code>Task</code></p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/MapReduceStructure.PNG" alt="MapReduce体系结构"></p>
+<ul>
+<li><code>Client</code>。用户编写的<code>MapReduce</code>程序通过<code>Client</code>提交到<code>JobTracker</code>端；用户可通过<code>Client</code>提供的一些接口查看作业运行状态</li>
+<li><code>JobTracker</code>。<code>JobTracker</code>负责资源监控和作业调度；<code>JobTracker</code> 监控所有<code>TaskTracker</code>与<code>Job</code>的健康状况，一旦发现失败，就将相应的任务转移到其他节点；<code>JobTracker</code> 会跟踪任务的执行进度、资源使用量等信息，并将这些信息告诉任务调度器（<code>TaskScheduler</code>），而调度器会在资源出现空闲时，选择合适的任务去使用这些资源。</li>
+<li><code>TaskTracker</code>。<code>TaskTracker</code>会周期性地通过“心跳”将本节点上资源的使用情况和任务的运行进度汇报给<code>JobTracker</code>，同时接收<code>JobTracker</code> 发送过来的命令并执行相应的操作；<code>TaskTracker</code> 使用<code>“slot”</code>等量划分本节点上的资源量。一个<code>Task</code> 获取到一个<code>slot</code> 后才有机会运行，而<code>Hadoop</code>调度器的作用就是将各个<code>TaskTracker</code>上的空闲<code>slot</code>分配给<code>Task</code>使用。<code>slot</code> 分为<code>Map slot</code> 和<code>Reduce slot</code> 两种，分别供<code>Map Task</code> 和<code>Reduce Task</code> 使用。</li>
+<li><code>Task</code>。<code>Task</code> 分为<code>Map Task</code> 和<code>Reduce Task</code> 两种，均由<code>TaskTracker</code> 启动。</li>
+</ul>
+<h4 id="1-4-MapReduce-具体应用"><a href="#1-4-MapReduce-具体应用" class="headerlink" title="1.4 MapReduce 具体应用"></a>1.4 MapReduce 具体应用</h4><h5 id="1-4-1-MapReduce在关系代数中应用"><a href="#1-4-1-MapReduce在关系代数中应用" class="headerlink" title="1.4.1 MapReduce在关系代数中应用"></a>1.4.1 MapReduce在关系代数中应用</h5><h6 id="1-关系的选择运算"><a href="#1-关系的选择运算" class="headerlink" title="1. 关系的选择运算"></a>1. 关系的选择运算</h6><p>对于关系的选择运算，只需要<code>Map</code>过程就能实现，对于关系<code>R</code>中的每个元组<code>t</code>，检测是否是满足条件的所需元组，如果满足条件，则输出键值对<code>&lt;t, t&gt;</code>，即键和值都是<code>t</code>。<code>Reduce</code>函数对输入不作任何变换就直接输出。</p>
+<h6 id="2-关系的投影运算"><a href="#2-关系的投影运算" class="headerlink" title="2. 关系的投影运算"></a>2. 关系的投影运算</h6><p>假设对关系<code>R</code>投影后的属性集为<code>S</code>，在<code>Map</code>函数中，对于<code>R</code>中的每个元组<code>t</code>，剔除<code>t</code>中不属于<code>S</code>的字段得到元组<code>t&#39;</code>，输出键值对<code>&lt;t&#39;, t&#39;&gt;</code>。</p>
+<p>对于<code>Map</code>任务产生的每个键<code>t&#39;</code>，可能存在一个或多个键值对<code>&lt;t&#39;, t&#39;&gt;</code>，通过<code>Reduce</code>函数来剔除冗余，把属性值完全相同的元组合并。</p>
+<h6 id="3-关系的并、交、差运算"><a href="#3-关系的并、交、差运算" class="headerlink" title="3. 关系的并、交、差运算"></a>3. 关系的并、交、差运算</h6><ul>
+<li><p>对两个关系求<strong>并集</strong>时，<code>Map</code>任务将两个关系的元组转换成键值对<code>&lt;t, t&gt;</code>，<code>Reduce</code>任务则是剔除冗余数据的过程。</p>
+</li>
+<li><p>对两个关系求<strong>交集</strong>时，使用与并集相同的<code>Map</code>过程，在<code>Reduce</code>过程中，如果键<code>t</code>有两个相同值与它关联，则输出一个元组<code>&lt;t, t&gt;</code>，如果与键关联的只有一个值，则输出空值（<code>NULL</code>）。</p>
+</li>
+<li><p>对两个关系求<strong>差</strong>时，<code>Map</code>过程产生的<strong>键值</strong>对不仅要记录元组的信息，还要记录该元组来自于哪个关系（<code>R</code>或<code>S</code>），<code>Reduce</code>过程中按键值相同的<code>t</code>合并后，与键<code>t</code>相关联的值如果只有<code>R</code>（说明该元组只属于<code>R</code>，不属于<code>S</code>），就输出元组，其他情况均输出空值。</p>
+</li>
+</ul>
+<h6 id="4-关系的自然连接运算"><a href="#4-关系的自然连接运算" class="headerlink" title="4. 关系的自然连接运算"></a>4. 关系的自然连接运算</h6><p>在<code>MapReduce</code>环境下执行两个关系的连接操作的方法如下：</p>
+<ul>
+<li>假设关系<code>R（A,B）</code>和<code>S（B,C）</code>都存储在一个文件中，为了连接这些关系，必须把来自每个关系的各个元组都和一个键关联，这个键就是属性<code>B</code>的值。</li>
+<li>使用<code>Map</code>过程把来自<code>R</code>的每个元组<code>&lt;a, b&gt;</code>转换成一个键值对<code>&lt;b, &lt;R, a&gt;&gt;</code>。这里把关系<code>R</code>包含到值中，使得可以在<code>Reduce</code>阶段只把来自<code>R</code>的元组和来自<code>S</code>的元组进行匹配。</li>
+<li>使用<code>Map</code>过程把来自<code>S</code>的每个元组<code>&lt;b, c&gt;</code>转换成一个键值对<code>&lt;b, &lt;S, c&gt;&gt;</code>。</li>
+<li><code>Reduce</code>进程把来自关系<code>R</code>和<code>S</code>的具有共同属性<code>B</code>值的元组进行合并。</li>
+</ul>
+<h5 id="1-4-2-分组与聚合运算"><a href="#1-4-2-分组与聚合运算" class="headerlink" title="1.4.2 分组与聚合运算"></a>1.4.2 分组与聚合运算</h5><ul>
+<li><code>Map</code>过程，选择关系的某一字段（也可以是某些属性构成的属性表）的值作为键，其他字段的值作为与键相关联的值。</li>
+<li><code>Reduce</code>过程，对相同键相关联的值施加某种聚合运算，如<code>SUM（求和）</code>、 <code>COUNT（计数）</code>、<code>AVG（求平均值）</code>、 <code>MIN</code>和<code>MAX</code>（求最小最大值）等，输出则为<code>&lt;键，聚合运算结果&gt;</code>。</li>
+</ul>
+<h5 id="1-4-3-矩阵-向量乘法"><a href="#1-4-3-矩阵-向量乘法" class="headerlink" title="1.4.3 矩阵-向量乘法"></a>1.4.3 矩阵-向量乘法</h5><p>假定一个$n$维向量$V$，其第$j$个元素记为$v<em>j$，假定一个$n \times n$的矩阵$M$，其第$i$行第$j$列元素记为$m</em>{ij}$，则矩阵$M$和向量$V$的乘积是一个$n$维向量$X$，其第$i$个元素$x<em>i = \sum^n</em>{j=1}{m_{ij}v_j}$。</p>
+<p>矩阵$M$和向量$V$各自在分布式文件系统中存成一个文件。假定可以获得矩阵元素的行列下标，计算矩阵和向量乘法的<code>MapReduce</code>函数可以设计为：</p>
+<ul>
+<li><code>Map</code>函数。每个<code>Map</code>任务将整个向量$V$​和矩阵$M$​的一个文件块作为输人。对每个矩阵元素$m<em>{ij}$​，<code>Map</code>任务会产生键值对$&lt;i，m</em>{ij}v<em>j&gt;$​。计算$x_i$​的所有$n$​个求和项$m</em>{ij}v_j$​的键都相同，即都是$i$​。</li>
+<li><code>Reduce</code>函数。<code>Reduce</code>任务将所有与给定键$i$关联的值相加即可得到$<i, x_i>$。</li>
+</ul>
+<h5 id="1-4-4-矩阵乘法"><a href="#1-4-4-矩阵乘法" class="headerlink" title="1.4.4 矩阵乘法"></a>1.4.4 矩阵乘法</h5><p>矩阵$M$第$i$行第$j$列元素记为$m<em>{ij}$，矩阵$N$第$j$行第$k$列元素记为$n</em>{jk}$，则矩阵$P=M \times N$，其第$i$行第$k$列元素为$p<em>{ik} = \sum^n</em>{j=1}{m<em>{ij}n</em>{jk}}$。</p>
+<p>可以把矩阵看成一个带有3个属性的关系：行下标、列下标和值。因此，矩阵<code>M</code>可以看成关系<code>M</code>，记为<code>M(I, J, V)</code>，元组为$<i, j, m_{ij}>$，矩阵<code>N</code>可以看作关系<code>N</code>，记为<code>N(J, K, W)</code>，元组为$<j, k, n_{jk}>$。</p>
+<p>矩阵乘法可以看作是一个自然连接运算再加上分组聚合运算。关系<code>M</code>和<code>N</code>根据公共属性<code>J</code>将每个元组连接得到元组$<i,j,k,v,w>$​​，这个五字段元组代表了两个矩阵的元素对$<m_{ij},n_{jk}>$​​，对矩阵元素进行求积运算后可以得到四字段元组$<i,j,k,ν \times w>$​​​，然后可以进行分组聚合运算。矩阵乘法可以通过两个<code>MapReduce</code>运算的串联实现：</p>
+<h6 id="1-自然连接阶段"><a href="#1-自然连接阶段" class="headerlink" title="1. 自然连接阶段"></a>1. 自然连接阶段</h6><ul>
+<li><code>Map</code>函数：对每个矩阵元素$m<em>{ij}$产生一个键值对$&lt;j, &lt;M, i, m</em>{ij}&gt;&gt;$，对每个矩阵元素$n<em>{jk}$产生一个键值对$&lt;j，&lt;N,k,n</em>{jk}&gt;&gt;$。</li>
+<li><code>Reduce</code>函数：对每个相同键$j$，输出所有满足形式$<j, <i, k, m_{ij}n_{jk}>&gt;$的元组。</li>
+</ul>
+<h6 id="2-分组聚合阶段"><a href="#2-分组聚合阶段" class="headerlink" title="2. 分组聚合阶段"></a>2. 分组聚合阶段</h6><ul>
+<li><code>Map</code>函数：对自然连接阶段产生的键值对$<j, <<i_1, k_1, v_1>,…, <i_p, k_p, v_p>&gt;&gt;$，产生键值对$&lt;&lt;<i_1, l_1>, v1&gt;,…, &lt;<i_p,k_p>,v_p&gt;&gt;$；</li>
+<li><code>Reduce</code>函数：对每个键$<i,k>$​，计算与此键关联的所有值的和，结果记为$&lt;<i,k>,v&gt;$​。</li>
+</ul>
+<h3 id="2-Hadoop的优化与发展"><a href="#2-Hadoop的优化与发展" class="headerlink" title="2. Hadoop的优化与发展"></a>2. Hadoop的优化与发展</h3><h4 id="2-1-HDFS-HA"><a href="#2-1-HDFS-HA" class="headerlink" title="2.1 HDFS HA"></a>2.1 HDFS HA</h4><p>对于分布式文件系统<code>HDFS</code>而言，名称节点（<code>Name Node</code>）是系统的核心节点，存储了各类元数据信息，并负责管理文件系统的命名空间和客户端对文件的访问。</p>
+<p>在<code>HDFS1.0</code>中，只存在一个名称节点，一旦这个唯一的名称节点发生故障，就会导致整个集群变得不可用，这就是常说的<code>“单点故障问题”</code>。虽然<code>HDFS1.0</code>中存在一个<code>“第二名称节点（Secondary Name Node）</code>，但是第二名称节点并不是名称节点的备用节点，其<strong><u>主要功能是周期性地从名称节点获取命名空间镜像文件（Fslmage）和修改日志（EditLog），进行合并后再发送给名称节点，替换掉原来的Fslmage，以防止日志文件EditLog过大，导致名称节点失败恢复时消耗过多时间</u></strong>。</p>
+<p>第二名称节点无法提供<code>“热备份”</code>功能，即在名称节点发生故障的时候，系统无法实时切换到第二名称节点立即对外提供服务，仍然需要进行停机恢复，因此<code>HDFS1.0</code>的设计是存在单点故障问题的。为了解决单点故障问题，<code>HDFS2.0</code>采用了<code>HA（High Availability）</code>架构。在一个典型的<code>HA</code>集群中，一般设置两个名称节点，其中一个名称节点处于<code>“活跃（Active）”</code>状态，另一个处于<code>“待命（Standby）”</code>状态。</p>
+<ul>
+<li>处于活跃状态的名称节点负责对外处理所有客户端的请求；</li>
+<li>处于待命状态的名称节点则作为备用节点，保存了足够多的系统元数据，当名称节点出现故障时提供快速恢复能力。处于待命状态的名称节点提供了<code>“热备份”</code>，一旦活跃名称节点出现故障，就可以立即切换到待命名称节点，不会影响到系统的正常对外服务。</li>
+</ul>
+<p>活跃名称节点的状态信息必须实时同步到待命名称节点。两种名称节点的状态同步，可以借助于一个共享存储系统来实现，比如<code>NFS（Network File System）</code>、<code>QJM（Quorum Journal Manager）</code>或者<code>Zookeeper</code>。</p>
+<h4 id="2-2-HDFS-联邦"><a href="#2-2-HDFS-联邦" class="headerlink" title="2.2 HDFS 联邦"></a>2.2 HDFS 联邦</h4><p><code>HDFS1.0</code>采用单名称节点的设计，不仅会带来单点故障问题，还存在<strong>可扩展性</strong>、<strong>性能</strong>和<strong>隔离性</strong>等问题。</p>
+<p><code>HDFS联邦</code>可以很好地解决上述三个方面的问题。在HDFS联邦中，设计了多个相互独立的名称节点，使得HDFS的命名服务能够水平扩展，这些名称节点分别进行各自命名空间和块的管理，相互之间是联邦关系，不需要彼此协调。<code>HDFS联邦</code>并不是真正的分布式设计，但是采用这种简单的<code>“联合”</code>设计方式。</p>
+<p>在<code>HDFS联邦</code>中，所有名称节点会共享底层的数据节点存储资源，每个数据节点要向集群中所有的名称节点注册，并周期性地向名称节点发送“心跳”和块信息，报告自己的状态，同时也会处理来自名称节点的指令。<code>HDFS联邦</code>拥有多个独立的命名空间，每一个命名空间管理属于自己的一组块，这些属于同一个命名空间的块构成一个<code>“块池”（Block pool）</code>。每个数据节点会为多个块池提供块的存储。<strong><u>数据节点是一个物理概念，而块池则属于逻辑概念</u></strong>，一个块池是一组块的逻辑集合，块池中的各个块实际上是存储在各个不同的数据节点中的。因此，HDFS联邦中的一个名称节点失效，也不会影响到与它相关的数据节点继续为其他名称节点提供服务。</p>
+<p>对于<code>HDFS</code>联邦中的多个命名空间，可以采用<code>客户端挂载表（Client Side Mount Table）</code>方式进行数据共享和访问，客户可以<strong><u>访问不同的挂载点来访问不同的子命名空间</u></strong>。这就是<code>HDFS联邦</code>中命名空间管理的基本原理，即把各个命名空间挂载到全局<code>“挂载表”（Mount-table）</code>中，实现数据全局共享；同样地，命名空间挂载到个人的挂载表中，就成为应用程序可见的命名空间。</p>
+<p>需要注意的是，<code>HDFS联邦</code><u><strong>并不能解决单点故障问题，每个名称节点都存在单点故障问题</strong></u>，需要为每个名称节点部署一个后备名称节点，以应对名称节点宕机后对业务产生的影响。</p>
+<h4 id="2-3-新一代资源管理调度框架YARN"><a href="#2-3-新一代资源管理调度框架YARN" class="headerlink" title="2.3 新一代资源管理调度框架YARN"></a>2.3 新一代资源管理调度框架YARN</h4><h5 id="2-3-1-YARN设计思路"><a href="#2-3-1-YARN设计思路" class="headerlink" title="2.3.1 YARN设计思路"></a>2.3.1 <code>YARN</code>设计思路</h5><p><code>YARN（ Yet Another Resource Negotiator）</code>架构设计基本思路就是<strong>“放权”</strong>，把原<code>JobTracker</code>三大功能（资源管理、任务调度和任务监控）进行拆分，分别交给不同的新组件去处理。重新设计后得到的<code>YARN</code>包括<code>ResourceManager</code>、 <code>Application Master</code>和<code>NodeManager</code>：</p>
+<ul>
+<li><code>ResourceManager</code>负责资源管理</li>
+<li><code>ApplicationMaster</code>负责任务调度和监控</li>
+<li><code>NodeManager</code>负责执行原<code>TaskTracker</code>的任务。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/YARNDesign.PNG" alt="`YARN`设计思路"></p>
+<ul>
+<li><p>在<code>Hadoop1.0</code>中，其核心子项目<code>MapReduce1.0</code>既是一个计算框架，也是一个资源管理调度框架。</p>
+</li>
+<li><p>到了<code>Hadoop2.0</code>以后，<code>MapReduce2.0</code>中的资源管理调度功能被单独分离出来形成<code>YARN</code>，它是一个纯粹的资源管理调度框架，而不是一个计算框架；被剥离了资源管理调度功能的<code>MapReduce</code>框架就变成了<code>MapReduce2.0</code>，它是运行在<code>YARN</code>之上的一个纯粹的计算框架，不再自己负责资源调度管理服务，而是由<code>YARN</code>为其提供资源管理调度服务。</p>
+</li>
+</ul>
+<h5 id="2-3-2-YARN体系结构"><a href="#2-3-2-YARN体系结构" class="headerlink" title="2.3.2 YARN体系结构"></a>2.3.2 YARN体系结构</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/YARNStructure.PNG" alt="YARN体系结构"></p>
+<h6 id="1-Resource-Manager"><a href="#1-Resource-Manager" class="headerlink" title="1. Resource Manager"></a>1. Resource Manager</h6><p><code>ResourceManager（RM）</code>是一个全局的资源管理器，负责整个系统的资源管理和分配，主要包括两个组件：</p>
+<ul>
+<li><code>调度器（ Scheduler）</code>。主要负责资源管理和分配。调度器接收来自<code>ApplicationMaster</code>的应用程序资源请求，并根据容量、队列等限制条件，把集群中的资源以<code>“容器”</code>的形式分配给提出申请的应用程序，容器的选择通常会考虑应用程序所要处理的数据的位置，进行就近选择，实现<strong>“计算向数据靠拢”</strong>。</li>
+<li><code>应用程序管理器（Applications Manager）</code>。应用程序管理器负责系统中所有应用程序的管理工作，主要包括应用程序提交、与调度器协商资源以启动<code>ApplicationMaster</code>、监控<code>ApplicationMaster</code>运行状态并在失败时重新启动等。</li>
+</ul>
+<p>在<code>YARN</code>中是以<code>容器（Container）</code>作为动态资源分配单位，每个容器中都封装了一定数量的CPU、内存、磁盘等资源，从而限定每个应用程序可以使用的资源量。同时，在<code>YARN</code>中调度器被设计成是一个可插拔的组件，<code>YARN</code>不仅自身提供了许多种直接可用的调度器，也允许用户根据自己的需求重新设计调度器。</p>
+<p>主要功能包括：</p>
+<ul>
+<li>处理客户端请求</li>
+<li>启动监控<code>ApplicationMaster</code></li>
+<li>监控<code>NodeManager</code></li>
+<li>资源分配与调度</li>
+</ul>
+<h6 id="2-ApplicationMaster"><a href="#2-ApplicationMaster" class="headerlink" title="2. ApplicationMaster"></a>2. ApplicationMaster</h6><p>在Hadoop平台上，用户的应用程序是以<code>作业（Job）</code>的形式提交的，然后一个作业会被分解成多个任务进行分布式执行。<code>ResourceManager</code>接收用户提交的作业，按照作业的上下文信息以及从<code>NodeManager</code>收集来的容器状态信息，启动调度过程，为用户作业启动一个<code>ApplicationMaster</code>。<code>ApplicationMaster</code>的主要功能是：</p>
+<ul>
+<li>当用户作业提交时， <code>ApplicationMaster</code>与<code>ResourceManager</code>协商获取资源，<code>ResourceManager</code>会以容器的形式为<code>ApplicationMaster</code>分配资源；</li>
+<li>把获得的资源进一步分配给内部的各个任务，实现资源的<code>“二次分配”</code>；</li>
+<li>与<code>NodeManager</code>保持交互通信进行应用程序的启动、运行监控和停止，监控申请到的资源的使用情况，对所有任务的执行进度和状态进行监控，并在任务发生失败时执行失败恢复；</li>
+<li>定时向<code>ResourceManager</code>发送“心跳”消息，报告资源的使用情况和应用的进度信息；</li>
+<li>当作业完成时，<code>ApplicationMaster</code>向<code>ResourceManager</code>注销容器，执行周期完成。</li>
+</ul>
+<h6 id="3-NodeManager"><a href="#3-NodeManager" class="headerlink" title="3. NodeManager"></a>3. NodeManager</h6><p><code>NodeManager</code>是驻留在一个<code>YARN</code>集群中的每个节点上的代理，主要负责：</p>
+<ul>
+<li>容器生命周期管理，监控每个容器的资源使用情况，跟踪节点健康状况；</li>
+<li>以“心跳”的方式与<code>ResourceManager</code>保持通信，向<code>ResourceManager</code> 汇报作业的资源使用情况和每个容器的运行状态；</li>
+<li>接收来自<code>ApplicationMaster</code>的启动/停止容器的各种请求。</li>
+</ul>
+<p><code>NodeManager</code>主要负责管理抽象的容器，只处理与容器相关的事情，而不具体负责每个任务自身状态的管理。</p>
+<p><code>YARN</code>的各个组件是和<code>Hadoop</code>集群中的其他组件进行统一部署的。</p>
+<ul>
+<li><code>YARN</code>的<code>ResourceManager</code>组件和<code>HDFS</code>的<code>名称节点（NameNode）</code>部署在一个节点上；</li>
+<li><code>YARN</code>的<code>ApplicationMaster</code>及<code>NodeManager</code>是和HDFS的<code>数据节点（DataNode）</code>部署在一起的；</li>
+<li><code>YARN</code>中的容器代表了CPU、内存、网络等计算资源，也是和HDFS的数据节点一起的。</li>
+</ul>
+<h5 id="2-3-3-YARN工作流程"><a href="#2-3-3-YARN工作流程" class="headerlink" title="2.3.3 YARN工作流程"></a>2.3.3 YARN工作流程</h5><p>在<code>YARN</code>框架中执行一个<code>MapReduce</code>程序时，从提交到完成需要经历如下8个步骤：</p>
+<ol>
+<li>用户编写客户端应用程序，向<code>YARN</code>提交应用程序，提交的内容包括<code>ApplicationMaster</code>程序、启动 <code>ApplicationMaster</code>的命令、用户程序等。</li>
+<li><code>YARN</code>中的<code>ResourceManager</code>负责接收和处理来自客户端的请求。接到客户端应用程序请求后， <code>ResourceManager</code>里面的调度器会为应用程序分配一个容器。<code>ResourceManager</code>的应用程序管理器会与该容器所在的<code>NodeManager</code>通信，为该应用程序在该容器中启动一个<code>ApplicationMaster</code>。</li>
+<li><code>ApplicationMaster</code>被创建后会首先向<code>ResourceManager</code>注册，从而使得用户可以通过<code>ResourceManager</code>来直接查看应用程序的运行状态。</li>
+<li><code>ApplicationMaster</code>用轮询的方式通过<code>RPC</code>协议向<code>ResourceManager</code>申请资源。</li>
+<li><code>ResourceManager</code>以<code>“容器”</code>的形式向提出申请的<code>ApplicationMaster</code>分配资源，一旦<code>ApplicationMaster</code>申请到资源后，就会与该容器所在的<code>NodeManager</code>进行通信，要求它启动任务。</li>
+<li>当<code>ApplicationMaster</code>要求容器启动任务时，它会为任务设置好运行环境（包括环境变量、 JAR包、二进制程序等），然后将任务启动命令写到一个脚本中，最后通过在容器中运行该脚本来启动任务。</li>
+<li>各个任务通过某个RRC协议向<code>ApplicationMaster</code>汇报自己的状态和进度，让<code>ApplicationMaster</code>可以随时掌握各个任务的运行状态，从而可以在任务失败时重新启动任务。</li>
+<li>应用程序运行完成后，<code>ApplicationMaster</code>向<code>ResourceManager</code>的应用程序管理器注销并关闭自己。若<code>ApplicationMaster</code>因故失败，<code>ResourceManager</code>中的应用程序管理器会监测到失败的情形，然后将其重新启动，直到所有的任务执行完毕。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/YARNWorkFlow.PNG" alt="YARN工作流程"></p>
+<h5 id="2-3-4-总结"><a href="#2-3-4-总结" class="headerlink" title="2.3.4 总结"></a>2.3.4 总结</h5><p><code>YARN</code>的目标是实现<code>“一个集群多个框架”</code>，即在一个集群上部署一个统一的资源调度管理框架<code>YARN</code>，在<code>YARN</code>之上可以部署其他各种计算框架，比如 Mapreduce、Tez、 HBase、 Storm、Giraph、Spark、OpenMPI等，由<code>YARN</code>为这些计算框架提供统一的资源调度管理服务，并且能够根据各种计算框架的负载需求，调整各自占用的资源，实现集群资源共享和资源弹性收缩。</p>
+<ul>
+<li>可以实现一个集群上的不同应用负载混搭，有效提高了集群的利用率；</li>
+<li>不同计算框架可以共享底层存储，在一个集群上集成多个数据集，使用多个计算框架来访问这些数据集，从而避免了数据集跨集群移动</li>
+<li>这种部署方式也大大降低了企业运维成本</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"># 大数据</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2021/08/03/Big_Data_2_store-and-manage-2.html" rel="next" title="[大数据技术原理|第二篇 大数据存储与管理(2)]">
+                  <i class="fa fa-chevron-left"></i> [大数据技术原理|第二篇 大数据存储与管理(2)]
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2021/08/04/Big_Data_3_process-and-analyze-2.html" rel="prev" title="[大数据技术原理|第三篇 大数据处理与分析(2)]">
+                  [大数据技术原理|第三篇 大数据处理与分析(2)] <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MapReduce"><span class="nav-number">2.</span> <span class="nav-text">1. MapReduce</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-概述"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-简介"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-Map和Reduce函数"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 Map和Reduce函数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-MapReduce的工作流程"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 MapReduce的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-工作流程概述"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 工作流程概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-MapReduce的各个执行阶段"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 MapReduce的各个执行阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-3-Shuffle过程"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 Shuffle过程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-简介"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-Map端的Shuffle过程"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">2. Map端的Shuffle过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-Reduce端的Shuffle过程"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">3. Reduce端的Shuffle过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-MapReduce体系结构"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 MapReduce体系结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-MapReduce-具体应用"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 MapReduce 具体应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-MapReduce在关系代数中应用"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 MapReduce在关系代数中应用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-关系的选择运算"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">1. 关系的选择运算</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-关系的投影运算"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">2. 关系的投影运算</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-关系的并、交、差运算"><span class="nav-number">2.4.1.3.</span> <span class="nav-text">3. 关系的并、交、差运算</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-关系的自然连接运算"><span class="nav-number">2.4.1.4.</span> <span class="nav-text">4. 关系的自然连接运算</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-分组与聚合运算"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 分组与聚合运算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-矩阵-向量乘法"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 矩阵-向量乘法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-4-矩阵乘法"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 矩阵乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-自然连接阶段"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">1. 自然连接阶段</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-分组聚合阶段"><span class="nav-number">2.4.4.2.</span> <span class="nav-text">2. 分组聚合阶段</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Hadoop的优化与发展"><span class="nav-number">3.</span> <span class="nav-text">2. Hadoop的优化与发展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-HDFS-HA"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 HDFS HA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-HDFS-联邦"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 HDFS 联邦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-新一代资源管理调度框架YARN"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 新一代资源管理调度框架YARN</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-YARN设计思路"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 YARN设计思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-YARN体系结构"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.3.2 YARN体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-Resource-Manager"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">1. Resource Manager</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-ApplicationMaster"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">2. ApplicationMaster</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-NodeManager"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">3. NodeManager</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-YARN工作流程"><span class="nav-number">3.3.3.</span> <span class="nav-text">2.3.3 YARN工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-总结"><span class="nav-number">3.3.4.</span> <span class="nav-text">2.3.4 总结</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuyunjie"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">wuyunjie</p>
+  <div class="site-description" itemprop="description">这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuyunjie</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">552k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8:22</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'xilgdic7Oc4jk1clqctOmHlW-gzGzoHsz',
+            'X-LC-Key': '0mJaTLwPvm9HULVEKS5TMolA',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: true,
+    appId: 'fuyVSSepSwnhxBAljzT0Wom8-MdYXbMMI',
+    appKey: 'MeBSdvWlNAgNnXhX1HQ1QnA5',
+    placeholder: "欢迎评论交流呀！\n输入邮箱可以收到回复通知哦!(昵称输入QQ可以自动识别邮箱和头像)",
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    enableQQ: true,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

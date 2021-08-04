@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  分布式计算，距离不是问题。">
+  <meta name="description" content="前言 分布式计算，距离不是问题。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--18 远程部署的RMI">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;20&#x2F;JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  分布式计算，距离不是问题。">
+<meta property="og:description" content="前言 分布式计算，距离不是问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;remoteMethod.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;EJB.PNG">
@@ -312,68 +312,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>分布式计算，距离不是问题。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>分布式计算，距离不是问题。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="远程过程调用的设计">1. 远程过程调用的设计</h3>
-<p>远程过程调用(<code>Remote Method Invocation, RMI</code>)要建出4种东西：<code>服务器</code>、<code>客户端</code>、<code>服务器辅助设施</code>和<code>客户端辅助设施</code>。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/remoteMethod.PNG" alt="远程过程调用的设计" /><figcaption aria-hidden="true">远程过程调用的设计</figcaption>
-</figure>
-<h4 id="辅助设施的任务">1.1 <code>辅助设施</code>的任务</h4>
-<p>辅助设施是个在实际上执行通信的对象，会让客户端对象看起来在调用远程的方法。辅助设施会去连接服务器，将调用的信息传送过去，然后等待服务器的响应。</p>
+<h3 id="1-远程过程调用的设计"><a href="#1-远程过程调用的设计" class="headerlink" title="1. 远程过程调用的设计"></a>1. 远程过程调用的设计</h3><p>远程过程调用(<code>Remote Method Invocation, RMI</code>)要建出4种东西：<code>服务器</code>、<code>客户端</code>、<code>服务器辅助设施</code>和<code>客户端辅助设施</code>。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/remoteMethod.PNG" alt="远程过程调用的设计"></p>
+<h4 id="1-1-辅助设施的任务"><a href="#1-1-辅助设施的任务" class="headerlink" title="1.1 辅助设施的任务"></a>1.1 <code>辅助设施</code>的任务</h4><p>辅助设施是个在实际上执行通信的对象，会让客户端对象看起来在调用远程的方法。辅助设施会去连接服务器，将调用的信息传送过去，然后等待服务器的响应。</p>
 <p>服务器的辅助设施会接受客户端辅助设施打包的信息，调用真正的服务，然后取得返回值送回客户端辅助设施。</p>
-<h4 id="创建远程服务">1.2 创建远程服务</h4>
-<p>创建远程服务有5个步骤：</p>
-<ol type="1">
+<h4 id="1-2-创建远程服务"><a href="#1-2-创建远程服务" class="headerlink" title="1.2 创建远程服务"></a>1.2 创建远程服务</h4><p>创建远程服务有5个步骤：</p>
+<ol>
 <li><p>创建<code>Remote</code>接口。远程接口定义了客户端可以远程调用的方法，是一个作为服务的多态化类。stub和服务都会实现此接口。</p>
 <ul>
 <li><p>继承<code>java.rmi.Remote</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyRemote</span> <span class="keyword">extends</span> <span class="title">Remote</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyRemote</span> <span class="keyword">extends</span> <span class="title">Remote</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>声明所有方法都会抛出<code>RemoteException</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyRemote</span> <span class="keyword">extends</span> <span class="title">Remote</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.rmi.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyRemote</span> <span class="keyword">extends</span> <span class="title">Remote</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>确定参数和返回值都是<code>primitive主数据类型</code>或<code>Serializable</code>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>;</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
 <li><p>实现<code>Remote</code>。真正执行的类，实现定义在该接口上的方法。</p>
 <ul>
 <li><p>实现<code>Remote</code>接口；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRemoteImpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title">MyRemote</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Server says, ‘Hey’”;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// more code in class</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>继承<code>UnicastRemoteObject</code>。对象必须要有远程相关功能，最简单的方式就是继承<code>UnicastRemoteObject</code>类来处理。</p></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRemoteImpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title">MyRemote</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> “Server says, ‘Hey’”;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// more code in class</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>继承<code>UnicastRemoteObject</code>。对象必须要有远程相关功能，最简单的方式就是继承<code>UnicastRemoteObject</code>类来处理。</p>
+</li>
 <li><p>编写声明<code>RemoteException</code>的无参数构造函数；</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyRemoteImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123; &#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyRemoteImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>向<code>RMI registry</code> 注册服务。将服务初始化并加入<code>RMI registry</code> ，<code>RMI</code>系统会把<code>stub</code>加到<code>registry</code>中。使用<code>java.rmi.Naming</code>的<code>rebind</code>方法来注册服务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    MyRemote service = <span class="keyword">new</span> MyRemoteImpl();</span><br><span class="line">    <span class="comment">// 帮助服务命名，并向RMI registry注册</span></span><br><span class="line">    Naming.rebind(“Remote Hello”, service);</span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception ex) &#123;...&#125;</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    MyRemote service = <span class="keyword">new</span> MyRemoteImpl();</span><br><span class="line">    <span class="comment">// 帮助服务命名，并向RMI registry注册</span></span><br><span class="line">    Naming.rebind(“Remote Hello”, service);</span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception ex) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
 <li><p>用<code>rmic</code>产生<code>stub</code>与<code>skeleton</code>。由<code>JDK</code>附带的<code>rmic</code>工具自动处理。</p>
 <ul>
 <li><p>对实现出的类执行<code>rmic</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmic MyRemoteImpl</span><br></pre></td></tr></table></figure>
-<p><code>Java software development kit(JDK)</code>中的<code>rmic</code>工具会以服务的实现产生连个新类：<code>stub</code>和<code>skeleton</code>。</p></li>
-</ul></li>
+<p><code>Java software development kit(JDK)</code>中的<code>rmic</code>工具会以服务的实现产生连个新类：<code>stub</code>和<code>skeleton</code>。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
 <li><p>启动<code>RMI registry</code> (<code>rmiregistry</code>)。用户从此处获取代理。</p>
 <ul>
 <li><p>在命令行启动<code>rmiregistry</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmiregistry</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmiregistry</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ol>
 <li><p>启动远程服务。实现服务的类会启动服务的实例并向<code>RMI registry</code> 注册，要有注册才能对用户提供服务。</p>
 <ul>
 <li><p>启动服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java MyRemoteImpl</span><br></pre></td></tr></table></figure></li>
-</ul></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java MyRemoteImpl</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
 </ol>
-<h4 id="客户端获取stub">1.3 客户端获取<code>stub</code></h4>
-<p>客户端需要获取<code>stub</code>对象，这需要<code>RMI registry</code>，客户端从上面查询得到有相符名称的服务。</p>
+<h4 id="1-3-客户端获取stub"><a href="#1-3-客户端获取stub" class="headerlink" title="1.3 客户端获取stub"></a>1.3 客户端获取<code>stub</code></h4><p>客户端需要获取<code>stub</code>对象，这需要<code>RMI registry</code>，客户端从上面查询得到有相符名称的服务。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyRemote service = (MyRemote) Naming.lookup(<span class="string">"rmi://127.0.0.1/Remote Hello"</span>);</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>客户端查询<code>RMI registry</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Naming.lookup(<span class="string">"rmi://127.0.0.1/Remote Hello"</span>);</span><br></pre></td></tr></table></figure></li>
-<li><p><code>RMI registry</code>返回<code>stub</code>对象，<code>RMI</code>会自动将<code>stub</code>解序列化。</p></li>
-<li><p>客户端可以调用<code>stub</code>上的方法</p></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Naming.lookup(<span class="string">"rmi://127.0.0.1/Remote Hello"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>RMI registry</code>返回<code>stub</code>对象，<code>RMI</code>会自动将<code>stub</code>解序列化。</p>
+</li>
+<li><p>客户端可以调用<code>stub</code>上的方法</p>
+</li>
 </ul>
-<h3 id="servlets">2. Servlets</h3>
-<p><code>Servlets</code>是放在<code>Http Web</code>服务上面运行的Java程序，用户通过浏览器与网页交互时，如果请求需要Java的<code>Servlets</code>时，服务器会执行或调用已经执行的<code>Servlets</code>程序代码。</p>
+<h3 id="2-Servlets"><a href="#2-Servlets" class="headerlink" title="2. Servlets"></a>2. Servlets</h3><p><code>Servlets</code>是放在<code>Http Web</code>服务上面运行的Java程序，用户通过浏览器与网页交互时，如果请求需要Java的<code>Servlets</code>时，服务器会执行或调用已经执行的<code>Servlets</code>程序代码。</p>
 <blockquote>
 <p><code>Servlets</code>只运行在服务器上。</p>
 </blockquote>
@@ -382,22 +402,23 @@
 <li><code>Servlets</code>开始执行，把数据存入数据库，然后返回内容给浏览器。</li>
 </ul>
 <p>创建并执行<code>Servlets</code>的步骤：</p>
-<ol type="1">
-<li><p>找出可以存放<code>Servlets</code>的地方</p></li>
-<li><p>取得<code>Servlets.jar</code>并添加到<code>classpath</code>上。<code>Servlets</code>不是标准库的一部分，需要单独下载。</p></li>
+<ol>
+<li><p>找出可以存放<code>Servlets</code>的地方</p>
+</li>
+<li><p>取得<code>Servlets.jar</code>并添加到<code>classpath</code>上。<code>Servlets</code>不是标准库的一部分，需要单独下载。</p>
+</li>
 <li><p>通过继承<code>HttpServlet</code>来编写<code>Servlet</code>类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletA</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>编写<code>HTML</code>来调用<code>Servlet</code></p></li>
-<li><p>给服务器设定HTML网页和<code>Servlet</code></p></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletA</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写<code>HTML</code>来调用<code>Servlet</code></p>
+</li>
+<li><p>给服务器设定HTML网页和<code>Servlet</code></p>
+</li>
 </ol>
-<h3 id="enterprise-javabeans">3. Enterprise JavaBeans</h3>
-<p><code>Enterprise JavaBeans(EJB)</code>服务器作用与<code>RMI</code>调用和服务层之间，支持交易管理、安全性、并发性、数据库和网络功能等。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/EJB.PNG" alt="EJB架构的一部分" /><figcaption aria-hidden="true">EJB架构的一部分</figcaption>
-</figure>
-<h3 id="jini">4. Jini</h3>
-<p><code>Jini</code>也是使用<code>RMI</code>，但有几个关键功能：</p>
-<ol type="1">
+<h3 id="3-Enterprise-JavaBeans"><a href="#3-Enterprise-JavaBeans" class="headerlink" title="3. Enterprise JavaBeans"></a>3. Enterprise JavaBeans</h3><p><code>Enterprise JavaBeans(EJB)</code>服务器作用与<code>RMI</code>调用和服务层之间，支持交易管理、安全性、并发性、数据库和网络功能等。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/EJB.PNG" alt="EJB架构的一部分"></p>
+<h3 id="4-Jini"><a href="#4-Jini" class="headerlink" title="4. Jini"></a>4. Jini</h3><p><code>Jini</code>也是使用<code>RMI</code>，但有几个关键功能：</p>
+<ol>
 <li>自适应探索(<code>Adaptive discovery</code>)</li>
 <li>自恢复网络(<code>Self-healing networks</code>)</li>
 </ol>
@@ -468,7 +489,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程过程调用的设计"><span class="nav-number">2.</span> <span class="nav-text">1. 远程过程调用的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#辅助设施的任务"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 辅助设施的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建远程服务"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 创建远程服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端获取stub"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 客户端获取stub</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#servlets"><span class="nav-number">3.</span> <span class="nav-text">2. Servlets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enterprise-javabeans"><span class="nav-number">4.</span> <span class="nav-text">3. Enterprise JavaBeans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jini"><span class="nav-number">5.</span> <span class="nav-text">4. Jini</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-远程过程调用的设计"><span class="nav-number">2.</span> <span class="nav-text">1. 远程过程调用的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-辅助设施的任务"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 辅助设施的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-创建远程服务"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 创建远程服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-客户端获取stub"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 客户端获取stub</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Servlets"><span class="nav-number">3.</span> <span class="nav-text">2. Servlets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Enterprise-JavaBeans"><span class="nav-number">4.</span> <span class="nav-text">3. Enterprise JavaBeans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Jini"><span class="nav-number">5.</span> <span class="nav-text">4. Jini</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -484,7 +505,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -545,13 +566,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

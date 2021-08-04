@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言  继承只是个开始。">
+  <meta name="description" content="前言 继承只是个开始。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--8 接口与抽象类">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;13&#x2F;JavaLearning_Head_First_Java_8_interfaces_and_abstract_classes.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言  继承只是个开始。">
+<meta property="og:description" content="前言 继承只是个开始。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;abstractConcrete.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;animalList.PNG">
@@ -318,21 +318,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言">前言</h3>
-<blockquote>
-<p>继承只是个开始。 <a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>继承只是个开始。<br><a id="more"></a></p>
 </blockquote>
-<h3 id="抽象类">1. 抽象类</h3>
-<h4 id="抽象类-1">1.1 抽象类</h4>
-<p>有些类不应该被初始化。比如如果尝试创建一个<code>Animal</code>对象，很难定义该对象或者说该对象并没有意义(没有一种叫做<code>Animal</code>的动物)。而又需要<code>Animal</code>类来继承和产生多态，需要<strong>限制只有它的子类才能被初始化</strong>。</p>
-<p>通过标记类为<code>抽象类</code>，可以告诉编译器这个类不能创建任何类型实例。记让这个类不能被<code>"nwe"</code>出来。设计抽象类只需要在类前加入关键词<code>abstract</code>：</p>
+<h3 id="1-抽象类"><a href="#1-抽象类" class="headerlink" title="1. 抽象类"></a>1. 抽象类</h3><h4 id="1-1-抽象类"><a href="#1-1-抽象类" class="headerlink" title="1.1 抽象类"></a>1.1 抽象类</h4><p>有些类不应该被初始化。比如如果尝试创建一个<code>Animal</code>对象，很难定义该对象或者说该对象并没有意义(没有一种叫做<code>Animal</code>的动物)。而又需要<code>Animal</code>类来继承和产生多态，需要<strong>限制只有它的子类才能被初始化</strong>。</p>
+<p>通过标记类为<code>抽象类</code>，可以告诉编译器这个类不能创建任何类型实例。记让这个类不能被<code>&quot;nwe&quot;</code>出来。设计抽象类只需要在类前加入关键词<code>abstract</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Canie</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">roam</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还是可以用这种抽象类作为引用类型给多态使用。不是<code>抽象(abstract)</code>的类就被称为<code>具体(concrete)</code>类</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/abstractConcrete.PNG" alt="抽象与具体" /><figcaption aria-hidden="true">抽象与具体</figcaption>
-</figure>
-<h4 id="抽象方法">1.2 抽象方法</h4>
-<p>方法也可以被标及为<code>abstract</code>。抽象类代表此类必须要被<code>extend</code>，抽象方法代表此方法必须要被覆盖。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/abstractConcrete.PNG" alt="抽象与具体"></p>
+<h4 id="1-2-抽象方法"><a href="#1-2-抽象方法" class="headerlink" title="1.2 抽象方法"></a>1.2 抽象方法</h4><p>方法也可以被标及为<code>abstract</code>。抽象类代表此类必须要被<code>extend</code>，抽象方法代表此方法必须要被覆盖。</p>
 <blockquote>
 <p><strong>抽象的方法没有实体</strong></p>
 </blockquote>
@@ -344,19 +338,14 @@
 </blockquote>
 <p>抽象方法的意义是<u>就算无法实现出方法的内容，但还是可以定义出一组子类共同的协议</u>。由于抽象方法没有内容，只是为了标记出多态而存在，所以<strong>继承树下的第一个具体类必须要实现出所有的抽象方法</strong>。</p>
 <p>一个抽象类继承另一个抽象类，不需要实现其抽象方法。但抽象类可以同时带有抽象和非抽象方法，所以如果有需要，也可以对抽象方法进行实现。</p>
-<h4 id="多态范例">1.3 多态范例</h4>
-<p>如果要一个可以保持Dog对象的list，可以写一个专用的list类。但如果Cat也要用同样的方法，如果重新编写一个类似的类过于麻烦。可以利用多态的特点，编写一个<code>AnimalList</code>类来处理<code>Animal</code>的所有子类。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/animalList.PNG" alt="Animal List" /><figcaption aria-hidden="true">Animal List</figcaption>
-</figure>
+<h4 id="1-3-多态范例"><a href="#1-3-多态范例" class="headerlink" title="1.3 多态范例"></a>1.3 多态范例</h4><p>如果要一个可以保持Dog对象的list，可以写一个专用的list类。但如果Cat也要用同样的方法，如果重新编写一个类似的类过于麻烦。可以利用多态的特点，编写一个<code>AnimalList</code>类来处理<code>Animal</code>的所有子类。</p>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/animalList.PNG" alt="Animal List"></p>
 <p>进一步，可以设计处理<code>Animal</code>之上的类，得到更通用、更抽象的类。</p>
 <blockquote>
 <p>Java中所有类都是从<code>Object</code>这个类继承出来的。<code>Object</code>是所有类的源头，即所有类的父类。</p>
 </blockquote>
 <p>没有直接继承过其他类的类会隐含地继承<code>Object</code>类。这样一个终极类(<code>ultra-super-megaclass</code>)需要带有一些每个对象都需要的行为。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/ultra-super-megaclass-Object.PNG" alt="终极类Object" /><figcaption aria-hidden="true">终极类<code>Object</code></figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/ultra-super-megaclass-Object.PNG" alt="终极类`Object`"></p>
 <p><code>Object</code>不是一个正式的<code>Java</code>抽象类，也就是说可以创建<code>Object</code>对象。</p>
 <blockquote>
 <p><code>Object</code>对象的意义主要在于，有时需要一个<u>通用的、轻量化的</u>对象。比如在线程同步中。</p>
@@ -375,41 +364,33 @@
 <p>编译器是<u>根据引用类型来判断有那些method可以调用，而不是<code>Object</code>的确实类型</u>。</p>
 </blockquote>
 <p>对象会带有从父类继承的所有东西。所以无论这个对象实际类型，它也是一个<code>Object</code>实例。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/snowboardObject.PNG" alt="内部Object" /><figcaption aria-hidden="true">内部<code>Object</code></figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/snowboardObject.PNG" alt="内部`Object`"></p>
 <p>但也有办法可以让<code>Object</code>引用恢复成原来的类，那就是使用<code>类型转化</code>。如果确定对象类型，可以直接转换：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dog d = (Dog) o;</span><br></pre></td></tr></table></figure>
 <p>如果无法确定类型，可以使用<code>instanceof</code>来检查。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (o <span class="keyword">instanceof</span> Dog) &#123;</span><br><span class="line">	Dog d = (Dog) o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="接口">2. 接口</h3>
-<h4 id="接口-1">2.1 接口</h4>
-<p>如果想要修改<code>合约</code>，比如为Dog类加入Pet的方法，而又不影响其他非Pet类的使用，就需要<code>接口</code>。先看看没有<code>接口</code>会遇到的问题，可以用如下方式加入<code>Pet</code>方法进行修改：</p>
-<ol type="1">
-<li>把<code>Pet</code>方法加入到<code>Animal</code>类中。
-<ul>
+<h3 id="2-接口"><a href="#2-接口" class="headerlink" title="2. 接口"></a>2. 接口</h3><h4 id="2-1-接口"><a href="#2-1-接口" class="headerlink" title="2.1 接口"></a>2.1 接口</h4><p>如果想要修改<code>合约</code>，比如为Dog类加入Pet的方法，而又不影响其他非Pet类的使用，就需要<code>接口</code>。先看看没有<code>接口</code>会遇到的问题，可以用如下方式加入<code>Pet</code>方法进行修改：</p>
+<ol>
+<li>把<code>Pet</code>方法加入到<code>Animal</code>类中。<ul>
 <li><code>优点</code>：所有子类马上继承<code>Pet</code>方法，无需改变子类程序代码。</li>
 <li><code>缺点</code>：<code>非Pet</code>类也会继承到<code>Pet</code>方法</li>
-</ul></li>
-<li>把<code>Pet</code>方法加入到<code>Animal</code>类中，但把其设定为抽象的。
-<ul>
+</ul>
+</li>
+<li>把<code>Pet</code>方法加入到<code>Animal</code>类中，但把其设定为抽象的。<ul>
 <li><code>优点</code>：<code>非Pet</code>类覆盖方法时，作出合理动作。</li>
 <li><code>缺点</code>：所有子类都需要实现<code>Pet</code>方法，耗时。</li>
-</ul></li>
-<li>把方法添加到需要的子类中。
-<ul>
+</ul>
+</li>
+<li>把方法添加到需要的子类中。<ul>
 <li><code>优点</code>：<code>非Pet</code>类无需实现，更灵活。</li>
 <li><code>缺点</code>：失去合约保证，且多态无法其作用。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 <p>真正需要的是：<code>Pet</code>方法只需要在宠物上实现；所有宠物类都有相同的方法定义；可以运用到多态。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/twoSuperClassesAtTop.PNG" alt="继承多个上次父类" /><figcaption aria-hidden="true">继承多个上次父类</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/twoSuperClassesAtTop.PNG" alt="继承多个上次父类"></p>
 <p>图中的<code>多重继承</code>会有被称为<code>”致命方块”（Deadly Diamond of Death）</code>的问题，而且Java也并不支持这种方式。</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeadlyDiamondofDeath.PNG" alt="”致命方块”（Deadly Diamond of Death）" /><figcaption aria-hidden="true">”致命方块”（Deadly Diamond of Death）</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeadlyDiamondofDeath.PNG" alt="”致命方块”（Deadly Diamond of Death）"></p>
 <p>·同名的实例变量和函数会导致冲突，带来更复杂的问题。</p>
 <p>Java里使用<code>接口(interface)</code>来解决这一问题，接口把全部方法设为抽象的，所有子类都需要实现其方法。接口定义如下，使用<code>interface</code>代替<code>class</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Pet</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
@@ -422,18 +403,13 @@
 <blockquote>
 <p>不同继承树的类也可以实现相同的接口</p>
 </blockquote>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/inheritanceTreeInterface.PNG" alt="继承树中的接口" /><figcaption aria-hidden="true">继承树中的接口</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/inheritanceTreeInterface.PNG" alt="继承树中的接口"></p>
 <p>用接口作为多态类型时，对象可以来自任何地方。唯一的条件是<strong>该对象必须是来自有实现此接口的类</strong>。类可以实现多个接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">Pet</span>, <span class="title">Saveable</span>, <span class="title">Paintable</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <p>可以把接口理解为<strong>类可以扮演的角色</strong>。</p>
-<h4 id="super的使用">2.2 <code>Super</code>的使用</h4>
-<p>如果子类不打算完全覆盖某个父类方法，又需要加入额外动作，可以使用<code>super</code>关键词来调用父类方法。</p>
+<h4 id="2-2-Super的使用"><a href="#2-2-Super的使用" class="headerlink" title="2.2 Super的使用"></a>2.2 <code>Super</code>的使用</h4><p>如果子类不打算完全覆盖某个父类方法，又需要加入额外动作，可以使用<code>super</code>关键词来调用父类方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">runReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     	<span class="comment">// set-up report </span></span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">printReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 		<span class="comment">// generic printing</span></span><br><span class="line"> 	 &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuzzwordsReport</span> <span class="keyword">extends</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">runReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.runReport();  <span class="comment">//调用父类方法</span></span><br><span class="line">		buzzwordCompliance();</span><br><span class="line">		printReport();</span><br><span class="line">	&#125;</span><br><span class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">buzzwordCompliance</span><span class="params">()</span> </span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/superClass.PNG" alt="superClass" /><figcaption aria-hidden="true">superClass</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/superClass.PNG" alt="superClass"></p>
 
     </div>
 
@@ -501,7 +477,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类"><span class="nav-number">2.</span> <span class="nav-text">1. 抽象类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象类-1"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象方法"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 抽象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态范例"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 多态范例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口"><span class="nav-number">3.</span> <span class="nav-text">2. 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接口-1"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super的使用"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Super的使用</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-抽象类"><span class="nav-number">2.</span> <span class="nav-text">1. 抽象类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-抽象类"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 抽象类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-抽象方法"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 抽象方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-多态范例"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 多态范例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-接口"><span class="nav-number">3.</span> <span class="nav-text">2. 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-接口"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Super的使用"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Super的使用</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -517,7 +493,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -578,13 +554,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

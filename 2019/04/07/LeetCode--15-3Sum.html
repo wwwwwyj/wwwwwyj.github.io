@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述  Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.">
+  <meta name="description" content="一、问题描述 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--15. 3Sum">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;04&#x2F;07&#x2F;LeetCode--15-3Sum.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述  Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.">
+<meta property="og:description" content="一、问题描述 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:41:24.868Z">
 <meta name="twitter:card" content="summary">
@@ -316,21 +316,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<blockquote>
-<p>Given an array <strong>nums</strong> of n integers, are there elements a, b, c in <strong>nums</strong> such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero. <a id="more"></a></p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
+<p>Given an array <strong>nums</strong> of n integers, are there elements a, b, c in <strong>nums</strong> such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.<br><a id="more"></a></p>
 </blockquote>
-<p><strong>Note :</strong> &gt;The solution set must not contain duplicate triplets.</p>
-<p><strong>Example :</strong> &gt;Given array nums = [-1, 0, 1, 2, -1, -4],</p>
+<p><strong>Note :</strong></p>
 <blockquote>
-<p>A solution set is: [ [-1, 0, 1], [-1, -1, 2]]</p>
+<p>The solution set must not contain duplicate triplets.</p>
 </blockquote>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>这个题和第一题Two Sum有些类似，但是要比那道题复杂一些。它的结果不止一个，而且返回的结果里不能有重复的解，由于用向量保存解，可能同一个解有不同的排列方式，去重的话会很麻烦。需要想一种算法，在计算结果的同时，跳过重复解。所以这道题应该不是考察Two Sum的解法。</p>
-<p>分析一下这道题的特点，要我们找出三个数且和为0，那么除了三个数全是0的情况之外，肯定会有负数和正数。我们可以先固定一个数a，然后去找另外两个数b和c，我们只要找到两个数且和(b+c)为第一个数a的相反数就行了。在寻找这两个数组合的过程中，我们肯定不希望遍历所有两个数的组合。最先想到的就是，对原数组先进行一个排序，然后遍历这个排序后的数组，寻找合适的解。主要过程大致如下： &gt; 1. 设置low, high，分别从左边和右边向中间遍历数组:如果找到了 a+b+c=0，把结果放入答案集内;若a+b+c &lt; 0，则(b+c)过小，增大low；若a+b+c &gt; 0，则(b+c)过大，减小high &gt; 2. 在遍历过程中，若两个数相同，在数组中一定是相邻的，可以跳过这些相同的数。 &gt; 3. 我们也可以先做个剪枝优化，就是当遍历到正数a的时候就break，因为我们的数组现在是有序的了，如果第一个要数a就是正数了，那么后面的数字b,c就都是正数，就永远不会出现和为0的情况了。</p>
-<h3 id="三代码">三、代码</h3>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">2</span> || nums.front()&gt;<span class="number">0</span> || nums.back() &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size() ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> low = i+<span class="number">1</span>,high = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[low] + nums[high];</span><br><span class="line">                <span class="keyword">if</span>(sum == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tuple = &#123;nums[i], nums[low], nums[high]&#125;;</span><br><span class="line">                    res.push_back(tuple);</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[low] == nums[++low] );</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[high] == nums[--high] );</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; <span class="number">0</span>) high--;</span><br><span class="line">                <span class="keyword">else</span> low++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<p><strong>Example :</strong></p>
+<blockquote>
+<p>Given array nums = [-1, 0, 1, 2, -1, -4],</p>
+<p>A solution set is:<br>[<br> [-1, 0, 1],<br> [-1, -1, 2]<br>]</p>
+</blockquote>
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>这个题和第一题Two Sum有些类似，但是要比那道题复杂一些。它的结果不止一个，而且返回的结果里不能有重复的解，由于用向量保存解，可能同一个解有不同的排列方式，去重的话会很麻烦。需要想一种算法，在计算结果的同时，跳过重复解。所以这道题应该不是考察Two Sum的解法。</p>
+<p>分析一下这道题的特点，要我们找出三个数且和为0，那么除了三个数全是0的情况之外，肯定会有负数和正数。我们可以先固定一个数a，然后去找另外两个数b和c，我们只要找到两个数且和(b+c)为第一个数a的相反数就行了。在寻找这两个数组合的过程中，我们肯定不希望遍历所有两个数的组合。最先想到的就是，对原数组先进行一个排序，然后遍历这个排序后的数组，寻找合适的解。主要过程大致如下：</p>
+<blockquote>
+<ol>
+<li>设置low, high，分别从左边和右边向中间遍历数组:如果找到了 a+b+c=0，把结果放入答案集内;若a+b+c &lt; 0，则(b+c)过小，增大low；若a+b+c &gt; 0，则(b+c)过大，减小high</li>
+<li>在遍历过程中，若两个数相同，在数组中一定是相邻的，可以跳过这些相同的数。</li>
+<li>我们也可以先做个剪枝优化，就是当遍历到正数a的时候就break，因为我们的数组现在是有序的了，如果第一个要数a就是正数了，那么后面的数字b,c就都是正数，就永远不会出现和为0的情况了。</li>
+</ol>
+</blockquote>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">if</span>(nums.size() &lt;= <span class="number">2</span> || nums.front()&gt;<span class="number">0</span> || nums.back() &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size() ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i<span class="number">-1</span>]) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> low = i+<span class="number">1</span>,high = nums.size()<span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">while</span>(low &lt; high)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> sum = nums[i] + nums[low] + nums[high];</span><br><span class="line">                <span class="keyword">if</span>(sum == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tuple = &#123;nums[i], nums[low], nums[high]&#125;;</span><br><span class="line">                    res.push_back(tuple);</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[low] == nums[++low] );</span><br><span class="line">                    <span class="keyword">while</span>(low &lt; high &amp;&amp; nums[high] == nums[--high] );</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(sum &gt; <span class="number">0</span>) high--;</span><br><span class="line">                <span class="keyword">else</span> low++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -396,7 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -412,7 +419,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -473,13 +480,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

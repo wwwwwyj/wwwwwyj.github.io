@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，从同一个方向看总共有多少种不同的方法？">
+  <meta name="description" content="一、问题描述我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，从同一个方向看总共有多少种不同的方法？">
 <meta name="keywords" content="剑指offer,面试复习,刷题记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-10-矩形覆盖">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;26&#x2F;JZ10_Rectangular_coverage.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，从同一个方向看总共有多少种不同的方法？">
+<meta property="og:description" content="一、问题描述我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，从同一个方向看总共有多少种不同的方法？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;jzoffer&#x2F;JZ10&#x2F;JZ10.png">
 <meta property="og:updated_time" content="2021-05-26T04:33:52.000Z">
@@ -292,7 +292,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>719</span>
+              <span>711</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -311,35 +311,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一问题描述">一、问题描述</h3>
-<p>我们可以用<code>2*1</code>的小矩形横着或者竖着去覆盖更大的矩形。请问用<code>n</code>个<code>2*1</code>的小矩形无重叠地覆盖一个<code>2*n</code>的大矩形，从同一个方向看总共有多少种不同的方法？ <a id="more"></a></p>
+        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><p>我们可以用<code>2*1</code>的小矩形横着或者竖着去覆盖更大的矩形。请问用<code>n</code>个<code>2*1</code>的小矩形无重叠地覆盖一个<code>2*n</code>的大矩形，从同一个方向看总共有多少种不同的方法？<br><a id="more"></a></p>
 <p>比如<code>n=3</code>时，<code>2*3</code>的矩形块有<code>3</code>种不同的覆盖方法(从同一个方向看)：</p>
-<figure>
-<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/jzoffer/JZ10/JZ10.png" alt="矩形覆盖" /><figcaption aria-hidden="true">矩形覆盖</figcaption>
-</figure>
+<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/jzoffer/JZ10/JZ10.png" alt="矩形覆盖"></p>
 <p><strong>示例1</strong></p>
 <blockquote>
-<p>输入：0 返回值：0</p>
+<p>输入：0<br>返回值：0</p>
 </blockquote>
 <p><strong>示例2</strong></p>
 <blockquote>
-<p>输入：1 返回值：1</p>
+<p>输入：1<br>返回值：1</p>
 </blockquote>
 <p><strong>示例3</strong></p>
 <blockquote>
-<p>输入：4 返回值：5</p>
+<p>输入：4<br>返回值：5</p>
 </blockquote>
-<h3 id="二解题思路">二、解题思路</h3>
-<p>实际上还是一个类似于斐波那契数列的问题(连续好几个题了)，初始化两个基本的组合，<code>1</code>个<code>2*1</code>的小矩形只有<code>1</code>种组合方式，<code>2</code>个这样的矩阵有两种组合方式，然后是这两个基本组合之上的不断叠加的组合方法。所以可以写为： <span class="math display">\[
+<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>实际上还是一个类似于斐波那契数列的问题(连续好几个题了)，初始化两个基本的组合，<code>1</code>个<code>2*1</code>的小矩形只有<code>1</code>种组合方式，<code>2</code>个这样的矩阵有两种组合方式，然后是这两个基本组合之上的不断叠加的组合方法。所以可以写为：</p>
+<script type="math/tex; mode=display">
 F(1)=1\\
 F(2)=2\\
-F(n) = F(n-1) + F(n-2) (n \geq 3, n \in N^*)
-\]</span> 剩下的就是利用之前的递归法，迭代法来实现该算法。</p>
-<h3 id="三代码">三、代码</h3>
-<h4 id="递归法">1. 递归法</h4>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rectCover</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt;=<span class="number">2</span>) <span class="keyword">return</span> target;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> rectCover(target-<span class="number">1</span>) + rectCover(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="迭代法">2. 迭代法</h4>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rectCover</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt;=<span class="number">2</span>) <span class="keyword">return</span> target;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> one = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">3</span>; i &lt;= target; i++) &#123;</span><br><span class="line">            sum = sum + one;</span><br><span class="line">            one = sum - one;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+F(n) = F(n-1) + F(n-2) (n \geq 3, n \in N^*)</script><p>剩下的就是利用之前的递归法，迭代法来实现该算法。</p>
+<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="1-递归法"><a href="#1-递归法" class="headerlink" title="1. 递归法"></a>1. 递归法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rectCover</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt;=<span class="number">2</span>) <span class="keyword">return</span> target;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> rectCover(target-<span class="number">1</span>) + rectCover(target-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-迭代法"><a href="#2-迭代法" class="headerlink" title="2. 迭代法"></a>2. 迭代法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rectCover</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt;=<span class="number">2</span>) <span class="keyword">return</span> target;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> one = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">3</span>; i &lt;= target; i++) &#123;</span><br><span class="line">            sum = sum + one;</span><br><span class="line">            one = sum - one;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -408,7 +401,7 @@ F(n) = F(n-1) + F(n-2) (n \geq 3, n \in N^*)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#递归法"><span class="nav-number">3.1.</span> <span class="nav-text">1. 递归法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代法"><span class="nav-number">3.2.</span> <span class="nav-text">2. 迭代法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-递归法"><span class="nav-number">3.1.</span> <span class="nav-text">1. 递归法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-迭代法"><span class="nav-number">3.2.</span> <span class="nav-text">2. 迭代法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -424,7 +417,7 @@ F(n) = F(n-1) + F(n-2) (n \geq 3, n \in N^*)
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">132</span>
+          <span class="site-state-item-count">134</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -485,13 +478,13 @@ F(n) = F(n-1) + F(n-2) (n \geq 3, n \in N^*)
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">544k</span>
+    <span title="站点总字数">552k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:14</span>
+    <span title="站点阅读时长">8:22</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
