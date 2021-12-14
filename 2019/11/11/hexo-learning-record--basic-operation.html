@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
+  <meta name="description" content="前言  终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
 <meta name="keywords" content="学习记录,Hexo,写博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo学习记录--基本操作">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;11&#x2F;hexo-learning-record--basic-operation.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
+<meta property="og:description" content="前言  终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:35:54.447Z">
 <meta name="twitter:card" content="summary">
@@ -297,7 +297,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -316,18 +316,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+        <h3 id="前言">前言</h3>
+<blockquote>
 <p>终于决定重新开始写博客了。这次一定得坚持下来，写写学习进度，定期自我总结。太久没写博客了，基本操作又给忘了，这次就索性先从怎么写博客开始，把基本指令都记录下来，省得下次半途而废回来的时候又全忘了到处查。</p>
 </blockquote>
 <a id="more"></a>
-<h3 id="Hexo写博客的基本操作"><a href="#Hexo写博客的基本操作" class="headerlink" title="Hexo写博客的基本操作"></a>Hexo写博客的基本操作</h3><h4 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h4><blockquote>
+<h3 id="hexo写博客的基本操作">Hexo写博客的基本操作</h3>
+<h4 id="写文章">写文章</h4>
+<blockquote>
 <p>最重要的就是写文章部分了，首先了解如何新建一篇文章。Hexo博客建立开始，就自带一篇 <a href="http://wuyunjie.top/2017/09/20/hello-world/">Hello World</a> 简易教程。新建文章主要用下面这条命令：</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这里可以指定文章的布局(layout)，默认为 <code>post</code>。这样所有的文章都会以<code>md</code>形式在<code>source</code>文件夹下的<code>_post</code>文件夹中被创建，之后我们就可以愉快的编辑文章了，这是一个<a href="https://www.runoob.com/markdown/md-tutorial.html" target="_blank" rel="noopener">markdown的学习文档</a>。</p>
 </blockquote>
-<h4 id="添加分类页"><a href="#添加分类页" class="headerlink" title="添加分类页"></a>添加分类页</h4><blockquote>
+<h4 id="添加分类页">添加分类页</h4>
+<blockquote>
 <p>新建一个分类页面，命名为 <code>categories</code>。命令如下：</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page [categories]</span><br></pre></td></tr></table></figure>
@@ -335,20 +339,21 @@
 <p>可以将 <code>categories</code> 改为自己需要的新页面，会在 <code>source</code> 文件夹下新建一个对应名为<code>categories</code>的文件夹。然后编辑主题的 <code>_config.yml</code>，即<code>themes/next</code>下的配置文件，区别于网站根目录下的配置文件，将 <code>menu</code> 中的 <code>categories: /categories || th</code> 注释去掉，在菜单中添加链接。</p>
 </blockquote>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">home</span></span><br><span class="line">  <span class="comment">#about: /about/ || user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">tags</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">th</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">archive</span></span><br></pre></td></tr></table></figure>
-<h4 id="文章分类归档"><a href="#文章分类归档" class="headerlink" title="文章分类归档"></a>文章分类归档</h4><blockquote>
-<p>当然也可以个文章进行分类归档，在编辑文章时，为文章添加 <code>tags</code> 和 <code>categories</code>即可。<br><figure class="highlight mkdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: a title</span><br><span class="line">date: a date</span><br><span class="line">tags:</span><br><span class="line"><span class="bullet">    - </span>tag1</span><br><span class="line"><span class="bullet">    - </span>tag2</span><br><span class="line"><span class="bullet">    - </span>tag3</span><br><span class="line">categories: a category</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="编辑工具"><a href="#编辑工具" class="headerlink" title="编辑工具"></a>编辑工具</h4><blockquote>
-<p>为了方便，感觉又两个在线编辑<code>markdown</code>文档的工具挺好用的。</p>
+<h4 id="文章分类归档">文章分类归档</h4>
 <blockquote>
-<ol>
-<li><a href="http://markdown.xiaoshujiang.com/" target="_blank" rel="noopener">小书匠</a></li>
-<li><a href="https://www.mdeditor.com/" target="_blank" rel="noopener">MdEditor</a></li>
-</ol>
+<p>当然也可以个文章进行分类归档，在编辑文章时，为文章添加 <code>tags</code> 和 <code>categories</code>即可。 <figure class="highlight mkdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: a title</span><br><span class="line">date: a date</span><br><span class="line">tags:</span><br><span class="line"><span class="bullet">    - </span>tag1</span><br><span class="line"><span class="bullet">    - </span>tag2</span><br><span class="line"><span class="bullet">    - </span>tag3</span><br><span class="line">categories: a category</span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<h4 id="编辑工具">编辑工具</h4>
+<blockquote>
+<p>为了方便，感觉又两个在线编辑<code>markdown</code>文档的工具挺好用的。</p>
+</blockquote>
+<pre><code>&gt; &gt; 1. [小书匠](http://markdown.xiaoshujiang.com/)
+&gt; &gt; 2. [MdEditor](https://www.mdeditor.com/)</code></pre>
+<blockquote>
 <p>当然也可以配置离线工具，但是不太熟。我配了个<code>sublime</code>的，感觉不好看，也不怎么好用。</p>
 </blockquote>
-<h3 id="生成和部署"><a href="#生成和部署" class="headerlink" title="生成和部署"></a>生成和部署</h3><blockquote>
+<h3 id="生成和部署">生成和部署</h3>
+<blockquote>
 <p>当编辑完一个博客页面后，我们需要生成静态页面。可以用如下指令。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g #生成</span><br></pre></td></tr></table></figure>
@@ -360,7 +365,8 @@
 <p>一切准备就绪后，就可以提交了。然后通过自己的域名就可以成功访问博客。不过这一步可能会存在延迟，不会立即看到效果。应该是由于缓存的关系。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d #上传部署到github</span><br></pre></td></tr></table></figure>
-<h3 id="常用命令和缩写"><a href="#常用命令和缩写" class="headerlink" title="常用命令和缩写"></a>常用命令和缩写</h3><blockquote>
+<h3 id="常用命令和缩写">常用命令和缩写</h3>
+<blockquote>
 <p>常用命令有以下几个</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new "postName" #新建文章</span><br><span class="line">hexo new page "pageName" #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>
@@ -371,8 +377,9 @@
 <blockquote>
 <p>至此我们可以开始愉快的玩耍了。</p>
 </blockquote>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
-<p>[1] <a href="https://www.jianshu.com/p/1bcad7700c46" target="_blank" rel="noopener">使用hexo搭建github博客</a><br>[2] <a href="https://www.cnblogs.com/fengzheng/p/8031518.html" target="_blank" rel="noopener">Hexo + github 打造个人博客</a><br>[3] <a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">使用hexo+github搭建免费个人博客详细教程</a><br>[4] <a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo 指令</a></p>
+<h3 id="参考">参考</h3>
+<blockquote>
+<p>[1] <a href="https://www.jianshu.com/p/1bcad7700c46" target="_blank" rel="noopener">使用hexo搭建github博客</a> [2] <a href="https://www.cnblogs.com/fengzheng/p/8031518.html" target="_blank" rel="noopener">Hexo + github 打造个人博客</a> [3] <a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">使用hexo+github搭建免费个人博客详细教程</a> [4] <a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo 指令</a></p>
 </blockquote>
 
     </div>
@@ -442,7 +449,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo写博客的基本操作"><span class="nav-number">2.</span> <span class="nav-text">Hexo写博客的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写文章"><span class="nav-number">2.1.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加分类页"><span class="nav-number">2.2.</span> <span class="nav-text">添加分类页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章分类归档"><span class="nav-number">2.3.</span> <span class="nav-text">文章分类归档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑工具"><span class="nav-number">2.4.</span> <span class="nav-text">编辑工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成和部署"><span class="nav-number">3.</span> <span class="nav-text">生成和部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令和缩写"><span class="nav-number">4.</span> <span class="nav-text">常用命令和缩写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo写博客的基本操作"><span class="nav-number">2.</span> <span class="nav-text">Hexo写博客的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写文章"><span class="nav-number">2.1.</span> <span class="nav-text">写文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加分类页"><span class="nav-number">2.2.</span> <span class="nav-text">添加分类页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章分类归档"><span class="nav-number">2.3.</span> <span class="nav-text">文章分类归档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑工具"><span class="nav-number">2.4.</span> <span class="nav-text">编辑工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成和部署"><span class="nav-number">3.</span> <span class="nav-text">生成和部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令和缩写"><span class="nav-number">4.</span> <span class="nav-text">常用命令和缩写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -458,7 +465,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -471,7 +478,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -519,13 +526,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

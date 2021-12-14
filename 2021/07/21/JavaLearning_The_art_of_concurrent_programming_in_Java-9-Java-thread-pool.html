@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。">
+  <meta name="description" content="前言 Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。">
 <meta name="keywords" content="Learning,Java,Java并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Java并发编程的艺术]--9 Java中的线程池">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;21&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-9-Java-thread-pool.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。">
+<meta property="og:description" content="前言 Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter9&#x2F;thradPoolFlow.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter9&#x2F;thradPoolExecute.PNG">
@@ -312,33 +312,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。 <a id="more"></a></p>
 <ul>
 <li><strong>降低资源消耗</strong>。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li>
 <li><strong>提高响应速度</strong>。当任务到达时，任务可以不需要等到线程创建就能立即执行。</li>
 <li><strong>提高线程的可管理性</strong>。使用线程池可以进行统一分配、调优和监控。</li>
 </ul>
-<h3 id="1-线程池的实现原理"><a href="#1-线程池的实现原理" class="headerlink" title="1. 线程池的实现原理"></a>1. 线程池的实现原理</h3><p>当提交一个新任务到线程池时，线程池的处理流程如下。</p>
+<h3 id="线程池的实现原理">1. 线程池的实现原理</h3>
+<p>当提交一个新任务到线程池时，线程池的处理流程如下。</p>
 <ul>
-<li>线程池判断<u><strong>核心线程池是否已满</strong></u>。<ul>
+<li>线程池判断<u><strong>核心线程池是否已满</strong></u>。
+<ul>
 <li>如果不是，则创建一个新的工作线程来执行任务。</li>
 <li>如果是，则进入下个流程。</li>
-</ul>
-</li>
-<li>线程池判断<strong><u>工作队列是否已经满</u></strong>。<ul>
+</ul></li>
+<li>线程池判断<strong><u>工作队列是否已经满</u></strong>。</li>
 <li>如果工作队列没有满，则将新提交的任务存储在这个工作队列里。</li>
 <li>如果工作队列满了，则进入下个流程。</li>
-</ul>
-</li>
-<li>线程池判断<strong><u>线程池是否已满</u></strong>。<ul>
+<li>线程池判断<strong><u>线程池是否已满</u></strong>。
+<ul>
 <li>如果没有，则创建一个新的工作线程来执行任务。</li>
 <li>如果已经满了，则交给饱和策略来处理这个任务。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter9/thradPoolFlow.PNG" alt="线程池的主要处理流程"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter9/thradPoolFlow.PNG" alt="线程池的主要处理流程" /><figcaption aria-hidden="true">线程池的主要处理流程</figcaption>
+</figure>
 <p><code>ThreadPoolExecutor</code>执行<code>execute()</code>方法有四种情况：</p>
-<ol>
+<ol type="1">
 <li>如果当前运行的线程少于<code>corePoolSize</code>，则创建新线程来执行任务（<strong><u>需要获取全局锁</u></strong>）。</li>
 <li>如果运行的线程等于或多于<code>corePoolSize</code>，则将任务加入<code>BlockingQueue</code>。</li>
 <li>如果无法将任务加入<code>BlockingQueue</code>（队列已满），则创建新的线程来处理任务（<strong><u>需要获取全局锁</u></strong>）。</li>
@@ -346,78 +348,77 @@
 </ol>
 <p>在<code>ThreadPoolExecutor</code>完成预热之后（当前运行的线程数大于等于<code>corePoolSize</code>），几乎所有的<code>execute()</code>方法调用都是执行步骤<code>2</code>，而步骤<code>2</code>不需要获取全局锁。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable command)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (command == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">	<span class="comment">// 如果线程数小于基本线程数，则创建线程并执行当前任务</span></span><br><span class="line">    <span class="keyword">if</span> (poolSize &gt;= corePoolSize || !addIfUnderCorePoolSize(command)) &#123;</span><br><span class="line">		<span class="comment">// 如线程数大于等于基本线程数或线程创建失败，则将当前任务放到工作队列中。</span></span><br><span class="line">        <span class="keyword">if</span> (runState == RUNNING &amp;&amp; workQueue.offer(command)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (runState != RUNNING || poolSize == <span class="number">0</span>)</span><br><span class="line">                ensureQueuedTaskHandled(command);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 如果线程池不处于运行中或任务无法放入队列，并且当前线程数量小于最大允许的线程数量，</span></span><br><span class="line">		<span class="comment">// 则创建一个线程执行任务。</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!addIfUnderMaximumPoolSize(command))</span><br><span class="line">			<span class="comment">// 抛出RejectedExecutionException异常</span></span><br><span class="line">            reject(command); <span class="comment">// is shutdown or saturated</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter9/thradPoolExecute.PNG" alt="ThreadPoolExecutor"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter9/thradPoolExecute.PNG" alt="ThreadPoolExecutor" /><figcaption aria-hidden="true">ThreadPoolExecutor</figcaption>
+</figure>
 <p>线程池创建线程时，会将线程封装成工作线程<code>Worker</code>，<code>Worker</code>在执行完任务后，还会循环获取工作队列里的任务来执行。线程池中的线程执行任务分两种情况。</p>
-<ol>
+<ol type="1">
 <li>在<code>execute()</code>方法中创建一个线程时，会让这个线程执行当前任务。</li>
 <li>这个线程执行完<code>1</code>的任务后，会反复从<code>BlockingQueue</code>获取任务来执行。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Worker类的run()方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Runnable task = firstTask;</span><br><span class="line">        firstTask = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (task != <span class="keyword">null</span> || (task = getTask()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            runTask(task);task = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        workerDone(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-线程池的使用"><a href="#2-线程池的使用" class="headerlink" title="2 线程池的使用"></a>2 线程池的使用</h3><h4 id="2-1-线程池的创建"><a href="#2-1-线程池的创建" class="headerlink" title="2.1 线程池的创建"></a>2.1 线程池的创建</h4><p>通过<code>ThreadPoolExecutor</code>来创建一个线程池：</p>
+<h3 id="线程池的使用">2 线程池的使用</h3>
+<h4 id="线程池的创建">2.1 线程池的创建</h4>
+<p>通过<code>ThreadPoolExecutor</code>来创建一个线程池：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, milliseconds,runnableTaskQueue, handler);</span><br></pre></td></tr></table></figure>
 <p>输入几个参数介绍如下：</p>
 <ul>
-<li><code>corePoolSize</code>：线程池的基本大小。<ul>
+<li><code>corePoolSize</code>：线程池的基本大小。
+<ul>
 <li>需要执行的任务数小于线程池基本大小时，即使其他空闲的基本线程能够执行新任务，线程池会先创建一个线程来执行任务。</li>
 <li>如果调用了线程池的<code>prestartAllCoreThreads()</code>方法，线程池会<strong><u>提前</u></strong>创建并启动所有基本线程。</li>
-</ul>
-</li>
-<li><code>runnableTaskQueue</code>：任务队列。用于保存等待执行的任务的阻塞队列。可以选择的阻塞队列有：<ul>
+</ul></li>
+<li><code>runnableTaskQueue</code>：任务队列。用于保存等待执行的任务的阻塞队列。可以选择的阻塞队列有：
+<ul>
 <li><code>ArrayBlockingQueue</code>；</li>
 <li><code>LinkedBlockingQueue</code>。静态方法<code>Executors.newFixedThreadPool()</code>使用这个队列。</li>
 <li><code>SynchronousQueue</code>。静态方法<code>Executors.newCachedThreadPool</code>使用这个队列。</li>
 <li><code>PriorityBlockingQueue</code>。</li>
-</ul>
-</li>
-<li><code>maximumPoolSize</code>：线程池允许创建的最大线程数。<ul>
+</ul></li>
+<li><code>maximumPoolSize</code>：线程池允许创建的最大线程数。
+<ul>
 <li>如果队列满了，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程执行任务。</li>
-</ul>
-</li>
+</ul></li>
 <li><code>ThreadFactory</code>：用于设置创建线程的工厂，可以通过线程工厂给每个创建出来的线程设置更有意义的名字。</li>
-<li><p><code>RejectedExecutionHandler</code>：饱和策略。当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。策略默认情况下是<code>AbortPolicy</code>，表示无法处理新任务时抛出异常。Java线程池框架提供了以下4种策略。</p>
+<li><code>RejectedExecutionHandler</code>：饱和策略。当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。策略默认情况下是<code>AbortPolicy</code>，表示无法处理新任务时抛出异常。Java线程池框架提供了以下4种策略。
 <ul>
 <li><code>AbortPolicy</code>：直接抛出异常。</li>
 <li><code>CallerRunsPolicy</code>：用调用者所在线程来运行任务。</li>
 <li><code>DiscardOldestPolicy</code>：丢弃队列里最近的一个任务，并执行当前任务。</li>
 <li><code>DiscardPolicy</code>：不处理，直接丢弃掉。</li>
 <li>也可以实现<code>RejectedExecutionHandler</code>接口自定义策略</li>
-</ul>
-</li>
-<li><p><code>keepAliveTime</code>：线程活动保持时间。线程池的工作线程空闲后，保持存活的时间。</p>
-</li>
+</ul></li>
+<li><code>keepAliveTime</code>：线程活动保持时间。线程池的工作线程空闲后，保持存活的时间。</li>
 <li><code>TimeUnit</code>：线程活动保持时间的单位。可选的单位有<code>天（DAYS）</code>、<code>小时（HOURS）</code>、<code>分钟（MINUTES）</code>、<code>毫秒（MILLISECONDS）</code>、<code>微秒（MICROSECONDS）</code>和<code>纳秒（NANOSECONDS）</code>。</li>
 </ul>
-<h4 id="2-2-向线程池提交任务"><a href="#2-2-向线程池提交任务" class="headerlink" title="2.2 向线程池提交任务"></a>2.2 向线程池提交任务</h4><p>可以使用两个方法向线程池提交任务：</p>
+<h4 id="向线程池提交任务">2.2 向线程池提交任务</h4>
+<p>可以使用两个方法向线程池提交任务：</p>
 <ul>
 <li><p><code>execute()</code>方法。用于提交<u><strong>不需要返回值</strong></u>的任务，所以无法判断任务是否被线程池执行成功。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">threadsPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">threadsPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
 <li><p><code>submit()</code>方法。用于提交<u><strong>需要返回值</strong></u>的任务，线程池会返回一个<code>future</code>类型的对象，通过该<code>future</code>对象可以判断任务是否执行成功，并可以通过<code>future</code>的<code>get()</code>方法来获取返回值，<code>get()</code>方法会阻塞当前线程直到任务完成。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;Object&gt; future = executor.submit(harReturnValuetask);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Object s = future.get();</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">    <span class="comment">// 处理中断异常</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    <span class="comment">// 处理无法执行任务异常</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// 关闭线程池</span></span><br><span class="line">    executor.shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;Object&gt; future = executor.submit(harReturnValuetask);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Object s = future.get();</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">    <span class="comment">// 处理中断异常</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    <span class="comment">// 处理无法执行任务异常</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// 关闭线程池</span></span><br><span class="line">    executor.shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="2-3-关闭线程池"><a href="#2-3-关闭线程池" class="headerlink" title="2.3 关闭线程池"></a>2.3 关闭线程池</h4><p>通过调用线程池的<code>shutdown</code>或<code>shutdownNow</code>方法来关闭线程池。</p>
+<h4 id="关闭线程池">2.3 关闭线程池</h4>
+<p>通过调用线程池的<code>shutdown</code>或<code>shutdownNow</code>方法来关闭线程池。</p>
 <blockquote>
 <p>原理是<strong><u>遍历线程池中的工作线程</u></strong>，然后逐个调用线程的<code>interrupt</code>方法来中断线程，所以无法响应中断的任务可能永远无法终止。</p>
 </blockquote>
 <ul>
-<li><code>shutdownNow</code>首先将线程池的状态设置成<code>STOP</code>，然后尝试停止所有的正在执行或暂停任务的线程，并返回等待执行任务的列表；</li>
-<li><p><code>shutdown</code>只是将线程池的状态设置成<code>SHUTDOWN</code>状态，然后中断所有<strong><u>没有正在执行任务</u></strong>的线程。</p>
-</li>
-<li><p>只要调用了关闭方法，<code>isShutdown</code>方法就会返回<code>true</code>。</p>
-</li>
-<li><p>当所有的任务都已关闭后，才表示线程池关闭成功，这时调用<code>isTerminaed</code>方法会返回<code>true</code>。</p>
-</li>
+<li><p><code>shutdownNow</code>首先将线程池的状态设置成<code>STOP</code>，然后尝试停止所有的正在执行或暂停任务的线程，并返回等待执行任务的列表；</p></li>
+<li><p><code>shutdown</code>只是将线程池的状态设置成<code>SHUTDOWN</code>状态，然后中断所有<strong><u>没有正在执行任务</u></strong>的线程。</p></li>
+<li><p>只要调用了关闭方法，<code>isShutdown</code>方法就会返回<code>true</code>。</p></li>
+<li><p>当所有的任务都已关闭后，才表示线程池关闭成功，这时调用<code>isTerminaed</code>方法会返回<code>true</code>。</p></li>
 </ul>
-<h4 id="2-4-合理地配置线程池"><a href="#2-4-合理地配置线程池" class="headerlink" title="2.4 合理地配置线程池"></a>2.4 合理地配置线程池</h4><ul>
+<h4 id="合理地配置线程池">2.4 合理地配置线程池</h4>
+<ul>
 <li>性质不同的任务可以用不同规模的线程池分开处理。</li>
 <li>优先级不同的任务可以使用优先级队列<code>PriorityBlockingQueue</code>来处理。</li>
 <li>执行时间不同的任务可以交给不同规模的线程池来处理，或者可以使用优先级队列，让执行时间短的任务先执行。</li>
 <li><strong><u>建议使用有界队列</u></strong>。有界队列能增加系统的稳定性和预警能力。</li>
 </ul>
-<h4 id="2-5-线程池的监控"><a href="#2-5-线程池的监控" class="headerlink" title="2.5 线程池的监控"></a>2.5 线程池的监控</h4><p>可以通过线程池提供的参数进行监控，在监控线程池的时候可以使用以下属性。</p>
+<h4 id="线程池的监控">2.5 线程池的监控</h4>
+<p>可以通过线程池提供的参数进行监控，在监控线程池的时候可以使用以下属性。</p>
 <ul>
 <li><code>taskCount</code>：线程池需要执行的任务数量。</li>
 <li><code>completedTaskCount</code>：线程池在运行过程中已完成的任务数量，小于或等于<code>taskCount</code>。</li>
@@ -493,7 +494,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-线程池的实现原理"><span class="nav-number">2.</span> <span class="nav-text">1. 线程池的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线程池的使用"><span class="nav-number">3.</span> <span class="nav-text">2 线程池的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-线程池的创建"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 线程池的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-向线程池提交任务"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 向线程池提交任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-关闭线程池"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 关闭线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-合理地配置线程池"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 合理地配置线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-线程池的监控"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 线程池的监控</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的实现原理"><span class="nav-number">2.</span> <span class="nav-text">1. 线程池的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的使用"><span class="nav-number">3.</span> <span class="nav-text">2 线程池的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的创建"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 线程池的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向线程池提交任务"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 向线程池提交任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭线程池"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 关闭线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合理地配置线程池"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 合理地配置线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池的监控"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 线程池的监控</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -509,7 +510,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -522,7 +523,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -570,13 +571,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

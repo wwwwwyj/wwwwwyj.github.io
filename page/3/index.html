@@ -224,6 +224,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" class="post-title-link" itemprop="url">[Java学习|Java并发编程的艺术]--3 Java内存模型</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 16:14:02" itemprop="dateCreated datePublished" datetime="2021-07-17T16:14:02+08:00">2021-07-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">Java并发编程</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|Java并发编程的艺术]--3 Java内存模型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰Java程序员</code>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,7 +402,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.2k</span>
+              <span>5.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -308,8 +421,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>Java中所使用的并发机制依赖于JVM的实现和CPU的指令</code><br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>Java中所使用的并发机制依赖于JVM的实现和CPU的指令</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/13/JavaLearning_The_art_of_concurrent_programming_in_Java-2-The-underlying-implementation-principle.html#more" rel="contents">
@@ -420,9 +534,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会
-面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题</code><br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>并发编程的目的是为了让程序运行得更快。在进行并发编程时，如果希望通过多线程执行任务让程序运行得更快，会 面临非常多的挑战，比如上下文切换的问题、死锁的问题，以及受限于硬件和软件的资源限制问题</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/12/JavaLearning_The_art_of_concurrent_programming_in_Java-1-Challenges-of-concurrent-programming.html#more" rel="contents">
@@ -533,42 +647,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-二叉树介绍"><a href="#1-二叉树介绍" class="headerlink" title="1. 二叉树介绍"></a>1. 二叉树介绍</h3><p>树是具有<code>“一对多”</code>关系的数据元素的集合。</p>
-<h4 id="1-1-树的概念"><a href="#1-1-树的概念" class="headerlink" title="1.1 树的概念"></a>1.1 树的概念</h4><p>如下图是一棵树，包含节点 <code>{A,B,C,D,E,F,G,H,I,J,K,L,M}</code>。 </p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/tree/treeExample.PNG" alt="树的示例"></p>
-<h5 id="1-1-1-树的结点"><a href="#1-1-1-树的结点" class="headerlink" title="1.1.1 树的结点"></a>1.1.1 树的结点</h5><ul>
+          <h3 id="二叉树介绍">1. 二叉树介绍</h3>
+<p>树是具有<code>“一对多”</code>关系的数据元素的集合。</p>
+<h4 id="树的概念">1.1 树的概念</h4>
+<p>如下图是一棵树，包含节点 <code>{A,B,C,D,E,F,G,H,I,J,K,L,M}</code>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/tree/treeExample.PNG" alt="树的示例" /><figcaption aria-hidden="true">树的示例</figcaption>
+</figure>
+<h5 id="树的结点">1.1.1 树的结点</h5>
+<ul>
 <li>结点：使用树结构存储的每一个数据元素都被称为“结点”。</li>
 <li>父结点（双亲结点）、子结点和兄弟结点。如 <code>A</code> 是 <code>B、C、D</code> 结点的父结点（也称为“双亲结点”），而 <code>B、C、D</code> 都是 <code>A</code> 结点的子结点（也称“孩子结点”）。对于 <code>B、C、D</code> 来说，它们都有相同的父结点，所以它们互为兄弟结点。</li>
 <li>根结点。如果一个结点<u>没有父结点</u>，那么这个结点就是整棵树的根结点，结点A就是整棵树的根结点。每一个非空树都<strong><u>有且只有一个</u></strong>被称为根的结点。</li>
 <li>叶子结点：如果结点没有任何子结点，那么此结点称为叶子结点（叶结点）。</li>
 </ul>
-<h5 id="1-1-2-结点的度和层次"><a href="#1-1-2-结点的度和层次" class="headerlink" title="1.1.2 结点的度和层次"></a>1.1.2 结点的度和层次</h5><ul>
+<h5 id="结点的度和层次">1.1.2 结点的度和层次</h5>
+<ul>
 <li><p>对于一个结点，拥有的<strong>子树数</strong>（结点有多少分支）称为结点的<code>度（Degree）</code>。如结点 <code>A</code> 的度为 <code>3</code>。</p>
 <blockquote>
 <p>一棵树的度是树内各结点的度的最大值。</p>
-</blockquote>
-</li>
-<li><p>结点的层次：一棵树的深度（高度）是树中结点所在的最大的层次。</p>
-</li>
+</blockquote></li>
+<li><p>结点的层次：一棵树的深度（高度）是树中结点所在的最大的层次。</p></li>
 </ul>
-<h4 id="1-2-二叉树及其性质"><a href="#1-2-二叉树及其性质" class="headerlink" title="1.2 二叉树及其性质"></a>1.2 二叉树及其性质</h4><p>二叉树需要满足两个条件：</p>
+<h4 id="二叉树及其性质">1.2 二叉树及其性质</h4>
+<p>二叉树需要满足两个条件：</p>
 <ul>
 <li>是有序树。有序树即树中结点的子树从左到右看，谁在左边，谁在右边，是有规定的；</li>
 <li>树中包含的各个节点的度不能超过 2，即只能是 0、1 或者 2；</li>
 </ul>
-<h5 id="1-2-1-二叉树的性质"><a href="#1-2-1-二叉树的性质" class="headerlink" title="1.2.1 二叉树的性质"></a>1.2.1 二叉树的性质</h5><p>二叉树具有以下几个性质：</p>
+<h5 id="二叉树的性质">1.2.1 二叉树的性质</h5>
+<p>二叉树具有以下几个性质：</p>
 <ul>
-<li>二叉树中，第 $i$ 层最多有 $2^{i-1}$ 个结点。</li>
-<li>如果二叉树的深度为 $K$，那么此二叉树最多有 $2^{K}-1$ 个结点。</li>
-<li>二叉树中，叶子结点数为 $n_0$，度为 $2$ 的结点数为 $n_2$，则 $n_0=n_2+1$​。<ul>
-<li>一棵二叉树中，总结点树为 $n=n_0+n_1+n_2$。</li>
-<li>假设树中分枝数为 $B$​，那么总结点数 $n=B+1$​。而分枝数是可以通过 $n_1$​ 和 $n_2$​ 表示的，即 $B=n_1+2 \times n_2$​​。$n$​​ 用另外一种方式表示为 $n=n_1+2 \times n_2+1$​。</li>
-<li>联立方程就可以得出 $n_0=n_2+1$。</li>
+<li>二叉树中，第 <span class="math inline">\(i\)</span> 层最多有 <span class="math inline">\(2^{i-1}\)</span> 个结点。</li>
+<li>如果二叉树的深度为 <span class="math inline">\(K\)</span>，那么此二叉树最多有 <span class="math inline">\(2^{K}-1\)</span> 个结点。</li>
+<li>二叉树中，叶子结点数为 <span class="math inline">\(n_0\)</span>，度为 <span class="math inline">\(2\)</span> 的结点数为 <span class="math inline">\(n_2\)</span>，则 <span class="math inline">\(n_0=n_2+1\)</span>​。
+<ul>
+<li>一棵二叉树中，总结点树为 <span class="math inline">\(n=n_0+n_1+n_2\)</span>。</li>
+<li>假设树中分枝数为 <span class="math inline">\(B\)</span>​，那么总结点数 <span class="math inline">\(n=B+1\)</span>​。而分枝数是可以通过 <span class="math inline">\(n_1\)</span>​ 和 <span class="math inline">\(n_2\)</span>​ 表示的，即 <span class="math inline">\(B=n_1+2 \times n_2\)</span>​​。<span class="math inline">\(n\)</span>​​ 用另外一种方式表示为 <span class="math inline">\(n=n_1+2 \times n_2+1\)</span>​。</li>
+<li>联立方程就可以得出 <span class="math inline">\(n_0=n_2+1\)</span>。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h5 id="1-2-2-二叉树的链式存储结构"><a href="#1-2-2-二叉树的链式存储结构" class="headerlink" title="1.2.2 二叉树的链式存储结构"></a>1.2.2 二叉树的链式存储结构</h5><p>从树的根节点开始，将各个节点及其左右孩子使用链表存储即可：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/tree/treeLinkedStore.PNG" alt="二叉树链式存储"></p>
+<h5 id="二叉树的链式存储结构">1.2.2 二叉树的链式存储结构</h5>
+<p>从树的根节点开始，将各个节点及其左右孩子使用链表存储即可：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/tree/treeLinkedStore.PNG" alt="二叉树链式存储" /><figcaption aria-hidden="true">二叉树链式存储</figcaption>
+</figure>
 <p>采用链式存储二叉树时，其节点结构由 <code>3</code> 部分构成：</p>
 <ul>
 <li>指向左孩子节点的指针（<code>Lchild</code>）；</li>
@@ -576,14 +699,16 @@
 <li>指向右孩子节点的指针（<code>Rchild</code>）；</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BiNode</span> </span>&#123;</span><br><span class="line">	ElemType data;</span><br><span class="line">    BiNode lchild, rchild;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BiNode</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">   	<span class="function"><span class="keyword">public</span> <span class="title">BiNode</span><span class="params">(ElemType data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-二叉树的遍历"><a href="#2-二叉树的遍历" class="headerlink" title="2. 二叉树的遍历"></a>2. 二叉树的遍历</h3><p><strong>二叉树的遍历</strong>是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：</p>
+<h3 id="二叉树的遍历">2. 二叉树的遍历</h3>
+<p><strong>二叉树的遍历</strong>是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：</p>
 <ul>
 <li>前序遍历</li>
 <li>中序遍历</li>
 <li>后序遍历</li>
 <li>层序遍历</li>
 </ul>
-<h4 id="2-1-前序遍历"><a href="#2-1-前序遍历" class="headerlink" title="2.1 前序遍历"></a>2.1 前序遍历</h4><p><strong>前序遍历</strong>的主要步骤是：</p>
+<h4 id="前序遍历">2.1 前序遍历</h4>
+<p><strong>前序遍历</strong>的主要步骤是：</p>
 <ul>
 <li>访问根结点；</li>
 <li>先序遍历左子树；</li>
@@ -592,18 +717,19 @@
 <p>递归实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">        process(root);<span class="comment">//调用操作结点数据的函数方法</span></span><br><span class="line">        PreOrderTraverse(root.lchild);<span class="comment">//访问该结点的左孩子</span></span><br><span class="line">        PreOrderTraverse(root.rchild);<span class="comment">//访问该结点的右孩子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果结点为空，返回上一层</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>非递归方法需要依靠<strong>栈</strong>来实现，对于根节点<code>root</code>：</p>
-<ol>
+<ol type="1">
 <li>处理该根节点<code>root</code>，然后将其入栈，再看<code>root</code>的左孩子是否为空；</li>
 <li>若左孩子不为空，则置<code>root</code>的左孩子为当前节点，重复 <code>1</code> 的操作；</li>
-<li>若左孩子为空，则将栈顶节点出栈，但不输出，并将出栈节点的右孩子置为当前节点；<ul>
+<li>若左孩子为空，则将栈顶节点出栈，但不输出，并将出栈节点的右孩子置为当前节点；
+<ul>
 <li>若不为空，则循环至 <code>1</code> 操作；</li>
 <li>如果为空，则继续出栈，同时将出栈节点的右孩子置为当前节点；</li>
-</ul>
-</li>
+</ul></li>
 <li>直到当前节点<code>root</code>为<code>NULL</code>并且栈空，遍历结束。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PreOrderTraverse</span><span class="params">(BiTree root)</span> </span>&#123;</span><br><span class="line">    Stack&lt;BiTree&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    stack.push(root); <span class="comment">// 根节点入栈</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">// 访问根节点</span></span><br><span class="line">        BiNode cur = stack.pop();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 重复访问左孩子，直到左孩子为空</span></span><br><span class="line">        <span class="keyword">while</span> (cur!= <span class="keyword">null</span>) &#123;</span><br><span class="line">            process(cur);</span><br><span class="line">            <span class="comment">// 只存储右孩子</span></span><br><span class="line">            <span class="keyword">if</span> (cur.rchild != <span class="keyword">null</span>) &#123;</span><br><span class="line">                stack.push(cur.rchild);</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.lchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node Root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Root==<span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"空树"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Node tmp=Root;</span><br><span class="line">    Stack&lt;Node&gt; s=<span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    s.push(tmp);  <span class="comment">//根节点入栈</span></span><br><span class="line">    <span class="keyword">while</span>(!s.empty()) &#123;</span><br><span class="line">        <span class="comment">//1.访问根节点</span></span><br><span class="line">        Node p=s.pop();</span><br><span class="line">        process(p);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2.如果根节点存在右孩子，则将右孩子入栈</span></span><br><span class="line">        <span class="keyword">if</span>(p.rightChild!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            s.push(p.rightChild);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//3.如果根节点存在左孩子，则将左孩子入栈</span></span><br><span class="line">        <span class="keyword">if</span>(p.leftChild!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            s.push(p.leftChild);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-中序遍历"><a href="#2-2-中序遍历" class="headerlink" title="2.2 中序遍历"></a>2.2 中序遍历</h4><p>中序遍历流程为：</p>
+<h4 id="中序遍历">2.2 中序遍历</h4>
+<p>中序遍历流程为：</p>
 <ul>
 <li>中序遍历左子树；</li>
 <li>访问根结点；</li>
@@ -612,7 +738,7 @@
 <p>递归实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(BiTree root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">        InOrderTraverse(root.lchild);<span class="comment">//访问该结点的左孩子</span></span><br><span class="line">        process(root);<span class="comment">//调用操作结点数据的函数方法</span></span><br><span class="line">        InOrderTraverse(root.rchild);<span class="comment">//访问该结点的右孩子</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果结点为空，返回上一层</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>非递归的实现思路为，对于任一节点<code>P</code>：</p>
-<ol>
+<ol type="1">
 <li>若<code>P</code>的左孩子不为空，则将<code>P</code>入栈并将<code>P</code>的左孩子置为当前节点，然后再对当前节点进行相同的处理；</li>
 <li>若<code>P</code>的左孩子为空，则处理<code>P</code>节点，而后将<code>P</code>的右孩子置为当前节点；</li>
 <li>若右孩子不为空，设置为当前节点，则重复 <code>1</code> 和 <code>2</code> 的操作；</li>
@@ -620,7 +746,8 @@
 <li>直到当前节点<code>P</code>为<code>NULL</code>并且栈为空，则遍历结束。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InOrderTraverse</span><span class="params">(Node Root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Root==<span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"空树"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Node tmp=Root;</span><br><span class="line">    Stack&lt;Node&gt; s=<span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>( tmp!=<span class="keyword">null</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="comment">//1.将根节点入栈</span></span><br><span class="line">        <span class="comment">//2.将所有左孩子入栈</span></span><br><span class="line">        <span class="keyword">while</span>(tmp!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            s.push(tmp);</span><br><span class="line">            tmp=tmp.leftChild;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//3.访问栈顶元素</span></span><br><span class="line">        tmp=s.pop();</span><br><span class="line">        process(tmp);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//4.如果栈顶元素存在右孩子，则将右孩子赋值给tmp，也就是将右孩子入栈</span></span><br><span class="line">        <span class="keyword">if</span>(tmp.rightChild!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            tmp=tmp.rightChild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//否则，将tmp置为null，表示下次要访问的是栈顶元素</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            tmp=<span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InOrderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    TreeNode p = root;</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">//如果p不为NULL，将其压栈并遍历其左子树</span></span><br><span class="line">        <span class="keyword">if</span>(p != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        <span class="comment">// 如果 p==NULL，表明左子树遍历完成，需要遍历上一层结点的右子树</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = stack.pop();</span><br><span class="line">            process(p.val);</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-3-后序遍历"><a href="#2-3-后序遍历" class="headerlink" title="2.3 后序遍历"></a>2.3 后序遍历</h4><p>后续遍历主要流程如下：</p>
+<h4 id="后序遍历">2.3 后序遍历</h4>
+<p>后续遍历主要流程如下：</p>
 <ul>
 <li>后序遍历左子树；</li>
 <li>后序遍历右子树；</li>
@@ -629,119 +756,125 @@
 <p>递归实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(BiTree root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">        InOrderTraverse(root.lchild);<span class="comment">//访问该结点的左孩子</span></span><br><span class="line">        InOrderTraverse(root.rchild);<span class="comment">//访问该结点的右孩子</span></span><br><span class="line">        process(root);<span class="comment">//调用操作结点数据的函数方法</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果结点为空，返回上一层</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>非递归实现中，对于任一节点<code>P</code>：</p>
-<ol>
+<ol type="1">
 <li>先将节点<code>P</code>入栈；</li>
 <li>若<code>P</code>不存在左孩子和右孩子，或者<code>P</code>存在左孩子或右孩子，但左右孩子已经被处理，则可以处理节点<code>P</code>，并将其出栈，将出栈节点<code>P</code>标记为上一个输出的节点，再将此时的栈顶结点设为当前节点；</li>
 <li>若不满足 <code>2</code> 中的条件，则将<code>P</code>的右孩子和左孩子依次入栈，当前节点重新置为栈顶结点，之后重复操作 <code>2</code>；</li>
 <li>直到栈空，遍历结束。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PostOrderTraverse</span><span class="params">(Node Root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Root==<span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Node tmp=Root;  <span class="comment">//当前节点</span></span><br><span class="line">    Node prev=<span class="keyword">null</span>; <span class="comment">//上一次访问的节点</span></span><br><span class="line">    Stack&lt;Node&gt; s=<span class="keyword">new</span> Stack&lt;Node&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(tmp!=<span class="keyword">null</span> || !s.empty()) &#123;</span><br><span class="line">        <span class="comment">// 1.将根节点及其左孩子入栈</span></span><br><span class="line">        <span class="keyword">while</span>(tmp!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            s.push(tmp);</span><br><span class="line">            tmp=tmp.leftChild;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!s.empty()) &#123;</span><br><span class="line">            <span class="comment">// 2.获取栈顶元素值</span></span><br><span class="line">            tmp=s.peek();</span><br><span class="line">            <span class="comment">// 3.没有右孩子，或者右孩子已经被访问过</span></span><br><span class="line">            <span class="keyword">if</span>(tmp.rightChild == <span class="keyword">null</span> || tmp.rightChild == prev) &#123;</span><br><span class="line">                <span class="comment">//则可以访问栈顶元素</span></span><br><span class="line">                tmp=s.pop();</span><br><span class="line">                process(tmp);</span><br><span class="line">                <span class="comment">//标记上一次访问的节点</span></span><br><span class="line">                prev=tmp;</span><br><span class="line">                tmp=<span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 4.存在没有被访问的右孩子</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                tmp=tmp.rightChild;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-4-层序遍历"><a href="#2-4-层序遍历" class="headerlink" title="2.4 层序遍历"></a>2.4 层序遍历</h4><p>层次遍历就是按照树的层次自上而下的遍历二叉树，基于队列实现：</p>
+<h4 id="层序遍历">2.4 层序遍历</h4>
+<p>层次遍历就是按照树的层次自上而下的遍历二叉树，基于队列实现：</p>
 <ul>
 <li>从树的根结点开始，依次将其左孩子和右孩子入队。</li>
 <li>每次队列中一个结点出队，都将其左孩子和右孩子入队，直到树中所有结点都出队，出队结点的先后顺序就是层次遍历的最终结果。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非递归层次遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">levelTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    q.add(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!queue.isEmpty()) &#123;</span><br><span class="line">        <span class="comment">// current node</span></span><br><span class="line">        TreeNode current = queue.remove();</span><br><span class="line">        process(current);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(current.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            queue.add(current.left);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(current.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            queue.add(current.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-二叉树的重建"><a href="#3-二叉树的重建" class="headerlink" title="3. 二叉树的重建"></a>3. 二叉树的重建</h3><p>给定一棵二叉树的<strong>前序遍历序列和中序遍历序列</strong>可以唯一确定一棵二叉树（<strong>后序和中序遍历序列</strong>也可以唯一确定一棵二叉树）。</p>
+<h3 id="二叉树的重建">3. 二叉树的重建</h3>
+<p>给定一棵二叉树的<strong>前序遍历序列和中序遍历序列</strong>可以唯一确定一棵二叉树（<strong>后序和中序遍历序列</strong>也可以唯一确定一棵二叉树）。</p>
 <blockquote>
 <ul>
-<li><p>已知前序遍历序列和后序遍历序列，不可以唯一确定一棵二叉树。</p>
-</li>
-<li><p>二叉树的任意两个结点的值都不相同。</p>
-</li>
+<li><p>已知前序遍历序列和后序遍历序列，不可以唯一确定一棵二叉树。</p></li>
+<li><p>二叉树的任意两个结点的值都不相同。</p></li>
 </ul>
 </blockquote>
 <p>主要算法流程如下：</p>
-<ol>
+<ol type="1">
 <li>用前序序列的第一个结点作为根结点；</li>
 <li>在中序序列中查找根结点的位置，并以此为界将中序序列划分为左、右子树；</li>
 <li>根据左、右子树的中序序列中的结点个数，将前序序列去掉根结点后的序列划分为左、右两个序列，它们分别是左、右子树的前序序列;</li>
 <li>对左、右子树的前序序列和中序序列递归地实施同样方法，直到所得左、右子树为空。</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*根据前序遍历和中序遍历确定一棵二叉树*/</span></span><br><span class="line">    <span class="comment">//递归实现</span></span><br><span class="line">    <span class="keyword">if</span>(pre==<span class="keyword">null</span> || in==<span class="keyword">null</span> )</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">return</span> reConstructBinaryTree(pre, in, <span class="number">0</span>, pre.length-<span class="number">1</span>, <span class="number">0</span>, in.length-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in,<span class="keyword">int</span> pre_begin,</span></span></span><br><span class="line"><span class="function"><span class="params">                                      <span class="keyword">int</span> pre_end,<span class="keyword">int</span> in_begin,<span class="keyword">int</span> in_end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 前序序列：从 pre_begin 到 pre_end,  中序序列：从 in_begin 到 in_end</span></span><br><span class="line">    <span class="comment">// 递归结束条件</span></span><br><span class="line">    <span class="keyword">if</span>(pre_begin &gt; pre_end || in_begin &gt; in_end)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> rootValue=pre[pre_begin];</span><br><span class="line">    TreeNode root=<span class="keyword">new</span> TreeNode(rootValue); <span class="comment">//第一个节点就是根节点</span></span><br><span class="line">    <span class="keyword">if</span> ( pre_begin == pre_end || in_begin == in_end)</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在中序序列中，找到root，前面的就是左子树，右边的就是右子树</span></span><br><span class="line">    <span class="keyword">int</span> rootIn=in_begin; <span class="comment">//root在中序序列中的位置</span></span><br><span class="line">    <span class="keyword">while</span>(rootIn&lt;=in_end &amp;&amp; in[rootIn]!=rootValue)</span><br><span class="line">        rootIn++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> left_count=rootIn-in_begin; <span class="comment">//左子树节点个数							      	</span></span><br><span class="line">    root.left=reConstructBinaryTree(pre,in,pre_begin+<span class="number">1</span>,pre_begin+left_count,</span><br><span class="line">                                    in_begin,rootIn-<span class="number">1</span>);</span><br><span class="line">    root.right=reConstructBinaryTree(pre,in,pre_begin+left_count+<span class="number">1</span>,</span><br><span class="line">                                     pre_end,rootIn+<span class="number">1</span>,in_end);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有一种非递归的方法。对于前序遍历中的任意两个连续节点 $u$ 和 $v$，根据前序遍历的流程可以知道 $u$ 和 $v$ 只有两种可能的关系：</p>
+<p>还有一种非递归的方法。对于前序遍历中的任意两个连续节点 <span class="math inline">\(u\)</span> 和 <span class="math inline">\(v\)</span>，根据前序遍历的流程可以知道 <span class="math inline">\(u\)</span> 和 <span class="math inline">\(v\)</span> 只有两种可能的关系：</p>
 <ul>
-<li>$v$ 是 $u$ 的左儿子。这是因为在遍历到 $u$ 之后，下一个遍历的节点就是 $u$ 的左儿子，即 $v$；</li>
-<li>$u$ 没有左儿子，并且 $v$ 是 $u$ 的某个祖先节点（或者 $u$ 本身）的右儿子。因为如果 $u$ 没有左儿子，那么下一个遍历的节点就是 $u$ 的右儿子。如果 $u$ 没有右儿子，就会向上回溯，直到遇到第一个有右儿子（且 $u$ 不在它的右儿子的子树中）的节点 $u_a$ ，那么 $v$ 就是 $u_a$ 的右儿子。</li>
+<li><span class="math inline">\(v\)</span> 是 <span class="math inline">\(u\)</span> 的左儿子。这是因为在遍历到 <span class="math inline">\(u\)</span> 之后，下一个遍历的节点就是 <span class="math inline">\(u\)</span> 的左儿子，即 <span class="math inline">\(v\)</span>；</li>
+<li><span class="math inline">\(u\)</span> 没有左儿子，并且 <span class="math inline">\(v\)</span> 是 <span class="math inline">\(u\)</span> 的某个祖先节点（或者 <span class="math inline">\(u\)</span> 本身）的右儿子。因为如果 <span class="math inline">\(u\)</span> 没有左儿子，那么下一个遍历的节点就是 <span class="math inline">\(u\)</span> 的右儿子。如果 <span class="math inline">\(u\)</span> 没有右儿子，就会向上回溯，直到遇到第一个有右儿子（且 <span class="math inline">\(u\)</span> 不在它的右儿子的子树中）的节点 <span class="math inline">\(u_a\)</span> ，那么 <span class="math inline">\(v\)</span> 就是 <span class="math inline">\(u_a\)</span> 的右儿子。</li>
 </ul>
 <p>算法流程如下：</p>
 <ul>
-<li>用一个栈和一个指针辅助进行二叉树的构造。初始时栈中存放了根节点（前序遍历的第一个节点），指针<code>index</code>指向中序遍历的第一个节点；<ul>
+<li>用一个栈和一个指针辅助进行二叉树的构造。初始时栈中存放了根节点（前序遍历的第一个节点），指针<code>index</code>指向中序遍历的第一个节点；
+<ul>
 <li>栈 <code>stack</code> 来维护「当前节点的所有还没有考虑过右儿子的祖先节点」，栈顶就是当前节点；</li>
 <li>指针 <code>index</code> 对应的节点是「当前节点不断往左走达到的最终节点」；</li>
-</ul>
-</li>
-<li><p>依次枚举前序遍历中除了第一个节点以外的每个节点。</p>
+</ul></li>
+<li>依次枚举前序遍历中除了第一个节点以外的每个节点。
 <ul>
 <li>如果 <code>index</code> 恰好指向栈顶节点，那么我们不断地弹出栈顶节点并向右移动 <code>index</code>，并将当前节点作为最后一个弹出的节点的右儿子；</li>
 <li>如果 <code>index</code> 和栈顶节点不同，我们将当前节点作为栈顶节点的左儿子；</li>
-</ul>
-</li>
-<li><p>无论是哪一种情况，最后都将当前的节点入栈。</p>
-</li>
+</ul></li>
+<li>无论是哪一种情况，最后都将当前的节点入栈。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorder == <span class="keyword">null</span> || preorder.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(preorder[<span class="number">0</span>]);</span><br><span class="line">        Deque&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</span><br><span class="line">        stack.push(root);</span><br><span class="line">        <span class="keyword">int</span> inorderIndex = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; preorder.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> preorderVal = preorder[i];</span><br><span class="line">            TreeNode node = stack.peek();</span><br><span class="line">            <span class="keyword">if</span> (node.val != inorder[inorderIndex]) &#123;</span><br><span class="line">                node.left = <span class="keyword">new</span> TreeNode(preorderVal);</span><br><span class="line">                stack.push(node.left);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (!stack.isEmpty() &amp;&amp; stack.peek().val == inorder[inorderIndex]) &#123;</span><br><span class="line">                    node = stack.pop();</span><br><span class="line">                    inorderIndex++;</span><br><span class="line">                &#125;</span><br><span class="line">                node.right = <span class="keyword">new</span> TreeNode(preorderVal);</span><br><span class="line">                stack.push(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-题解"><a href="#4-题解" class="headerlink" title="4. 题解"></a>4. 题解</h3><h4 id="4-1-剑指-Offer-26-树的子结构"><a href="#4-1-剑指-Offer-26-树的子结构" class="headerlink" title="4.1 剑指 Offer 26. 树的子结构"></a>4.1 <a href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/" target="_blank" rel="noopener">剑指 Offer 26. 树的子结构</a></h4><blockquote>
+<h3 id="题解">4. 题解</h3>
+<h4 id="剑指-offer-26.-树的子结构">4.1 <a href="https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/" target="_blank" rel="noopener">剑指 Offer 26. 树的子结构</a></h4>
+<blockquote>
 <p>输入两棵二叉树<code>A</code>和<code>B</code>，判断<code>B</code>是不是<code>A</code>的子结构。(约定空树不是任意一个树的子结构)</p>
 <p><code>B</code>是<code>A</code>的子结构， 即<code>A</code>中有出现和<code>B</code>相同的结构和节点值。</p>
-<p>例如:<br>给定的树 <code>A</code>:</p>
-<pre><code>      3
-     / \
-     4   5
+<p>例如: 给定的树 <code>A</code>:</p>
+<pre><code>   3
   / \
- 1   2
-</code></pre><p>给定的树 B：</p>
+  4   5
+  / \
+ 1   2</code></pre>
+<p>给定的树 B：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  4 </span><br><span class="line"> /</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
 <p>返回 <code>true</code>，因为 <code>B</code> 与 <code>A</code> 的一个子树拥有相同的结构和节点值。</p>
 </blockquote>
 <p>判断树<code>B</code>是否为<code>A</code>的子树时，主要存在以下情况：</p>
 <ul>
 <li>根节点相同时，假设从跟节点开始匹配，判断是不是一棵子树；</li>
-<li>如果根节点不同或判定子树失败，存在两种情况：<ul>
+<li>如果根节点不同或判定子树失败，存在两种情况：
+<ul>
 <li><code>B</code>是<code>A</code>左子树的一个子树；</li>
 <li><code>B</code>是<code>A</code>右子树的一个子树；</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p>递归实现如下。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSubStructure</span><span class="params">(TreeNode A, TreeNode B)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (A == <span class="keyword">null</span> || B == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (A.val == B.val &amp;&amp; checkSubtree(A, B)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> isSubStructure(A.left, B) || isSubStructure(A.right, B);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkSubtree</span><span class="params">(TreeNode root1,TreeNode root2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root1 == <span class="keyword">null</span> || root2 == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (root1.val == root2.val) &#123;</span><br><span class="line">            <span class="keyword">if</span>(root2.left == <span class="keyword">null</span> &amp;&amp; root2.right == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">boolean</span> isSub = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (root2.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                isSub = ( isSub &amp;&amp; checkSubtree(root1.left, root2.left));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root2.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                isSub = ( isSub &amp;&amp; checkSubtree(root1.right, root2.right));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> isSub;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-2-剑指-Offer-27-二叉树的镜像"><a href="#4-2-剑指-Offer-27-二叉树的镜像" class="headerlink" title="4.2 剑指 Offer 27. 二叉树的镜像"></a>4.2 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/" target="_blank" rel="noopener">剑指 Offer 27. 二叉树的镜像</a></h4><blockquote>
+<h4 id="剑指-offer-27.-二叉树的镜像">4.2 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/" target="_blank" rel="noopener">剑指 Offer 27. 二叉树的镜像</a></h4>
+<blockquote>
 <p>请完成一个函数，输入一个二叉树，该函数输出它的镜像。</p>
 <p>例如输入：</p>
-<pre><code>      4
-     /   \
+<pre><code>   4
+  /   \
   2     7
  / \   / \
-1   3 6   9
-</code></pre><p>镜像输出：</p>
-<pre><code>      4
-     /   \
+1   3 6   9</code></pre>
+<p>镜像输出：</p>
+<pre><code>   4
+  /   \
   7     2
  / \   / \
-9   6 3   1
-</code></pre></blockquote>
+9   6 3   1</code></pre>
+</blockquote>
 <p>直接递归求解即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">mirrorTree</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            TreeNode tmp = root.right;</span><br><span class="line">            root.right = mirrorTree(root.left);</span><br><span class="line">            root.left = mirrorTree(tmp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-3-剑指-Offer-28-对称的二叉树"><a href="#4-3-剑指-Offer-28-对称的二叉树" class="headerlink" title="4.3 剑指 Offer 28. 对称的二叉树"></a>4.3 <a href="https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 28. 对称的二叉树</a></h4><blockquote>
+<h4 id="剑指-offer-28.-对称的二叉树">4.3 <a href="https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 28. 对称的二叉树</a></h4>
+<blockquote>
 <p>请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。</p>
 </blockquote>
 <p>直接递归求解即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSymmetric</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> isSymmetric(root.left, root.right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSymmetric</span><span class="params">(TreeNode left, TreeNode right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == <span class="keyword">null</span> &amp;&amp; right == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span> &amp;&amp; left.val == right.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> isSymmetric(left.left, right.right) &amp;&amp; isSymmetric(left.right, right.left);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-4-剑指-Offer-36-二叉搜索树与双向链表"><a href="#4-4-剑指-Offer-36-二叉搜索树与双向链表" class="headerlink" title="4.4 剑指 Offer 36. 二叉搜索树与双向链表"></a>4.4 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/" target="_blank" rel="noopener">剑指 Offer 36. 二叉搜索树与双向链表</a></h4><blockquote>
+<h4 id="剑指-offer-36.-二叉搜索树与双向链表">4.4 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/" target="_blank" rel="noopener">剑指 Offer 36. 二叉搜索树与双向链表</a></h4>
+<blockquote>
 <p>输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。</p>
 </blockquote>
 <p>可以发现二叉搜索树的中序遍历就是排序的链表，只需要按照中序遍历将二叉搜索树构造为一个有序链表后，修改指针指向就可以得到排序链表：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">treeToDoublyList</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        ArrayList&lt;Node&gt; arr = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        InOrderTravel(root, arr);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.size(); i++) &#123;</span><br><span class="line">            arr.get(i-<span class="number">1</span>).right = arr.get(i);</span><br><span class="line">            arr.get(i).left = arr.get(i-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        arr.get(<span class="number">0</span>).left = arr.get(arr.size() - <span class="number">1</span>);</span><br><span class="line">        arr.get(arr.size() - <span class="number">1</span>).right = arr.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> arr.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InOrderTravel</span><span class="params">(Node root, ArrayList&lt;Node&gt; arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            InOrderTravel(root.left, arr);</span><br><span class="line">            arr.add(root);</span><br><span class="line">            InOrderTravel(root.right, arr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Node pre = <span class="keyword">null</span>, head = <span class="keyword">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">treeToDoublyList</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        InOrderTravel(root);</span><br><span class="line">        head.left = pre;</span><br><span class="line">        pre.right = head;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">InOrderTravel</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="keyword">null</span>) &#123;</span><br><span class="line">            InOrderTravel(root.left);</span><br><span class="line">            <span class="keyword">if</span> (pre != <span class="keyword">null</span>) pre.right = root;</span><br><span class="line">            <span class="keyword">else</span> head = root;</span><br><span class="line">            root.left = pre;</span><br><span class="line">            pre = root;</span><br><span class="line">            InOrderTravel(root.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">treeToDoublyList</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        Node pre = <span class="keyword">null</span>, head = <span class="keyword">null</span>;</span><br><span class="line">        Stack&lt;Node&gt; s = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Node cur = root;</span><br><span class="line">        <span class="keyword">while</span> (cur!= <span class="keyword">null</span> || !s.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">                s.push(cur);</span><br><span class="line">                cur = cur.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur = s.pop();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (pre != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    pre.right = cur;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    head = cur;</span><br><span class="line">                &#125;</span><br><span class="line">                cur.left = pre;</span><br><span class="line">                pre = cur;</span><br><span class="line"></span><br><span class="line">                cur = cur.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        head.left = pre;</span><br><span class="line">        pre.right = head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-5-剑指-Offer-32-I-从上到下打印二叉树"><a href="#4-5-剑指-Offer-32-I-从上到下打印二叉树" class="headerlink" title="4.5 剑指 Offer 32 - I. 从上到下打印二叉树"></a>4.5 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - I. 从上到下打印二叉树</a></h4><blockquote>
+<h4 id="剑指-offer-32---i.-从上到下打印二叉树">4.5 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - I. 从上到下打印二叉树</a></h4>
+<blockquote>
 <p>从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。</p>
 </blockquote>
 <p>基于队列层次遍历输出即可：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] levelOrder(TreeNode root) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">        </span><br><span class="line">        Queue&lt;TreeNode&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        q.offer(root);</span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">            TreeNode cur = q.poll();</span><br><span class="line">            res.add(cur.val);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (cur.left != <span class="keyword">null</span>) q.offer(cur.left);</span><br><span class="line">            <span class="keyword">if</span> (cur.right != <span class="keyword">null</span>) q.offer(cur.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>  res.stream().mapToInt(Integer::valueOf).toArray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-6-剑指-Offer-32-II-从上到下打印二叉树-II"><a href="#4-6-剑指-Offer-32-II-从上到下打印二叉树-II" class="headerlink" title="4.6 剑指 Offer 32 - II. 从上到下打印二叉树 II"></a>4.6 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - II. 从上到下打印二叉树 II</a></h4><blockquote>
+<h4 id="剑指-offer-32---ii.-从上到下打印二叉树-ii">4.6 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - II. 从上到下打印二叉树 II</a></h4>
+<blockquote>
 <p>从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        Queue&lt;TreeNode&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        q.offer(root);</span><br><span class="line">        q.offer(<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty() &amp;&amp; q.peek() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ArrayList&lt;Integer&gt; curLevel = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">while</span> (!q.isEmpty() &amp;&amp; q.peek() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                TreeNode cur = q.poll();</span><br><span class="line">                curLevel.add(cur.val);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (cur.left != <span class="keyword">null</span>) q.offer(cur.left);</span><br><span class="line">                <span class="keyword">if</span> (cur.right != <span class="keyword">null</span>) q.offer(cur.right);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ans.add(curLevel);</span><br><span class="line">            q.poll();</span><br><span class="line">            q.offer(<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-7-剑指-Offer-32-III-从上到下打印二叉树-III"><a href="#4-7-剑指-Offer-32-III-从上到下打印二叉树-III" class="headerlink" title="4.7 剑指 Offer 32 - III. 从上到下打印二叉树 III"></a>4.7 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - III. 从上到下打印二叉树 III</a></h4><blockquote>
+<h4 id="剑指-offer-32---iii.-从上到下打印二叉树-iii">4.7 <a href="https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/" target="_blank" rel="noopener">剑指 Offer 32 - III. 从上到下打印二叉树 III</a></h4>
+<blockquote>
 <p>请实现一个函数按照之字形顺序打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印，其他行以此类推。</p>
 </blockquote>
 <p>利用双端队列实现：</p>
@@ -750,7 +883,8 @@
 <li>偶数层 添加至 <code>tmp</code> <strong>头部</strong> 。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        Queue&lt;TreeNode&gt; q = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        q.offer(root);</span><br><span class="line">        <span class="keyword">while</span>(!q.isEmpty()) &#123;</span><br><span class="line">            LinkedList&lt;Integer&gt; tmp = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = q.size(); i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">                TreeNode node = q.poll();</span><br><span class="line">                <span class="keyword">if</span>(res.size() % <span class="number">2</span> == <span class="number">0</span>) tmp.addLast(node.val); <span class="comment">// 偶数层 -&gt; 队列头部</span></span><br><span class="line">                <span class="keyword">else</span> tmp.addFirst(node.val); <span class="comment">// 奇数层 -&gt; 队列尾部</span></span><br><span class="line">                <span class="keyword">if</span>(node.left != <span class="keyword">null</span>) q.add(node.left);</span><br><span class="line">                <span class="keyword">if</span>(node.right != <span class="keyword">null</span>) q.add(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.add(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-8-剑指-Offer-33-二叉搜索树的后序遍历序列"><a href="#4-8-剑指-Offer-33-二叉搜索树的后序遍历序列" class="headerlink" title="4.8 剑指 Offer 33. 二叉搜索树的后序遍历序列"></a>4.8 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/" target="_blank" rel="noopener">剑指 Offer 33. 二叉搜索树的后序遍历序列</a></h4><blockquote>
+<h4 id="剑指-offer-33.-二叉搜索树的后序遍历序列">4.8 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/" target="_blank" rel="noopener">剑指 Offer 33. 二叉搜索树的后序遍历序列</a></h4>
+<blockquote>
 <p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 <code>true</code>，否则返回 <code>false</code>。假设输入的数组的任意两个数字都互不相同。</p>
 </blockquote>
 <p>由二叉搜索树的特征有：</p>
@@ -760,61 +894,65 @@
 </ul>
 <p>所以基于后序遍历，得到最后一个节点是根节点可以将当前的序列分为两个序列。分别判断其左、右子树是否满足二叉排序树的要求。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verifyPostorder</span><span class="params">(<span class="keyword">int</span>[] postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (postorder.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> verifyPostorder(postorder, <span class="number">0</span>, postorder.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verifyPostorder</span><span class="params">(<span class="keyword">int</span>[] postorder, <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (begin &gt;= end) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> split = end - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (split &gt;= <span class="number">0</span> &amp;&amp; postorder[split] &gt; postorder[end])</span><br><span class="line">            split--;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt; split; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (postorder[i] &gt; postorder[end]) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> verifyPostorder(postorder, begin, split) &amp;&amp; verifyPostorder(postorder, split+<span class="number">1</span>, end - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-9-剑指-Offer-34-二叉树中和为某一值的路径"><a href="#4-9-剑指-Offer-34-二叉树中和为某一值的路径" class="headerlink" title="4.9 剑指 Offer 34. 二叉树中和为某一值的路径"></a>4.9 <a href="https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/" target="_blank" rel="noopener">剑指 Offer 34. 二叉树中和为某一值的路径</a></h4><blockquote>
+<h4 id="剑指-offer-34.-二叉树中和为某一值的路径">4.9 <a href="https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/" target="_blank" rel="noopener">剑指 Offer 34. 二叉树中和为某一值的路径</a></h4>
+<blockquote>
 <p>输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下<strong><u>一直到叶节点</u></strong>所经过的节点形成一条路径。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; res;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; pathSum(TreeNode root, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; curPath = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        pathSum(root, target, curPath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pathSum</span><span class="params">(TreeNode root, <span class="keyword">int</span> target, List&lt;Integer&gt; curPath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root.left == <span class="keyword">null</span> &amp;&amp; root.right == <span class="keyword">null</span> &amp;&amp; target - root.val == <span class="number">0</span>) &#123;</span><br><span class="line">            List&lt;Integer&gt; newPath = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> node : curPath) &#123;</span><br><span class="line">                newPath.add(node);</span><br><span class="line">            &#125;</span><br><span class="line">            newPath.add(root.val);</span><br><span class="line">            res.add(newPath);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            curPath.add(root.val);</span><br><span class="line">            <span class="keyword">if</span> (root.left != <span class="keyword">null</span>) pathSum(root.left, target-root.val, curPath);</span><br><span class="line">            <span class="keyword">if</span> (root.right != <span class="keyword">null</span>) pathSum(root.right, target-root.val, curPath);</span><br><span class="line">            curPath.remove(curPath.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-10-剑指-Offer-55-I-二叉树的深度"><a href="#4-10-剑指-Offer-55-I-二叉树的深度" class="headerlink" title="4.10 剑指 Offer 55 - I. 二叉树的深度"></a>4.10 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/" target="_blank" rel="noopener">剑指 Offer 55 - I. 二叉树的深度</a></h4><blockquote>
+<h4 id="剑指-offer-55---i.-二叉树的深度">4.10 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/" target="_blank" rel="noopener">剑指 Offer 55 - I. 二叉树的深度</a></h4>
+<blockquote>
 <p>输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> Math.max(maxDepth(root.left), maxDepth(root.right)) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-11-剑指-Offer-54-二叉搜索树的第k大节点"><a href="#4-11-剑指-Offer-54-二叉搜索树的第k大节点" class="headerlink" title="4.11 剑指 Offer 54. 二叉搜索树的第k大节点"></a>4.11 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/" target="_blank" rel="noopener">剑指 Offer 54. 二叉搜索树的第k大节点</a></h4><blockquote>
+<h4 id="剑指-offer-54.-二叉搜索树的第k大节点">4.11 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/" target="_blank" rel="noopener">剑指 Offer 54. 二叉搜索树的第k大节点</a></h4>
+<blockquote>
 <p>给定一棵二叉搜索树，请找出其中第k大的节点。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthLargest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        Stack&lt;TreeNode&gt; s = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; arr = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        TreeNode cur = root;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span> || !s.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">                s.push(cur);</span><br><span class="line">                cur = cur.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur = s.pop();</span><br><span class="line">                arr.add(cur.val);</span><br><span class="line">                cur = cur.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (k &lt;= arr.size()) <span class="keyword">return</span> arr.get(arr.size() - k);</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthLargest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        Stack&lt;TreeNode&gt; s = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        TreeNode cur = root;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span> || !s.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur != <span class="keyword">null</span>) &#123;</span><br><span class="line">                s.push(cur);</span><br><span class="line">                cur = cur.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cur = s.pop();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (--k == <span class="number">0</span>) <span class="keyword">return</span> cur.val;</span><br><span class="line">                cur = cur.left;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-12-剑指-Offer-55-II-平衡二叉树"><a href="#4-12-剑指-Offer-55-II-平衡二叉树" class="headerlink" title="4.12 剑指 Offer 55 - II. 平衡二叉树"></a>4.12 <a href="https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 55 - II. 平衡二叉树</a></h4><blockquote>
+<h4 id="剑指-offer-55---ii.-平衡二叉树">4.12 <a href="https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/" target="_blank" rel="noopener">剑指 Offer 55 - II. 平衡二叉树</a></h4>
+<blockquote>
 <p>输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    boolean isBalanceFlag = true;</span><br><span class="line">    public boolean isBalanced(TreeNode root) &#123;</span><br><span class="line">        if (root == null) return true;</span><br><span class="line">        maxDepth(root);</span><br><span class="line">        return isBalanceFlag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int maxDepth(TreeNode root) &#123;</span><br><span class="line">        if (root == null) return 0;</span><br><span class="line"></span><br><span class="line">        int leftDepth = maxDepth(root.left);</span><br><span class="line">        int rightDepth = maxDepth(root.right);</span><br><span class="line">        if (Math.abs(leftDepth - rightDepth) &gt; 1) isBalanceFlag = false;</span><br><span class="line">        </span><br><span class="line">        return Math.max(leftDepth, rightDepth) + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-13-剑指-Offer-68-I-二叉搜索树的最近公共祖先"><a href="#4-13-剑指-Offer-68-I-二叉搜索树的最近公共祖先" class="headerlink" title="4.13 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先"></a>4.13 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/" target="_blank" rel="noopener">剑指 Offer 68 - I. 二叉搜索树的最近公共祖先</a></h4><blockquote>
+<h4 id="剑指-offer-68---i.-二叉搜索树的最近公共祖先">4.13 <a href="https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/" target="_blank" rel="noopener">剑指 Offer 68 - I. 二叉搜索树的最近公共祖先</a></h4>
+<blockquote>
 <p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p>
 <p>百度百科中最近公共祖先的定义为：“对于有根树 <code>T</code> 的两个结点 <code>p</code>、<code>q</code>，最近公共祖先表示为一个结点 <code>x</code>，满足 <code>x</code> 是 <code>p</code>、<code>q</code> 的祖先且 <code>x</code> 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p>
 </blockquote>
-<p>注意到题目中给出的是一棵「二叉搜索树」，$p$ 和 $q$ 的最近公共祖先就是从根节点到它们路径上的「分岔点」，也就是最后一个相同的节点。</p>
+<p>注意到题目中给出的是一棵「二叉搜索树」，<span class="math inline">\(p\)</span> 和 <span class="math inline">\(q\)</span> 的最近公共祖先就是从根节点到它们路径上的「分岔点」，也就是最后一个相同的节点。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        TreeNode ancestor = root;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p.val &lt; ancestor.val &amp;&amp; q.val &lt; ancestor.val) &#123;</span><br><span class="line">                ancestor = ancestor.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (p.val &gt; ancestor.val &amp;&amp; q.val &gt; ancestor.val) &#123;</span><br><span class="line">                ancestor = ancestor.right;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ancestor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="4-14-剑指-Offer-68-II-二叉树的最近公共祖先"><a href="#4-14-剑指-Offer-68-II-二叉树的最近公共祖先" class="headerlink" title="4.14 剑指 Offer 68 - II. 二叉树的最近公共祖先"></a>4.14 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/" target="_blank" rel="noopener">剑指 Offer 68 - II. 二叉树的最近公共祖先</a></h4><blockquote>
+<h4 id="剑指-offer-68---ii.-二叉树的最近公共祖先">4.14 <a href="https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/" target="_blank" rel="noopener">剑指 Offer 68 - II. 二叉树的最近公共祖先</a></h4>
+<blockquote>
 <p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p>
 <p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p>
 </blockquote>
-<p>与上一题不同，现在给出的是一棵普通的树，所有不能直接基于值的比较来寻找最小祖先。若 $root$ 是 $p, q$ 的 <strong>最近公共祖先</strong> ，则只可能为以下情况之一：</p>
+<p>与上一题不同，现在给出的是一棵普通的树，所有不能直接基于值的比较来寻找最小祖先。若 <span class="math inline">\(root\)</span> 是 <span class="math inline">\(p, q\)</span> 的 <strong>最近公共祖先</strong> ，则只可能为以下情况之一：</p>
 <ul>
-<li>$p$ 和 $q$ 在 $root$ 的子树中，且分列 $root$ 的 异侧（即分别在左、右子树中）；</li>
-<li>$p = root$，且 $q$ 在 $root$ 的左或右子树中；</li>
-<li>$q = root$，且 $p$ 在 $root$ 的左或右子树中；</li>
+<li><span class="math inline">\(p\)</span> 和 <span class="math inline">\(q\)</span> 在 <span class="math inline">\(root\)</span> 的子树中，且分列 <span class="math inline">\(root\)</span> 的 异侧（即分别在左、右子树中）；</li>
+<li><span class="math inline">\(p = root\)</span>，且 <span class="math inline">\(q\)</span> 在 <span class="math inline">\(root\)</span> 的左或右子树中；</li>
+<li><span class="math inline">\(q = root\)</span>，且 <span class="math inline">\(p\)</span> 在 <span class="math inline">\(root\)</span> 的左或右子树中；</li>
 </ul>
 <p>递归解析：</p>
 <p>终止条件：</p>
 <ul>
 <li>当越过叶节点，则直接返回 <code>null</code> ；</li>
-<li>当 $root$ 等于 $p, q$，则直接返回 $root$；</li>
+<li>当 <span class="math inline">\(root\)</span> 等于 <span class="math inline">\(p, q\)</span>，则直接返回 <span class="math inline">\(root\)</span>；</li>
 </ul>
 <p>递推工作：</p>
 <ul>
-<li><p>开启递归左子节点，返回值记为 $left$；</p>
-</li>
-<li><p>开启递归右子节点，返回值记为 $right$；</p>
-</li>
+<li><p>开启递归左子节点，返回值记为 <span class="math inline">\(left\)</span>；</p></li>
+<li><p>开启递归右子节点，返回值记为 <span class="math inline">\(right\)</span>；</p></li>
 </ul>
-<p>返回值： 根据 $left$ 和 $right$，可展开为四种情况；</p>
+<p>返回值： 根据 <span class="math inline">\(left\)</span> 和 <span class="math inline">\(right\)</span>，可展开为四种情况；</p>
 <ul>
-<li>当 $left$ 和 $right$ 同时为空 ：说明 $root$ 的左 / 右子树中都不包含 $p,q$ ，返回 <code>null</code> ；</li>
-<li>当 $left$​ 和 $right$ 同时不为空 ：说明 $p, q$ 分列在 $root$ 的 异侧 （分别在 左 / 右子树），因此 $root$ 为最近公共祖先，返回 $root$；</li>
-<li>当 $left$ 为空 ，$right$ 不为空 ：$p,q$ 都不在 $root$ 的左子树中，直接返回 $right$。具体可分为两种情况：<ul>
-<li>$p,q$ 其中一个在 $root$ 的 右子树 中，此时 $right$ 指向 $p$（假设为 $p$ ）；</li>
-<li>$p,q$ 两节点都在 $root$ 的 右子树 中，此时的 $right$ 指向 最近公共祖先节点 ；</li>
-</ul>
-</li>
-<li>当 $left$ 不为空 ， $right$ 为空时同理；</li>
+<li>当 <span class="math inline">\(left\)</span> 和 <span class="math inline">\(right\)</span> 同时为空 ：说明 <span class="math inline">\(root\)</span> 的左 / 右子树中都不包含 <span class="math inline">\(p,q\)</span> ，返回 <code>null</code> ；</li>
+<li>当 <span class="math inline">\(left\)</span>​ 和 <span class="math inline">\(right\)</span> 同时不为空 ：说明 <span class="math inline">\(p, q\)</span> 分列在 <span class="math inline">\(root\)</span> 的 异侧 （分别在 左 / 右子树），因此 <span class="math inline">\(root\)</span> 为最近公共祖先，返回 <span class="math inline">\(root\)</span>；</li>
+<li>当 <span class="math inline">\(left\)</span> 为空 ，<span class="math inline">\(right\)</span> 不为空 ：<span class="math inline">\(p,q\)</span> 都不在 <span class="math inline">\(root\)</span> 的左子树中，直接返回 <span class="math inline">\(right\)</span>。具体可分为两种情况：
+<ul>
+<li><span class="math inline">\(p,q\)</span> 其中一个在 <span class="math inline">\(root\)</span> 的 右子树 中，此时 <span class="math inline">\(right\)</span> 指向 <span class="math inline">\(p\)</span>（假设为 <span class="math inline">\(p\)</span> ）；</li>
+<li><span class="math inline">\(p,q\)</span> 两节点都在 <span class="math inline">\(root\)</span> 的 右子树 中，此时的 <span class="math inline">\(right\)</span> 指向 最近公共祖先节点 ；</li>
+</ul></li>
+<li>当 <span class="math inline">\(left\)</span> 不为空 ， <span class="math inline">\(right\)</span> 为空时同理；</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span> || root == p || root == q) <span class="keyword">return</span> root;</span><br><span class="line">        TreeNode left = lowestCommonAncestor(root.left, p, q);</span><br><span class="line">        TreeNode right = lowestCommonAncestor(root.right, p, q);</span><br><span class="line">        <span class="keyword">if</span>(left == <span class="keyword">null</span>) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">if</span>(right == <span class="keyword">null</span>) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -901,7 +1039,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -920,9 +1058,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-排序问题的形式定义"><a href="#1-排序问题的形式定义" class="headerlink" title="1. 排序问题的形式定义"></a>1. 排序问题的形式定义</h3><p>可以将<strong>排序问题</strong>形式化定义为如下：</p>
+          <h3 id="排序问题的形式定义">1. 排序问题的形式定义</h3>
+<p>可以将<strong>排序问题</strong>形式化定义为如下：</p>
 <blockquote>
-<p><strong>输入</strong>: $n$ 个数的一个序列 $\left\langle a<em>{1}, a</em>{2}, \cdots, a<em>{n}\right\rangle$。<br><strong>输出</strong>: 输入序列的一个排列 $\left\langle a</em>{1}^{\prime}, a<em>{2}^{\prime}, \cdots, a</em>{n}^{\prime}\right\rangle$, 满足 $a<em>{1}^{\prime} \leqslant a</em>{2}^{\prime} \leqslant \cdots \leqslant a_{n}^{\prime}$ 。</p>
+<p><strong>输入</strong>: <span class="math inline">\(n\)</span> 个数的一个序列 <span class="math inline">\(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)</span>。 <strong>输出</strong>: 输入序列的一个排列 <span class="math inline">\(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right\rangle\)</span>, 满足 <span class="math inline">\(a_{1}^{\prime} \leqslant a_{2}^{\prime} \leqslant \cdots \leqslant a_{n}^{\prime}\)</span> 。</p>
 </blockquote>
 <p>希望排序的数也称为<strong>关键词</strong>。</p>
           <!--noindex-->
@@ -1017,7 +1156,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1036,7 +1175,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-算法介绍"><a href="#1-算法介绍" class="headerlink" title="1. 算法介绍"></a>1. 算法介绍</h3><h4 id="1-1-算法"><a href="#1-1-算法" class="headerlink" title="1.1. 算法"></a>1.1. 算法</h4><blockquote>
+          <h3 id="算法介绍">1. 算法介绍</h3>
+<h4 id="算法">1.1. 算法</h4>
+<blockquote>
 <p>非形式地说，<strong>算法</strong>（algorithm）就说任何<code>良定义</code>地计算过程，该过程取某个值或值的集合作为<strong>输入</strong>，并产生某个值或值的集合作为<strong>输出</strong>。即算法就是<u>把输入转化为输出的计算步骤的一个序列</u>。</p>
 </blockquote>
           <!--noindex-->
@@ -1149,8 +1290,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>字符串在<code>Java</code>中被广泛应用，学习一下<code>String</code>、<code>StringBuilder</code>和<code>StringBuffer</code>这几个类之间的异同和适用场景。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p>字符串在<code>Java</code>中被广泛应用，学习一下<code>String</code>、<code>StringBuilder</code>和<code>StringBuffer</code>这几个类之间的异同和适用场景。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/25/JavaLearning_String_StringBuffer_and_StringBuilder.html#more" rel="contents">
@@ -1242,7 +1384,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.1k</span>
+              <span>5.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1261,8 +1403,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>首先需要保证并发的正确性，然后在此基础上来实现高效。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p>首先需要保证并发的正确性，然后在此基础上来实现高效。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/07/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_13_Thread_safety_and_lock_optimization.html#more" rel="contents">
@@ -1373,8 +1516,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>并发处理是人类压榨计算机运算能力的最有力武器。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p>并发处理是人类压榨计算机运算能力的最有力武器。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/06/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_12_Java_memory_model_and_threads.html#more" rel="contents">
@@ -1485,123 +1629,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>后端编译器的编译速度及编译结果质量高低，是衡量Java虚拟机性能最重要的一个指标。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p>后端编译器的编译速度及编译结果质量高低，是衡量Java虚拟机性能最重要的一个指标。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/06/03/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_11_Back-end_compilation_and_optimization.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="wuyunjie">
-      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WuYJ's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html" class="post-title-link" itemprop="url">[Java学习|深入理解Java虚拟机]--10 前端编译与优化</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-06-02 16:38:04" itemprop="dateCreated datePublished" datetime="2021-06-02T16:38:04+08:00">2021-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|深入理解Java虚拟机]--10 前端编译与优化" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>从计算机程序出现的第一天起，对效率的追逐就是程序员天生的坚定信仰，这个过程犹如一场没有终点、永不停歇的F1方程式竞赛，程序员是车手，技术平台则是在赛道上飞驰的赛车。<br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/06/02/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_10_Front-end_compilation_and_optimization.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1671,7 +1704,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1684,7 +1717,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1732,13 +1765,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

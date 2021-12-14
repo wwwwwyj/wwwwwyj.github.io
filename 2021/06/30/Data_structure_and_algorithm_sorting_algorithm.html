@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="1. 排序问题的形式定义可以将排序问题形式化定义为如下：  输入: $n$ 个数的一个序列 $\left\langle a{1}, a{2}, \cdots, a{n}\right\rangle$。输出: 输入序列的一个排列 $\left\langle a{1}^{\prime}, a{2}^{\prime}, \cdots, a{n}^{\prime}\right\rangle$, 满足 $a{">
+  <meta name="description" content="1. 排序问题的形式定义 可以将排序问题形式化定义为如下：  输入: \(n\) 个数的一个序列 \(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)。 输出: 输入序列的一个排列 \(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right">
 <meta name="keywords" content="面试复习,数据结构和算法,算法,排序算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[数据结构和算法|各种排序算法原理及实现]">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;30&#x2F;Data_structure_and_algorithm_sorting_algorithm.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="1. 排序问题的形式定义可以将排序问题形式化定义为如下：  输入: $n$ 个数的一个序列 $\left\langle a{1}, a{2}, \cdots, a{n}\right\rangle$。输出: 输入序列的一个排列 $\left\langle a{1}^{\prime}, a{2}^{\prime}, \cdots, a{n}^{\prime}\right\rangle$, 满足 $a{">
+<meta property="og:description" content="1. 排序问题的形式定义 可以将排序问题形式化定义为如下：  输入: \(n\) 个数的一个序列 \(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)。 输出: 输入序列的一个排列 \(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;sort&#x2F;insertSortExample.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;sort&#x2F;insertSortTimeAnalysis.PNG">
@@ -293,7 +293,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,44 +312,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="1-排序问题的形式定义"><a href="#1-排序问题的形式定义" class="headerlink" title="1. 排序问题的形式定义"></a>1. 排序问题的形式定义</h3><p>可以将<strong>排序问题</strong>形式化定义为如下：</p>
+        <h3 id="排序问题的形式定义">1. 排序问题的形式定义</h3>
+<p>可以将<strong>排序问题</strong>形式化定义为如下：</p>
 <blockquote>
-<p><strong>输入</strong>: $n$ 个数的一个序列 $\left\langle a<em>{1}, a</em>{2}, \cdots, a<em>{n}\right\rangle$。<br><strong>输出</strong>: 输入序列的一个排列 $\left\langle a</em>{1}^{\prime}, a<em>{2}^{\prime}, \cdots, a</em>{n}^{\prime}\right\rangle$, 满足 $a<em>{1}^{\prime} \leqslant a</em>{2}^{\prime} \leqslant \cdots \leqslant a_{n}^{\prime}$ 。</p>
+<p><strong>输入</strong>: <span class="math inline">\(n\)</span> 个数的一个序列 <span class="math inline">\(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)</span>。 <strong>输出</strong>: 输入序列的一个排列 <span class="math inline">\(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right\rangle\)</span>, 满足 <span class="math inline">\(a_{1}^{\prime} \leqslant a_{2}^{\prime} \leqslant \cdots \leqslant a_{n}^{\prime}\)</span> 。</p>
 </blockquote>
 <p>希望排序的数也称为<strong>关键词</strong>。</p>
 <a id="more"></a>
-<h3 id="2-排序算法"><a href="#2-排序算法" class="headerlink" title="2. 排序算法"></a>2. 排序算法</h3><h4 id="2-1-插入排序"><a href="#2-1-插入排序" class="headerlink" title="2.1 插入排序"></a>2.1 插入排序</h4><h5 id="2-1-1-插入排序算法介绍"><a href="#2-1-1-插入排序算法介绍" class="headerlink" title="2.1.1 插入排序算法介绍"></a>2.1.1 插入排序算法介绍</h5><p>对于少量元素的排序，插入排序是一种有效的算法。插入排序的伪代码如下，输入是数组$A[1.. n]$：</p>
+<h3 id="排序算法">2. 排序算法</h3>
+<h4 id="插入排序">2.1 插入排序</h4>
+<h5 id="插入排序算法介绍">2.1.1 插入排序算法介绍</h5>
+<p>对于少量元素的排序，插入排序是一种有效的算法。插入排序的伪代码如下，输入是数组<span class="math inline">\(A[1.. n]\)</span>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">for j = 2 to A.length</span><br><span class="line">	key = A[j]</span><br><span class="line">	// Insert A[j] into the sorted sequence A[1 .. j-1].</span><br><span class="line">	i = j - 1</span><br><span class="line">	while i &gt; 0 and A[i] &gt; key</span><br><span class="line">		A[ i + i ] = A[i]</span><br><span class="line">		i = i - 1</span><br><span class="line">	A[ i + 1 ] = key</span><br></pre></td></tr></table></figure>
-<h5 id="2-1-2-循环不变式与插入排序的正确性"><a href="#2-1-2-循环不变式与插入排序的正确性" class="headerlink" title="2.1.2 循环不变式与插入排序的正确性"></a>2.1.2 循环不变式与插入排序的正确性</h5><p>下图式对数组$A=<5, 2, 4, 6, 1, 3>$的插入排序：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortExample.PNG" alt="插入排序示例"></p>
-<p>在<code>for</code>循环每次迭代开始时，子数组$A[1.. j-1]$由原来在$A[1.. j-1]$中的元素组成，但已按顺序排列，即<strong><code>循环不变式</code></strong>。<strong><code>循环不变式</code></strong>用于帮助理解算法地正确性。关于循环不变式需要证明三条性质：</p>
+<h5 id="循环不变式与插入排序的正确性">2.1.2 循环不变式与插入排序的正确性</h5>
+<p>下图式对数组<span class="math inline">\(A=&lt;5, 2, 4, 6, 1, 3&gt;\)</span>的插入排序：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortExample.PNG" alt="插入排序示例" /><figcaption aria-hidden="true">插入排序示例</figcaption>
+</figure>
+<p>在<code>for</code>循环每次迭代开始时，子数组<span class="math inline">\(A[1.. j-1]\)</span>由原来在<span class="math inline">\(A[1.. j-1]\)</span>中的元素组成，但已按顺序排列，即<strong><code>循环不变式</code></strong>。<strong><code>循环不变式</code></strong>用于帮助理解算法地正确性。关于循环不变式需要证明三条性质：</p>
 <ul>
 <li><strong>初始化</strong>：循环的第一次迭代之前，它为真。</li>
 <li><strong>保持</strong>：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。</li>
 <li><strong>终止</strong>：在循环终止时，不变式为我们提供一个有用的性质，该性质有助于证明算法是正确的。</li>
 </ul>
-<h5 id="2-1-3-插入排序算法的分析"><a href="#2-1-3-插入排序算法的分析" class="headerlink" title="2.1.3 插入排序算法的分析"></a>2.1.3 插入排序算法的分析</h5><p>这里是基于<strong>算法导论</strong>中算法分析给出的计算方法，做一个示例：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortTimeAnalysis.PNG" alt="插入排序运行时间分析"></p>
-<p>算法运行时间是职校每条语句的执行时间之和：</p>
-<script type="math/tex; mode=display">
-T(n)=c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5} \sum_{j=2}^{n} t_{j}+c_{6} \sum_{j=2}^{n}\left(t_{j}-1\right)+c_{7} \sum_{j=2}^{n}\left(t_{j}-1\right)+c_{8}(n-1)</script><p>当输入数组已经排好序时，出现最佳情况，使得$t_j=1$，则最佳情况下的运行时间为：</p>
-<script type="math/tex; mode=display">
+<h5 id="插入排序算法的分析">2.1.3 插入排序算法的分析</h5>
+<p>这里是基于<strong>算法导论</strong>中算法分析给出的计算方法，做一个示例：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortTimeAnalysis.PNG" alt="插入排序运行时间分析" /><figcaption aria-hidden="true">插入排序运行时间分析</figcaption>
+</figure>
+<p>算法运行时间是职校每条语句的执行时间之和： <span class="math display">\[
+T(n)=c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5} \sum_{j=2}^{n} t_{j}+c_{6} \sum_{j=2}^{n}\left(t_{j}-1\right)+c_{7} \sum_{j=2}^{n}\left(t_{j}-1\right)+c_{8}(n-1)
+\]</span> 当输入数组已经排好序时，出现最佳情况，使得<span class="math inline">\(t_j=1\)</span>，则最佳情况下的运行时间为： <span class="math display">\[
 \begin{aligned}
-T(n) &=c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}(n-1)+c_{8}(n-1) \\
-&=\left(c_{1}+c_{2}+c_{4}+c_{5}+c_{8}\right) n-\left(c_{2}+c_{4}+c_{5}+c_{8}\right)
-\end{aligned}</script><p>可以将其表示为$an+b$，因此它是$n$的<strong>线性函数</strong>。若输出数组是反向排序，即按递减排好序，此时出现最坏情况，有$t_j=j$，由于有：</p>
-<script type="math/tex; mode=display">
+T(n) &amp;=c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}(n-1)+c_{8}(n-1) \\
+&amp;=\left(c_{1}+c_{2}+c_{4}+c_{5}+c_{8}\right) n-\left(c_{2}+c_{4}+c_{5}+c_{8}\right)
+\end{aligned}
+\]</span> 可以将其表示为<span class="math inline">\(an+b\)</span>，因此它是<span class="math inline">\(n\)</span>的<strong>线性函数</strong>。若输出数组是反向排序，即按递减排好序，此时出现最坏情况，有<span class="math inline">\(t_j=j\)</span>，由于有： <span class="math display">\[
 \begin{aligned}
-&\sum_{j=2}^{n} j=\frac{n(n+1)}{2}-1 \\
-&\sum_{j=2}^{n}(j-1)=\frac{n(n-1)}{2}
-\end{aligned}</script><p>最坏情况下，插入排序运行时间为：</p>
-<script type="math/tex; mode=display">
+&amp;\sum_{j=2}^{n} j=\frac{n(n+1)}{2}-1 \\
+&amp;\sum_{j=2}^{n}(j-1)=\frac{n(n-1)}{2}
+\end{aligned}
+\]</span> 最坏情况下，插入排序运行时间为： <span class="math display">\[
 \begin{aligned}
-T(n)=& c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
-&+c_{6}\left(\frac{n(n-1)}{2}\right)+c_{7}\left(\frac{n(n-1)}{2}\right)+c_{8}(n-1) \\
-=&\left(\frac{c_{5}}{2}+\frac{c_{6}}{2}+\frac{c_{7}}{2}\right) n^{2}+\left(c_{1}+c_{2}+c_{4}+\frac{c_{5}}{2}-\frac{c_{6}}{2}-\frac{c_{7}}{2}+c_{8}\right) n \\
-&-\left(c_{2}+c_{4}+c_{5}+c_{8}\right)
-\end{aligned}</script><p>可以将其表示为$an^2+bn+c$，因此它是$n$的<strong>二次函数</strong>。一般只求<strong>最坏情况运行时间</strong>，记插入排序具有最坏情况运行时间$O(n^2)$。</p>
+T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
+&amp;+c_{6}\left(\frac{n(n-1)}{2}\right)+c_{7}\left(\frac{n(n-1)}{2}\right)+c_{8}(n-1) \\
+=&amp;\left(\frac{c_{5}}{2}+\frac{c_{6}}{2}+\frac{c_{7}}{2}\right) n^{2}+\left(c_{1}+c_{2}+c_{4}+\frac{c_{5}}{2}-\frac{c_{6}}{2}-\frac{c_{7}}{2}+c_{8}\right) n \\
+&amp;-\left(c_{2}+c_{4}+c_{5}+c_{8}\right)
+\end{aligned}
+\]</span> 可以将其表示为<span class="math inline">\(an^2+bn+c\)</span>，因此它是<span class="math inline">\(n\)</span>的<strong>二次函数</strong>。一般只求<strong>最坏情况运行时间</strong>，记插入排序具有最坏情况运行时间<span class="math inline">\(O(n^2)\)</span>。</p>
 
     </div>
 
@@ -419,7 +429,7 @@ T(n)=& c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-排序问题的形式定义"><span class="nav-number">1.</span> <span class="nav-text">1. 排序问题的形式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-排序算法"><span class="nav-number">2.</span> <span class="nav-text">2. 排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-插入排序"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-插入排序算法介绍"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 插入排序算法介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-循环不变式与插入排序的正确性"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 循环不变式与插入排序的正确性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-插入排序算法的分析"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 插入排序算法的分析</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序问题的形式定义"><span class="nav-number">1.</span> <span class="nav-text">1. 排序问题的形式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法"><span class="nav-number">2.</span> <span class="nav-text">2. 排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入排序"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插入排序算法介绍"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 插入排序算法介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环不变式与插入排序的正确性"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 循环不变式与插入排序的正确性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入排序算法的分析"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 插入排序算法的分析</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -435,7 +445,7 @@ T(n)=& c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -448,7 +458,7 @@ T(n)=& c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -496,13 +506,13 @@ T(n)=& c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

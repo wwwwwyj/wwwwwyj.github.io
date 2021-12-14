@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 有人告诉我那里遍地都是对象！">
+  <meta name="description" content="前言  有人告诉我那里遍地都是对象！">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head First Java]--2 类与对象">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;04&#x2F;27&#x2F;JavaLearning_Head_First_Java_2_class_and_objects.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 有人告诉我那里遍地都是对象！">
+<meta property="og:description" content="前言  有人告诉我那里遍地都是对象！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;class_inheritance.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;class_override.PNG">
@@ -315,33 +315,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>有人告诉我那里遍地都是对象！<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>有人告诉我那里遍地都是对象！ <a id="more"></a></p>
 </blockquote>
-<h3 id="1-椅子大战——阿花的”对象”"><a href="#1-椅子大战——阿花的”对象”" class="headerlink" title="1. 椅子大战——阿花的”对象”"></a>1. 椅子大战——阿花的”对象”</h3><p>面向对象信徒阿花利用面向对象的思想赢得了椅子大战(但最后赢家是阿娇——老板娘的侄女，作者调皮了)。</p>
-<h4 id="类与继承-inheritance"><a href="#类与继承-inheritance" class="headerlink" title="类与继承(inheritance)"></a>类与继承(inheritance)</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_inheritance.PNG" alt="继承(inheritance)"></p>
-<h4 id="覆盖-override"><a href="#覆盖-override" class="headerlink" title="覆盖(override)"></a>覆盖(override)</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_override.PNG" alt="覆盖(override)"></p>
-<h3 id="2-对象"><a href="#2-对象" class="headerlink" title="2. 对象"></a>2. 对象</h3><blockquote>
-<p> <code>对象</code>是依靠类的模型塑造出来的，对象也可以叫做<code>实例</code>。可以把对象分为两部分看：</p>
+<h3 id="椅子大战阿花的对象">1. 椅子大战——阿花的"对象"</h3>
+<p>面向对象信徒阿花利用面向对象的思想赢得了椅子大战(但最后赢家是阿娇——老板娘的侄女，作者调皮了)。</p>
+<h4 id="类与继承inheritance">类与继承(inheritance)</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_inheritance.PNG" alt="继承(inheritance)" /><figcaption aria-hidden="true">继承(inheritance)</figcaption>
+</figure>
+<h4 id="覆盖override">覆盖(override)</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_override.PNG" alt="覆盖(override)" /><figcaption aria-hidden="true">覆盖(override)</figcaption>
+</figure>
+<h3 id="对象">2. 对象</h3>
+<blockquote>
+<p><code>对象</code>是依靠类的模型塑造出来的，对象也可以叫做<code>实例</code>。可以把对象分为两部分看：</p>
 <ul>
-<li>对象是已知的事物<ul>
+<li>对象是已知的事物
+<ul>
 <li><code>实例变量</code>(instance variable)。对象本身已知的事物，代表对象的状态(数据)，且该类型的每一个对象都会独立地拥有一份该类型的值。</li>
-</ul>
-</li>
-<li>对象会执行的当作<ul>
+</ul></li>
+<li>对象会执行的当作
+<ul>
 <li><code>方法</code>(methods)。对象可以执行的动作，读取或操作实例变量。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_override.PNG" alt="Java对象"></p>
-<h4 id="类与对象的区别"><a href="#类与对象的区别" class="headerlink" title="类与对象的区别"></a>类与对象的区别</h4><blockquote>
-<p>”<em>类不是对象，却是用来创建对象的模型</em>‘“。类是对象的<strong>蓝图</strong>，告诉虚拟机如何创建某种类型的对象。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_override.PNG" alt="Java对象" /><figcaption aria-hidden="true">Java对象</figcaption>
+</figure>
+<h4 id="类与对象的区别">类与对象的区别</h4>
+<blockquote>
+<p>”<em>类不是对象，却是用来创建对象的模型</em>'"。类是对象的<strong>蓝图</strong>，告诉虚拟机如何创建某种类型的对象。</p>
 </blockquote>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_object_relation.PNG" alt="类与对象"></p>
-<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><p>创建对象后，使用<code>圆点(.)</code>符号所代表的操作数来<em>存取该对象的变量和方法</em>。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_create_object.PNG" alt="创建对象"></p>
-<h4 id="逃出main"><a href="#逃出main" class="headerlink" title="逃出main()"></a>逃出main()</h4><blockquote>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_object_relation.PNG" alt="类与对象" /><figcaption aria-hidden="true">类与对象</figcaption>
+</figure>
+<h4 id="创建对象">创建对象</h4>
+<p>创建对象后，使用<code>圆点(.)</code>符号所代表的操作数来<em>存取该对象的变量和方法</em>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/class_create_object.PNG" alt="创建对象" /><figcaption aria-hidden="true">创建对象</figcaption>
+</figure>
+<h4 id="逃出main">逃出main()</h4>
+<blockquote>
 <p><code>main()</code>的两种用途</p>
 <ul>
 <li>测试真正的类</li>
@@ -359,22 +377,20 @@
 <li>GameLauncher.class</li>
 </ul>
 <p><strong>程序逻辑：</strong></p>
-<ol>
+<ol type="1">
 <li><code>GameLauncher</code>类带有<code>main()</code>方法，是应用程序<strong>入口点</strong>；</li>
 <li><code>main()</code>中会创建<code>GuessGame</code>对象，并调用它的<code>startGame()</code>方法；</li>
 <li><code>startGame()</code>方法是游戏的起点。它会创建3个player，然后挑出要猜测的随机数字。它会要求player猜测并检查结果，列出过程。</li>
 </ol>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.schoolLearning;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> number = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">guess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        number = (<span class="keyword">int</span>) (Math.random() * <span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">"I'm guessing "</span> + number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GuessGame</span> </span>&#123;</span><br><span class="line">    Player p1;</span><br><span class="line">    Player p2;</span><br><span class="line">    Player p3;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startGame</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        p1 = <span class="keyword">new</span> Player();</span><br><span class="line">        p2 = <span class="keyword">new</span> Player();</span><br><span class="line">        p3 = <span class="keyword">new</span> Player();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> guessp1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> guessp2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> guessp3 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> p1isRight = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">boolean</span> p2isRight = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">boolean</span> p3isRight = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> targetNumber = (<span class="keyword">int</span>) (Math.random() * <span class="number">10</span>);</span><br><span class="line">        System.out.println(<span class="string">"I'm thinking of a number between 0 and 9..."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Number to guess is "</span> + targetNumber);</span><br><span class="line"></span><br><span class="line">            p1.guess();</span><br><span class="line">            p2.guess();</span><br><span class="line">            p3.guess();</span><br><span class="line"></span><br><span class="line">            guessp1 = p1.number;</span><br><span class="line">            System.out.println(<span class="string">"Player one guessed "</span> + guessp1);</span><br><span class="line">            guessp2 = p2.number;</span><br><span class="line">            System.out.println(<span class="string">"Player two guessed "</span> + guessp2);</span><br><span class="line">            guessp3 = p3.number;</span><br><span class="line">            System.out.println(<span class="string">"Player three guessed "</span> + guessp3);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (guessp1 == targetNumber) &#123;</span><br><span class="line">                p1isRight = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (guessp2 == targetNumber) &#123;</span><br><span class="line">                p2isRight = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (guessp3 == targetNumber) &#123;</span><br><span class="line">                p3isRight = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (p1isRight || p2isRight || p3isRight) &#123;</span><br><span class="line"></span><br><span class="line">                System.out.println(<span class="string">"We have a winner!"</span>);</span><br><span class="line">                System.out.println(<span class="string">"Player one got it right? "</span> + p1isRight);</span><br><span class="line">                System.out.println(<span class="string">"Player two got it right? "</span> + p2isRight);</span><br><span class="line">                System.out.println(<span class="string">"Player three got it right? "</span> + p3isRight);</span><br><span class="line">                System.out.println(<span class="string">"Game is over."</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"Players will have to try again."</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameLauncher</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GuessGame game = <span class="keyword">new</span> GuessGame();</span><br><span class="line">        game.startGame();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
-<li><p>在创建类时，<code>.java</code>文件内只能有一个<code>public</code>声明的类，且类名需要与文件名一致，一般设定为包含<code>main()</code>函数的类。更规范的写法是为不同的类分别创建<code>.java</code>文件，维护各自的代码，通过文件之间的调用(<code>import</code>)实现交互。</p>
-</li>
+<h3 id="tips">Tips</h3>
+<ol type="1">
+<li><p>在创建类时，<code>.java</code>文件内只能有一个<code>public</code>声明的类，且类名需要与文件名一致，一般设定为包含<code>main()</code>函数的类。更规范的写法是为不同的类分别创建<code>.java</code>文件，维护各自的代码，通过文件之间的调用(<code>import</code>)实现交互。</p></li>
 <li><p>Java垃圾回收。</p>
-<p>创建对象时，不管对象如何创建的，它都会被存放于称为<code>堆</code>的内存区域，在Java中是<code>可回收垃圾的堆(Garbage-Collectible Heap)</code>。Java会根据对象的大小来分配内存空间，当Java虚拟机察觉到对象不再会被使用到时，该对象会被标记为可回收的。如果内存不足，垃圾收集器就会启动来清理垃圾、回收空间。</p>
-</li>
+<p>创建对象时，不管对象如何创建的，它都会被存放于称为<code>堆</code>的内存区域，在Java中是<code>可回收垃圾的堆(Garbage-Collectible Heap)</code>。Java会根据对象的大小来分配内存空间，当Java虚拟机察觉到对象不再会被使用到时，该对象会被标记为可回收的。如果内存不足，垃圾收集器就会启动来清理垃圾、回收空间。</p></li>
 <li><p>包装多个类成为单一应用程序形式。</p>
-<p>可以把所有文件包装进依据<code>pkzip</code>格式来存档的<code>Java Archive-.jar文件</code>。在该<code>jar</code>文件中可以引入一个简单文字格式的文字文件，被称为<code>manifest</code>，里面有定义出<code>jar</code>中的哪一个文件带有启动应用程序的<code>main()</code>方法。</p>
-</li>
+<p>可以把所有文件包装进依据<code>pkzip</code>格式来存档的<code>Java Archive-.jar文件</code>。在该<code>jar</code>文件中可以引入一个简单文字格式的文字文件，被称为<code>manifest</code>，里面有定义出<code>jar</code>中的哪一个文件带有启动应用程序的<code>main()</code>方法。</p></li>
 </ol>
 
     </div>
@@ -443,7 +459,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-椅子大战——阿花的”对象”"><span class="nav-number">2.</span> <span class="nav-text">1. 椅子大战——阿花的”对象”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与继承-inheritance"><span class="nav-number">2.1.</span> <span class="nav-text">类与继承(inheritance)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖-override"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖(override)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-对象"><span class="nav-number">3.</span> <span class="nav-text">2. 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与对象的区别"><span class="nav-number">3.1.</span> <span class="nav-text">类与对象的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建对象"><span class="nav-number">3.2.</span> <span class="nav-text">创建对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逃出main"><span class="nav-number">3.3.</span> <span class="nav-text">逃出main()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">4.</span> <span class="nav-text">Tips</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#椅子大战阿花的对象"><span class="nav-number">2.</span> <span class="nav-text">1. 椅子大战——阿花的&quot;对象&quot;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与继承inheritance"><span class="nav-number">2.1.</span> <span class="nav-text">类与继承(inheritance)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#覆盖override"><span class="nav-number">2.2.</span> <span class="nav-text">覆盖(override)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象"><span class="nav-number">3.</span> <span class="nav-text">2. 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类与对象的区别"><span class="nav-number">3.1.</span> <span class="nav-text">类与对象的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建对象"><span class="nav-number">3.2.</span> <span class="nav-text">创建对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逃出main"><span class="nav-number">3.3.</span> <span class="nav-text">逃出main()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-number">4.</span> <span class="nav-text">Tips</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -459,7 +475,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -472,7 +488,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -520,13 +536,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

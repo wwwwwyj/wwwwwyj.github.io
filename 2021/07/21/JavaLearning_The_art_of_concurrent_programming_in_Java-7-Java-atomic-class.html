@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 java.util.concurrent.atomic包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。Atomic包里的类基本都是使用Unsafe实现的包装类。">
+  <meta name="description" content="前言  java.util.concurrent.atomic包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。Atomic包里的类基本都是使用Unsafe实现的包装类。">
 <meta name="keywords" content="Learning,Java,Java并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Java并发编程的艺术]--7 Java中的13个原子操作类">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;21&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-7-Java-atomic-class.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 java.util.concurrent.atomic包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。Atomic包里的类基本都是使用Unsafe实现的包装类。">
+<meta property="og:description" content="前言  java.util.concurrent.atomic包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。Atomic包里的类基本都是使用Unsafe实现的包装类。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2021-07-21T08:06:12.000Z">
 <meta name="twitter:card" content="summary">
@@ -309,10 +309,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>java.util.concurrent.atomic</code>包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。<code>Atomic</code>包里的类基本都是<u>使用<code>Unsafe</code>实现的包装类</u>。<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>java.util.concurrent.atomic</code>包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。<code>Atomic</code>包里的类基本都是<u>使用<code>Unsafe</code>实现的包装类</u>。 <a id="more"></a></p>
 </blockquote>
-<h3 id="1-原子更新基本类型类"><a href="#1-原子更新基本类型类" class="headerlink" title="1. 原子更新基本类型类"></a>1. 原子更新基本类型类</h3><p><code>Atomic</code>包提供了3个类更新基本类型：</p>
+<h3 id="原子更新基本类型类">1. 原子更新基本类型类</h3>
+<p><code>Atomic</code>包提供了3个类更新基本类型：</p>
 <ul>
 <li><code>AtomicBoolean</code>：原子更新布尔类型。</li>
 <li><code>AtomicInteger</code>：原子更新整型。</li>
@@ -320,26 +322,18 @@
 </ul>
 <p>以上3个类提供的方法几乎一模一样，常用方法有：</p>
 <ul>
-<li><p><code>int addAndGet(int delta)</code>：以原子方式将输入的数值与实例中的值（<code>AtomicInteger</code>里的<code>value</code>）相加，并返回结果。</p>
-</li>
+<li><p><code>int addAndGet(int delta)</code>：以原子方式将输入的数值与实例中的值（<code>AtomicInteger</code>里的<code>value</code>）相加，并返回结果。</p></li>
 <li><p><code>boolean compareAndSet(int expect，int update)</code>：如果输入的数值等于预期值，则以原子方式将该值设置为输入的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        valueOffset = unsafe.objectFieldOffset</span><br><span class="line">            (AtomicInteger.class.getDeclaredField("value"));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> valueOffset;</span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        valueOffset = unsafe.objectFieldOffset</span><br><span class="line">            (AtomicInteger.class.getDeclaredField("value"));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Error(ex); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> unsafe.compareAndSwapInt(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>int getAndIncrement()</code>：以原子方式将当前值加<code>1</code>，返回的是自增前的值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> next = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">        	<span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// jdk 1.8 实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p><code>void lazySet(int newValue)</code>：最终会设置成<code>newValue</code>，使用<code>lazySet</code>设置值后，可能导致其他线程在之后的一小段时间内还是可以读到旧的值。</p>
-</li>
-<li><p><code>int getAndSet(int newValue)</code>：以原子方式设置为<code>newValue</code>的值，并返回旧值。</p>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">int</span> current = get();</span><br><span class="line">        <span class="keyword">int</span> next = current + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (compareAndSet(current, next))</span><br><span class="line">        	<span class="keyword">return</span> current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// jdk 1.8 实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndIncrement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.getAndAddInt(<span class="keyword">this</span>, valueOffset, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><code>void lazySet(int newValue)</code>：最终会设置成<code>newValue</code>，使用<code>lazySet</code>设置值后，可能导致其他线程在之后的一小段时间内还是可以读到旧的值。</p></li>
+<li><p><code>int getAndSet(int newValue)</code>：以原子方式设置为<code>newValue</code>的值，并返回旧值。</p></li>
 </ul>
 <p><code>Atomic</code>包里的类基本都是使用<code>Unsafe</code>实现的。<code>Unsafe</code>只提供了<code>3</code>种<code>CAS</code>方法，<code>AtomicBoolean</code>先把<code>Boolean</code>转换成<strong>整型</strong>，再使用<code>compareAndSwapInt</code>进行<code>CAS</code>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 如果当前数值是expected，则原子的将Java变量更新成x</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span> 如果更新成功则返回true</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapObject</span><span class="params">(Object o, <span class="keyword">long</span> offset, Object expected, Object x)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object o, <span class="keyword">long</span> offset, <span class="keyword">int</span> expected, <span class="keyword">int</span> x)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapLong</span><span class="params">(Object o, <span class="keyword">long</span> offset, <span class="keyword">long</span> expected, <span class="keyword">long</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
-<h3 id="2-原子更新数组"><a href="#2-原子更新数组" class="headerlink" title="2. 原子更新数组"></a>2. 原子更新数组</h3><p>Atomic包提供了4个类更新数组里的某个元素：</p>
+<h3 id="原子更新数组">2. 原子更新数组</h3>
+<p>Atomic包提供了4个类更新数组里的某个元素：</p>
 <ul>
 <li><code>AtomicIntegerArray</code>：原子更新整型数组里的元素。</li>
 <li><code>AtomicLongArray</code>：原子更新长整型数组里的元素。</li>
@@ -349,32 +343,25 @@
 <p>其常用方法如下：</p>
 <ul>
 <li><p><code>int addAndGet(int i，int delta)</code>：以原子方式将输入值与数组中索引<code>i</code>的元素相加。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> getAndAdd(i, delta) + delta;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">checkedByteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i &gt;= array.length)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"index "</span> + i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> byteOffset(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">byteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((<span class="keyword">long</span>) i &lt;&lt; shift) + base;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndAdd</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> unsafe.getAndAddInt(array, checkedByteOffset(i), delta);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">addAndGet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> getAndAdd(i, delta) + delta;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">long</span> <span class="title">checkedByteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i &gt;= array.length)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"index "</span> + i);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> byteOffset(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">byteOffset</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ((<span class="keyword">long</span>) i &lt;&lt; shift) + base;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">getAndAdd</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> delta)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> unsafe.getAndAddInt(array, checkedByteOffset(i), delta);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>boolean compareAndSet(int i，int expect，int update)</code>：如果当前值等于预期值，则以原子方式将数组位置<code>i</code>的元素设置成<code>update</code>值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> compareAndSetRaw(checkedByteOffset(i), expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> expect, <span class="keyword">int</span> update)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> compareAndSetRaw(checkedByteOffset(i), expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>基于已有数组创建<code>AtomicIntegerArray</code>对象时，构造函数会将当前数组复制一份，所以当<code>AtomicIntegerArray</code>对内部的数组元素进行修改时，不会影响原数组。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AtomicIntegerArray</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// Visibility guaranteed by final field guarantees</span></span><br><span class="line">    <span class="keyword">this</span>.array = array.clone();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AtomicIntegerArray</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// Visibility guaranteed by final field guarantees</span></span><br><span class="line">    <span class="keyword">this</span>.array = array.clone();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="3-原子更新引用类型"><a href="#3-原子更新引用类型" class="headerlink" title="3. 原子更新引用类型"></a>3. 原子更新引用类型</h3><p>Atomic包提供了3个类原子更新引用类型：</p>
+<h3 id="原子更新引用类型">3. 原子更新引用类型</h3>
+<p>Atomic包提供了3个类原子更新引用类型：</p>
 <ul>
-<li><p><code>AtomicReference</code>：原子更新引用类型。</p>
-</li>
-<li><p><code>AtomicReferenceFieldUpdater</code>：原子更新引用类型里的字段。</p>
-</li>
-<li><code>AtomicMarkableReference</code>：原子更新带有标记位的引用类型。</li>
+<li><p><code>AtomicReference</code>：原子更新引用类型。</p></li>
+<li><p><code>AtomicReferenceFieldUpdater</code>：原子更新引用类型里的字段。</p></li>
+<li><p><code>AtomicMarkableReference</code>：原子更新带有标记位的引用类型。</p></li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">compareAndSet</span><span class="params">(V expect, V update)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> unsafe.compareAndSwapObject(<span class="keyword">this</span>, valueOffset, expect, update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>更新的仅仅只是引用，引用的对象并未改变。</p>
 </blockquote>
-<h3 id="4-原子更新字段类"><a href="#4-原子更新字段类" class="headerlink" title="4. 原子更新字段类"></a>4. 原子更新字段类</h3><p>Atomic包提供了3个类进行原子字段更新。</p>
+<h3 id="原子更新字段类">4. 原子更新字段类</h3>
+<p>Atomic包提供了3个类进行原子字段更新。</p>
 <ul>
 <li><code>AtomicIntegerFieldUpdater</code>：原子更新整型的字段的更新器。</li>
 <li><code>AtomicLongFieldUpdater</code>：原子更新长整型字段的更新器。</li>
@@ -454,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-原子更新基本类型类"><span class="nav-number">2.</span> <span class="nav-text">1. 原子更新基本类型类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-原子更新数组"><span class="nav-number">3.</span> <span class="nav-text">2. 原子更新数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-原子更新引用类型"><span class="nav-number">4.</span> <span class="nav-text">3. 原子更新引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-原子更新字段类"><span class="nav-number">5.</span> <span class="nav-text">4. 原子更新字段类</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子更新基本类型类"><span class="nav-number">2.</span> <span class="nav-text">1. 原子更新基本类型类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子更新数组"><span class="nav-number">3.</span> <span class="nav-text">2. 原子更新数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子更新引用类型"><span class="nav-number">4.</span> <span class="nav-text">3. 原子更新引用类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原子更新字段类"><span class="nav-number">5.</span> <span class="nav-text">4. 原子更新字段类</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -470,7 +457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -483,7 +470,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -531,13 +518,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

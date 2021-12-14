@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="简介介绍大数据存储与管理相关技术的概念与原理，包括Hadoop分布式文件系统（HDFS）、分布式数据库（ HBase）、NoSQL数据库和云数据库。">
+  <meta name="description" content="简介 介绍大数据存储与管理相关技术的概念与原理，包括Hadoop分布式文件系统（HDFS）、分布式数据库（ HBase）、NoSQL数据库和云数据库。">
 <meta name="keywords" content="大数据,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[大数据技术原理|第二篇 大数据存储与管理(1)]">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;31&#x2F;Big_Data_2_store-and-manage.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="简介介绍大数据存储与管理相关技术的概念与原理，包括Hadoop分布式文件系统（HDFS）、分布式数据库（ HBase）、NoSQL数据库和云数据库。">
+<meta property="og:description" content="简介 介绍大数据存储与管理相关技术的概念与原理，包括Hadoop分布式文件系统（HDFS）、分布式数据库（ HBase）、NoSQL数据库和云数据库。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter2&#x2F;clusterStructure.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter2&#x2F;DFSStructure.PNG">
@@ -323,33 +323,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>介绍大数据存储与管理相关技术的概念与原理，包括<code>Hadoop分布式文件系统（HDFS）</code>、<code>分布式数据库（ HBase）</code>、<code>NoSQL数据库</code>和<code>云数据库</code>。</p>
+        <h3 id="简介">简介</h3>
+<p>介绍大数据存储与管理相关技术的概念与原理，包括<code>Hadoop分布式文件系统（HDFS）</code>、<code>分布式数据库（ HBase）</code>、<code>NoSQL数据库</code>和<code>云数据库</code>。</p>
 <a id="more"></a>
-<h3 id="1-分布式文件系统HDFS"><a href="#1-分布式文件系统HDFS" class="headerlink" title="1. 分布式文件系统HDFS"></a>1. 分布式文件系统<code>HDFS</code></h3><h4 id="1-1-分布式文件系统"><a href="#1-1-分布式文件系统" class="headerlink" title="1.1 分布式文件系统"></a>1.1 分布式文件系统</h4><p><code>分布式文件系统（ Distributed File System）</code>是一种通过网络实现文件在多台主机上进行分布式存储的文件系统。分布式文件系统的设计一般采用<code>“客户机/服务器”（ Client/Server）模式</code>，客户端以特定的通信协议通过网络与服务器建立连接，提出文件访问请求，客户端和服务器可以通过设置访问权来限制请求方对底层数据存储块的访问。</p>
-<h5 id="1-1-1-计算机集群结构"><a href="#1-1-1-计算机集群结构" class="headerlink" title="1.1.1 计算机集群结构"></a>1.1.1 计算机集群结构</h5><p>分布式文件系统把文件分布存储到多个计算机节点上，与使用多个处理器和专用高级硬件的并行化处理装置不同的是，分布式文件系统所采用的计算机集群都是由普通硬件构成的。</p>
+<h3 id="分布式文件系统hdfs">1. 分布式文件系统<code>HDFS</code></h3>
+<h4 id="分布式文件系统">1.1 分布式文件系统</h4>
+<p><code>分布式文件系统（ Distributed File System）</code>是一种通过网络实现文件在多台主机上进行分布式存储的文件系统。分布式文件系统的设计一般采用<code>“客户机/服务器”（ Client/Server）模式</code>，客户端以特定的通信协议通过网络与服务器建立连接，提出文件访问请求，客户端和服务器可以通过设置访问权来限制请求方对底层数据存储块的访问。</p>
+<h5 id="计算机集群结构">1.1.1 计算机集群结构</h5>
+<p>分布式文件系统把文件分布存储到多个计算机节点上，与使用多个处理器和专用高级硬件的并行化处理装置不同的是，分布式文件系统所采用的计算机集群都是由普通硬件构成的。</p>
 <p>集群中的计算机节点存放在<code>机架（Rack）</code>上，每个机架可以存放<code>8~64</code>个节点，同一机架上的不同节点之间通过网络互连，多个不同机架之间采用另一级网络或交换机互连。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/clusterStructure.PNG" alt="计算机集群结构"></p>
-<h5 id="1-1-2-分布式文件系统的结构"><a href="#1-1-2-分布式文件系统的结构" class="headerlink" title="1.1.2 分布式文件系统的结构"></a>1.1.2 分布式文件系统的结构</h5><p>分布式文件系统也采用了<code>块（Block）</code>的概念，文件被分成若干个块进行存储，块是数据读写的基本单元。比如，<code>HDFS</code>默认的一个块的大小是<code>64MB</code>。与普通文件不同的是，在分布式文件系统中，<strong><u>如果一个文件小于一个数据块的大小，它并不占用整个数据块的存储空间</u></strong>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/clusterStructure.PNG" alt="计算机集群结构" /><figcaption aria-hidden="true">计算机集群结构</figcaption>
+</figure>
+<h5 id="分布式文件系统的结构">1.1.2 分布式文件系统的结构</h5>
+<p>分布式文件系统也采用了<code>块（Block）</code>的概念，文件被分成若干个块进行存储，块是数据读写的基本单元。比如，<code>HDFS</code>默认的一个块的大小是<code>64MB</code>。与普通文件不同的是，在分布式文件系统中，<strong><u>如果一个文件小于一个数据块的大小，它并不占用整个数据块的存储空间</u></strong>。</p>
 <p>分布式文件系统在物理结构上是由计算机集群中的多个节点构成的。这些节点分为两类：</p>
 <ul>
 <li><code>“主节点”（ Master Node）</code>，也被称为<code>“名称节点”（ NameNode）</code>。名称节点负责<u><strong>文件和目录的创建</strong></u>、<strong><u>删除和重命名</u></strong>等，同时<strong><u>管理着数据节点和文件块的映射关系</u></strong>，因此客户端只有访问名称节点才能找到请求的文件块所在的位置，进而到相应位置读取所需文件块。</li>
-<li><code>“从节点”（ Slave Node）</code>，也被称为<code>“数据节点”（ DataNode）</code>。数据节点负责<strong><u>数据的存储和读取</u></strong>。<ul>
+<li><code>“从节点”（ Slave Node）</code>，也被称为<code>“数据节点”（ DataNode）</code>。数据节点负责<strong><u>数据的存储和读取</u></strong>。
+<ul>
 <li>在存储时，由名称节点分配存储位置，然后由客户端把数据直接写入相应数据节点；</li>
 <li>在读取时，客户端从名称节点获得数据节点和文件块的映射关系，然后就可以到相应位置访问文件块。</li>
 <li>数据节点也要根据名称节点的命令创建、删除数据块和冗余复制。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/DFSStructure.PNG" alt="分布式文件系统的结构"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/DFSStructure.PNG" alt="分布式文件系统的结构" /><figcaption aria-hidden="true">分布式文件系统的结构</figcaption>
+</figure>
 <p>计算机集群中的节点可能发生故障，因此为了保证数据的完整性，分布式文件系统通常采用<code>多副本存储</code>。文件块会被复制为多个副本，存储在不同的节点上，而且存储同一文件块的不同副本的各个节点会分布在不同的机架上。在单个节点出现故障时，可以快速调用副本重启单个节点上的计算过程，而不用重启整个计算过程，整个机架出现故障时也不会丢失所有文件块。</p>
-<h5 id="1-1-3-分布式文件系统设计需求"><a href="#1-1-3-分布式文件系统设计需求" class="headerlink" title="1.1.3 分布式文件系统设计需求"></a>1.1.3 分布式文件系统设计需求</h5><p>分布式文件系统的设计目标主要包括以下几点：</p>
+<h5 id="分布式文件系统设计需求">1.1.3 分布式文件系统设计需求</h5>
+<p>分布式文件系统的设计目标主要包括以下几点：</p>
 <ul>
-<li><strong>透明性</strong>。包括<code>访问透明性</code>、<code>位置透明性</code>、<code>性能和伸缩透明性</code>。<ul>
+<li><strong>透明性</strong>。包括<code>访问透明性</code>、<code>位置透明性</code>、<code>性能和伸缩透明性</code>。
+<ul>
 <li><strong>访问透明性</strong>是指用户能够通过相同的操作来访问本地文件和远程文件资源。</li>
 <li><strong>位置透明性</strong>是指在不改变路径名的前提下，不管文件副本数量和实际存储位置发生何种变化，对用户而言都是透明的，只需要<strong><u>使用相同的路径名</u></strong>就始终可以访问同一个文件。</li>
 <li><strong>性能和伸缩透明性</strong>是指系统中节点的增加或减少以及性能的变化对用户而言是透明的。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>并发控制</strong>。客户端对于文件的读写不应该影响其他客户端对同一个文件的读写。</li>
 <li><strong>文件复制</strong>。文件可以拥有在不同位置的多个副本。</li>
 <li><strong>硬件和操作系统的异构性</strong>。可以在不同的操作系统和计算机上实现同样的客户端和服务器端程序。</li>
@@ -357,7 +367,8 @@
 <li><strong>容错</strong>。保证文件服务在客户端或者服务端出现问题的时候能正常使用。</li>
 <li><strong>安全需求</strong>。保障系统的安全性。</li>
 </ul>
-<h4 id="1-2-HDFS-简介"><a href="#1-2-HDFS-简介" class="headerlink" title="1.2 HDFS 简介"></a>1.2 HDFS 简介</h4><p><code>HDFS</code>在设计之初就充分考虑了实际应用环境的特点，即<strong><u>硬件出错在普通服务器集群中是一种常态，而不是异常</u></strong>。因此，<code>HDFS</code>在设计上采取了多种机制保证在硬件出错的环境中实现数据的完整性。</p>
+<h4 id="hdfs-简介">1.2 HDFS 简介</h4>
+<p><code>HDFS</code>在设计之初就充分考虑了实际应用环境的特点，即<strong><u>硬件出错在普通服务器集群中是一种常态，而不是异常</u></strong>。因此，<code>HDFS</code>在设计上采取了多种机制保证在硬件出错的环境中实现数据的完整性。</p>
 <ul>
 <li><strong>兼容廉价的硬件设备</strong>。<code>HDFS</code>设计了<strong><u>快速检测硬件故障和进行自动恢复的机制</u></strong>，可以实现持续监视、错误检查、容错处理和自动恢复，使得在硬件出错的情况下也能实现数据的完整性。</li>
 <li><strong>流数据读写</strong>。<code>HDFS</code>则是为了满足批量数据处理的要求而设计的，因此<strong><u>为了提高数据吞吐率</u></strong>，<code>HDFS</code>放松了一些 <code>POSIX</code>的要求，从而能够以流式方式来访问文件系统数据。</li>
@@ -368,22 +379,26 @@
 <p><code>HDFS</code>自身也具有应用局限性，主要包括：</p>
 <ul>
 <li><strong>不适合低延迟数据访问</strong>。对于低延时要求的应用程序而言， <code>HBase</code>是一个更好的选择</li>
-<li><strong>无法高效存储大量小文件</strong>。过多小文件会给系统扩展性和性能带来诸多问题。<ul>
+<li><strong>无法高效存储大量小文件</strong>。过多小文件会给系统扩展性和性能带来诸多问题。
+<ul>
 <li><code>HDFS</code>采用<code>名称节点（ NameNode）</code>来管理文件系统的元数据，这些元数据被<strong><u>保存在内存</u></strong>中，从而使客户端可以快速获取文件实际存储位置。通常，每个文件、目录和块大约占<code>150</code>字节。文件数量过多时，名称节点保存元数据所需要的内存空间会大大增加，元数据检索的效率会降低，需要花费较多的时间找到一个文件的实际存储位置。</li>
 <li>用<code>MapReduce</code>处理大量小文件时，会产生过多的<code>Map</code>任务，线程管理开销会大大增加。</li>
 <li>访问大量小文件，需要不断从一个数据节点跳到另一个数据节点，严重影响性能。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>不支持多用户写入及任意修改文件</strong>。<code>HDFS</code>只允许一个文件有一个写入者，不允许多个用户对同一个文件执行写操作，而且<strong><u>只允许对文件执行追加操作，不能执行随机写操作</u></strong>。</li>
 </ul>
-<h4 id="1-3-HDFS相关概念"><a href="#1-3-HDFS相关概念" class="headerlink" title="1.3 HDFS相关概念"></a>1.3 HDFS相关概念</h4><h5 id="1-3-1-块"><a href="#1-3-1-块" class="headerlink" title="1.3.1 块"></a>1.3.1 块</h5><p><code>HDFS</code>采用了块的概念，默认的一个块大小是<code>64MB</code>。在<code>HDFS</code>中的文件会被拆分成多个块，每个块作为独立的单元进行存储。<code>HDFS</code>这么做的原因，是为了<strong><u>最小化寻址开销</u></strong>。<code>HDFS</code>寻址开销包括<code>磁盘寻道开销</code>和<code>数据块的定位开销</code>。当客户端需要访问一个文件时：</p>
+<h4 id="hdfs相关概念">1.3 HDFS相关概念</h4>
+<h5 id="块">1.3.1 块</h5>
+<p><code>HDFS</code>采用了块的概念，默认的一个块大小是<code>64MB</code>。在<code>HDFS</code>中的文件会被拆分成多个块，每个块作为独立的单元进行存储。<code>HDFS</code>这么做的原因，是为了<strong><u>最小化寻址开销</u></strong>。<code>HDFS</code>寻址开销包括<code>磁盘寻道开销</code>和<code>数据块的定位开销</code>。当客户端需要访问一个文件时：</p>
 <ul>
 <li>首先从名称节点获得组成这个文件的数据块的位置列表；</li>
 <li>然后根据位置列表获取实际存储各个数据块的数据节点的位置；</li>
 <li>最后数据节点根据数据块信息在本地<code>Linux</code>文件系统中找到对应的文件，并把数据返回给客户端。</li>
 </ul>
 <p>设计一个比较大的块，可以把上述寻址开销分摊到较多的数据中，降低了单位数据的寻址开销。</p>
-<h5 id="1-3-2-名称节点和数据节点"><a href="#1-3-2-名称节点和数据节点" class="headerlink" title="1.3.2 名称节点和数据节点"></a>1.3.2 名称节点和数据节点</h5><h6 id="1-3-2-1-名称节点"><a href="#1-3-2-1-名称节点" class="headerlink" title="1.3.2.1 名称节点"></a>1.3.2.1 名称节点</h6><p><code>名称节点（ Name Node）</code>负责管理分布式文件系统的<code>命名空间（ Namespace）</code>，保存了两个核心的数据结构，即 <code>FsImage</code>和 <code>EditLog</code>：</p>
+<h5 id="名称节点和数据节点">1.3.2 名称节点和数据节点</h5>
+<h6 id="名称节点">1.3.2.1 名称节点</h6>
+<p><code>名称节点（ Name Node）</code>负责管理分布式文件系统的<code>命名空间（ Namespace）</code>，保存了两个核心的数据结构，即 <code>FsImage</code>和 <code>EditLog</code>：</p>
 <ul>
 <li><code>FsImage</code>用于维护文件系统树以及文件树中所有的文件和文件夹的元数据；</li>
 <li>操作日志文件<code>EditLog</code>中记录了所有针对文件的创建删除、重命名等操作。</li>
@@ -395,68 +410,82 @@
 <li>名称节点启动成功并进入正常运行状态以后，HDFS中的更新操作都会被写入到<code>EditLog</code>，而不是直接写入 <code>FsImage</code>。因为<code>FsImage</code>文件通常都很庞大，如果所有的更新操作都直接往<code>FsImage</code>文件中添加，那么系统就会变得非常缓慢。<code>EditLog</code>通常都要远远小于<code>FsImage</code>，更新操作写入到 <code>EditLog</code>是非常高效的。</li>
 </ul>
 <p>名称节点在启动的过程中处于<code>“安全模式”</code>，只能<strong><u>对外提供读操作无法提供写操作</u></strong>。启动过程结束后，系统就会退出安全模式，进入正常运行状态，对外提供读写操作。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/NameNodeDataStructure.PNG" alt="名称节点数据结构"></p>
-<h6 id="1-3-2-2-数据节点"><a href="#1-3-2-2-数据节点" class="headerlink" title="1.3.2.2 数据节点"></a>1.3.2.2 数据节点</h6><p><code>数据节点（ DataNode）</code>是分布式文件系统<code>HDFS</code>的工作节点，负责<strong><u>数据的存储和读取</u></strong>，会根据客户端或者名称节点的调度来进行数据的存储和检索，并且向名称节点定期发送自己所存储的块的列表。每个数据节点中的数据会被保存在各自节点的本地<code>Linux</code>文件系统中。</p>
-<h5 id="1-3-3-第二名称节点"><a href="#1-3-3-第二名称节点" class="headerlink" title="1.3.3 第二名称节点"></a>1.3.3 第二名称节点</h5><p>不断变大的<code>EditLog</code>文件通常对于系统性能不会产生显著影响。但是当名称节点重启时，如果<code>EditLog</code>很大，会导致整个过程变得非常缓慢，使得名称节点在启动过程中长期处于<code>“安全模式”</code>。为了有效解决<code>EditLog</code>逐渐变大带来的问题，<code>HDFS</code>在设计中采用了<code>第二名称节点（ Secondary Name Node）</code>，具有两个方面的功能：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/NameNodeDataStructure.PNG" alt="名称节点数据结构" /><figcaption aria-hidden="true">名称节点数据结构</figcaption>
+</figure>
+<h6 id="数据节点">1.3.2.2 数据节点</h6>
+<p><code>数据节点（ DataNode）</code>是分布式文件系统<code>HDFS</code>的工作节点，负责<strong><u>数据的存储和读取</u></strong>，会根据客户端或者名称节点的调度来进行数据的存储和检索，并且向名称节点定期发送自己所存储的块的列表。每个数据节点中的数据会被保存在各自节点的本地<code>Linux</code>文件系统中。</p>
+<h5 id="第二名称节点">1.3.3 第二名称节点</h5>
+<p>不断变大的<code>EditLog</code>文件通常对于系统性能不会产生显著影响。但是当名称节点重启时，如果<code>EditLog</code>很大，会导致整个过程变得非常缓慢，使得名称节点在启动过程中长期处于<code>“安全模式”</code>。为了有效解决<code>EditLog</code>逐渐变大带来的问题，<code>HDFS</code>在设计中采用了<code>第二名称节点（ Secondary Name Node）</code>，具有两个方面的功能：</p>
 <ul>
-<li><p>可以完成<code>EditLog</code>与<code>FsImage</code>的合并操作，减小<code>EditLog</code>文件大小，缩短名称节点重启时间。</p>
+<li>可以完成<code>EditLog</code>与<code>FsImage</code>的合并操作，减小<code>EditLog</code>文件大小，缩短名称节点重启时间。
 <ul>
 <li>每隔一段时间，第二名称节点会和名称节点通信，请求其停止使用<code>EditLog</code>文件，暂时将新到达的写操作添加到一个新的文件<code>EditLog.new</code>中；</li>
 <li>第二名称节点把名称节点中的<code>FsImage</code>文件和<code>EditLog</code>文件拉回到本地，再加载到内存中；</li>
 <li>对二者执行合并操作，即在内存中逐条执行<code>EditLog</code>中的操作，使得<code>FsImage</code>保持最新；</li>
 <li>合并结束后，第二名称节点会把合并后得到的最新的<code>FsImage</code>文件发送到名称节点；</li>
 <li>名称节点收到后，会用最新的<code>FsImage</code>文件去替换旧的<code>FsImage</code>文件，同时用<code>EditLog.new</code>文件去替换 <code>EditLog</code>文件，从而减小了 EditLog文件的大小。</li>
-</ul>
-</li>
-<li><p>可以作为名称节点的<code>“检查点”（checkpoint）</code>，保存名称节点中的元数据信息。</p>
+</ul></li>
+<li>可以作为名称节点的<code>“检查点”（checkpoint）</code>，保存名称节点中的元数据信息。
 <ul>
 <li>第二名称节点会定期和名称节点通信，从名称节点获取<code>FsImage</code>文件和<code>EditLog</code>文件，执行合并操作得到新的<code>FsImage</code>文件。从这个角度来讲，第二名称节点相当于为名称节点设置了一个<code>“检查点”</code>，周期性地备份名称节点中的元数据信息，当名称节点发生故障时，可以用第二名称节点中记录的元数据信息进行系统恢复。</li>
 <li>但第二名称节点并不能起到<code>热备份</code>的作用。节点上的<code>FsImage</code>文件是合并操作发生时<code>HDFS</code>记录的元数据信息，系统就会丢失合并操作之后的部分元数据信息。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h4 id="1-4-HDFS体系结构"><a href="#1-4-HDFS体系结构" class="headerlink" title="1.4 HDFS体系结构"></a>1.4 HDFS体系结构</h4><h5 id="1-4-1-概述"><a href="#1-4-1-概述" class="headerlink" title="1.4.1 概述"></a>1.4.1 概述</h5><p><code>HDFS</code>采用了<code>主从（ Master/Slave）结构模型</code>，一个HDFS集群包括<strong><u>一个名称节点和若干个数据节点</u></strong>。</p>
+<h4 id="hdfs体系结构">1.4 HDFS体系结构</h4>
+<h5 id="概述">1.4.1 概述</h5>
+<p><code>HDFS</code>采用了<code>主从（ Master/Slave）结构模型</code>，一个HDFS集群包括<strong><u>一个名称节点和若干个数据节点</u></strong>。</p>
 <ul>
 <li>名称节点作为<strong>中心服务器</strong>，负责管理文件系统的命名空间及客户端对文件的访问。</li>
 <li>数据节点，负责处理文件系统客户端的读写请求，在名称节点的统一调度下进行数据块的创建、删除和复制等操作，一般是<strong><u>一个节点运行一个数据节点进程</u></strong>。每个数据节点的数据实际上是保存在本地<code>Linux</code>文件系统中的。每个数据节点会<u><strong>周期性地向名称节点发送<code>“心跳”</code>信息</strong></u>，报告自己的状态，没有按时发送心跳信息的数据节点会被标记为<code>“宕机”</code>，不会再给它分配任何IO请求。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFS.PNG" alt="HDFS体系结构"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFS.PNG" alt="HDFS体系结构" /><figcaption aria-hidden="true">HDFS体系结构</figcaption>
+</figure>
 <p>用户在使用<code>HDFS</code>时，使用文件名去存储和访问文件。</p>
 <ul>
 <li>当客户端需要访问一个文件时，首先把文件名发送给名称节点，名称节点根据文件名找到对应的数据块；</li>
 <li>名称节点再根据每个数据块信息找到实际存储各个数据块的数据节点的位置，并把数据节点位置发送给客户端；</li>
 <li>最后客户端直接访问这些数据节点获取数据。在整个访问过程中，名称节点并不参与数据的传输。</li>
 </ul>
-<h5 id="1-4-2-HDFS命名空间管理"><a href="#1-4-2-HDFS命名空间管理" class="headerlink" title="1.4.2 HDFS命名空间管理"></a>1.4.2 HDFS命名空间管理</h5><p><code>HDFS</code>的命名空间包含<strong><u>目录、文件和块</u></strong>。命名空间管理是指<u>命名空间支持对HDFS中的目录、文件和块做类似文件系统的创建、修改、删除等基本操作</u>。在当前的<code>HDFS</code>体系结构中，在整个<code>HDFS</code>集群中<u><strong>只有一个命名空间，并且只有唯一一个名称节点</strong></u>负责对这个命名空间进行管理。</p>
+<h5 id="hdfs命名空间管理">1.4.2 HDFS命名空间管理</h5>
+<p><code>HDFS</code>的命名空间包含<strong><u>目录、文件和块</u></strong>。命名空间管理是指<u>命名空间支持对HDFS中的目录、文件和块做类似文件系统的创建、修改、删除等基本操作</u>。在当前的<code>HDFS</code>体系结构中，在整个<code>HDFS</code>集群中<u><strong>只有一个命名空间，并且只有唯一一个名称节点</strong></u>负责对这个命名空间进行管理。</p>
 <p>HDFS使用的是传统的<strong><u>分级文件体系</u></strong>，因此用户可以像使用普通文件系统一样，创建、删除目录和文件，在目录间转移文件、重命名文件等。<code>HDFS</code><strong><u>还没有实现磁盘配额和文件访问权限等功能，也不支持文件的硬连接和软连接</u></strong>。</p>
-<h5 id="1-4-3-通信协议"><a href="#1-4-3-通信协议" class="headerlink" title="1.4.3 通信协议"></a>1.4.3 通信协议</h5><p><code>HDFS</code>通信协议都是构建在<code>TCP/IP</code>协议基础上的。</p>
+<h5 id="通信协议">1.4.3 通信协议</h5>
+<p><code>HDFS</code>通信协议都是构建在<code>TCP/IP</code>协议基础上的。</p>
 <ul>
 <li>客户端通过一个可配置的端口向名称节点主动发起<code>TCP</code>连接，并使用客户端协议与名称节点进行交互。</li>
 <li>名称节点和数据节点之间则使用数据节点协议进行交互。</li>
 <li>客户端与数据节点的交互是通过<code>RPC（ Remote Procedure Cal）</code>来实现的。名称节点不会主动发起<code>RPC</code>，而是响应来自客户端和数据节点的<code>RPC</code>请求。</li>
 </ul>
-<h5 id="1-4-4-客户端"><a href="#1-4-4-客户端" class="headerlink" title="1.4.4 客户端"></a>1.4.4 客户端</h5><p>客户端是用户操作<code>HDFS</code>最常用的方式，<code>HDFS</code>在部署时都提供了客户端。但客户端并不算是<code>HDFS</code>的一部分。客户端可以支持打开、读取、写入等常见的操作，并且提供了类似<code>shell</code>的命令行方式来访问HDFS中的数据。</p>
-<h5 id="1-4-5-HDFS体系结构的局限性"><a href="#1-4-5-HDFS体系结构的局限性" class="headerlink" title="1.4.5 HDFS体系结构的局限性"></a>1.4.5 HDFS体系结构的局限性</h5><ol>
+<h5 id="客户端">1.4.4 客户端</h5>
+<p>客户端是用户操作<code>HDFS</code>最常用的方式，<code>HDFS</code>在部署时都提供了客户端。但客户端并不算是<code>HDFS</code>的一部分。客户端可以支持打开、读取、写入等常见的操作，并且提供了类似<code>shell</code>的命令行方式来访问HDFS中的数据。</p>
+<h5 id="hdfs体系结构的局限性">1.4.5 HDFS体系结构的局限性</h5>
+<ol type="1">
 <li><strong>命名空间的限制</strong>。名称节点是保存在内存中的，因此名称节点能够容纳对象（文件、块）的个数会受到内存空间大小的限制。</li>
 <li><strong>性能的瓶颈</strong>。整个分布式文件系统的吞吐量受限于单个名称节点的吞吐量。</li>
 <li><strong>隔离问题</strong>。由于集群中只有一个名称节点，只有一个命名空间，因此无法对不同应用程序进行隔离。</li>
 <li><strong>集群的可用性</strong>。一旦这个唯一的名称节点发生故障，会导致整个集群变得不可用。</li>
 </ol>
-<h4 id="1-5-HDFS存储原理"><a href="#1-5-HDFS存储原理" class="headerlink" title="1.5 HDFS存储原理"></a>1.5 HDFS存储原理</h4><h5 id="1-5-1-数据的冗余存储"><a href="#1-5-1-数据的冗余存储" class="headerlink" title="1.5.1 数据的冗余存储"></a>1.5.1 数据的冗余存储</h5><p>为了保证系统的<strong><u>容错性和可用性</u></strong>，<code>HDFS</code>采用了<strong><u>多副本方式</u></strong>对数据进行冗余存储，通常一个数据块的多个副本会被分布到不同的数据节点上。这种多副本方式具有以下优点：</p>
+<h4 id="hdfs存储原理">1.5 HDFS存储原理</h4>
+<h5 id="数据的冗余存储">1.5.1 数据的冗余存储</h5>
+<p>为了保证系统的<strong><u>容错性和可用性</u></strong>，<code>HDFS</code>采用了<strong><u>多副本方式</u></strong>对数据进行冗余存储，通常一个数据块的多个副本会被分布到不同的数据节点上。这种多副本方式具有以下优点：</p>
 <ul>
 <li><strong>加快数据传输速度</strong>。多个客户端需要同时访问同一个文件时，可以让各个客户端分别从不同的数据块副本中读取数据，这就大大加快了数据传输速度。</li>
 <li><strong>容易检查数据错误</strong>。<code>HDFS</code>的数据节点之间通过网络传输数据，采用多个副本可以很容易判断数据传输是否出错。</li>
 <li><strong>保证数据的可靠性</strong>。即使某个数据节点出现故障失效，也不会造成数据丢失。</li>
 </ul>
-<h5 id="1-5-2-数据存取策略"><a href="#1-5-2-数据存取策略" class="headerlink" title="1.5.2 数据存取策略"></a>1.5.2 数据存取策略</h5><h6 id="1-5-2-1-数据存放"><a href="#1-5-2-1-数据存放" class="headerlink" title="1.5.2.1 数据存放"></a>1.5.2.1 数据存放</h6><p><code>HDFS</code>采用了<strong>以<code>机架（Rack）</code>为基础的数据存放策略</strong>。<code>HDFS</code>默认每个数据节点都是在不同的机架上：</p>
+<h5 id="数据存取策略">1.5.2 数据存取策略</h5>
+<h6 id="数据存放">1.5.2.1 数据存放</h6>
+<p><code>HDFS</code>采用了<strong>以<code>机架（Rack）</code>为基础的数据存放策略</strong>。<code>HDFS</code>默认每个数据节点都是在不同的机架上：</p>
 <ul>
 <li>缺点是写入数据的时候<strong><u>不能充分利用同一机架内部机器之间的带宽</u></strong>。</li>
-<li>但也带来了更多很显著的优点：<ul>
+<li>但也带来了更多很显著的优点：
+<ul>
 <li>可以获得很高的数据可靠性，即使一个机架发生故障，位于其他机架上的数据副本仍然是可用的；</li>
 <li>在读取数据的时候，可以在多个机架上并行读取数据，大大提高了数据读取速度；</li>
 <li>可以更容易地实现系统内部负载均衡和错误处理。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <p><code>HDFS</code>默认的冗余复制因子是<code>3</code>，每一个文件块会被同时保存到<code>3</code>个地方，有两份副本放在同一个机架的不同机器上面，第三个副本放在不同机架的机器上面，这样既可以保证机架发生异常时的数据恢复，也可以提高数据读写性能。</p>
 <ul>
@@ -466,12 +495,14 @@
 <li>第三个副本会被放置在<strong><u>与第一个副本相同的机架的其他节点上</u></strong>。</li>
 <li>如果还有更多的副本，则继续从集群中随机选择数据节点进行存放。</li>
 </ul>
-<h6 id="1-5-2-2-数据读取"><a href="#1-5-2-2-数据读取" class="headerlink" title="1.5.2.2 数据读取"></a>1.5.2.2 数据读取</h6><p><code>HDFS</code>提供了一个<code>API</code>可以确定一个数据节点所属的机架<code>ID</code>，客户端可以调用<code>API</code>获取自己所属的机架。当客户端读取数据时：</p>
+<h6 id="数据读取">1.5.2.2 数据读取</h6>
+<p><code>HDFS</code>提供了一个<code>API</code>可以确定一个数据节点所属的机架<code>ID</code>，客户端可以调用<code>API</code>获取自己所属的机架。当客户端读取数据时：</p>
 <ul>
 <li>从名称节点获得数据块<strong><u>不同副本的存放位置列表</u></strong>，列表中包含了副本所在的数据节点，可以调用<code>API</code>来确定客户端和这些数据节点所属的机架<code>ID</code>。</li>
 <li>当发现某个数据块副本对应的机架ID和客户端对应的机架ID相同时，就优先选择该副本读取数据，如果没有发现，就随机选择一个副本读取数据。</li>
 </ul>
-<h6 id="1-5-2-3-数据复制"><a href="#1-5-2-3-数据复制" class="headerlink" title="1.5.2.3 数据复制"></a>1.5.2.3 数据复制</h6><p><code>HDFS</code>的数据复制采用了<strong><u>流水线复制的策略</u></strong>，大大提高了数据复制过程的效率。当客户端要往<code>HDFS</code>中写入一个文件时：</p>
+<h6 id="数据复制">1.5.2.3 数据复制</h6>
+<p><code>HDFS</code>的数据复制采用了<strong><u>流水线复制的策略</u></strong>，大大提高了数据复制过程的效率。当客户端要往<code>HDFS</code>中写入一个文件时：</p>
 <ul>
 <li>首先把这个文件写入本地，并被切分成若干个块，每个块的大小是由<code>HDFS</code>的设定值来决定的。每个块都向<code>HDFS</code>集群中的名称节点发起写请求；</li>
 <li>名称节点会根据系统中各个数据节点的使用情况，选择一个数据节点列表返回给客户端，然后客户端就把数据首先写入列表中的第一个数据节点，同时把列表传给第一个数据节点；</li>
@@ -479,24 +510,32 @@
 <li>当第二个数据节点接收到<code>4KB</code>数据的时候，写入本地，并且向列表中的第三个数据节点发起连接请求，依次类推列表中的多个数据节点形成一条<strong><u>数据复制的流水线</u></strong>。</li>
 <li>最后，当文件写完的时候，数据复制也同时完成。</li>
 </ul>
-<h5 id="1-5-3-数据错误与恢复"><a href="#1-5-3-数据错误与恢复" class="headerlink" title="1.5.3 数据错误与恢复"></a>1.5.3 数据错误与恢复</h5><h6 id="1-5-3-1-名称节点出错"><a href="#1-5-3-1-名称节点出错" class="headerlink" title="1.5.3.1.名称节点出错"></a>1.5.3.1.名称节点出错</h6><p>名称节点保存了所有的元数据信息，其中最核心的两大数据结构是<code>FsImage</code>和<code>EditLog</code>，如果这两个文件发生损坏，那么整个<code>HDFS</code>实例将失效。<code>Hadoop</code>采用两种机制来确保名称节点的安全：</p>
+<h5 id="数据错误与恢复">1.5.3 数据错误与恢复</h5>
+<h6 id="名称节点出错">1.5.3.1.名称节点出错</h6>
+<p>名称节点保存了所有的元数据信息，其中最核心的两大数据结构是<code>FsImage</code>和<code>EditLog</code>，如果这两个文件发生损坏，那么整个<code>HDFS</code>实例将失效。<code>Hadoop</code>采用两种机制来确保名称节点的安全：</p>
 <ul>
 <li>把名称节点上的元数据信息同步存储到其他文件系统中（比如远程挂载的网络文件系统<code>NFS</code>）；</li>
 <li>运行一个第二名称节点，当名称节点宕机以后，可以把第二名称节点作为一种弥补措施，利用第二名称节点中的元数据信息进行系统恢复，但这样做仍然会丢失部分数据。</li>
 </ul>
 <p>一般会把两种方式结合使用，当名称节点发生宕机时，首先到远程挂载的网络文件系统中<u><strong>获取备份的元数据信息</strong></u>，<strong><u>放到第二名称节点上进行恢复，并把第二名称节点作为名称节点来使用</u></strong>。</p>
-<h6 id="1-5-3-2-数据节点出错"><a href="#1-5-3-2-数据节点出错" class="headerlink" title="1.5.3.2 数据节点出错"></a>1.5.3.2 数据节点出错</h6><p>每个数据节点会定期向名称节点发送<code>“心跳”</code>信息，向名称节点报告自己的状态。当数据节点发生故障，或者网络发生断网时，名称节点就无法收到来自一些数据节点的<code>“心跳”</code>信息，这时这些数据节点就会被标记为<code>“宕机”</code>，节点上面的所有数据都会被标记为<code>“不可读”</code>，名称节点不会再给它们发送任何<code>IO</code>请求。</p>
+<h6 id="数据节点出错">1.5.3.2 数据节点出错</h6>
+<p>每个数据节点会定期向名称节点发送<code>“心跳”</code>信息，向名称节点报告自己的状态。当数据节点发生故障，或者网络发生断网时，名称节点就无法收到来自一些数据节点的<code>“心跳”</code>信息，这时这些数据节点就会被标记为<code>“宕机”</code>，节点上面的所有数据都会被标记为<code>“不可读”</code>，名称节点不会再给它们发送任何<code>IO</code>请求。</p>
 <p>由于一些数据节点的不可用，会导致一些数据块的副本数量小于冗余因子。名称节点会定期检查这种情况，一旦发现某个数据块的副本数量小于冗余因子，就会启动数据冗余复制，为它生成新的副本。</p>
-<h6 id="1-5-3-3-数据出错"><a href="#1-5-3-3-数据出错" class="headerlink" title="1.5.3.3 数据出错"></a>1.5.3.3 数据出错</h6><p>网络传输和磁盘错误等因素都会造成数据错误。客户端在读取到数据后，会采用<code>md5</code>和<code>sha1</code>对数据块进行校验，以确定读取到正确的数据。如果校验出错，客户端就会请求到另外一个数据节点读取该文件块，并且向名称节点报告这个文件块有错误，名称节点会定期检查并且重新复制这个块。</p>
-<h4 id="1-6-HDFS的数据读写过程"><a href="#1-6-HDFS的数据读写过程" class="headerlink" title="1.6 HDFS的数据读写过程"></a>1.6 HDFS的数据读写过程</h4><h5 id="1-6-1-读数据"><a href="#1-6-1-读数据" class="headerlink" title="1.6.1 读数据"></a>1.6.1 读数据</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFSRead.PNG" alt="HDFS读"></p>
+<h6 id="数据出错">1.5.3.3 数据出错</h6>
+<p>网络传输和磁盘错误等因素都会造成数据错误。客户端在读取到数据后，会采用<code>md5</code>和<code>sha1</code>对数据块进行校验，以确定读取到正确的数据。如果校验出错，客户端就会请求到另外一个数据节点读取该文件块，并且向名称节点报告这个文件块有错误，名称节点会定期检查并且重新复制这个块。</p>
+<h4 id="hdfs的数据读写过程">1.6 HDFS的数据读写过程</h4>
+<h5 id="读数据">1.6.1 读数据</h5>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFSRead.PNG" alt="HDFS读" /><figcaption aria-hidden="true">HDFS读</figcaption>
+</figure>
 <p><code>HDFS</code>的内部执行过程如下：</p>
-<ol>
+<ol type="1">
 <li>客户端通过<code>FileSystem.open()</code>打开文件，在<code>HDFS</code>文件系统中<code>DistributedFileSystem</code>具体实现了<code>FileSystem</code>。调用<code>open()</code>方法后，<code>DistributedFileSystem</code>会创建输入流<code>FSDatalnputstream</code>，对于<code>HDFS</code>而言，<strong><u>具体的输入流就是<code>DFSInputStream</code></u></strong>。</li>
-<li>在<code>DFSInputStream</code>的构造函数中，输入流通过<code>ClientProtocal.getBlockLocations()</code>远程调用名称节点，获得文件开始部分数据块的保存位置。<ul>
+<li>在<code>DFSInputStream</code>的构造函数中，输入流通过<code>ClientProtocal.getBlockLocations()</code>远程调用名称节点，获得文件开始部分数据块的保存位置。
+<ul>
 <li>名称节点返回保存该数据块的所有数据节点的地址，同时根据距离客户端的远近对数据节点进行排序；</li>
 <li><code>DistributedFileSystem</code>利用<code>DFSInputStream</code>来实例化<code>FSDataInputStream</code>，返回给客户端，同时返回数据块的数据节点地址。</li>
-</ul>
-</li>
+</ul></li>
 <li>获得输入流<code>FSDataInputStream</code>后，客户端调用<code>read()</code>函数开始读取数据。输入流根据前面的排序结果，选择距离客户端最近的数据节点建立连接并读取数据。</li>
 <li>数据从该数据节点读到客户端；当该数据块读取完毕时，<code>FSDataInputStream</code>关闭和该数据节点的连接。</li>
 <li>输入流通过<code>getBlockLocations()</code>方法查找下一个数据块。</li>
@@ -504,26 +543,37 @@
 <li>当客户端读取完毕数据的时候，调用<code>FSDataInputStream</code>的<code>close()</code>函数，关闭输入流。</li>
 </ol>
 <p>在读取数据的过程中，如果客户端与数据节点通信时出现错误，就会尝试连接包含此数据块的下一个数据节点。</p>
-<h5 id="1-6-2-写数据"><a href="#1-6-2-写数据" class="headerlink" title="1.6.2 写数据"></a>1.6.2 写数据</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFSWrite.PNG" alt="HDFS写"></p>
+<h5 id="写数据">1.6.2 写数据</h5>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HDFSWrite.PNG" alt="HDFS写" /><figcaption aria-hidden="true">HDFS写</figcaption>
+</figure>
 <p><code>HDFS</code>的内部执行过程如下：</p>
-<ol>
+<ol type="1">
 <li>客户端通过<code>FileSystem.create()</code>创建文件，调用<code>create()</code>方法后，<code>DistributedFileSystem</code>会创建输出流 <code>FSDataOutputStream</code>，对于<code>HDFS</code>而言，具体的输出流就是<code>DFSOutputStream</code>；</li>
-<li><code>DistributedFileSystem</code>通过<code>RPC</code>远程调用名称节点，在文件系统的命名空间中创建一个新的文件。<ul>
+<li><code>DistributedFileSystem</code>通过<code>RPC</code>远程调用名称节点，在文件系统的命名空间中创建一个新的文件。
+<ul>
 <li>名称节点会执行一些检查，比如文件是否已经存在、客户端是否有权限创建文件等。检查通过之后，名称节点会构造一个新文件，并添加文件信息。</li>
 <li>远程方法调用结束后，<code>DistributedFileSystem</code>会利用<code>DFSOutputStream</code>来实例化 <code>FSDataOutputStream</code>，返回给客户端，客户端使用这个输出流写入数据。</li>
-</ul>
-</li>
+</ul></li>
 <li>获得输出流<code>FSDataOutputStream</code>以后，客户端调用输出流的<code>write()</code>方法向<code>HDFS</code>中对应的文件写入数据。</li>
 <li>客户端向输出流<code>FSDataOutputStream</code>中写入的数据会首先被分成分包，这些分包被放入<code>DFSOutputStream</code>对象的内部队列。输出流<code>FSDataOutputStream</code>会向名称节点申请保存文件和副本数据块的若干个数据节点，这些数据节点形成一个数据流管道。队列中的分包最后被打包成数据包，数据包会流经管道上的各个数据节点。</li>
 <li>为了保证所有数据节点的数据都是准确的，接收到数据的数据节点要向发送者发送<code>“确认包”（ ACK Packet）</code>。确认包沿着数据流管道逆流而上，从数据流管道依次经过各个数据节点并最终发往客户端，当客户端收到应答时，它将对应的分包从内部队列移除。不断执行直到数据全部写完。</li>
 <li>客户端调用<code>close()</code>方法关闭输出流，客户端不会再向输出流中写入数据，当<code>DFSOutputStream</code>对象内部队列中的分包都收到应答以后，使用<code>ClientProtocol.complete()</code>方法通知名称节点关闭文件。</li>
 </ol>
-<h4 id="1-7-HDFS实践"><a href="#1-7-HDFS实践" class="headerlink" title="1.7 HDFS实践"></a>1.7 HDFS实践</h4><h5 id="1-7-1-HDFS常用命令"><a href="#1-7-1-HDFS常用命令" class="headerlink" title="1.7.1 HDFS常用命令"></a>1.7.1 HDFS常用命令</h5><h6 id="1-7-1-1-文件夹目录操作"><a href="#1-7-1-1-文件夹目录操作" class="headerlink" title="1.7.1.1 文件夹目录操作"></a>1.7.1.1 文件夹目录操作</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 查看目录</span></span><br><span class="line"><span class="comment"># 显示目录结构</span></span><br><span class="line">hdfs dfs -ls &lt;path&gt;</span><br><span class="line"><span class="comment"># 以人性化的方式递归显示目录结构</span></span><br><span class="line">hdfs dfs -ls  -R -h &lt;path&gt;</span><br><span class="line"><span class="comment"># 显示根目录下内容</span></span><br><span class="line">hdfs dfs -ls /</span><br><span class="line"><span class="comment"># 查看HDFS目录“/tmp/&#123;test&#125;/hdfs_data”的内容。</span></span><br><span class="line">hadoop fs -ls /tmp/&#123;<span class="built_in">test</span>&#125;/hdfs_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建目录</span></span><br><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">hdfs dfs -mkdir &lt;path&gt; </span><br><span class="line"><span class="comment"># 递归创建目录</span></span><br><span class="line">hdfs dfs -mkdir -p &lt;path&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 在HDFS上创建目录“/tmp/&#123;test&#125;/hdfs_data”。</span></span><br><span class="line">hadoop fs -mkdir -p /tmp/&#123;<span class="built_in">test</span>&#125;/hdfs_data</span><br><span class="line"><span class="comment"># 一般在hdfs上都有的需要处理的数据目录</span></span><br><span class="line">hdfs dfs -mkdir /input </span><br><span class="line"><span class="comment"># 一般在hdfs上都有的处理的结果数据目录</span></span><br><span class="line">hdfs dfs -mkdir /output</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 删除目录</span></span><br><span class="line"><span class="comment"># 删除空文件夹</span></span><br><span class="line">hdfs dfs -rmdir &lt;path&gt;</span><br><span class="line"><span class="comment"># 递归删除目录和文件</span></span><br><span class="line">hdfs dfs -rm -r &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<h6 id="1-7-1-2-文件操作"><a href="#1-7-1-2-文件操作" class="headerlink" title="1.7.1.2 文件操作"></a>1.7.1.2 文件操作</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 查看文件信息</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -cat &lt;path&gt; </span><br><span class="line"><span class="comment">#将HDFS中文件以文本形式输出（包括zip包，jar包等形式）</span></span><br><span class="line">hdfs dfs -text &lt;path&gt; </span><br><span class="line"></span><br><span class="line">hdfs dfs -tail &lt;path&gt; </span><br><span class="line"><span class="comment">#和Unix中tail -f命令类似，当文件内容更新时，输出将会改变，具有实时性</span></span><br><span class="line">hdfs dfs -tail -f &lt;path&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 修改文件的权限、所有者</span></span><br><span class="line"><span class="comment"># 权限控制和Linux上使用方式一致</span></span><br><span class="line"><span class="comment"># 变更文件或目录的所属群组。 用户必须是文件的所有者或超级用户。</span></span><br><span class="line">hdfs dfs -chgrp [-R] GROUP URI [URI ...]</span><br><span class="line"><span class="comment"># 修改文件或目录的访问权限  用户必须是文件的所有者或超级用户。</span></span><br><span class="line">hdfs dfs -chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; URI [URI ...]</span><br><span class="line"><span class="comment"># 修改文件的拥有者  用户必须是超级用户。</span></span><br><span class="line">hdfs dfs -chown [-R] [OWNER][:[GROUP]] URI [URI ]</span><br><span class="line"><span class="comment">#案例</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chmod -R 774 /tmp</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chown -R biubiubiu:hadoopenv /tmp</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chgrp -R <span class="built_in">test</span> /tmp</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chmod 777 /input/hello.txt</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chown 1111:1111  /input/hello.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 统计文件信息</span></span><br><span class="line"><span class="comment"># 统计目录下各文件大小</span></span><br><span class="line">hdfs dfs -du [-s] [-h] URI [URI ...]</span><br><span class="line">-s : 显示所有文件大小总和</span><br><span class="line">-h : 将以更友好的方式显示文件大小（例如 64.0m 而不是 67108864）</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计文件系统的可用空间</span></span><br><span class="line">hdfs dfs -df -h /</span><br><span class="line">-h : 将以更友好的方式显示文件大小（例如 64.0m 而不是 67108864）</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 修改文件的副本数</span></span><br><span class="line"><span class="comment">#更改文件的复制因子。如果 path 是目录，则更改其下所有文件的复制因子</span></span><br><span class="line">hdfs dfs -setrep [-w] &lt;numReplicas&gt; &lt;path&gt;</span><br><span class="line">-w : 标志的请求，命令等待复制完成。这有可能需要很长的时间。</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -setrep 2  /input/hello.txt</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -setrep -w 5 /input/bbb.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 删除文件</span></span><br><span class="line"><span class="comment"># 删除文件</span></span><br><span class="line">hdfs dfs -rm &lt;path&gt;</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -rm  /input/hello.txt</span><br></pre></td></tr></table></figure>
-<h6 id="1-7-1-3-本地与集群的操作"><a href="#1-7-1-3-本地与集群的操作" class="headerlink" title="1.7.1.3 本地与集群的操作"></a>1.7.1.3 本地与集群的操作</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 将Linux本地的文件上传到集群</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -put &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line">hdfs dfs -copyFromLocal &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line">-f ：当文件存在时，进行覆盖</span><br><span class="line">-p ：将权限、所属组、时间戳、ACL以及XATTR等也进行拷贝</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 将Linux本地的文件剪切到集群</span></span><br><span class="line">hdfs dfs -moveFromLocal &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 将Linux本地的文件追加到集群文件</span></span><br><span class="line">hdfs dfs -appendToFile &lt;localsrc&gt; ... &lt;dst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#案例</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -appendToFile ./test_1.txt /input/aaa.txt</span><br><span class="line"><span class="comment"># 多个文件用空格隔开</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -appendToFile ./test_1.txt ./test_2.txt /input/aaa.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 将集群文件下载到Linux本地</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -get &lt;src&gt; &lt;localdst&gt;</span><br><span class="line">hdfs dfs -copyToLocal &lt;src&gt; &lt;localdst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 合并下载多个文件到本地Linux</span></span><br><span class="line">hdfs dfs -getmerge [-nl] &lt;src&gt; &lt;localdst&gt;</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -getmerge /input/*  data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 案例 将HDFS上的wordcount_input.txt和aaa.txt合并后下载到本地的当前用户家目录的merge.txt</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -getmerge /input/wordcount_input.txt /wordcount/input/aaa.txt ~/merge.txt</span><br><span class="line">-nl: 在每个文件的末尾添加换行符（LineFeed）</span><br><span class="line">-skip-empty-file: 跳过空文件</span><br></pre></td></tr></table></figure>
+<h4 id="hdfs实践">1.7 HDFS实践</h4>
+<h5 id="hdfs常用命令">1.7.1 HDFS常用命令</h5>
+<h6 id="文件夹目录操作">1.7.1.1 文件夹目录操作</h6>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 查看目录</span></span><br><span class="line"><span class="comment"># 显示目录结构</span></span><br><span class="line">hdfs dfs -ls &lt;path&gt;</span><br><span class="line"><span class="comment"># 以人性化的方式递归显示目录结构</span></span><br><span class="line">hdfs dfs -ls  -R -h &lt;path&gt;</span><br><span class="line"><span class="comment"># 显示根目录下内容</span></span><br><span class="line">hdfs dfs -ls /</span><br><span class="line"><span class="comment"># 查看HDFS目录“/tmp/&#123;test&#125;/hdfs_data”的内容。</span></span><br><span class="line">hadoop fs -ls /tmp/&#123;<span class="built_in">test</span>&#125;/hdfs_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建目录</span></span><br><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">hdfs dfs -mkdir &lt;path&gt; </span><br><span class="line"><span class="comment"># 递归创建目录</span></span><br><span class="line">hdfs dfs -mkdir -p &lt;path&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 在HDFS上创建目录“/tmp/&#123;test&#125;/hdfs_data”。</span></span><br><span class="line">hadoop fs -mkdir -p /tmp/&#123;<span class="built_in">test</span>&#125;/hdfs_data</span><br><span class="line"><span class="comment"># 一般在hdfs上都有的需要处理的数据目录</span></span><br><span class="line">hdfs dfs -mkdir /input </span><br><span class="line"><span class="comment"># 一般在hdfs上都有的处理的结果数据目录</span></span><br><span class="line">hdfs dfs -mkdir /output</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 删除目录</span></span><br><span class="line"><span class="comment"># 删除空文件夹</span></span><br><span class="line">hdfs dfs -rmdir &lt;path&gt;</span><br><span class="line"><span class="comment"># 递归删除目录和文件</span></span><br><span class="line">hdfs dfs -rm -r &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<h6 id="文件操作">1.7.1.2 文件操作</h6>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 查看文件信息</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -cat &lt;path&gt; </span><br><span class="line"><span class="comment">#将HDFS中文件以文本形式输出（包括zip包，jar包等形式）</span></span><br><span class="line">hdfs dfs -text &lt;path&gt; </span><br><span class="line"></span><br><span class="line">hdfs dfs -tail &lt;path&gt; </span><br><span class="line"><span class="comment">#和Unix中tail -f命令类似，当文件内容更新时，输出将会改变，具有实时性</span></span><br><span class="line">hdfs dfs -tail -f &lt;path&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 修改文件的权限、所有者</span></span><br><span class="line"><span class="comment"># 权限控制和Linux上使用方式一致</span></span><br><span class="line"><span class="comment"># 变更文件或目录的所属群组。 用户必须是文件的所有者或超级用户。</span></span><br><span class="line">hdfs dfs -chgrp [-R] GROUP URI [URI ...]</span><br><span class="line"><span class="comment"># 修改文件或目录的访问权限  用户必须是文件的所有者或超级用户。</span></span><br><span class="line">hdfs dfs -chmod [-R] &lt;MODE[,MODE]... | OCTALMODE&gt; URI [URI ...]</span><br><span class="line"><span class="comment"># 修改文件的拥有者  用户必须是超级用户。</span></span><br><span class="line">hdfs dfs -chown [-R] [OWNER][:[GROUP]] URI [URI ]</span><br><span class="line"><span class="comment">#案例</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chmod -R 774 /tmp</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chown -R biubiubiu:hadoopenv /tmp</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chgrp -R <span class="built_in">test</span> /tmp</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chmod 777 /input/hello.txt</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -chown 1111:1111  /input/hello.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 统计文件信息</span></span><br><span class="line"><span class="comment"># 统计目录下各文件大小</span></span><br><span class="line">hdfs dfs -du [-s] [-h] URI [URI ...]</span><br><span class="line">-s : 显示所有文件大小总和</span><br><span class="line">-h : 将以更友好的方式显示文件大小（例如 64.0m 而不是 67108864）</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计文件系统的可用空间</span></span><br><span class="line">hdfs dfs -df -h /</span><br><span class="line">-h : 将以更友好的方式显示文件大小（例如 64.0m 而不是 67108864）</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 修改文件的副本数</span></span><br><span class="line"><span class="comment">#更改文件的复制因子。如果 path 是目录，则更改其下所有文件的复制因子</span></span><br><span class="line">hdfs dfs -setrep [-w] &lt;numReplicas&gt; &lt;path&gt;</span><br><span class="line">-w : 标志的请求，命令等待复制完成。这有可能需要很长的时间。</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -setrep 2  /input/hello.txt</span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -setrep -w 5 /input/bbb.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 删除文件</span></span><br><span class="line"><span class="comment"># 删除文件</span></span><br><span class="line">hdfs dfs -rm &lt;path&gt;</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -rm  /input/hello.txt</span><br></pre></td></tr></table></figure>
+<h6 id="本地与集群的操作">1.7.1.3 本地与集群的操作</h6>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 将Linux本地的文件上传到集群</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -put &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line">hdfs dfs -copyFromLocal &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line">-f ：当文件存在时，进行覆盖</span><br><span class="line">-p ：将权限、所属组、时间戳、ACL以及XATTR等也进行拷贝</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 将Linux本地的文件剪切到集群</span></span><br><span class="line">hdfs dfs -moveFromLocal &lt;localsrc&gt; &lt;dst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 将Linux本地的文件追加到集群文件</span></span><br><span class="line">hdfs dfs -appendToFile &lt;localsrc&gt; ... &lt;dst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">#案例</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -appendToFile ./test_1.txt /input/aaa.txt</span><br><span class="line"><span class="comment"># 多个文件用空格隔开</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -appendToFile ./test_1.txt ./test_2.txt /input/aaa.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 将集群文件下载到Linux本地</span></span><br><span class="line"><span class="comment"># 二选一执行即可</span></span><br><span class="line">hdfs dfs -get &lt;src&gt; &lt;localdst&gt;</span><br><span class="line">hdfs dfs -copyToLocal &lt;src&gt; &lt;localdst&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 合并下载多个文件到本地Linux</span></span><br><span class="line">hdfs dfs -getmerge [-nl] &lt;src&gt; &lt;localdst&gt;</span><br><span class="line"></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -getmerge /input/*  data.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 案例 将HDFS上的wordcount_input.txt和aaa.txt合并后下载到本地的当前用户家目录的merge.txt</span></span><br><span class="line">[biubiubiu@hadoop01 ~]$ hdfs dfs -getmerge /input/wordcount_input.txt /wordcount/input/aaa.txt ~/merge.txt</span><br><span class="line">-nl: 在每个文件的末尾添加换行符（LineFeed）</span><br><span class="line">-skip-empty-file: 跳过空文件</span><br></pre></td></tr></table></figure>
 <p>更多可以参考<a href="https://blog.csdn.net/qq_40246175/article/details/104304193" target="_blank" rel="noopener">【csdn-HDFS常用Shell命令总结】</a>或官方<code>API</code>。</p>
-<h5 id="1-7-2-HDFS-Web界面"><a href="#1-7-2-HDFS-Web界面" class="headerlink" title="1.7.2 HDFS Web界面"></a>1.7.2 HDFS Web界面</h5><p>在配置好<code>Hadoop</code>集群之后，可以通过浏览器登录<code>&quot;http://[NameNodelP]:50070&quot;</code>访问<code>HDFS</code>文件系统，<code>[NameNodeIP]</code>表示名称节点的<code>IP</code>地址。伪分布式安装后，可以登录<code>&quot;http://localhost:50070&quot;</code>来查看文件系统信息。该<code>Web</code>界面的所有功能都能通过<code>Shell</code>命令等价实现。</p>
-<h3 id="2-分布式数据库HBase"><a href="#2-分布式数据库HBase" class="headerlink" title="2. 分布式数据库HBase"></a>2. 分布式数据库<code>HBase</code></h3><h4 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h4><p>HBase是一个高可靠、高性能、面向列、可伸缩的<strong><u>分布式数据库</u></strong>，主要用来存储非结构化和半结构化的松散数据。</p>
+<h5 id="hdfs-web界面">1.7.2 HDFS Web界面</h5>
+<p>在配置好<code>Hadoop</code>集群之后，可以通过浏览器登录<code>"http://[NameNodelP]:50070"</code>访问<code>HDFS</code>文件系统，<code>[NameNodeIP]</code>表示名称节点的<code>IP</code>地址。伪分布式安装后，可以登录<code>"http://localhost:50070"</code>来查看文件系统信息。该<code>Web</code>界面的所有功能都能通过<code>Shell</code>命令等价实现。</p>
+<h3 id="分布式数据库hbase">2. 分布式数据库<code>HBase</code></h3>
+<h4 id="概述-1">2.1 概述</h4>
+<p>HBase是一个高可靠、高性能、面向列、可伸缩的<strong><u>分布式数据库</u></strong>，主要用来存储非结构化和半结构化的松散数据。</p>
 <ul>
 <li><code>HBase</code>利用<code>Hadoop MapReduce</code>来处理<code>HBase</code>中的海量数据，实现高性能计算；</li>
 <li>利用<code>Zookeeper</code>作为协同服务，实现稳定服务和失败恢复；</li>
@@ -535,85 +585,108 @@
 <ul>
 <li><strong>数据类型</strong>。关系数据库采用<code>关系模型</code>，具有丰富的数据类型和存储方式。<code>HBase</code>则采用了更加简单的数据模型，它<strong><u>把数据存储为未经解释的字符串</u></strong>，用户可以把不同格式的结构化数据和非结构化数据都序列化成字符串保存到 <code>HBase</code>中，需要<strong><u>自己编写程序把字符串解析成不同的数据类型</u></strong>。</li>
 <li><strong>数据操作</strong>。关系数据库中包含了丰富的操作，如插入、删除、更新、查询等，其中会涉及复杂的多表连接。<code>HBase</code>操作则不存在复杂的表与表之间的关系，只有简单的<strong><u>插入、查询、删除、清空</u></strong>等，因为<code>HBase</code>在设计上就避免了复杂的表与表之间的关系，通常只采用单表的主键查询。</li>
-<li><strong>存储模式</strong>。关系数据库是<strong><u>基于行模式存储的</u></strong>，元组或行会被连续地存储在磁盘页中。<code>HBase</code>是<strong><u>基于列存储的</u></strong>，每个列族都由几个文件保存，不同列族的文件是分离的，优点是：<ul>
+<li><strong>存储模式</strong>。关系数据库是<strong><u>基于行模式存储的</u></strong>，元组或行会被连续地存储在磁盘页中。<code>HBase</code>是<strong><u>基于列存储的</u></strong>，每个列族都由几个文件保存，不同列族的文件是分离的，优点是：
+<ul>
 <li>可以降低IO开销，支持大量并发用户查询，因为仅需要处理可以回答这些查询的列，而不需要处理与查询无关的大量数据行；</li>
 <li>同一个列族中的数据会被一起进行压缩，由于同一列族内的数据相似度较高，因此可以获得较高的数据压缩比。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>数据索引</strong>。关系数据库通常可以针对不同列构建复杂的多个索引，以提高数据访问性能。<code>HBase</code>只有一个索引——<strong><u>行键</u></strong>，<code>Hase</code>中的所有访问方法，或者通过行键访问，或者通过行键扫描，可以使用<code>Hadoop MapReduce</code>来快速、高效地生成索引表。</li>
 <li><strong>数据维护</strong>。在关系数据库中，更新操作会用最新的当前值去替换记录中原来的旧值，旧值被覆盖后就不会存在。而在<code>HBase</code>中执行更新操作时，并不会删除数据旧的版本，而是<strong><u>生成一个新的版本，旧有的版本仍然保留</u></strong>。</li>
 <li><strong>可伸缩性</strong>。关系数据库很难实现横向扩展，纵向扩展的空间也比较有限。<code>HBase</code>和<code>Big Table</code>这些分布式数据库能够轻易地通过在集群中增加或者减少硬件数量来实现性能的伸缩。</li>
 <li><strong>事务</strong>。<code>HBase</code>不支持事务，因此无法实现跨行的原子性。</li>
 </ul>
-<h4 id="2-2-HBase-数据模型"><a href="#2-2-HBase-数据模型" class="headerlink" title="2.2 HBase 数据模型"></a>2.2 HBase 数据模型</h4><h5 id="2-2-1-数据模型概述"><a href="#2-2-1-数据模型概述" class="headerlink" title="2.2.1 数据模型概述"></a>2.2.1 数据模型概述</h5><p><code>HBase</code>是一个<strong><u>稀疏、多维度、排序的映射表</u></strong>，这张表的<strong><u>索引是行键、列族、列限定符和时间戳</u></strong>。每个值是一个未经解释的字符串，没有数据类型。</p>
+<h4 id="hbase-数据模型">2.2 HBase 数据模型</h4>
+<h5 id="数据模型概述">2.2.1 数据模型概述</h5>
+<p><code>HBase</code>是一个<strong><u>稀疏、多维度、排序的映射表</u></strong>，这张表的<strong><u>索引是行键、列族、列限定符和时间戳</u></strong>。每个值是一个未经解释的字符串，没有数据类型。</p>
 <ul>
-<li><p>用户在表中存储数据，每一行都有一个<strong><u>可排序的行键和任意多的列</u></strong>。表在水平方向由一个或者多个列族组成，一个列族中可以包含任意多个列，同一个列族里面的数据存储在一起。列族支持<strong><u>动态扩展</u></strong>，可以很轻松地添加一个列族或列。由于同一张表里面的每一行数据都可以有截然不同的列，<code>HBase</code>是稀疏的。</p>
-</li>
-<li><p>在<code>HBase</code>中执行更新操作时，并不会删除数据旧的版本，而是生成一个新的版本。客户端可以选择获取距离某个时间最近的版本，或者一次获取所有版本。如果在查询的时候不提供时间戳，那么会返回距离现在最近的那一个版本的数据。<code>HBase</code>提供了两种数据版本回收方式：一是保存数据的最后<code>n</code>个版本；二是保存最近一段时间内的版本。</p>
-</li>
+<li><p>用户在表中存储数据，每一行都有一个<strong><u>可排序的行键和任意多的列</u></strong>。表在水平方向由一个或者多个列族组成，一个列族中可以包含任意多个列，同一个列族里面的数据存储在一起。列族支持<strong><u>动态扩展</u></strong>，可以很轻松地添加一个列族或列。由于同一张表里面的每一行数据都可以有截然不同的列，<code>HBase</code>是稀疏的。</p></li>
+<li><p>在<code>HBase</code>中执行更新操作时，并不会删除数据旧的版本，而是生成一个新的版本。客户端可以选择获取距离某个时间最近的版本，或者一次获取所有版本。如果在查询的时候不提供时间戳，那么会返回距离现在最近的那一个版本的数据。<code>HBase</code>提供了两种数据版本回收方式：一是保存数据的最后<code>n</code>个版本；二是保存最近一段时间内的版本。</p></li>
 </ul>
-<h5 id="2-2-2-数据模型相关概念"><a href="#2-2-2-数据模型相关概念" class="headerlink" title="2.2.2 数据模型相关概念"></a>2.2.2 数据模型相关概念</h5><p><code>HBase</code>实际上就是一个稀疏、多维、持久化存储的映射表，它采用<code>行键（Row Key）</code>、<code>列族（Column Family）</code>、<code>列限定符（Column Qualifier）</code>和<code>时间戳（Timestamp）</code>进行索引，每个值都是未经解释的字节数组<code>byte</code>。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseData.PNG" alt="HBase数据模型"></p>
-<h6 id="1-表"><a href="#1-表" class="headerlink" title="1.表"></a>1.表</h6><p><code>HBase</code>采用表来组织数据，表由行和列组成，列划分为若干个列族。</p>
-<h6 id="2-行"><a href="#2-行" class="headerlink" title="2. 行"></a>2. 行</h6><p>每个<code>HBase</code>表都由若干行组成，每个行由<code>行键（Row Key）</code>来标识。访问表中的行有3种方式：</p>
+<h5 id="数据模型相关概念">2.2.2 数据模型相关概念</h5>
+<p><code>HBase</code>实际上就是一个稀疏、多维、持久化存储的映射表，它采用<code>行键（Row Key）</code>、<code>列族（Column Family）</code>、<code>列限定符（Column Qualifier）</code>和<code>时间戳（Timestamp）</code>进行索引，每个值都是未经解释的字节数组<code>byte</code>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseData.PNG" alt="HBase数据模型" /><figcaption aria-hidden="true">HBase数据模型</figcaption>
+</figure>
+<h6 id="表">1.表</h6>
+<p><code>HBase</code>采用表来组织数据，表由行和列组成，列划分为若干个列族。</p>
+<h6 id="行">2. 行</h6>
+<p>每个<code>HBase</code>表都由若干行组成，每个行由<code>行键（Row Key）</code>来标识。访问表中的行有3种方式：</p>
 <ul>
 <li>通过单个行键访问；</li>
 <li>通过一个行键的区间来访问；</li>
 <li>全表扫描。</li>
 </ul>
 <p>在<code>HBase</code>内部，行键保存为字节数组，数据按照行键的字典序排序存储。</p>
-<h6 id="3-列族"><a href="#3-列族" class="headerlink" title="3. 列族"></a>3. 列族</h6><p><code>HBase</code>表被分组成许多<code>“列族”</code>的集合，它是基本的<strong><u>访问控制单元</u></strong>，列族需要在表创建时就定义好。</p>
+<h6 id="列族">3. 列族</h6>
+<p><code>HBase</code>表被分组成许多<code>“列族”</code>的集合，它是基本的<strong><u>访问控制单元</u></strong>，列族需要在表创建时就定义好。</p>
 <ul>
 <li>存储在一个列族当中的所有数据，通常都属于同一种数据类型，具有更高的压缩率。</li>
 <li>表中的每个列都归属于某个列族，数据可以被存放到列族的某个列下面。</li>
 <li>在<code>HBase</code>中，访问控制、磁盘和内存的使用统计都是在列族层面进行的。</li>
 </ul>
-<h6 id="4-列限定符"><a href="#4-列限定符" class="headerlink" title="4. 列限定符"></a>4. 列限定符</h6><p>列族里的数据通过列限定符（或列）来定位。列限定符不用事先定义，也不需要在不同行之间保持一致。列限定符没有数据类型，总被视为字节数组<code>byte</code>。</p>
-<h6 id="5-单元格"><a href="#5-单元格" class="headerlink" title="5.单元格"></a>5.单元格</h6><p>在<code>HBase</code>表中，通过行、列族和列限定符确定一个<code>“单元格”（cell）</code>。单元格中存储的数据没有数据类型，总被视为字节数组<code>byte[]</code>。每个单元格中可以保存一个数据的多个版本，每个版本对应一个不同的时间戳。</p>
-<h6 id="6-时间戳"><a href="#6-时间戳" class="headerlink" title="6. 时间戳"></a>6. 时间戳</h6><p>每个单元格都保存着同一份数据的多个版本，这些版本采用时间戳进行索引。每次对一个单元格执行操作（新建、修改、删除）时，<code>HBase</code>都会隐式地自动生成并存储一个时间戳。时间戳一般是<code>64</code>位整型，可以由用户自己赋值，也可以由 <code>HBase</code>在数据写入时自动赋值。<strong><u>一个单元格的不同版本是根据时间戳降序的顺序进行存储的</u></strong>。</p>
-<h5 id="2-2-3-数据坐标"><a href="#2-2-3-数据坐标" class="headerlink" title="2.2.3 数据坐标"></a>2.2.3 数据坐标</h5><p><code>HBase</code>使用坐标来定位表中的数据，<code>HBase</code>中需要根据<code>行键</code>、<code>列族</code>、<code>列限定符</code>和<code>时间戳</code>来确定一个单元格，因此可以视为一个<strong>“四维坐标”</strong>，即<code>[行键，列族，列限定符，时间戳]</code>。</p>
+<h6 id="列限定符">4. 列限定符</h6>
+<p>列族里的数据通过列限定符（或列）来定位。列限定符不用事先定义，也不需要在不同行之间保持一致。列限定符没有数据类型，总被视为字节数组<code>byte</code>。</p>
+<h6 id="单元格">5.单元格</h6>
+<p>在<code>HBase</code>表中，通过行、列族和列限定符确定一个<code>“单元格”（cell）</code>。单元格中存储的数据没有数据类型，总被视为字节数组<code>byte[]</code>。每个单元格中可以保存一个数据的多个版本，每个版本对应一个不同的时间戳。</p>
+<h6 id="时间戳">6. 时间戳</h6>
+<p>每个单元格都保存着同一份数据的多个版本，这些版本采用时间戳进行索引。每次对一个单元格执行操作（新建、修改、删除）时，<code>HBase</code>都会隐式地自动生成并存储一个时间戳。时间戳一般是<code>64</code>位整型，可以由用户自己赋值，也可以由 <code>HBase</code>在数据写入时自动赋值。<strong><u>一个单元格的不同版本是根据时间戳降序的顺序进行存储的</u></strong>。</p>
+<h5 id="数据坐标">2.2.3 数据坐标</h5>
+<p><code>HBase</code>使用坐标来定位表中的数据，<code>HBase</code>中需要根据<code>行键</code>、<code>列族</code>、<code>列限定符</code>和<code>时间戳</code>来确定一个单元格，因此可以视为一个<strong>“四维坐标”</strong>，即<code>[行键，列族，列限定符，时间戳]</code>。</p>
 <p>如果把所有坐标看成一个整体，视为<code>“键”</code>，把四维坐标对应的单元格中的数据视为<code>“值”</code>，<code>HBase</code>也可以看成一个键值数据库。</p>
-<h5 id="2-2-4-概念视图"><a href="#2-2-4-概念视图" class="headerlink" title="2.2.4 概念视图"></a>2.2.4 概念视图</h5><p>在<code>HBase</code>的概念视图中，一个表可以视为一个稀疏、多维的映射关系。在一个<code>HBase</code>表的概念视图中，每个行都包含相同的列族，不需要在每个列族里存储数据，<code>HBase</code>表里面存在很多空的单元格。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseLogicVision.PNG" alt="HBase 概念视图"></p>
-<h5 id="2-2-5-物理视图"><a href="#2-2-5-物理视图" class="headerlink" title="2.2.5 物理视图"></a>2.2.5 物理视图</h5><p>在物理存储层面，<code>HBase</code>采用了<strong><u>基于列的存储方式</u></strong>，<code>HBase</code>表会按照列族分别存放，属于同一个列族的数据保存在一起，和每个列族一起存放的还包括行键和时间戳。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBasePyhsicalView.PNG" alt="HBase 概念视图"></p>
+<h5 id="概念视图">2.2.4 概念视图</h5>
+<p>在<code>HBase</code>的概念视图中，一个表可以视为一个稀疏、多维的映射关系。在一个<code>HBase</code>表的概念视图中，每个行都包含相同的列族，不需要在每个列族里存储数据，<code>HBase</code>表里面存在很多空的单元格。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseLogicVision.PNG" alt="HBase 概念视图" /><figcaption aria-hidden="true">HBase 概念视图</figcaption>
+</figure>
+<h5 id="物理视图">2.2.5 物理视图</h5>
+<p>在物理存储层面，<code>HBase</code>采用了<strong><u>基于列的存储方式</u></strong>，<code>HBase</code>表会按照列族分别存放，属于同一个列族的数据保存在一起，和每个列族一起存放的还包括行键和时间戳。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBasePyhsicalView.PNG" alt="HBase 概念视图" /><figcaption aria-hidden="true">HBase 概念视图</figcaption>
+</figure>
 <p>在物理视图中，空列不会被存储成<code>null</code>，而是根本就不会被存储，当请求这些空白的单元格的时候会返回<code>null</code>值。</p>
-<h5 id="2-2-6-面向列的存储"><a href="#2-2-6-面向列的存储" class="headerlink" title="2.2.6 面向列的存储"></a>2.2.6 面向列的存储</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseDataStore.PNG" alt="行式存储和列式存储"></p>
-<h6 id="1-行式数据库"><a href="#1-行式数据库" class="headerlink" title="1. 行式数据库"></a>1. 行式数据库</h6><p>行式数据库使用<code>NSM（N-ary Storage Model）</code>存储模型，一个元组（或行）会被连续地存储在磁盘页中，数据是一行一行被存储的。在从磁盘中读取数据时，需要从磁盘中顺序扫描每个元组的完整内容，然后从每个元组中筛选出查询所需要的属性。如果每个元组只有少量属性的值对于查询是有用的，那么<code>NSM</code>就会浪费许多磁盘空间和内存带宽。</p>
+<h5 id="面向列的存储">2.2.6 面向列的存储</h5>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseDataStore.PNG" alt="行式存储和列式存储" /><figcaption aria-hidden="true">行式存储和列式存储</figcaption>
+</figure>
+<h6 id="行式数据库">1. 行式数据库</h6>
+<p>行式数据库使用<code>NSM（N-ary Storage Model）</code>存储模型，一个元组（或行）会被连续地存储在磁盘页中，数据是一行一行被存储的。在从磁盘中读取数据时，需要从磁盘中顺序扫描每个元组的完整内容，然后从每个元组中筛选出查询所需要的属性。如果每个元组只有少量属性的值对于查询是有用的，那么<code>NSM</code>就会浪费许多磁盘空间和内存带宽。</p>
 <ul>
 <li>行式数据库主要适合于小批量的数据处理，如联机事务型数据处理，<code>Oracle</code>和<code>MySQL</code>等关系数据库都属于行式数据库。</li>
 </ul>
-<h6 id="2-列式数据库"><a href="#2-列式数据库" class="headerlink" title="2. 列式数据库"></a>2. 列式数据库</h6><p>列式数据库采用<code>DSM（Decomposition Storage Model）</code>存储模型，目的是最小化无用的<code>I/O</code>。<code>DSM</code>会对关系进行垂直分解，并为每个属性分配一个子关系。一个具有<code>n</code>个属性的关系会被分解成<code>n</code>个子关系，每个子关系单独存储，每个子关系只有当其相应的属性被请求时才会被访问。也就是说，<code>DSM</code>是以关系数据库中的属性或列为单位进行存储，关系中多个元组的同一属性值（或同一列值）会被存储在一起，而一个元组中不同属性值则通常会被分别存放于不同的磁盘页中。</p>
+<h6 id="列式数据库">2. 列式数据库</h6>
+<p>列式数据库采用<code>DSM（Decomposition Storage Model）</code>存储模型，目的是最小化无用的<code>I/O</code>。<code>DSM</code>会对关系进行垂直分解，并为每个属性分配一个子关系。一个具有<code>n</code>个属性的关系会被分解成<code>n</code>个子关系，每个子关系单独存储，每个子关系只有当其相应的属性被请求时才会被访问。也就是说，<code>DSM</code>是以关系数据库中的属性或列为单位进行存储，关系中多个元组的同一属性值（或同一列值）会被存储在一起，而一个元组中不同属性值则通常会被分别存放于不同的磁盘页中。</p>
 <ul>
 <li><p>列式数据库主要适合于批量数据处理和即席查询（Ad-Hoc Query）。优点是：</p>
 <ul>
 <li>可以降低<code>I/O</code>开销，支持大量并发用户查询，处理速度快；</li>
 <li>具有较高的数据压缩比，较传统的行式数据库更加有效果。</li>
 </ul>
-<p>列式数据库主要用于数据挖掘、决策支持和地理信息系统等<code>查询密集型系统</code>中。</p>
-</li>
+<p>列式数据库主要用于数据挖掘、决策支持和地理信息系统等<code>查询密集型系统</code>中。</p></li>
 <li><p><code>DSM</code>存储模型的缺陷是：</p>
 <ul>
 <li>执行连接操作时需要昂贵的元组重构代价，因为一个元组的不同属性被分散到不同磁盘页中存储，当需要一个完整的元组时，就要从多个磁盘页中读取相应字段的值来重新组合得到原来的一个元组。</li>
 <li>对于联机事务型数据处理而言，需要频繁对一些元组进行修改，如果采用<code>DSM</code>存储模型，就会带来高昂的开销。</li>
 </ul>
-<p>对于分析型应用而言，一般数据被存储后不会发生修改（如数据仓库），因此不会涉及昂贵的元组重构代价。</p>
-</li>
+<p>对于分析型应用而言，一般数据被存储后不会发生修改（如数据仓库），因此不会涉及昂贵的元组重构代价。</p></li>
 </ul>
-<h4 id="2-3-HBase实现原理"><a href="#2-3-HBase实现原理" class="headerlink" title="2.3 HBase实现原理"></a>2.3 HBase实现原理</h4><h5 id="2-3-1-HBase的功能组件"><a href="#2-3-1-HBase的功能组件" class="headerlink" title="2.3.1 HBase的功能组件"></a>2.3.1 HBase的功能组件</h5><p><code>HBase</code>的实现包括3个主要的功能组件：</p>
+<h4 id="hbase实现原理">2.3 HBase实现原理</h4>
+<h5 id="hbase的功能组件">2.3.1 HBase的功能组件</h5>
+<p><code>HBase</code>的实现包括3个主要的功能组件：</p>
 <ul>
 <li><strong>库函数</strong>，链接到每个客户端；</li>
-<li>一个<code>Master</code>主服务器。<code>Master</code>负责<strong><u>管理和维护<code>HBase</code>表的分区信息</u></strong>。 </li>
+<li>一个<code>Master</code>主服务器。<code>Master</code>负责<strong><u>管理和维护<code>HBase</code>表的分区信息</u></strong>。</li>
 <li>多个<code>Region</code>服务器。<code>Region</code>服务器负责<strong><u>存储和维护分配给自己的<code>Region</code>，处理来自客户端的读写请求</u></strong>。</li>
 </ul>
 <p><code>Master</code>会实时监测集群中的<code>Region</code>服务器，把特定的<code>Region</code>分配到可用的<code>Region</code>服务器上，并确保整个集群内部不同<code>Region</code>服务器之间的<strong><u>负载均衡</u></strong>，当某个<code>Region</code>服务器因出现故障而失效时，<code>Master</code>会把该故障服务器上存储的<code>Region</code>重新分配给其他可用的<code>Region</code>服务器。<code>Master</code>还处理模式变化，如表和列族的创建。</p>
 <p>客户端在获得<code>Region</code>的存储位置信息后，直接从<code>Region</code>服务器上读取数据。<code>HBase</code>客户端并借助于<code>Zookeeper</code>来获得<code>Region</code>的位置信息的，所以<strong><u>大多数客户端从来不和主服务器Master通信，这种设计方式使Master的负载很小</u></strong>。</p>
-<h5 id="2-3-2-表和Region"><a href="#2-3-2-表和Region" class="headerlink" title="2.3.2 表和Region"></a>2.3.2 表和Region</h5><p>对于每个<code>HBase</code>表而言，表中的行是根据行键的值的字典序进行维护的，表中包含的行的数量可能非常庞大，无法存储在一台机器上。因此，需要<strong><u>根据行键的值对表中的行进行分区</u></strong>，每个行区间构成一个分区，被称为<code>“ Region”</code>，包含了位于某个值域区间内的所有数据，这些<code>Region</code>会被分发到不同的<code>Region</code>服务器上。</p>
+<h5 id="表和region">2.3.2 表和Region</h5>
+<p>对于每个<code>HBase</code>表而言，表中的行是根据行键的值的字典序进行维护的，表中包含的行的数量可能非常庞大，无法存储在一台机器上。因此，需要<strong><u>根据行键的值对表中的行进行分区</u></strong>，每个行区间构成一个分区，被称为<code>“ Region”</code>，包含了位于某个值域区间内的所有数据，这些<code>Region</code>会被分发到不同的<code>Region</code>服务器上。</p>
 <ul>
 <li>初始时，每个表只包含一个<code>Region</code>，随着数据的不断插入，<code>Region</code>会持续增大，当一个<code>Region</code>中包含的行数量达到一个阈值时，就会被自动等分成两个新的<code>Region</code>。</li>
 <li>每个<code>Region</code>的默认大小是<code>100MB</code>到<code>200MB</code>，是HBase中<strong><u>负载均衡和数据分发的基本单位</u></strong>。同一个<code>Region</code>是不会被拆分到多个<code>Region</code>服务器上的。每个<code>Region</code>服务器负责管理一个<code>Region</code>集合。</li>
 </ul>
-<h5 id="2-3-3-Region的定位"><a href="#2-3-3-Region的定位" class="headerlink" title="2.3.3 Region的定位"></a>2.3.3 Region的定位</h5><p>每个<code>Region</code>都有一个<code>RegionID</code>来标识它的唯一性，一个<code>Region</code>标识符就可以表示成<code>&quot;表名+开始主键+RegionID&quot;</code>。</p>
+<h5 id="region的定位">2.3.3 Region的定位</h5>
+<p>每个<code>Region</code>都有一个<code>RegionID</code>来标识它的唯一性，一个<code>Region</code>标识符就可以表示成<code>"表名+开始主键+RegionID"</code>。</p>
 <p>为了定位每个<code>Region</code>所在的位置，可以构建一张映射表，映射表的每个条目（或每行）包含两项内容：</p>
 <ul>
 <li><code>Region</code>标识符；</li>
@@ -624,7 +697,9 @@
 <ul>
 <li><code>-ROOT-表</code>是不能被分割的，<strong><u>永远只存在一个<code>Region</code>用于存放<code>-ROOT-表</code></u></strong>，<code>Master</code>主服务器永远知道它的位置。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseRegion.PNG" alt="Region的定位"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseRegion.PNG" alt="Region的定位" /><figcaption aria-hidden="true">Region的定位</figcaption>
+</figure>
 <ul>
 <li><code>Zookeeper</code>文件。记录了<code>-ROOT-表</code>的位置信息；</li>
 <li>-<code>ROOT-表</code>。记录了<code>.META.表</code>的<code>Region</code>位置信息，</li>
@@ -641,19 +716,26 @@
 <ul>
 <li>随着<code>HBase</code>中表的不断更新，客户端缓存的<code>Region</code>位置信息可能会失效，客户端需要访问数据时，从缓存中获取<code>Region</code>位置信息却发现不存在时，会判断出缓存失效，这时需要再次经历的<code>“三级寻址”</code>过程，重新获取最新的 <code>Region</code>位置信息去访问数据，并用最新的<code>Region</code>位置信息替换缓存中失效的信息。</li>
 </ul>
-<h4 id="2-4-HBase运行机制"><a href="#2-4-HBase运行机制" class="headerlink" title="2.4 HBase运行机制"></a>2.4 HBase运行机制</h4><h5 id="2-4-1-HBase系统架构"><a href="#2-4-1-HBase系统架构" class="headerlink" title="2.4.1 HBase系统架构"></a>2.4.1 HBase系统架构</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseStructure.PNG" alt="HBase系统架构"></p>
-<h6 id="1-客户端"><a href="#1-客户端" class="headerlink" title="1. 客户端"></a>1. 客户端</h6><p><code>HBase</code>客户端使用<code>HBase</code>的<code>RPC</code>机制与<code>Master</code>和<code>Region</code>服务器进行通信。</p>
+<h4 id="hbase运行机制">2.4 HBase运行机制</h4>
+<h5 id="hbase系统架构">2.4.1 HBase系统架构</h5>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseStructure.PNG" alt="HBase系统架构" /><figcaption aria-hidden="true">HBase系统架构</figcaption>
+</figure>
+<h6 id="客户端-1">1. 客户端</h6>
+<p><code>HBase</code>客户端使用<code>HBase</code>的<code>RPC</code>机制与<code>Master</code>和<code>Region</code>服务器进行通信。</p>
 <ul>
 <li>对于管理类操作，客户端与<code>Master</code>进行<code>RPC</code>；</li>
 <li>对于数据读写类操作，客户端与<code>Region</code>服务器进行<code>RPC</code>。</li>
 </ul>
-<h6 id="2-Zookeeper服务器"><a href="#2-Zookeeper服务器" class="headerlink" title="2. Zookeeper服务器"></a>2. Zookeeper服务器</h6><p><code>Zookeeper</code>服务器<strong><u>并非一台单一的机器，可能是由多台机器构成的集群</u></strong>来提供稳定可靠的协同服务。</p>
+<h6 id="zookeeper服务器">2. Zookeeper服务器</h6>
+<p><code>Zookeeper</code>服务器<strong><u>并非一台单一的机器，可能是由多台机器构成的集群</u></strong>来提供稳定可靠的协同服务。</p>
 <ul>
 <li>每个<code>Region</code>服务器都需要到<code>Zookeeper</code>中进行注册，<code>Zookeeper</code>会实时监控每个<code>Region</code>服务器的状态并通知给<code>Master</code>，这样<code>Master</code>就可以通过<code>Zookeeper</code>随时感知到各个<code>Region</code>服务器的工作状态。</li>
 <li><code>HBase</code>中可以启动多个<code>Master</code>，但是<code>Zookeeper</code>可以<strong><u>帮助选举出一个Master作为集群的总管，并保证在任何时刻总有唯一一个 Master在运行</u></strong>，可以避免Master的<code>“单点失效”</code>问题。</li>
 <li><code>Zookeeper</code>中保存了<code>-ROOT-表</code>的地址和<code>Master</code>的地址。当一个客户端从<code>Zookeeper</code>服务器上拿到-<code>ROOT-表</code>的地址后，就可以进行<code>“三级寻址”</code>，不用再连接主服务器<code>Master</code>。</li>
 </ul>
-<h6 id="3-Master"><a href="#3-Master" class="headerlink" title="3. Master"></a>3. Master</h6><p>主服务器<code>Master</code>主要负责<strong><u>表和<code>Region</code>的管理工作</u></strong>。</p>
+<h6 id="master">3. Master</h6>
+<p>主服务器<code>Master</code>主要负责<strong><u>表和<code>Region</code>的管理工作</u></strong>。</p>
 <ul>
 <li>管理用户对表的增加、删除、修改、查询等操作。</li>
 <li>实现不同Region服务器之间的负载均衡。</li>
@@ -661,17 +743,20 @@
 <li>对发生故障失效的<code>Region</code>服务器上的<code>Region</code>进行迁移。</li>
 </ul>
 <p><code>Master</code>仅仅维护着表和<code>Region</code>的元数据信息，因此负载很低。</p>
-<h6 id="4-Region服务器"><a href="#4-Region服务器" class="headerlink" title="4. Region服务器"></a>4. Region服务器</h6><p><code>Region</code>服务器是<code>HBase</code>中最核心的模块，负责<strong><u>维护分配给自己的Region，并响应用户的读写请求</u></strong>。<code>HBase</code>一般采用<code>HDFS</code>作为底层存储文件系统，因此<code>Region</code>服务器需要向<code>HDFS</code>文件系统中读写数据。</p>
-<h5 id="2-4-2-Region服务器的工作原理"><a href="#2-4-2-Region服务器的工作原理" class="headerlink" title="2.4.2 Region服务器的工作原理"></a>2.4.2 Region服务器的工作原理</h5><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseReadWrite.PNG" alt="Region服务器的工作原理"></p>
+<h6 id="region服务器">4. Region服务器</h6>
+<p><code>Region</code>服务器是<code>HBase</code>中最核心的模块，负责<strong><u>维护分配给自己的Region，并响应用户的读写请求</u></strong>。<code>HBase</code>一般采用<code>HDFS</code>作为底层存储文件系统，因此<code>Region</code>服务器需要向<code>HDFS</code>文件系统中读写数据。</p>
+<h5 id="region服务器的工作原理">2.4.2 Region服务器的工作原理</h5>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter2/HBaseReadWrite.PNG" alt="Region服务器的工作原理" /><figcaption aria-hidden="true">Region服务器的工作原理</figcaption>
+</figure>
 <ul>
-<li><p><code>Region</code>服务器内部管理了一系列<code>Region</code>对象和一个<code>HLog</code>文件，其中<code>HLog</code>是磁盘上面的记录文件，它记录着所有的更新操作。</p>
-</li>
-<li><p>每个<code>Region</code>对象又是由多个<code>Store</code>组成的，每个<code>Store</code>对应了表中的一个列族的存储。</p>
-</li>
-<li>每个<code>Store</code>又包含一个 <code>MemStore</code>和若干个<code>StoreFile</code>，<code>MemStore</code>是在内存中的缓存，保存最近更新的数据； <code>StoreFile</code>是磁盘中的文件，这些文件都是<strong><u>B树结构</u></strong>的，方便快速读取。</li>
-<li><code>StoreFile</code>在底层的实现方式是<code>HDFS</code>文件系统的<code>Hfile</code>，<code>HFile</code>的数据块通常采用压缩方式存储，压缩之后可以大大减少网络<code>I/O</code>和磁盘<code>I/O</code>。</li>
+<li><p><code>Region</code>服务器内部管理了一系列<code>Region</code>对象和一个<code>HLog</code>文件，其中<code>HLog</code>是磁盘上面的记录文件，它记录着所有的更新操作。</p></li>
+<li><p>每个<code>Region</code>对象又是由多个<code>Store</code>组成的，每个<code>Store</code>对应了表中的一个列族的存储。</p></li>
+<li><p>每个<code>Store</code>又包含一个 <code>MemStore</code>和若干个<code>StoreFile</code>，<code>MemStore</code>是在内存中的缓存，保存最近更新的数据； <code>StoreFile</code>是磁盘中的文件，这些文件都是<strong><u>B树结构</u></strong>的，方便快速读取。</p></li>
+<li><p><code>StoreFile</code>在底层的实现方式是<code>HDFS</code>文件系统的<code>Hfile</code>，<code>HFile</code>的数据块通常采用压缩方式存储，压缩之后可以大大减少网络<code>I/O</code>和磁盘<code>I/O</code>。</p></li>
 </ul>
-<h6 id="1-用户读写数据的过程"><a href="#1-用户读写数据的过程" class="headerlink" title="1. 用户读写数据的过程"></a>1. 用户读写数据的过程</h6><p>当用户写入数据时，会被分配到相应的<code>Region</code>服务器去执行操作。</p>
+<h6 id="用户读写数据的过程">1. 用户读写数据的过程</h6>
+<p>当用户写入数据时，会被分配到相应的<code>Region</code>服务器去执行操作。</p>
 <ul>
 <li>用户数据首先被写入到<code>MemStore</code>和<code>HLog</code>中；</li>
 <li>当操作写入<code>HLog</code>之后，<code>commit()</code>调用才会将其返回给客户端。</li>
@@ -681,21 +766,25 @@
 <li><code>Region</code>服务器会首先访问<code>MemStore</code>缓存；</li>
 <li>如果数据不在缓存中，才会到磁盘上面的<code>StoreFile</code>中去寻找。</li>
 </ul>
-<h6 id="2-缓存的刷新"><a href="#2-缓存的刷新" class="headerlink" title="2.缓存的刷新"></a>2.缓存的刷新</h6><p><code>MemStore</code>缓存的容量有限，系统会周期性地调用<code>Region.flushcache()</code>把<code>MemStore</code>缓存里面的内容写到磁盘的 <code>StoreFile</code>文件中，清空缓存，并在<code>HLog</code>文件中写入一个标记，用来表示缓存中的内容已经被写入<code>StoreFile</code>文件中。每次缓存刷新操作都会在磁盘上生成一个新的<code>StoreFile</code>文件，因此每个<code>Store</code>会包含多个<code>StoreFile</code>文件。</p>
+<h6 id="缓存的刷新">2.缓存的刷新</h6>
+<p><code>MemStore</code>缓存的容量有限，系统会周期性地调用<code>Region.flushcache()</code>把<code>MemStore</code>缓存里面的内容写到磁盘的 <code>StoreFile</code>文件中，清空缓存，并在<code>HLog</code>文件中写入一个标记，用来表示缓存中的内容已经被写入<code>StoreFile</code>文件中。每次缓存刷新操作都会在磁盘上生成一个新的<code>StoreFile</code>文件，因此每个<code>Store</code>会包含多个<code>StoreFile</code>文件。</p>
 <p>每个<code>Region</code>服务器在启动时，都会检查自己的<code>HLog</code>文件，确认最近一次执行缓存刷新操作之后是否发生新的写入操作。</p>
 <ul>
 <li>如果没有更新，说明所有数据已经被永久保存到磁盘的<code>StoreFile</code>文件中；</li>
 <li>如果发现更新，就先把这些更新写入<code>MemStore</code>，然后再刷新缓存，写入到磁盘的<code>StoreFile</code>文件中。</li>
 <li>最后，删除旧的<code>HLog</code>文件，并开始为用户提供数据访问服务。</li>
 </ul>
-<h6 id="3-StoreFile的合并"><a href="#3-StoreFile的合并" class="headerlink" title="3. StoreFile的合并"></a>3. StoreFile的合并</h6><p>系统中的每个<code>Store</code>会存在多个<code>StoreFile</code>文件，当需要访问某个<code>Store</code>中的某个值时，就必须查找所有<code>StoreFile</code>文件，非常耗费时间。为了减少查找时间，系统会调用<code>Store.compact()</code>把多个<code>StoreFile</code>文件合并成一个大文件。</p>
-<h5 id="2-4-3-Store工作原理"><a href="#2-4-3-Store工作原理" class="headerlink" title="2.4.3  Store工作原理"></a>2.4.3  Store工作原理</h5><p><code>Store</code>则是<code>Region</code>服务器的核心。每个<code>Store</code>对应了表中的一个列族的存储。每个<code>Store</code>包含一个<code>MemStore</code>缓存和若干个<code>StoreFile</code>文件。</p>
+<h6 id="storefile的合并">3. StoreFile的合并</h6>
+<p>系统中的每个<code>Store</code>会存在多个<code>StoreFile</code>文件，当需要访问某个<code>Store</code>中的某个值时，就必须查找所有<code>StoreFile</code>文件，非常耗费时间。为了减少查找时间，系统会调用<code>Store.compact()</code>把多个<code>StoreFile</code>文件合并成一个大文件。</p>
+<h5 id="store工作原理">2.4.3 Store工作原理</h5>
+<p><code>Store</code>则是<code>Region</code>服务器的核心。每个<code>Store</code>对应了表中的一个列族的存储。每个<code>Store</code>包含一个<code>MemStore</code>缓存和若干个<code>StoreFile</code>文件。</p>
 <ul>
 <li><code>MemStore</code>是排序的内存缓冲区；</li>
 <li>随着<code>StoreFile</code>文件数量的不断增加，到达阈值时就会触发文件合并操作；</li>
 <li>当单个<code>StoreFile</code>文件大小超过一定阈值时，就会触发文件分裂操作。</li>
 </ul>
-<h5 id="2-4-4-HLog工作原理"><a href="#2-4-4-HLog工作原理" class="headerlink" title="2.4.4  HLog工作原理"></a>2.4.4  HLog工作原理</h5><p><code>HBase</code>采用<code>HLog</code>来保证系统发生故障时能够恢复到正确的状态。</p>
+<h5 id="hlog工作原理">2.4.4 HLog工作原理</h5>
+<p><code>HBase</code>采用<code>HLog</code>来保证系统发生故障时能够恢复到正确的状态。</p>
 <p><code>HLog</code>文件是一种<code>预写式日志（ Write Ahead Log）</code>，即<strong><u>用户更新数据必须首先被记入日志后才能写入 MemStore缓存，并且直到MemStore缓存内容对应的日志已经被写入磁盘之后，该缓存内容才会被刷新写入磁盘。</u></strong></p>
 <p>当某个<code>Region</code>服务器发生故障时，<code>Zookeeper</code>会通知<code>Master</code>：</p>
 <ul>
@@ -703,7 +792,8 @@
 <li>系统会根据每条日志记录所属的<code>Region</code>对象对<code>HLog</code>数据进行拆分，分别放到相应<code>Region</code>对象的目录下，然后再将失效的<code>Region</code>重新分配到可用的<code>Region</code>服务器中。</li>
 <li><code>Region</code>服务器领取到分配给自己的<code>Region</code>对象以及与之相关的<code>HLog</code>日志记录以后，会重新做一遍日志记录中的各种操作，把日志记录中的数据写入<code>MemStore</code>缓存，然后刷新到磁盘的<code>StoreFile</code>文件中，完成数据恢复。</li>
 </ul>
-<h4 id="2-5-HBase实践"><a href="#2-5-HBase实践" class="headerlink" title="2.5 HBase实践"></a>2.5 HBase实践</h4><p>需要注意，<code>Hadoop</code>安装以后，只包含<code>HDFS</code>和<code>MapReduce</code>，并不包含<code>HBase</code>。关于<code>HBase</code>的常用<code>shell</code>命令和编程<code>API</code>可以在使用时查看文档。</p>
+<h4 id="hbase实践">2.5 HBase实践</h4>
+<p>需要注意，<code>Hadoop</code>安装以后，只包含<code>HDFS</code>和<code>MapReduce</code>，并不包含<code>HBase</code>。关于<code>HBase</code>的常用<code>shell</code>命令和编程<code>API</code>可以在使用时查看文档。</p>
 
     </div>
 
@@ -771,7 +861,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分布式文件系统HDFS"><span class="nav-number">2.</span> <span class="nav-text">1. 分布式文件系统HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-分布式文件系统"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 分布式文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-1-计算机集群结构"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 计算机集群结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-2-分布式文件系统的结构"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 分布式文件系统的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-3-分布式文件系统设计需求"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.1.3 分布式文件系统设计需求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-HDFS-简介"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 HDFS 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-HDFS相关概念"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 HDFS相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-块"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-名称节点和数据节点"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 名称节点和数据节点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-3-2-1-名称节点"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">1.3.2.1 名称节点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-3-2-2-数据节点"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">1.3.2.2 数据节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-第二名称节点"><span class="nav-number">2.3.3.</span> <span class="nav-text">1.3.3 第二名称节点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-HDFS体系结构"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 HDFS体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-1-概述"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-2-HDFS命名空间管理"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 HDFS命名空间管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-3-通信协议"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 通信协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-4-客户端"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 客户端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-5-HDFS体系结构的局限性"><span class="nav-number">2.4.5.</span> <span class="nav-text">1.4.5 HDFS体系结构的局限性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-HDFS存储原理"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 HDFS存储原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-1-数据的冗余存储"><span class="nav-number">2.5.1.</span> <span class="nav-text">1.5.1 数据的冗余存储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-2-数据存取策略"><span class="nav-number">2.5.2.</span> <span class="nav-text">1.5.2 数据存取策略</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-2-1-数据存放"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">1.5.2.1 数据存放</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-2-2-数据读取"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">1.5.2.2 数据读取</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-2-3-数据复制"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">1.5.2.3 数据复制</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-3-数据错误与恢复"><span class="nav-number">2.5.3.</span> <span class="nav-text">1.5.3 数据错误与恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-3-1-名称节点出错"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">1.5.3.1.名称节点出错</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-3-2-数据节点出错"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">1.5.3.2 数据节点出错</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-5-3-3-数据出错"><span class="nav-number">2.5.3.3.</span> <span class="nav-text">1.5.3.3 数据出错</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-HDFS的数据读写过程"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 HDFS的数据读写过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-1-读数据"><span class="nav-number">2.6.1.</span> <span class="nav-text">1.6.1 读数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-2-写数据"><span class="nav-number">2.6.2.</span> <span class="nav-text">1.6.2 写数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-HDFS实践"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 HDFS实践</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-7-1-HDFS常用命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">1.7.1 HDFS常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-7-1-1-文件夹目录操作"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">1.7.1.1 文件夹目录操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-7-1-2-文件操作"><span class="nav-number">2.7.1.2.</span> <span class="nav-text">1.7.1.2 文件操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-7-1-3-本地与集群的操作"><span class="nav-number">2.7.1.3.</span> <span class="nav-text">1.7.1.3 本地与集群的操作</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-7-2-HDFS-Web界面"><span class="nav-number">2.7.2.</span> <span class="nav-text">1.7.2 HDFS Web界面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分布式数据库HBase"><span class="nav-number">3.</span> <span class="nav-text">2. 分布式数据库HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-概述"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-HBase-数据模型"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 HBase 数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-数据模型概述"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 数据模型概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-2-数据模型相关概念"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 数据模型相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-表"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">1.表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-行"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2. 行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-列族"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">3. 列族</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-列限定符"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">4. 列限定符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5-单元格"><span class="nav-number">3.2.2.5.</span> <span class="nav-text">5.单元格</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6-时间戳"><span class="nav-number">3.2.2.6.</span> <span class="nav-text">6. 时间戳</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-3-数据坐标"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 数据坐标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-4-概念视图"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 概念视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-5-物理视图"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 物理视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-6-面向列的存储"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 面向列的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-行式数据库"><span class="nav-number">3.2.6.1.</span> <span class="nav-text">1. 行式数据库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-列式数据库"><span class="nav-number">3.2.6.2.</span> <span class="nav-text">2. 列式数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-HBase实现原理"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 HBase实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-HBase的功能组件"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 HBase的功能组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-表和Region"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.3.2 表和Region</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-Region的定位"><span class="nav-number">3.3.3.</span> <span class="nav-text">2.3.3 Region的定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-HBase运行机制"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 HBase运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-1-HBase系统架构"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 HBase系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-客户端"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">1. 客户端</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-Zookeeper服务器"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">2. Zookeeper服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-Master"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">3. Master</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-Region服务器"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">4. Region服务器</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-2-Region服务器的工作原理"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 Region服务器的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-用户读写数据的过程"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">1. 用户读写数据的过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-缓存的刷新"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">2.缓存的刷新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-StoreFile的合并"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">3. StoreFile的合并</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-3-Store工作原理"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3  Store工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-4-HLog工作原理"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4  HLog工作原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-HBase实践"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 HBase实践</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式文件系统hdfs"><span class="nav-number">2.</span> <span class="nav-text">1. 分布式文件系统HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式文件系统"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 分布式文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#计算机集群结构"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 计算机集群结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分布式文件系统的结构"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 分布式文件系统的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分布式文件系统设计需求"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.1.3 分布式文件系统设计需求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs-简介"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 HDFS 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs相关概念"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 HDFS相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#块"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.3.1 块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#名称节点和数据节点"><span class="nav-number">2.3.2.</span> <span class="nav-text">1.3.2 名称节点和数据节点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#名称节点"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">1.3.2.1 名称节点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据节点"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">1.3.2.2 数据节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二名称节点"><span class="nav-number">2.3.3.</span> <span class="nav-text">1.3.3 第二名称节点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs体系结构"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 HDFS体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概述"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.4.1 概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hdfs命名空间管理"><span class="nav-number">2.4.2.</span> <span class="nav-text">1.4.2 HDFS命名空间管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通信协议"><span class="nav-number">2.4.3.</span> <span class="nav-text">1.4.3 通信协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端"><span class="nav-number">2.4.4.</span> <span class="nav-text">1.4.4 客户端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hdfs体系结构的局限性"><span class="nav-number">2.4.5.</span> <span class="nav-text">1.4.5 HDFS体系结构的局限性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs存储原理"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 HDFS存储原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据的冗余存储"><span class="nav-number">2.5.1.</span> <span class="nav-text">1.5.1 数据的冗余存储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据存取策略"><span class="nav-number">2.5.2.</span> <span class="nav-text">1.5.2 数据存取策略</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#数据存放"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">1.5.2.1 数据存放</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据读取"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">1.5.2.2 数据读取</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据复制"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">1.5.2.3 数据复制</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据错误与恢复"><span class="nav-number">2.5.3.</span> <span class="nav-text">1.5.3 数据错误与恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#名称节点出错"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">1.5.3.1.名称节点出错</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据节点出错"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">1.5.3.2 数据节点出错</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据出错"><span class="nav-number">2.5.3.3.</span> <span class="nav-text">1.5.3.3 数据出错</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs的数据读写过程"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 HDFS的数据读写过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#读数据"><span class="nav-number">2.6.1.</span> <span class="nav-text">1.6.1 读数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#写数据"><span class="nav-number">2.6.2.</span> <span class="nav-text">1.6.2 写数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hdfs实践"><span class="nav-number">2.7.</span> <span class="nav-text">1.7 HDFS实践</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hdfs常用命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">1.7.1 HDFS常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#文件夹目录操作"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">1.7.1.1 文件夹目录操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#文件操作"><span class="nav-number">2.7.1.2.</span> <span class="nav-text">1.7.1.2 文件操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#本地与集群的操作"><span class="nav-number">2.7.1.3.</span> <span class="nav-text">1.7.1.3 本地与集群的操作</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hdfs-web界面"><span class="nav-number">2.7.2.</span> <span class="nav-text">1.7.2 HDFS Web界面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式数据库hbase"><span class="nav-number">3.</span> <span class="nav-text">2. 分布式数据库HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述-1"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hbase-数据模型"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 HBase 数据模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据模型概述"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 数据模型概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据模型相关概念"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 数据模型相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#表"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">1.表</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#行"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2. 行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#列族"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">3. 列族</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#列限定符"><span class="nav-number">3.2.2.4.</span> <span class="nav-text">4. 列限定符</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#单元格"><span class="nav-number">3.2.2.5.</span> <span class="nav-text">5.单元格</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#时间戳"><span class="nav-number">3.2.2.6.</span> <span class="nav-text">6. 时间戳</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据坐标"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 数据坐标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#概念视图"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 概念视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#物理视图"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 物理视图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#面向列的存储"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 面向列的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#行式数据库"><span class="nav-number">3.2.6.1.</span> <span class="nav-text">1. 行式数据库</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#列式数据库"><span class="nav-number">3.2.6.2.</span> <span class="nav-text">2. 列式数据库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hbase实现原理"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 HBase实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hbase的功能组件"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 HBase的功能组件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表和region"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.3.2 表和Region</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#region的定位"><span class="nav-number">3.3.3.</span> <span class="nav-text">2.3.3 Region的定位</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hbase运行机制"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 HBase运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#hbase系统架构"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 HBase系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#客户端-1"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">1. 客户端</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#zookeeper服务器"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">2. Zookeeper服务器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#master"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">3. Master</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#region服务器"><span class="nav-number">3.4.1.4.</span> <span class="nav-text">4. Region服务器</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#region服务器的工作原理"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 Region服务器的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#用户读写数据的过程"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">1. 用户读写数据的过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缓存的刷新"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">2.缓存的刷新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#storefile的合并"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">3. StoreFile的合并</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#store工作原理"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 Store工作原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hlog工作原理"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 HLog工作原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hbase实践"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 HBase实践</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -787,7 +877,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -800,7 +890,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -848,13 +938,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

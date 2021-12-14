@@ -224,6 +224,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/23/Data_structure_and_algorithm_union-find.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="wuyunjie">
+      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WuYJ's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/23/Data_structure_and_algorithm_union-find.html" class="post-title-link" itemprop="url">[数据结构和算法|并查集]</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-23 15:05:20" itemprop="dateCreated datePublished" datetime="2021-07-23T15:05:20+08:00">2021-07-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构和算法</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/23/Data_structure_and_algorithm_union-find.html" class="post-meta-item leancloud_visitors" data-flag-title="[数据结构和算法|并查集]" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/23/Data_structure_and_algorithm_union-find.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/23/Data_structure_and_algorithm_union-find.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="并查集介绍">1. 并查集介绍</h3>
+<p>并查集（UnionFindSet）主要用于解决动态连通性问题，判断一个图中两个点是否连同。开始时让每个元素构成一个单元素的集合，然后按一定顺序将属于同一组的元素所在的集合合并，其间反复查找一个元素在哪个集合中。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/23/Data_structure_and_algorithm_union-find.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/22/Data_structure_and_algorithm_dynamic_programming.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,14 +401,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
+              <span>18k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
+              <span>16 分钟</span>
             </span>
 
         </div>
@@ -308,7 +420,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="1-动态规划概述"><a href="#1-动态规划概述" class="headerlink" title="1. 动态规划概述"></a>1. 动态规划概述</h3><h4 id="1-1-简介"><a href="#1-1-简介" class="headerlink" title="1.1 简介"></a>1.1 简介</h4><p>动态规划（<code>dynamic programming</code>）可以理解为是对递归算法的一种优化，是R.E.Bellman等人在研究多阶段决策过程(<code>multistep decision process</code>)的优化问题时，提出的最优化原理(<code>principle of optimality</code>)，即把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系逐个求解。</p>
+          <h3 id="动态规划概述">1. 动态规划概述</h3>
+<h4 id="简介">1.1 简介</h4>
+<p>动态规划（<code>dynamic programming</code>）可以理解为是对递归算法的一种优化，是R.E.Bellman等人在研究多阶段决策过程(<code>multistep decision process</code>)的优化问题时，提出的最优化原理(<code>principle of optimality</code>)，即把多阶段过程转化为一系列单阶段问题，利用各阶段之间的关系逐个求解。</p>
 <blockquote>
 <p><code>dynamic programming</code>的名字是为了<a href="https://www.zhihu.com/question/39948290/answer/83920614" target="_blank" rel="noopener">规避军方的厌恶</a></p>
 </blockquote>
@@ -403,7 +517,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -422,7 +536,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>并发编程产生的问题和风险可能也会随之而来。<br>
+          <h3 id="前言">前言</h3>
+<p>并发编程产生的问题和风险可能也会随之而来。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/22/JavaLearning_The_art_of_concurrent_programming_in_Java-11-concurrent-programming-practice.html#more" rel="contents">
@@ -514,7 +629,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
+              <span>12k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -533,7 +648,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java的线程既是<strong>工作单元</strong>，也是<strong>执行机制</strong>。<code>JDK 5</code>开始，把<strong>工作单元</strong>与<strong>执行机制</strong>分离开来，<strong>工作单元</strong>包括<code>Runnable</code>和<code>Callable</code>，而执行机制由<code>Executor</code>框架提供。<br>
+          <h3 id="前言">前言</h3>
+<p>Java的线程既是<strong>工作单元</strong>，也是<strong>执行机制</strong>。<code>JDK 5</code>开始，把<strong>工作单元</strong>与<strong>执行机制</strong>分离开来，<strong>工作单元</strong>包括<code>Runnable</code>和<code>Callable</code>，而执行机制由<code>Executor</code>框架提供。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/22/JavaLearning_The_art_of_concurrent_programming_in_Java-10-Executor-framework.html#more" rel="contents">
@@ -644,7 +760,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。<br>
+          <h3 id="前言">前言</h3>
+<p>Java中的线程池是运用场景最多的并发框架，几乎所有需要异步或并发执行任务的程序都可以使用线程池。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-9-Java-thread-pool.html#more" rel="contents">
@@ -755,8 +872,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>CountDownLatch</code>、<code>CyclicBarrier</code>和<code>Semaphore</code>工具类提供了一种<strong><u>并发流程控制</u></strong>的手段，<code>Exchanger</code>工具类则提供了在<strong><u>线程间交换数据</u></strong>的一种手段。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>CountDownLatch</code>、<code>CyclicBarrier</code>和<code>Semaphore</code>工具类提供了一种<strong><u>并发流程控制</u></strong>的手段，<code>Exchanger</code>工具类则提供了在<strong><u>线程间交换数据</u></strong>的一种手段。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-8-Java-concurrent-tools.html#more" rel="contents">
@@ -867,8 +985,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>java.util.concurrent.atomic</code>包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。<code>Atomic</code>包里的类基本都是<u>使用<code>Unsafe</code>实现的包装类</u>。<br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>java.util.concurrent.atomic</code>包中的原子操作类提供了一种用法简单、性能高效、线程安全地更新一个变量的方式。<code>Atomic</code>包里的类基本都是<u>使用<code>Unsafe</code>实现的包装类</u>。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/21/JavaLearning_The_art_of_concurrent_programming_in_Java-7-Java-atomic-class.html#more" rel="contents">
@@ -979,8 +1098,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>并发编程大师Doug Lea不遗余力地为Java开发者提供了非常多的并发容器和框架</code><br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>并发编程大师Doug Lea不遗余力地为Java开发者提供了非常多的并发容器和框架</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/20/JavaLearning_The_art_of_concurrent_programming_in_Java-6-Java-concurrent-container-and-framework.html#more" rel="contents">
@@ -1091,8 +1211,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>锁是用来控制多个线程访问共享资源的方式，一般来说，一个锁能够防止多个线程同时访问共享资源。</code><br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>锁是用来控制多个线程访问共享资源的方式，一般来说，一个锁能够防止多个线程同时访问共享资源。</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/19/JavaLearning_The_art_of_concurrent_programming_in_Java-5-Java-lock.html#more" rel="contents">
@@ -1203,123 +1324,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>线程作为操作系统调度的最小单元，多个线程能够同时执行，这将显著提升程序性能，在多核环境中表现得更加明显。</code><br>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><code>线程作为操作系统调度的最小单元，多个线程能够同时执行，这将显著提升程序性能，在多核环境中表现得更加明显。</code>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/07/18/JavaLearning_The_art_of_concurrent_programming_in_Java-4-Java-concurrent-programming-basics.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wuyunjie.top/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/header.jpg">
-      <meta itemprop="name" content="wuyunjie">
-      <meta itemprop="description" content="这是一个为了有博客而存在的博客。 会在这里记录技术学习，读书感悟，生活日记等等。欢迎呀！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WuYJ's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" class="post-title-link" itemprop="url">[Java学习|Java并发编程的艺术]--3 Java内存模型</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-17 16:14:02" itemprop="dateCreated datePublished" datetime="2021-07-17T16:14:02+08:00">2021-07-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">Java并发编程</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" class="post-meta-item leancloud_visitors" data-flag-title="[Java学习|Java并发编程的艺术]--3 Java内存模型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><code>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰Java程序员</code><br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/07/17/JavaLearning_The_art_of_concurrent_programming_in_Java-3-Java-memory-model.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1389,7 +1399,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1402,7 +1412,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1450,13 +1460,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

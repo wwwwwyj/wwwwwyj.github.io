@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="简介Spark最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， Spark提供了内存计算，减少了迭代计算时的IO开销；而为了使编写程序更为容易， Spark使用简练、优雅的Scala语言编写，基于Scala提供了交互式的编程体验。">
+  <meta name="description" content="简介 Spark最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， Spark提供了内存计算，减少了迭代计算时的IO开销；而为了使编写程序更为容易， Spark使用简练、优雅的Scala语言编写，基于Scala提供了交互式的编程体验。">
 <meta name="keywords" content="大数据,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[大数据技术原理|第三篇 大数据处理与分析(2)]">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;08&#x2F;04&#x2F;Big_Data_3_process-and-analyze-2.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="简介Spark最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， Spark提供了内存计算，减少了迭代计算时的IO开销；而为了使编写程序更为容易， Spark使用简练、优雅的Scala语言编写，基于Scala提供了交互式的编程体验。">
+<meta property="og:description" content="简介 Spark最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， Spark提供了内存计算，减少了迭代计算时的IO开销；而为了使编写程序更为容易， Spark使用简练、优雅的Scala语言编写，基于Scala提供了交互式的编程体验。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;BDAS.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;bigData&#x2F;chapter3&#x2F;Spark.png">
@@ -316,22 +316,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><code>Spark</code>最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， <code>Spark</code>提供了内存计算，减少了迭代计算时的<code>IO开销</code>；而为了使编写程序更为容易， <code>Spark</code>使用简练、优雅的<code>Scala</code>语言编写，基于<code>Scala</code>提供了交互式的编程体验。</p>
+        <h3 id="简介">简介</h3>
+<p><code>Spark</code>最初的设计目标是使数据分析更快——不仅运行速度快，也要能快速、容易地编写程序。为了使程序运行更快， <code>Spark</code>提供了内存计算，减少了迭代计算时的<code>IO开销</code>；而为了使编写程序更为容易， <code>Spark</code>使用简练、优雅的<code>Scala</code>语言编写，基于<code>Scala</code>提供了交互式的编程体验。</p>
 <a id="more"></a>
-<h3 id="1-Spark概述"><a href="#1-Spark概述" class="headerlink" title="1. Spark概述"></a>1. Spark概述</h3><h4 id="1-1-Spark简介"><a href="#1-1-Spark简介" class="headerlink" title="1.1 Spark简介"></a>1.1 Spark简介</h4><p><code>Spark</code>具有如下4个主要特点：</p>
-<ol>
+<h3 id="spark概述">1. Spark概述</h3>
+<h4 id="spark简介">1.1 Spark简介</h4>
+<p><code>Spark</code>具有如下4个主要特点：</p>
+<ol type="1">
 <li><strong>运行速度快</strong>。<code>Spark</code>使用先进的<code>DAG（ Directed Acyclic Graph，有向无环图）</code>执行引擎，以支持循环数据流与内存计算，基于内存的执行速度可比 Hadoop MapReduce快上百倍。</li>
 <li><strong>容易使用</strong>。<code>Spark</code>支持使用<code>Scala、Java、Python</code>和<code>R</code>语言进行编程，简洁的API设计有助于用户轻松构建并行程序，并且可以通过<code>Spark Shell</code>进行交互式编程。</li>
 <li><strong>通用性</strong>。<code>Spark</code>提供了完整而强大的技术栈，包括<strong>SQL查询、流式计算、机器学习和图算法</strong>组件，这些组件可以无缝整合在同一个应用中，足以应对复杂的计算。</li>
 <li><strong>运行模式多样</strong>。 <code>Spark</code>可运行于独立的集群模式中，或者运行于<code>Hadoop</code>中，也可运行于<code>Amazon EC2</code>等云环境中，并且可以访问<code>HDFS</code>、<code>Cassandra</code>、<code>HBase</code>、<code>Hive</code>等多种数据源。</li>
 </ol>
-<h4 id="1-2-Scala简介"><a href="#1-2-Scala简介" class="headerlink" title="1.2 Scala简介"></a>1.2 Scala简介</h4><p><code>Scala</code>是一门现代的多范式编程语言，平滑地集成了面向对象和函数式语言的特性，旨在以简练、优雅的方式来表达常用编程模式。<code>Scala</code>语言的名称来自于<code>“可扩展的语言（ A Scalable Language）&quot;</code>，从写个小脚本到建立个大系统的编程任务均可胜任。<code>Scala</code>运行于<code>JVM</code>上，兼容现有的<code>Java</code>程序。总体而言，<code>Scala</code>具有以下突出的优点。</p>
+<h4 id="scala简介">1.2 Scala简介</h4>
+<p><code>Scala</code>是一门现代的多范式编程语言，平滑地集成了面向对象和函数式语言的特性，旨在以简练、优雅的方式来表达常用编程模式。<code>Scala</code>语言的名称来自于<code>“可扩展的语言（ A Scalable Language）"</code>，从写个小脚本到建立个大系统的编程任务均可胜任。<code>Scala</code>运行于<code>JVM</code>上，兼容现有的<code>Java</code>程序。总体而言，<code>Scala</code>具有以下突出的优点。</p>
 <ul>
 <li><code>Scala</code>具备强大的并发性，支持函数式编程，可以更好地支持分布式系统。</li>
 <li><code>Scala</code>语法简洁，能提供优雅的API。</li>
 <li><code>Scala</code>兼容<code>Java</code>，运行速度快，且能融合到 Hadoop生态圈中。</li>
 </ul>
-<h4 id="1-3-Spark与Hadoop的对比"><a href="#1-3-Spark与Hadoop的对比" class="headerlink" title="1.3 Spark与Hadoop的对比"></a>1.3 <code>Spark</code>与<code>Hadoop</code>的对比</h4><p><code>Hadoop</code>最主要的缺陷是其MapReduce计算模型延迟过高，无法胜任实吋、快速计算的需求，因而只适用于离线批处理的应用场景。<code>Hadoop</code>主要存在以下缺点：</p>
+<h4 id="spark与hadoop的对比">1.3 <code>Spark</code>与<code>Hadoop</code>的对比</h4>
+<p><code>Hadoop</code>最主要的缺陷是其MapReduce计算模型延迟过高，无法胜任实吋、快速计算的需求，因而只适用于离线批处理的应用场景。<code>Hadoop</code>主要存在以下缺点：</p>
 <ul>
 <li><strong>表达能力有限</strong>。计算都必须要转化成<code>Map</code>和<code>Reduce</code>两个操作，难以描述复杂的数据处理过程。</li>
 <li><strong>磁盘IO开销大</strong>。每次执行时都需要从磁盘读取数据，并且在计算完成后需要将中间结果写入到磁盘中。</li>
@@ -345,18 +350,23 @@
 </ul>
 <p><code>Spark</code>最大的特点就是<strong><u>将计算数据、中间结果都存储在内存中，大大减少了IO开销</u></strong>，因而<code>Spark</code>更适合于<strong><u>迭代运算比较多的数据挖掘与机器学习运算</u></strong>。</p>
 <p><code>Spark</code>并不能完全替代<code>Hadoop</code>，主要用于替代<code>Hadoop</code>中的<code>MapReduce</code>计算模型，它可以借助于<code>YARN</code>实现资源调度管理，借助于<code>HDFS</code>实现分布式存储。<code>Spak</code>对硬件的要求稍高，对内存喝CPU有一定要求。</p>
-<h3 id="2-Spark生态系统"><a href="#2-Spark生态系统" class="headerlink" title="2. Spark生态系统"></a>2. Spark生态系统</h3><p><code>Spark</code>的设计遵循<code>“一个软件栈满足不同应用场景”</code>的理念，逐渐形成了一套完整的生态系统，既能够提供内存计算框架，也可以支持<code>SQL</code>即席査询、实时流式计算、机器学习和图计算等。<code>Spark</code>可以部署在资源管理器<code>YARN</code>之上，提供一站式的大数据解决方案。</p>
+<h3 id="spark生态系统">2. Spark生态系统</h3>
+<p><code>Spark</code>的设计遵循<code>“一个软件栈满足不同应用场景”</code>的理念，逐渐形成了一套完整的生态系统，既能够提供内存计算框架，也可以支持<code>SQL</code>即席査询、实时流式计算、机器学习和图计算等。<code>Spark</code>可以部署在资源管理器<code>YARN</code>之上，提供一站式的大数据解决方案。</p>
 <p><code>Spark</code>生态系统已经成为<strong>伯克利数据分析软件栈</strong><code>BDAS（Berkeley Data Analytics Stack）</code>。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/BDAS.png" alt="伯克利数据分析软件栈BDAS"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/BDAS.png" alt="伯克利数据分析软件栈BDAS" /><figcaption aria-hidden="true">伯克利数据分析软件栈BDAS</figcaption>
+</figure>
 <p><code>Spak</code>生态系统主要包含了<code>Spark Core</code>、<code>Spark SQL</code>、<code>Spark Streaming</code>、<code>MLlib</code>和<code>GraphX</code>等组件，各个组件的具体功能如下。</p>
-<ol>
+<ol type="1">
 <li><strong>Spark Core</strong>。Spark Core包含<code>Spark</code>的基本功能，如内存计算、任务调度、部署模式、故障恢复、存储管理等，主要面向批数据处理。<code>Spark</code>建立在统一的抽象<code>RDD</code>之上，使其可以<strong><u>以基本一致的方式应对不同的大数据处理场景</u></strong>。</li>
 <li><strong>Spark SQL</strong>。Spark SQL允许开发人员直接处理<code>RDD</code>，同时也可查询Hive、HBase等外部数据源。Spark SQL的一个重要特点是其<strong><u>能够统一处理关系表和<code>RDD</code></u></strong>，开发人员可以轻松地使用SQL命令进行查询，进行更复杂的数据分析。</li>
 <li><strong>Spark Streaming</strong>。Spark Streaming支持高吞吐量、可容错处理的实时流数据处理，其核心思路是<strong><u>将流数据分解成一系列短小的批处理作业</u></strong>，每个短小的批处理作业都可以使用Spark Core进行快速处理。Spark Streaming支持多种数据输入源，如 <code>Kafka</code>、<code>Flume</code>和<code>TCP</code>套接字等。</li>
 <li><strong>MLlib（机器学习）</strong>。<code>MLlib</code>提供了常用机器学习算法的实现，包括聚类、分类、回归、协同过滤等。</li>
 <li><code>GraphX（图计算）</code>。GraphX是<code>Spark</code>中用于图计算的API，可认为是<code>Pregel</code>在<code>Spark</code>上的重写及优化，<code>GraphX</code>性能良好，拥有丰富的功能和运算符，能在海量数据上自如地运行复杂的图算法。</li>
 </ol>
-<h3 id="3-Spark-运行架构"><a href="#3-Spark-运行架构" class="headerlink" title="3. Spark 运行架构"></a>3. Spark 运行架构</h3><h4 id="3-1-基本概念"><a href="#3-1-基本概念" class="headerlink" title="3.1 基本概念"></a>3.1 基本概念</h4><ul>
+<h3 id="spark-运行架构">3. Spark 运行架构</h3>
+<h4 id="基本概念">3.1 基本概念</h4>
+<ul>
 <li><code>RDD</code>：即<code>弹性分布式数据集（ Resilient Distributed dataset）</code>，是分布式内存的一个抽象概念，提供了一种高度受限的<strong>共享内存模型</strong>；</li>
 <li><code>DAG</code>：即<code>Directed Acyclic Graph（有向无环图）</code>，反映<code>RDD</code>之间的依赖关系</li>
 <li><code>Executor</code>：运行在工作节点（Worker Node）上的一个进程，负责运行任务，并为应用程序存储数据。</li>
@@ -365,10 +375,18 @@
 <li><code>Task</code>：运行在<code>Executor</code>上的工作单元。</li>
 <li><code>Job</code>：一个作业包含多个<code>RDD</code>及作用于相应<code>RDD</code>上的各种操作。</li>
 <li><code>Stage</code>：是作业的基本调度单位，一个作业会分为多组任务，每组任务被称为“阶段”，或者也被称为“任务集”。</li>
-<li><code>CluterManager</code>：指集群上获取资源的外部服务。目前有三种类型<br>1) <code>Standalon</code> ：<code>Spark</code>原生的资源管理，由<code>Master</code>负责资源的分配<br>2) <code>Apache Mesos</code>：与<code>Hadoop MR</code>兼容性良好的一种资源调度框架<br>3) <code>Hadoop Yarn</code>：主要是指<code>Yarn</code>中的<code>ResourceManager</code></li>
+<li><code>CluterManager</code>：指集群上获取资源的外部服务。目前有三种类型
+<ol type="1">
+<li><code>Standalon</code> ：<code>Spark</code>原生的资源管理，由<code>Master</code>负责资源的分配</li>
+<li><code>Apache Mesos</code>：与<code>Hadoop MR</code>兼容性良好的一种资源调度框架</li>
+<li><code>Hadoop Yarn</code>：主要是指<code>Yarn</code>中的<code>ResourceManager</code></li>
+</ol></li>
 </ul>
-<h4 id="3-2-架构设计"><a href="#3-2-架构设计" class="headerlink" title="3.2 架构设计"></a>3.2 架构设计</h4><p>Spark运行架构，包括<code>集群资源管理器（Cluster Manager）</code>，运行作业任务的<code>工作节点（Worker Node）</code>、每个应用的<code>任务控制节点（Driver）</code>和每个工作节点上负责具体任务的<code>执行进程（Executor）</code>。集群资源管理器可以是<code>Spak</code>自带的资源管理器，也可以是<code>YARN</code>或<code>Mesos</code>等资源管理框架。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/Spark.png" alt="Spark运行架构"></p>
+<h4 id="架构设计">3.2 架构设计</h4>
+<p>Spark运行架构，包括<code>集群资源管理器（Cluster Manager）</code>，运行作业任务的<code>工作节点（Worker Node）</code>、每个应用的<code>任务控制节点（Driver）</code>和每个工作节点上负责具体任务的<code>执行进程（Executor）</code>。集群资源管理器可以是<code>Spak</code>自带的资源管理器，也可以是<code>YARN</code>或<code>Mesos</code>等资源管理框架。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/Spark.png" alt="Spark运行架构" /><figcaption aria-hidden="true">Spark运行架构</figcaption>
+</figure>
 <p><code>Spark</code>所采用的<code>Executor</code>有两个优点：</p>
 <ul>
 <li>利用多线程来执行具体的任务（Hadoop MapReduce采用的是进程模型），减少任务的启动开销；</li>
@@ -381,8 +399,9 @@
 <li>一个阶段由多个<code>任务（Task）</code>组成。</li>
 </ul>
 <p>当执行一个应用时，任务控制节点会向集群管理器（Cluster Manager）申请资源，启动 Executor，并向Executor发送应用程序代码和文件，然后在Executor上执行任务，运行结束后执行结果会返回给任务控制节点，或者写到HDFS或者其他数据库中。</p>
-<h4 id="3-3-Spark运行基本流程"><a href="#3-3-Spark运行基本流程" class="headerlink" title="3.3 Spark运行基本流程"></a>3.3 Spark运行基本流程</h4><p><code>Spark</code>运行基本流程如下：</p>
-<ol>
+<h4 id="spark运行基本流程">3.3 Spark运行基本流程</h4>
+<p><code>Spark</code>运行基本流程如下：</p>
+<ol type="1">
 <li>当一个<code>Spak</code>应用被提交时，首先为这个应用构建<strong><u>基本运行环境</u></strong>，即由<code>任务控制节点（Driver）</code>创建一个<code>Spark Context</code>，由<code>Spark Context</code>负责和Cluster Manager的通信以及进行资源的申请、任务的分配和监控等。<code>Spark Context</code>会向资源管理器注册并申请运行Executor的资源。</li>
 <li>资源管理器为Executor分配资源，并启动Executor进程，Executor运行情况将随着“心跳”发送到资源管理器上。</li>
 <li><code>Spark Context</code>根据<code>RDD</code>的依赖关系构建<code>DAG</code>图，<code>DAG</code>图提交给<code>DAG调度器（DAG Scheduler）</code>进行解析，将DAG图分解成多个“阶段”，并且计算出各个阶段之间的依赖关系，然后把“任务集”提交给底层的<code>任务调度器（Task Scheduler）</code>进行处理；<code>Executor</code>向<code>Spark Context</code>申请任务，任务调度器将任务分发给<code>Executor</code>运行，同时<code>Spark Context</code>将应用程序代码发放给<code>Executor</code>；</li>
@@ -395,13 +414,15 @@
 <li><code>Executor</code>上有一个<code>BlockManager</code>存储模块，会将内存和磁盘共同作为存储设备，提高读写IO性能。</li>
 <li>任务采用了<strong>数据本地性</strong>和<strong>推测执行</strong>等优化机制。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkWork.png" alt="Spark运行基本流程"></p>
-<h4 id="3-4-RDD的设计与运行原理"><a href="#3-4-RDD的设计与运行原理" class="headerlink" title="3.4 RDD的设计与运行原理"></a>3.4 RDD的设计与运行原理</h4><h5 id="3-4-1-RDD的概念"><a href="#3-4-1-RDD的概念" class="headerlink" title="3.4.1 RDD的概念"></a>3.4.1 RDD的概念</h5><p>一个<code>RDD</code>就是一个分布式对象集合，本质上是一个<strong><u>只读的分区记录集合</u></strong>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkWork.png" alt="Spark运行基本流程" /><figcaption aria-hidden="true">Spark运行基本流程</figcaption>
+</figure>
+<h4 id="rdd的设计与运行原理">3.4 RDD的设计与运行原理</h4>
+<h5 id="rdd的概念">3.4.1 RDD的概念</h5>
+<p>一个<code>RDD</code>就是一个分布式对象集合，本质上是一个<strong><u>只读的分区记录集合</u></strong>。</p>
 <ul>
-<li><p>每个<code>RDD</code>可分成多个分区，每个分区就是一个<strong><u>数据集片段</u></strong>，并且一个<code>RDD</code>的不同分区可以被保存到集群中不同的节点上，从而<u><strong>可以在集群的不同节点上进行并行计算</strong></u>。</p>
-</li>
-<li><p><code>RDD</code>提供了一种高度受限的共享内存模型，即<code>RDD</code>是<strong><u>只读的记录分区的集合，不能直接修改</u></strong>。只能基于稳定的物理存储中的数据集创建<code>RDD</code>，或者通过在其他<code>RDD</code>上执行确定的转换操作（如<code>map</code>，<code>join</code>和<code>groupBy</code>）而创建得到新的<code>RDD</code>。</p>
-</li>
+<li><p>每个<code>RDD</code>可分成多个分区，每个分区就是一个<strong><u>数据集片段</u></strong>，并且一个<code>RDD</code>的不同分区可以被保存到集群中不同的节点上，从而<u><strong>可以在集群的不同节点上进行并行计算</strong></u>。</p></li>
+<li><p><code>RDD</code>提供了一种高度受限的共享内存模型，即<code>RDD</code>是<strong><u>只读的记录分区的集合，不能直接修改</u></strong>。只能基于稳定的物理存储中的数据集创建<code>RDD</code>，或者通过在其他<code>RDD</code>上执行确定的转换操作（如<code>map</code>，<code>join</code>和<code>groupBy</code>）而创建得到新的<code>RDD</code>。</p></li>
 </ul>
 <p><code>RDD</code>提供了一组丰富的操作以支持常见的数据运算</p>
 <ul>
@@ -409,7 +430,7 @@
 <li><code>转换”（Transformation）</code>。指定<code>RDD</code>之间的相互依赖关系，转换操作（如<code>map</code>、<code>filter</code>、<code>groupBy</code>、<code>join</code>等）<strong><u>接受<code>RDD</code>并返回<code>RDD</code></u></strong>。</li>
 </ul>
 <p><code>RDD</code>执行过程：</p>
-<ol>
+<ol type="1">
 <li><code>RDD</code>读入外部数据源进行创建；</li>
 <li><code>RDD</code>经过一系列的<code>转换（Transformation）</code>操作，每一次都会产生不同的<code>RDD</code>供下一个转换操作使用；</li>
 <li>最后一个<code>RDD</code>经过<code>“动作”</code>操作进行处理，并输出到外部数据源。</li>
@@ -417,21 +438,25 @@
 <p><code>RDD</code>使用<strong>惰性调用</strong>：</p>
 <ul>
 <li>即在<code>RDD</code>的执行过程中，真正的计算发生在<code>RDD</code>的<code>“行动”</code>操作，对于<code>“行动”</code>之前的所有<code>“转换”</code>操作，<code>Spark</code>只记录<code>“转换”</code>操作应用的基础数据集以及<code>RDD</code>生成的轨迹，而不会触发真正的计算。</li>
-<li><code>RDD</code>生成的轨迹称为一个<code>“血缘关系(Lineage)&quot;</code>，即<code>DAG</code>拓扑排序的结果。</li>
+<li><code>RDD</code>生成的轨迹称为一个<code>“血缘关系(Lineage)"</code>，即<code>DAG</code>拓扑排序的结果。</li>
 <li>采用惰性调用，通过血缘关系连接起来的一系列<code>RDD</code>操作就可以实现<code>管道化（Pipeline）</code>，<strong><u>避免了多次转换操作之间数据同步的等待，而且不必担心有过多的中间数据</u></strong>。</li>
 </ul>
-<h5 id="3-4-2-RDD特性"><a href="#3-4-2-RDD特性" class="headerlink" title="3.4.2 RDD特性"></a>3.4.2 RDD特性</h5><p><code>Spark</code>采用<code>RDD</code>以后能够实现高效计算的主要原因是：</p>
+<h5 id="rdd特性">3.4.2 RDD特性</h5>
+<p><code>Spark</code>采用<code>RDD</code>以后能够实现高效计算的主要原因是：</p>
 <ul>
 <li><strong>高效的容错性</strong>。<code>RDD</code>是一种天生具有容错机制的特殊集合，只需通过<code>RDD</code>父子依赖（血缘）关系重新计算得到丢失的分区来实现容错，无需回滚整个系统，避免了数据复制的高开销。重算过程可以在不同节点之间并行进行，实现了高效的容错。</li>
 <li><strong>中间结果持久化到内存</strong>。数据在内存中的多个<code>RDD</code>操作之间进行传递，避免了不必要的IO开销。</li>
 <li>存放的数据可以是<code>Java对象</code>，避免了不必要的对象序列化和反序列化开销。</li>
 </ul>
-<h5 id="3-4-3-RDD之间的依赖关系"><a href="#3-4-3-RDD之间的依赖关系" class="headerlink" title="3.4.3 RDD之间的依赖关系"></a>3.4.3 RDD之间的依赖关系</h5><p><code>RDD</code>中不同的操作会使得不同<code>RDD</code>中的分区产生不同的依赖。<code>RDD</code>中的依赖关系分为<code>窄依赖（Narrow Dependency）</code>与<code>宽依赖（Wide Dependency）</code>。</p>
+<h5 id="rdd之间的依赖关系">3.4.3 RDD之间的依赖关系</h5>
+<p><code>RDD</code>中不同的操作会使得不同<code>RDD</code>中的分区产生不同的依赖。<code>RDD</code>中的依赖关系分为<code>窄依赖（Narrow Dependency）</code>与<code>宽依赖（Wide Dependency）</code>。</p>
 <ul>
 <li>窄依赖表现为一个或多个父<code>RDD</code>的分区对应于一个子<code>RDD</code>的分区。</li>
 <li>宽依赖表现为存在一个父<code>RDD</code>的一个分区对应一个子<code>RDD</code>的多个分区。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkDependency.png" alt="窄依赖与宽依赖"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkDependency.png" alt="窄依赖与宽依赖" /><figcaption aria-hidden="true">窄依赖与宽依赖</figcaption>
+</figure>
 <p>如果<code>父RDD</code>的一个分区只被一个<code>子RDD</code>的一个分区所使用就是窄依赖，否则就是宽依赖。窄依赖典型的操作包括<code>map</code>、 <code>filter</code>、<code>union</code>等，宽依赖典型的操作包括 <code>groupByKey</code>、<code>sortByKey</code>等。</p>
 <ul>
 <li>对于窄依赖的RDD，可以以流水线的方式计算所有父分区，不会造成网络之间的数据混合。</li>
@@ -439,24 +464,30 @@
 </ul>
 <p>相对而言，在两种依赖关系中，窄依赖的失败恢复更为高效，它只需要根据父RDD分区重新计算丢失的分区即可<strong>（不需要重新计算所有分区）</strong>，而且可以并行地在不同节点上进行重新计算。而对于宽依赖而言，单个节点失效通常意味着重新计算过程会涉及多个父RDD分区，开销较大。</p>
 <p>在进行故障恢复时，<code>Spark</code>会对数据检查点开销和重新计算<code>RDD</code>分区的开销进行比较，从而自动选择最优的恢复策略。</p>
-<h5 id="3-4-4-阶段的划分"><a href="#3-4-4-阶段的划分" class="headerlink" title="3.4.4 阶段的划分"></a>3.4.4 阶段的划分</h5><p><code>Spark</code>通过分析各个RDD的依赖关系生成了<code>DAG</code>，再<strong><u>通过分析各个RDD中的分区之间的依赖关系来决定如何划分阶段</u></strong>，具体划分方法是：</p>
+<h5 id="阶段的划分">3.4.4 阶段的划分</h5>
+<p><code>Spark</code>通过分析各个RDD的依赖关系生成了<code>DAG</code>，再<strong><u>通过分析各个RDD中的分区之间的依赖关系来决定如何划分阶段</u></strong>，具体划分方法是：</p>
 <ul>
 <li>在<code>DAG</code>中进行反向解析，<strong><u>遇到宽依赖就断开，遇到窄依赖就把当前的<code>RDD</code>加入到当前的阶段中</u></strong>；</li>
 <li>将窄依赖尽量划分在同一个阶段中可以实现流水线计算。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkStage.png" alt="阶段的划分"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkStage.png" alt="阶段的划分" /><figcaption aria-hidden="true">阶段的划分</figcaption>
+</figure>
 <p>这样划分的主要原因是：由于<code>shuffle</code>依赖必须等<code>RDD</code>的<code>父RDD</code>分区数据<strong><u>全部可读之后</u></strong>才能开始计算，因此<code>Spark</code>的设计是<strong><u>让父RDD将结果写在本地，完全写完之后，通知后面的RDD</u></strong>。后面的RDD则首先去读之前RDD的本地数据作为输入，然后进行运算。</p>
 <ul>
 <li>写入本地的原因是，后面的RDD多个分区都要去读这个信息，如果放到内存，假如出现数据丢失，后面所有的步骤全部不能进行，违背需要父RDD分区数据全部ready的原则。</li>
 </ul>
 <p>把一个DAG图划分成多个阶段以后，每个阶段都代表了一组<strong><u>关联的、相互之间没有<code>Shuffle</code>依赖关系的任务</u></strong>组成的任务集合。每个任务集合会被提交给任务调度器进行处理，由任务调度器将任务分发给Executor运行。</p>
-<h5 id="3-4-5-RDD运行过程"><a href="#3-4-5-RDD运行过程" class="headerlink" title="3.4.5 RDD运行过程"></a>3.4.5 RDD运行过程</h5><ul>
+<h5 id="rdd运行过程">3.4.5 RDD运行过程</h5>
+<ul>
 <li>创建RDD对象；</li>
 <li><code>Spark Context</code>负责计算RDD之间的依赖关系，构建<code>DAG</code>；</li>
 <li><code>DAGScheduler</code>负责把<code>DAG</code>图分解成多个阶段，每个阶段中包含了多个任务；</li>
 <li>每个任务会被任务调度器分发给各个工作节点（ Worker Node）上的 Executor去执行。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkRunProcess.png" alt="RDD运行过程"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/bigData/chapter3/SparkRunProcess.png" alt="RDD运行过程" /><figcaption aria-hidden="true">RDD运行过程</figcaption>
+</figure>
 
     </div>
 
@@ -482,6 +513,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2021/08/05/JavaLearning_Regular-Expression.html" rel="prev" title="[Java|正则表达式]">
+                  [Java|正则表达式] <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -521,7 +555,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spark概述"><span class="nav-number">2.</span> <span class="nav-text">1. Spark概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Spark简介"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Spark简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-Scala简介"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Scala简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-Spark与Hadoop的对比"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 Spark与Hadoop的对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Spark生态系统"><span class="nav-number">3.</span> <span class="nav-text">2. Spark生态系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Spark-运行架构"><span class="nav-number">4.</span> <span class="nav-text">3. Spark 运行架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-基本概念"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-架构设计"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 架构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Spark运行基本流程"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 Spark运行基本流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-RDD的设计与运行原理"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 RDD的设计与运行原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-1-RDD的概念"><span class="nav-number">4.4.1.</span> <span class="nav-text">3.4.1 RDD的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-2-RDD特性"><span class="nav-number">4.4.2.</span> <span class="nav-text">3.4.2 RDD特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-3-RDD之间的依赖关系"><span class="nav-number">4.4.3.</span> <span class="nav-text">3.4.3 RDD之间的依赖关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-4-阶段的划分"><span class="nav-number">4.4.4.</span> <span class="nav-text">3.4.4 阶段的划分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-5-RDD运行过程"><span class="nav-number">4.4.5.</span> <span class="nav-text">3.4.5 RDD运行过程</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark概述"><span class="nav-number">2.</span> <span class="nav-text">1. Spark概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#spark简介"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Spark简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scala简介"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Scala简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spark与hadoop的对比"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 Spark与Hadoop的对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark生态系统"><span class="nav-number">3.</span> <span class="nav-text">2. Spark生态系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-运行架构"><span class="nav-number">4.</span> <span class="nav-text">3. Spark 运行架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构设计"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 架构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spark运行基本流程"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 Spark运行基本流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rdd的设计与运行原理"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 RDD的设计与运行原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rdd的概念"><span class="nav-number">4.4.1.</span> <span class="nav-text">3.4.1 RDD的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdd特性"><span class="nav-number">4.4.2.</span> <span class="nav-text">3.4.2 RDD特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdd之间的依赖关系"><span class="nav-number">4.4.3.</span> <span class="nav-text">3.4.3 RDD之间的依赖关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#阶段的划分"><span class="nav-number">4.4.4.</span> <span class="nav-text">3.4.4 阶段的划分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdd运行过程"><span class="nav-number">4.4.5.</span> <span class="nav-text">3.4.5 RDD运行过程</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -537,7 +571,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -550,7 +584,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -598,13 +632,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

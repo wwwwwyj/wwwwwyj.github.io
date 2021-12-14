@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="一、问题描述 Given a linked list, remove the n-th node from the end of list and return its head.">
+  <meta name="description" content="一、问题描述  Given a linked list, remove the n-th node from the end of list and return its head.">
 <meta name="keywords" content="LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode--19. Remove Nth Node From End of List">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;04&#x2F;11&#x2F;LeetCode--19-Remove-Nth-Node-From-End-of-List.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="一、问题描述 Given a linked list, remove the n-th node from the end of list and return its head.">
+<meta property="og:description" content="一、问题描述  Given a linked list, remove the n-th node from the end of list and return its head.">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-14T09:42:56.018Z">
 <meta name="twitter:card" content="summary">
@@ -316,30 +316,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="一、问题描述"><a href="#一、问题描述" class="headerlink" title="一、问题描述"></a>一、问题描述</h3><blockquote>
-<p>Given a linked list, remove the n-th node from the end of list and return its head.<br><a id="more"></a></p>
-</blockquote>
-<p><strong>Example :</strong></p>
+        <h3 id="一问题描述">一、问题描述</h3>
 <blockquote>
-<p>Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</p>
+<p>Given a linked list, remove the n-th node from the end of list and return its head. <a id="more"></a></p>
+</blockquote>
+<p><strong>Example :</strong> &gt;Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</p>
+<blockquote>
 <p>After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5</p>
 </blockquote>
-<p><strong>Note :</strong></p>
-<blockquote>
-<p>Given n will always be valid.</p>
-</blockquote>
-<p><strong>Follow up :</strong></p>
-<blockquote>
-<p>Could you do this in one pass?</p>
-</blockquote>
-<h3 id="二、解题思路"><a href="#二、解题思路" class="headerlink" title="二、解题思路"></a>二、解题思路</h3><p>题目要求我们找到并删除链表的倒数第n个数。由于链表不支持随机访问，并且链表长度也不容易求，所以题目看似会很麻烦。但是以前经常会碰到这样的问题，比如求链表中间位置的数等等，对这类题目有过一定了解。其实很简单，只需要用两个指针就可实现一次扫描得到结果。</p>
-<blockquote>
-<p>首先第一个指针end先前进n，到达第n个结点后，第二个结点pre开始前进遍历；<br>两个指针end和pre同步前进，他们之间的距离是n，当end到达链表尾部时，pre指向的就是倒数第n个结点。<br>此时我们可以继续操作，进行要求的插入，删除等等。</p>
-</blockquote>
+<p><strong>Note :</strong> &gt;Given n will always be valid.</p>
+<p><strong>Follow up :</strong> &gt; Could you do this in one pass?</p>
+<h3 id="二解题思路">二、解题思路</h3>
+<p>题目要求我们找到并删除链表的倒数第n个数。由于链表不支持随机访问，并且链表长度也不容易求，所以题目看似会很麻烦。但是以前经常会碰到这样的问题，比如求链表中间位置的数等等，对这类题目有过一定了解。其实很简单，只需要用两个指针就可实现一次扫描得到结果。 &gt; 首先第一个指针end先前进n，到达第n个结点后，第二个结点pre开始前进遍历； &gt; 两个指针end和pre同步前进，他们之间的距离是n，当end到达链表尾部时，pre指向的就是倒数第n个结点。 &gt; 此时我们可以继续操作，进行要求的插入，删除等等。</p>
 <p>在寻找链表中点时，可以使用同样的方法。使用两个指针end,mid，两个指针同时前进，但此时，mid每前进一步，end会前进两步。那么当end到达终点时，mid恰好走过一半的结点，也就找到了链表的中点。</p>
 <p>当然还有一种暴力解法，就是先计算出链表的长度L，然后找到第(L-n)个结点，把第 (L−n) 个结点的 next 指针重新链接至第 (L−n+2) 个结点。同样可以完成该算法。</p>
-<h3 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h3><h4 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode *end = head;</span><br><span class="line">        ListNode *pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) end = end-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(end == <span class="literal">NULL</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(end-&gt;next!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            end = end-&gt;next;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *temp = pre-&gt;next;</span><br><span class="line">        pre-&gt;next = temp-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> temp;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="暴力算法"><a href="#暴力算法" class="headerlink" title="暴力算法"></a>暴力算法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode *count = head;</span><br><span class="line">        ListNode *pre = head;</span><br><span class="line">        <span class="keyword">int</span> L = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(count!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            L++;</span><br><span class="line">            count=count-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> Lmn = L - n;</span><br><span class="line">        <span class="keyword">if</span>(Lmn == <span class="number">0</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; Lmn<span class="number">-1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode *temp = pre-&gt;next;</span><br><span class="line">        pre-&gt;next = temp-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> temp;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="三代码">三、代码</h3>
+<h4 id="双指针法">双指针法</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode *end = head;</span><br><span class="line">        ListNode *pre = head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) end = end-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(end == <span class="literal">NULL</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(end-&gt;next!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            end = end-&gt;next;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *temp = pre-&gt;next;</span><br><span class="line">        pre-&gt;next = temp-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> temp;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="暴力算法">暴力算法</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * struct ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode *next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode *count = head;</span><br><span class="line">        ListNode *pre = head;</span><br><span class="line">        <span class="keyword">int</span> L = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(count!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            L++;</span><br><span class="line">            count=count-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> Lmn = L - n;</span><br><span class="line">        <span class="keyword">if</span>(Lmn == <span class="number">0</span>) <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; Lmn<span class="number">-1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode *temp = pre-&gt;next;</span><br><span class="line">        pre-&gt;next = temp-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> temp;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -405,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双指针法"><span class="nav-number">3.1.</span> <span class="nav-text">双指针法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暴力算法"><span class="nav-number">3.2.</span> <span class="nav-text">暴力算法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一问题描述"><span class="nav-number">1.</span> <span class="nav-text">一、问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二解题思路"><span class="nav-number">2.</span> <span class="nav-text">二、解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三代码"><span class="nav-number">3.</span> <span class="nav-text">三、代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双指针法"><span class="nav-number">3.1.</span> <span class="nav-text">双指针法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暴力算法"><span class="nav-number">3.2.</span> <span class="nav-text">暴力算法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -421,7 +417,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -434,7 +430,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -482,13 +478,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>

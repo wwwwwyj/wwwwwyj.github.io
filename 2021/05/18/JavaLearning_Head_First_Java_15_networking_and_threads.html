@@ -55,13 +55,13 @@
     sidebarPadding: 40
   };
 </script>
-  <meta name="description" content="前言 连接到外面的世界。">
+  <meta name="description" content="前言  连接到外面的世界。">
 <meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--15 网络与线程">
 <meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;18&#x2F;JavaLearning_Head_First_Java_15_networking_and_threads.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
-<meta property="og:description" content="前言 连接到外面的世界。">
+<meta property="og:description" content="前言  连接到外面的世界。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientAndServer.PNG">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;clientAndServerWorks.PNG">
@@ -320,45 +320,74 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>连接到外面的世界。<br><a id="more"></a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p>连接到外面的世界。 <a id="more"></a></p>
 </blockquote>
-<h3 id="1-客户端-Client-与服务器-Server"><a href="#1-客户端-Client-与服务器-Server" class="headerlink" title="1. 客户端(Client)与服务器(Server)"></a>1. 客户端(Client)与服务器(Server)</h3><p>客户端必须要认识服务器，服务器必须要认识所有的客户端。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServer.PNG" alt="客户端与服务器"></p>
+<h3 id="客户端client与服务器server">1. 客户端(Client)与服务器(Server)</h3>
+<p>客户端必须要认识服务器，服务器必须要认识所有的客户端。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServer.PNG" alt="客户端与服务器" /><figcaption aria-hidden="true">客户端与服务器</figcaption>
+</figure>
 <p>工作方式如下：</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServerWorks.PNG" alt="客户端与服务器工作方式"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientAndServerWorks.PNG" alt="客户端与服务器工作方式" /><figcaption aria-hidden="true">客户端与服务器工作方式</figcaption>
+</figure>
 <p>连接、传送与接受：</p>
 <p>客户端要连接服务器需要做三件事：</p>
-<ol>
+<ol type="1">
 <li>建立客户端与服务器之间的初始连接</li>
 <li>传送信息到服务器</li>
 <li>接受来自服务器的信息</li>
 </ol>
 <p>Java API的网络功能包(<code>java.net</code>)对底层工作细节进行了封装。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientConnectServer.PNG" alt="客户端"></p>
-<h4 id="1-1-Socket连接"><a href="#1-1-Socket连接" class="headerlink" title="1.1 Socket连接"></a>1.1 Socket连接</h4><p>连接到其他机器需要<code>Socket连接</code>，<code>Socket</code>是代表两台机器间网络连接的对象(<code>java.net.Socket</code>)。创建Socket连接需要两项关于<strong>服务器</strong>的信息：<code>IP地址</code>和<code>端口号</code>。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/clientConnectServer.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
+<h4 id="socket连接">1.1 Socket连接</h4>
+<p>连接到其他机器需要<code>Socket连接</code>，<code>Socket</code>是代表两台机器间网络连接的对象(<code>java.net.Socket</code>)。创建Socket连接需要两项关于<strong>服务器</strong>的信息：<code>IP地址</code>和<code>端口号</code>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"196.164.1.103"</span>, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
 <p>Socket连接的建立代表两台机器间有对方的信息(包括<code>IP地址</code>和<code>端口号</code>)</p>
 <p><code>TCP</code>端口是一个<code>16</code>位宽、用来识别服务器上特定程序的数字。一个地址可以有<code>65536</code>个不同的端口号可用。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/wellKnownTCPPort.PNG" alt="常用的TCP端口号"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/wellKnownTCPPort.PNG" alt="常用的TCP端口号" /><figcaption aria-hidden="true">常用的TCP端口号</figcaption>
+</figure>
 <blockquote>
 <p><code>0~1023</code>的<code>TCP</code>端口号预留给已知特定服务使用，可以从<code>1024~65535</code>中选择端口号用于自定义程序</p>
 </blockquote>
 <p>不同程序不能共享一个端口，使用(也叫绑定)某个已被占用的端口，会受到<code>BindException</code>异常。</p>
-<h4 id="1-2-读取Socket数据"><a href="#1-2-读取Socket数据" class="headerlink" title="1.2 读取Socket数据"></a>1.2 读取Socket数据</h4><p>可以用串流来通过Socket连接沟通，即使用<code>BufferedReader</code>从<code>Socket</code>上读取数据，而不管串流来自文件还是Socket。</p>
+<h4 id="读取socket数据">1.2 读取Socket数据</h4>
+<p>可以用串流来通过Socket连接沟通，即使用<code>BufferedReader</code>从<code>Socket</code>上读取数据，而不管串流来自文件还是Socket。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 建立对服务器的Socket连接</span></span><br><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立连接到Socket上低层输入串流的InputStreamReader</span></span><br><span class="line">InputStreamReader stream = <span class="keyword">new</span> InputStreamReader(chatSocket.getInputStream());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 建立BufferedReader来读取</span></span><br><span class="line">BufferedReader reader = <span class="keyword">new</span> BufferedReader(stream);</span><br><span class="line">String message = reader.readLine();</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/readFromSocket.PNG" alt="读取Socket数据"></p>
-<h4 id="1-3-向Socket写入数据"><a href="#1-3-向Socket写入数据" class="headerlink" title="1.3 向Socket写入数据"></a>1.3 向Socket写入数据</h4><p>利用<code>PrintWriter</code>向Socket写入数据：</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/readFromSocket.PNG" alt="读取Socket数据" /><figcaption aria-hidden="true">读取Socket数据</figcaption>
+</figure>
+<h4 id="向socket写入数据">1.3 向Socket写入数据</h4>
+<p>利用<code>PrintWriter</code>向Socket写入数据：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 对服务器建立Socket连接</span></span><br><span class="line">Socket chatSocket = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立连接到Socket的PrintWriter</span></span><br><span class="line">PrintWriter writer = <span class="keyword">new</span> PrintWriter(chatSocket.getOutputStream());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 写入数据</span></span><br><span class="line">writer.println(<span class="string">"message to send"</span>);</span><br><span class="line">writer.print(<span class="string">"another message"</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/PrintWriterToSocket.PNG" alt="向Socket写入数据"></p>
-<h4 id="1-4-客户端"><a href="#1-4-客户端" class="headerlink" title="1.4 客户端"></a>1.4 客户端</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/client.PNG" alt="客户端"></p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/PrintWriterToSocket.PNG" alt="向Socket写入数据" /><figcaption aria-hidden="true">向Socket写入数据</figcaption>
+</figure>
+<h4 id="客户端">1.4 客户端</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/client.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyAdviceClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Socket s = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">4242</span>);</span><br><span class="line">            InputStreamReader streamReader = <span class="keyword">new</span> InputStreamReader(s.getInputStream());</span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(streamReader);</span><br><span class="line">            String advice = reader.readLine();</span><br><span class="line">            System.out.println(<span class="string">"Today you should: "</span> + advice);</span><br><span class="line">            reader.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DailyAdviceClient client = <span class="keyword">new</span> DailyAdviceClient();</span><br><span class="line">        client.go();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-5-服务器"><a href="#1-5-服务器" class="headerlink" title="1.5 服务器"></a>1.5 服务器</h4><p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/server.PNG" alt="客户端"></p>
+<h4 id="服务器">1.5 服务器</h4>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/server.PNG" alt="客户端" /><figcaption aria-hidden="true">客户端</figcaption>
+</figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DailyAdviceServer</span> </span>&#123;</span><br><span class="line">    String[] adviceList = &#123;<span class="string">"Take smaller bites"</span>, <span class="string">"Go for the tight jeans. No they do NOT make you look fat."</span>, <span class="string">"One word: inappropriate"</span>, <span class="string">"Just for today, be honest. Tell your boss what you *really* think"</span>, <span class="string">"You might want to rethink that haircut."</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">go</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ServerSocket serverSock = <span class="keyword">new</span> ServerSocket(<span class="number">4242</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                Socket sock = serverSock.accept();</span><br><span class="line"></span><br><span class="line">                PrintWriter writer = <span class="keyword">new</span> PrintWriter(sock.getOutputStream());</span><br><span class="line">                String advice = getAdvice();</span><br><span class="line">                writer.println(advice);</span><br><span class="line">                writer.close();</span><br><span class="line">                System.out.println(advice);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment">// close go</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getAdvice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> random = (<span class="keyword">int</span>) (Math.random() * adviceList.length);</span><br><span class="line">        <span class="keyword">return</span> adviceList[random];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DailyAdviceServer server = <span class="keyword">new</span> DailyAdviceServer();</span><br><span class="line">        server.go();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-线程"><a href="#2-线程" class="headerlink" title="2. 线程"></a>2. 线程</h3><p>每个线程有独立的<code>执行空间(stack)</code>。Java内置有<code>多线程(Multithreading)</code>功能，但只有一种<code>Thread</code>类。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/javaThread.PNG" alt="Thread类"></p>
-<h4 id="2-1-新建线程"><a href="#2-1-新建线程" class="headerlink" title="2.1 新建线程"></a>2.1 新建线程</h4><p>每个Java应用程序会启动一个主线程，将<code>main()</code>函数放在执行空间最开始处。Java虚拟机负责主线程的启动。自定义建立的线程，需要在程序中启动。</p>
-<p><img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JVMThread.PNG" alt="主线程与自建线程"></p>
+<h3 id="线程">2. 线程</h3>
+<p>每个线程有独立的<code>执行空间(stack)</code>。Java内置有<code>多线程(Multithreading)</code>功能，但只有一种<code>Thread</code>类。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/javaThread.PNG" alt="Thread类" /><figcaption aria-hidden="true">Thread类</figcaption>
+</figure>
+<h4 id="新建线程">2.1 新建线程</h4>
+<p>每个Java应用程序会启动一个主线程，将<code>main()</code>函数放在执行空间最开始处。Java虚拟机负责主线程的启动。自定义建立的线程，需要在程序中启动。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JVMThread.PNG" alt="主线程与自建线程" /><figcaption aria-hidden="true">主线程与自建线程</figcaption>
+</figure>
 <p>启动新线程主要有以下几个步骤：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 建立Runnable对象(线程的任务)，此类是对线程要执行的任务的定义</span></span><br><span class="line">Runnable threadJob = <span class="keyword">new</span> MyRunnable();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 建立Thread对象(执行工人)并赋值Runnable对象</span></span><br><span class="line"><span class="comment">// 告诉Thread对象把Runnable的run()方法放到执行空间执行</span></span><br><span class="line">Thread myThread = <span class="keyword">new</span> Thread(threadJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 启动线程Thread</span></span><br><span class="line"><span class="comment">// 真正到执行空间执行run()方法</span></span><br><span class="line">myThread.start();</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -366,16 +395,14 @@
 </blockquote>
 <p><code>Runnable</code>是一个<strong>接口</strong>，只有<code>run()</code>这一个方法。<code>Runnable</code>带有会放在执行空间的第一项方法：<code>run()</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="comment">// code that will be run by the new thread</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-线程的状态"><a href="#2-2-线程的状态" class="headerlink" title="2.2 线程的状态"></a>2.2 线程的状态</h4><p>新建线程的3个状态：</p>
-<ol>
+<h4 id="线程的状态">2.2 线程的状态</h4>
+<p>新建线程的3个状态：</p>
+<ol type="1">
 <li><p>等待启动(新建线程)。Thread实例已经创建，但还未启动。即未处于执行中的线程：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread t = <span class="keyword">new</span> Thread(r);</span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread t = <span class="keyword">new</span> Thread(r);</span><br></pre></td></tr></table></figure></li>
 <li><p>可执行线程。启动线程时，变成可执行状态，已经布置好了执行空间，轮到它就可以执行了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.start();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行中线程。线程占用资源开始执行，该过程只能依靠JVM的线程调度机制来决定。</p>
-</li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.start();</span><br></pre></td></tr></table></figure></li>
+<li><p>执行中线程。线程占用资源开始执行，该过程只能依靠JVM的线程调度机制来决定。</p></li>
 </ol>
 <blockquote>
 <p>一旦线程进入可执行状态，会不断在可执行与执行中两种状态切换。也可有另一种状态：暂时不可执行(<code>阻塞状态</code>)</p>
@@ -384,7 +411,8 @@
 <li>典型的可执行/执行中循环。即JVM线程调度器会把不断切换线程，给予不同线程执行机会。</li>
 <li>暂时被阻挡。<code>调度器(scheduler)</code>会在特殊情况下把线程阻塞，比如线程执行到等待<code>Socket</code>输入流的程序段，但又无数据可读，调度器会把线程移出可执行状态。或者<code>Sleep()</code>函数、调用某个被<code>锁住(locked)</code>的对象等等。</li>
 </ul>
-<h4 id="2-3-线程调度器"><a href="#2-3-线程调度器" class="headerlink" title="2.3 线程调度器"></a>2.3 线程调度器</h4><p><code>线程调度器(Thread Scheduler)</code>会<u>决定哪个线程从等待状态中被挑出来运行，以及何时把哪个线程送回等待被执行的状态</u>。</p>
+<h4 id="线程调度器">2.3 线程调度器</h4>
+<p><code>线程调度器(Thread Scheduler)</code>会<u>决定哪个线程从等待状态中被挑出来运行，以及何时把哪个线程送回等待被执行的状态</u>。</p>
 <blockquote>
 <p>调度是无法被控制的</p>
 </blockquote>
@@ -392,13 +420,16 @@
 <blockquote>
 <p>Thread对象不能重复使用，一旦线程的run()方法完成后，线程就不能再重新启动。</p>
 </blockquote>
-<h4 id="2-4-sleep"><a href="#2-4-sleep" class="headerlink" title="2.4 sleep()"></a>2.4 <code>sleep()</code></h4><p>确保线程有机会执行，可以让它们周期性地进入<code>睡眠</code>状态。当线程醒来时，会进入可执行状态等待被调度器调度执行。</p>
+<h4 id="sleep">2.4 <code>sleep()</code></h4>
+<p>确保线程有机会执行，可以让它们周期性地进入<code>睡眠</code>状态。当线程醒来时，会进入可执行状态等待被调度器调度执行。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
 <p><code>sleep</code>方法可能会抛出<code>InterruptedException</code>异常，所以对它的调用需要放在<code>try/catch</code>块中：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">     Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span>(InterruptedException ex) &#123;</span><br><span class="line">     ex.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-5-建立与启动多个线程"><a href="#2-5-建立与启动多个线程" class="headerlink" title="2.5 建立与启动多个线程"></a>2.5 建立与启动多个线程</h4><p>可以为线程命名：</p>
+<h4 id="建立与启动多个线程">2.5 建立与启动多个线程</h4>
+<p>可以为线程命名：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunThreads</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        RunThreads runner = <span class="keyword">new</span> RunThreads();</span><br><span class="line">        Thread alpha = <span class="keyword">new</span> Thread(runner);</span><br><span class="line">        Thread beta = <span class="keyword">new</span> Thread(runner);</span><br><span class="line">        alpha.setName(<span class="string">"Alpha thread"</span>);</span><br><span class="line">        beta.setName(<span class="string">"Beta thread"</span>);</span><br><span class="line">        alpha.start();</span><br><span class="line">        beta.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">25</span>; i++) &#123;</span><br><span class="line">            String threadName = Thread.currentThread().getName();</span><br><span class="line">            System.out.println(threadName + <span class="string">" is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-6-线程的并发性问题"><a href="#2-6-线程的并发性问题" class="headerlink" title="2.6 线程的并发性问题"></a>2.6 线程的并发性问题</h4><p>线程的<code>并发性(Concurrency)</code>问题会引发<code>竞争状态(race condition)</code>。竞争状态可能会引起数据的损毁。需要对线程间的共享数据增加一道锁，以保证数据的安全。</p>
+<h4 id="线程的并发性问题">2.6 线程的并发性问题</h4>
+<p>线程的<code>并发性(Concurrency)</code>问题会引发<code>竞争状态(race condition)</code>。竞争状态可能会引起数据的损毁。需要对线程间的共享数据增加一道锁，以保证数据的安全。</p>
 <p>要使得具有安全问题的方法<code>原子化</code>，比如对账户操作的方法<code>makeWithdrawal()</code>。确定线程一旦进入这个方法后，就必须能够在其他线程进入之前把任务执行完毕。</p>
 <blockquote>
 <p>使用<code>synchronized</code>关键词来修饰方法使它每次只能被单一线程存取。</p>
@@ -487,7 +518,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-客户端-Client-与服务器-Server"><span class="nav-number">2.</span> <span class="nav-text">1. 客户端(Client)与服务器(Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Socket连接"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Socket连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-读取Socket数据"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 读取Socket数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-向Socket写入数据"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 向Socket写入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-客户端"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-服务器"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线程"><span class="nav-number">3.</span> <span class="nav-text">2. 线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-新建线程"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 新建线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-线程的状态"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 线程的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-线程调度器"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 线程调度器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-sleep"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 sleep()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-建立与启动多个线程"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 建立与启动多个线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-线程的并发性问题"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 线程的并发性问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端client与服务器server"><span class="nav-number">2.</span> <span class="nav-text">1. 客户端(Client)与服务器(Server)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#socket连接"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Socket连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取socket数据"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 读取Socket数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向socket写入数据"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 向Socket写入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">3.</span> <span class="nav-text">2. 线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建线程"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 新建线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的状态"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 线程的状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程调度器"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 线程调度器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 sleep()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立与启动多个线程"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 建立与启动多个线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的并发性问题"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 线程的并发性问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -503,7 +534,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">134</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -516,7 +547,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -564,13 +595,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">552k</span>
+    <span title="站点总字数">570k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:22</span>
+    <span title="站点阅读时长">8:38</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
