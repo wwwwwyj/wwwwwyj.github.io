@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,20 +56,24 @@
   };
 </script>
   <meta name="description" content="前言  首先需要保证并发的正确性，然后在此基础上来实现高效。">
-<meta name="keywords" content="Learning,Java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|深入理解Java虚拟机]--13 线程安全与锁优化">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;07&#x2F;JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_13_Thread_safety_and_lock_optimization.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/06/07/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_13_Thread_safety_and_lock_optimization.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  首先需要保证并发的正确性，然后在此基础上来实现高效。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;HotSpotMarkWord.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;BeforeCAS.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;AfterCAS.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;BiasedLocking.PNG">
-<meta property="og:updated_time" content="2021-06-07T06:45:04.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/HotSpotMarkWord.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/BeforeCAS.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/AfterCAS.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/BiasedLocking.PNG">
+<meta property="article:published_time" content="2021-06-07T06:45:04.000Z">
+<meta property="article:modified_time" content="2021-06-07T06:45:04.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;JVM&#x2F;HotSpotMarkWord.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/JVM/HotSpotMarkWord.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/06/07/JavaLearning_Undertanding_the_JVM_Advanced_Features_and_Best_Practives_13_Thread_safety_and_lock_optimization.html">
 
@@ -316,7 +320,7 @@
       
         <h3 id="前言">前言</h3>
 <blockquote>
-<p>首先需要保证并发的正确性，然后在此基础上来实现高效。 <a id="more"></a></p>
+<p>首先需要保证并发的正确性，然后在此基础上来实现高效。 <span id="more"></span></p>
 </blockquote>
 <h3 id="线程安全">1. 线程安全</h3>
 <blockquote>
@@ -537,7 +541,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程安全"><span class="nav-number">2.</span> <span class="nav-text">1. 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java语言中的线程安全"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Java语言中的线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不可变"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 不可变</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绝对线程安全"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 绝对线程安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相对线程安全"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.1.3 相对线程安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程兼容"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.1.4 线程兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程对立"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.1.5 线程对立</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程安全的实现方法"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 线程安全的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#互斥同步"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 互斥同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非阻塞同步"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 非阻塞同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#无同步方案"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 无同步方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁优化"><span class="nav-number">3.</span> <span class="nav-text">2. 锁优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自旋锁与自适应自旋adaptive-spinning"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 自旋锁与自适应自旋（Adaptive Spinning）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁消除lock-elimination"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 锁消除（Lock Elimination）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锁粗化lock-coarsening"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 锁粗化（Lock Coarsening）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#轻量级锁lightweight-locking"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 轻量级锁（Lightweight Locking）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏向锁biased-locking"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 偏向锁（Biased Locking）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">2.</span> <span class="nav-text">1. 线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#java%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Java语言中的线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 不可变</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 绝对线程安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.1.3 相对线程安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%85%BC%E5%AE%B9"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.1.4 线程兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AF%B9%E7%AB%8B"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.1.5 线程对立</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 线程安全的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%90%8C%E6%AD%A5"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 互斥同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 非阻塞同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 无同步方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">2. 锁优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81%E4%B8%8E%E8%87%AA%E9%80%82%E5%BA%94%E8%87%AA%E6%97%8Badaptive-spinning"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 自旋锁与自适应自旋（Adaptive Spinning）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4lock-elimination"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 锁消除（Lock Elimination）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E7%B2%97%E5%8C%96lock-coarsening"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 锁粗化（Lock Coarsening）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81lightweight-locking"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 轻量级锁（Lightweight Locking）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81biased-locking"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 偏向锁（Biased Locking）</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -578,10 +582,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -614,18 +618,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -769,9 +773,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -789,7 +801,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

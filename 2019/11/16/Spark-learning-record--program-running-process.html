@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,14 +56,17 @@
   };
 </script>
   <meta name="description" content="前言 刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来">
-<meta name="keywords" content="学习记录,Spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spark学习-Spark程序基本运行流程">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2019&#x2F;11&#x2F;16&#x2F;Spark-learning-record--program-running-process.html">
+<meta property="og:url" content="https://wuyunjie.top/2019/11/16/Spark-learning-record--program-running-process.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言 刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-16T13:32:35.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-16T13:32:35.000Z">
+<meta property="article:modified_time" content="2019-11-16T13:32:35.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="Spark">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://wuyunjie.top/2019/11/16/Spark-learning-record--program-running-process.html">
@@ -310,7 +313,7 @@
 
       
         <h3 id="前言">前言</h3>
-<p>刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来 <a id="more"></a></p>
+<p>刚好最近学习大数据需要运行简单的Spark算法，就顺便记录一下Spark程序基本上是怎么运行的，这里就不涉及那些理论或者API的用法了。只是说怎么把程序跑起来 <span id="more"></span></p>
 <h3 id="基本步骤">基本步骤</h3>
 <p>以做的线性回归算法为例(只做了线性回归<code>-_-||</code>)，主要步骤如下： &gt; 1. 编写 Spark 程序，这里涉及到一些 Spark 语法，暂时没看懂，以后系统学习的时候再慢慢深入 &gt; &gt; 2. 将实验数据传到 HDFS 上，配置的 Spark 基于 Hadoop 的 HDFS 运行，所以 Spark 直接访问的是 HDFS 上的数据，不能访问到本地。 &gt; &gt; 3. 将程序(调用<code>pyspark</code>的<code>.py</code>代码)提交到集群执行： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --master spark://host:port program.py</span><br></pre></td></tr></table></figure> 查阅资料 Spark 还有多种运行模式，以后好好学一学(拖延症，不知道啥时候能开始学了) HDFS 的主要操作有以下：</p>
 <table>
@@ -370,7 +373,7 @@
 <blockquote>
 <p>这是一些较为常用的命令，具体其它指令可以查看<code>hdfs dfs -help</code>可以发现和<code>Linux</code>下文件系统的指令很相似，大部分指令的功能基本相同，只是增加了一些有分布式系统特性的指令，比如<code>-put</code>等。</p>
 </blockquote>
-<p>参考： &gt; - <a href="https://www.cnblogs.com/zengming/p/10306706.html" target="_blank" rel="noopener">常用HDFS操作命令</a> &gt; - <a href="https://www.cnblogs.com/qiuhong10/p/8476635.html" target="_blank" rel="noopener">Spark多种运行模式</a> &gt; - <a href="https://blog.csdn.net/roguesir/article/details/83317059" target="_blank" rel="noopener">【PySpark学习笔记三】spark-submit命令详解</a></p>
+<p>参考： &gt; - <a target="_blank" rel="noopener" href="https://www.cnblogs.com/zengming/p/10306706.html">常用HDFS操作命令</a> &gt; - <a target="_blank" rel="noopener" href="https://www.cnblogs.com/qiuhong10/p/8476635.html">Spark多种运行模式</a> &gt; - <a target="_blank" rel="noopener" href="https://blog.csdn.net/roguesir/article/details/83317059">【PySpark学习笔记三】spark-submit命令详解</a></p>
 
     </div>
 
@@ -438,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本步骤"><span class="nav-number">2.</span> <span class="nav-text">基本步骤</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">基本步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -479,10 +482,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -515,18 +518,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -670,9 +673,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -690,7 +701,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

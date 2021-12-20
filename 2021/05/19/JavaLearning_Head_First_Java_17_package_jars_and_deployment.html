@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,21 +56,24 @@
   };
 </script>
   <meta name="description" content="前言  该放手了。">
-<meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--17 包、jar存档文件和部署">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;19&#x2F;JavaLearning_Head_First_Java_17_package_jars_and_deployment.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/05/19/JavaLearning_Head_First_Java_17_package_jars_and_deployment.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  该放手了。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;DeploymentOptions.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;makingJAR.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;domainPackageNames.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;packageHierarchy.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;JWS.PNG">
-<meta property="og:updated_time" content="2021-05-19T15:21:49.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeploymentOptions.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/makingJAR.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/domainPackageNames.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/packageHierarchy.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/JWS.PNG">
+<meta property="article:published_time" content="2021-05-19T15:21:49.000Z">
+<meta property="article:modified_time" content="2021-05-19T15:21:49.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;DeploymentOptions.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/DeploymentOptions.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/05/19/JavaLearning_Head_First_Java_17_package_jars_and_deployment.html">
 
@@ -317,7 +320,7 @@
       
         <h3 id="前言">前言</h3>
 <blockquote>
-<p>该放手了。 <a id="more"></a></p>
+<p>该放手了。 <span id="more"></span></p>
 </blockquote>
 <h3 id="部署应用程序">1. 部署应用程序</h3>
 <p>可以有多种部署选择：</p>
@@ -334,7 +337,7 @@
 <ol type="1">
 <li><p>确定所有的类文件都在<code>classes</code>目录下；</p></li>
 <li><p>创建<code>manifest.txt</code>文件描述哪个类带有<code>main()</code>方法，该文件带有下面一行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Main-Class: MyApp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Main-Class: MyApp</span><br></pre></td></tr></table></figure>
 <p>此行后面要有换行，该文件放入<code>classes</code>目录</p></li>
 <li><p>执行<code>jar</code>工具来创建带有<strong>所有类</strong>以及<code>manifest</code>的<code>JAR</code>文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyProject/classes </span><br><span class="line">jar -cvmf manifest.txt app1.jar *.class</span><br><span class="line">OR</span><br><span class="line">jar -cvmf manifest.txt app1.jar MyApp.class</span><br></pre></td></tr></table></figure></li>
@@ -452,7 +455,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署应用程序"><span class="nav-number">2.</span> <span class="nav-text">1. 部署应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#把程序打包为jar"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 把程序打包为JAR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-web-start"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java Web Start</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">1. 部署应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%8A%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E4%B8%BAjar"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 把程序打包为JAR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-web-start"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Java Web Start</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -493,10 +496,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -529,18 +532,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -684,9 +687,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -704,7 +715,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

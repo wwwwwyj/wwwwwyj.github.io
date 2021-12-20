@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,19 +56,23 @@
   };
 </script>
   <meta name="description" content="前言  字符串在Java中被广泛应用，学习一下String、StringBuilder和StringBuffer这几个类之间的异同和适用场景。">
-<meta name="keywords" content="Learning,Java,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java|String,StringBuffer与StringBuilder的区别与用法]">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;25&#x2F;JavaLearning_String_StringBuffer_and_StringBuilder.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/06/25/JavaLearning_String_StringBuffer_and_StringBuilder.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  字符串在Java中被广泛应用，学习一下String、StringBuilder和StringBuffer这几个类之间的异同和适用场景。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;javaString.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;javaStringPublicPool.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;javaNew.jpg">
-<meta property="og:updated_time" content="2021-06-25T02:05:01.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaString.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaStringPublicPool.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaNew.jpg">
+<meta property="article:published_time" content="2021-06-25T02:05:01.000Z">
+<meta property="article:modified_time" content="2021-06-25T02:05:01.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;javaString.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaString.png">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/06/25/JavaLearning_String_StringBuffer_and_StringBuilder.html">
 
@@ -294,7 +298,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.3k</span>
+              <span>8.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -315,7 +319,7 @@
       
         <h3 id="前言">前言</h3>
 <blockquote>
-<p>字符串在<code>Java</code>中被广泛应用，学习一下<code>String</code>、<code>StringBuilder</code>和<code>StringBuffer</code>这几个类之间的异同和适用场景。 <a id="more"></a></p>
+<p>字符串在<code>Java</code>中被广泛应用，学习一下<code>String</code>、<code>StringBuilder</code>和<code>StringBuffer</code>这几个类之间的异同和适用场景。 <span id="more"></span></p>
 </blockquote>
 <figure>
 <img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaString.png" alt="String、StringBuilder和StringBuffer继承树" /><figcaption aria-hidden="true"><code>String</code>、<code>StringBuilder</code>和<code>StringBuffer</code>继承树</figcaption>
@@ -324,19 +328,19 @@
 <p>在 Java 中字符串属于<strong><code>对象</code></strong>，Java 提供了 <code>String</code> 类来创建和操作字符串。</p>
 <h4 id="实例化">1.1 实例化</h4>
 <p>主要有两种方法：直接赋值和构造法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"hello"</span>; <span class="comment">//直接赋值</span></span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">"hello"</span>); <span class="comment">//构造法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">&quot;hello&quot;</span>; <span class="comment">//直接赋值</span></span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">&quot;hello&quot;</span>); <span class="comment">//构造法</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><strong>字符串常量是String的匿名对象</strong>。Java 本身没有提供<code>字符串常量</code>的概念，所有使用<code>""</code>定义的内容本质上来讲都是<code>String</code>的<code>匿名对象</code>。</p>
 </blockquote>
 <p>String 创建的字符串存储在<strong><code>公共池</code></strong>中，而 <code>new</code> 创建的字符串对象在<strong><code>堆</code></strong>上：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s1 = <span class="string">"Runoob"</span>;              	<span class="comment">// String 直接创建</span></span><br><span class="line">String s2 = <span class="string">"Runoob"</span>;              	<span class="comment">// String 直接创建</span></span><br><span class="line">String s3 = s1;                    	<span class="comment">// 相同引用</span></span><br><span class="line">String s4 = <span class="keyword">new</span> String(<span class="string">"Runoob"</span>);   <span class="comment">// String 对象创建</span></span><br><span class="line">String s5 = <span class="keyword">new</span> String(<span class="string">"Runoob"</span>);   <span class="comment">// String 对象创建</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;Runoob&quot;</span>;              	<span class="comment">// String 直接创建</span></span><br><span class="line">String s2 = <span class="string">&quot;Runoob&quot;</span>;              	<span class="comment">// String 直接创建</span></span><br><span class="line">String s3 = s1;                    	<span class="comment">// 相同引用</span></span><br><span class="line">String s4 = <span class="keyword">new</span> String(<span class="string">&quot;Runoob&quot;</span>);   <span class="comment">// String 对象创建</span></span><br><span class="line">String s5 = <span class="keyword">new</span> String(<span class="string">&quot;Runoob&quot;</span>);   <span class="comment">// String 对象创建</span></span><br></pre></td></tr></table></figure>
 <figure>
 <img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaStringPublicPool.png" alt="公共池和堆" /><figcaption aria-hidden="true">公共池和堆</figcaption>
 </figure>
 <p>String 类是<code>final</code>类，<strong>不可以继承</strong>。对String类型最好的重用方式是<strong>组合</strong>而不是继承。其构造函数源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(String original)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = original.value;</span><br><span class="line">    <span class="keyword">this</span>.hash = original.hash;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[])</span></span>&#123;</span><br><span class="line">    <span class="comment">// copyOf(source[],length); 从源数组的0位置拷贝length个；</span></span><br><span class="line">	<span class="comment">// copyOf是用System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength))实现的。</span></span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOf(value, value.length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> value[], <span class="keyword">int</span> offset, <span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 判断offset，count,offset+count是否越界之后</span></span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOfRange(value, offset, offset+count);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用StringBuffer/StringBuilder类型初始化String</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(StringBuffer buffer)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(buffer) &#123;</span><br><span class="line">        <span class="keyword">this</span>.value = Arrays.copyOf(buffer.getValue(), buffer.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">String</span><span class="params">(StringBuilder builder)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = Arrays.copyOf(builder.getValue(), builder.length());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><code>String s = new String("xyz");</code> 创建两个对象，一个静态存储区<code>“xyz”</code>，一个用<code>new</code>创建在堆上的对象。但这种说法是片面的。可以参考<a href="https://www.iteye.com/blog/rednaxelafx-774673" target="_blank" rel="noopener">请别再拿“String s = new String("xyz");创建了多少个String实例”来面试了吧</a></p>
+<p><code>String s = new String("xyz");</code> 创建两个对象，一个静态存储区<code>“xyz”</code>，一个用<code>new</code>创建在堆上的对象。但这种说法是片面的。可以参考<a target="_blank" rel="noopener" href="https://www.iteye.com/blog/rednaxelafx-774673">请别再拿“String s = new String("xyz");创建了多少个String实例”来面试了吧</a></p>
 </blockquote>
 <figure>
 <img src="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/javaNew.jpg" alt="String的new反编译" /><figcaption aria-hidden="true"><code>String</code>的new反编译</figcaption>
@@ -360,9 +364,9 @@
 <p><code>String</code>中的对象是不可变的，可以理解为常量，<strong>显然线程安全</strong>。</p>
 <h4 id="intern方法">1.4 <code>intern</code>方法</h4>
 <p>在<code>String</code>类中，<code>intern</code>方法是一个本地方法，在<code>JAVA SE6</code>之前，<code>intern</code>方法会<strong><u>在运行时常量池中查找是否存在内容相同的字符串，如果存在则返回指向该字符串的引用，如果不存在，则会将该字符串入池，并返回一个指向该字符串的引用。</u></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">"hello"</span>;</span><br><span class="line">        String b =  <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        String c =  <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">        String d = b.intern();</span><br><span class="line">         </span><br><span class="line">        System.out.println(a==b);</span><br><span class="line">        System.out.println(b==c);</span><br><span class="line">        System.out.println(b==d);</span><br><span class="line">        System.out.println(a==d);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        String b =  <span class="keyword">new</span> String(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        String c =  <span class="keyword">new</span> String(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">        String d = b.intern();</span><br><span class="line">         </span><br><span class="line">        System.out.println(a==b);</span><br><span class="line">        System.out.println(b==c);</span><br><span class="line">        System.out.println(b==d);</span><br><span class="line">        System.out.println(a==d);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">false</span><br><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">false</span><br><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
 <h4 id="string类中常用方法">1.5 String类中常用方法</h4>
 <ul>
 <li><p><code>char charAt(int index)</code></p>
@@ -410,7 +414,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] value;</span><br></pre></td></tr></table></figure>
 <h4 id="缓冲区">2.3 缓冲区</h4>
 <p>每个<code>StringBuffer</code>对象都有一定的缓冲区容量，当字符串大小没有超过容量时，不会分配新的容量，当字符串大小超过容量时，会自动增加容量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer();	<span class="comment">//分配长16字节的字符缓冲区</span></span><br><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer(<span class="number">512</span>); <span class="comment">//分配长512字节的字符缓冲区</span></span><br><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer(<span class="string">"this is a test"</span>); <span class="comment">//在缓冲区中存放了字符串，并在后面预留了16字节的空缓冲区。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer();	<span class="comment">//分配长16字节的字符缓冲区</span></span><br><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer(<span class="number">512</span>); <span class="comment">//分配长512字节的字符缓冲区</span></span><br><span class="line">StringBuffer buf=<span class="keyword">new</span> StringBuffer(<span class="string">&quot;this is a test&quot;</span>); <span class="comment">//在缓冲区中存放了字符串，并在后面预留了16字节的空缓冲区。</span></span><br></pre></td></tr></table></figure>
 <h4 id="多线程安全-1">2.4 多线程安全</h4>
 <p><code>StringBuffer</code>对方法加了<code>同步锁</code>或者对调用的方法加了<code>同步锁</code>，所以是<strong>线程安全的</strong>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> StringBuffer <span class="title">reverse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.reverse();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> indexOf(str, <span class="number">0</span>);  <span class="comment">//存在 public synchronized int indexOf(String str, int fromIndex) 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -418,7 +422,7 @@
 <ul>
 <li><p><code>public StringBuffer append(String s)</code></p>
 <p>将指定的字符串追加到此字符序列。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AbstractStringBuilder <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span>) str = <span class="string">"null"</span>;</span><br><span class="line">    <span class="keyword">int</span> len = str.length();</span><br><span class="line">    ensureCapacityInternal(count + len);<span class="comment">//查看使用空间满足，不满足扩展空间</span></span><br><span class="line">    str.getChars(<span class="number">0</span>, len, value, count);<span class="comment">//getChars就是利用native的array copy,性能高效</span></span><br><span class="line">    count += len;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AbstractStringBuilder <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span>) str = <span class="string">&quot;null&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> len = str.length();</span><br><span class="line">    ensureCapacityInternal(count + len);<span class="comment">//查看使用空间满足，不满足扩展空间</span></span><br><span class="line">    str.getChars(<span class="number">0</span>, len, value, count);<span class="comment">//getChars就是利用native的array copy,性能高效</span></span><br><span class="line">    count += len;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p><code>public StringBuffer reverse()</code></p>
 <p>将此字符序列用其反转形式取代。</p></li>
 <li><p><code>public delete(int start, int end)</code></p>
@@ -468,11 +472,11 @@
 </ul>
 <h3 id="参考文献">参考文献</h3>
 <ol type="1">
-<li><a href="https://www.runoob.com/java/java-string.html" target="_blank" rel="noopener">Java String 类</a></li>
-<li><a href="https://www.runoob.com/java/java-stringbuffer.html" target="_blank" rel="noopener">Java StringBuffer 和 StringBuilder 类</a></li>
-<li><a href="https://www.jb51.net/article/33398.htm" target="_blank" rel="noopener">全面解释java中StringBuilder、StringBuffer、String类之间的关系</a></li>
-<li><a href="https://segmentfault.com/a/1190000002683782" target="_blank" rel="noopener">浅谈 Java 字符串（String, StringBuffer, StringBuilder）</a></li>
-<li><a href="https://www.cnblogs.com/dolphin0520/p/3778589.html" target="_blank" rel="noopener">探秘Java中的String、StringBuilder以及StringBuffer</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-string.html">Java String 类</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-stringbuffer.html">Java StringBuffer 和 StringBuilder 类</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jb51.net/article/33398.htm">全面解释java中StringBuilder、StringBuffer、String类之间的关系</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000002683782">浅谈 Java 字符串（String, StringBuffer, StringBuilder）</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dolphin0520/p/3778589.html">探秘Java中的String、StringBuilder以及StringBuffer</a></li>
 </ol>
 
     </div>
@@ -542,7 +546,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-类"><span class="nav-number">2.</span> <span class="nav-text">1. String 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例化"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不可变性"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 不可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程安全"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 多线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#intern方法"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 intern方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string类中常用方法"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 String类中常用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stringbuffer-类"><span class="nav-number">3.</span> <span class="nav-text">2. StringBuffer 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可变性"><span class="nav-number">3.1.</span> <span class="nav-text">2.2 可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓冲区"><span class="nav-number">3.2.</span> <span class="nav-text">2.3 缓冲区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程安全-1"><span class="nav-number">3.3.</span> <span class="nav-text">2.4 多线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要方法"><span class="nav-number">3.4.</span> <span class="nav-text">2.5 主要方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stringbuilder-类"><span class="nav-number">4.</span> <span class="nav-text">3. StringBuilder 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可变性-1"><span class="nav-number">4.1.</span> <span class="nav-text">3.2 可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程安全-2"><span class="nav-number">4.2.</span> <span class="nav-text">3.3 多线程安全</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要区别与适用场景"><span class="nav-number">5.</span> <span class="nav-text">4. 主要区别与适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">1. String 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 不可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 多线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#intern%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 intern方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string%E7%B1%BB%E4%B8%AD%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 String类中常用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stringbuffer-%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">2. StringBuffer 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">2.2 可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">2.3 缓冲区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-1"><span class="nav-number">3.3.</span> <span class="nav-text">2.4 多线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">2.5 主要方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stringbuilder-%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">3. StringBuilder 类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E6%80%A7-1"><span class="nav-number">4.1.</span> <span class="nav-text">3.2 可变性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-2"><span class="nav-number">4.2.</span> <span class="nav-text">3.3 多线程安全</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB%E4%B8%8E%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.</span> <span class="nav-text">4. 主要区别与适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -583,10 +587,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -619,18 +623,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -774,9 +778,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -794,7 +806,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

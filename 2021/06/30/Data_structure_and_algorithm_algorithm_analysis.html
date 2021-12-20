@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,17 +56,21 @@
   };
 </script>
   <meta name="description" content="1. 算法介绍 1.1. 算法  非形式地说，算法（algorithm）就说任何良定义地计算过程，该过程取某个值或值的集合作为输入，并产生某个值或值的集合作为输出。即算法就是把输入转化为输出的计算步骤的一个序列。">
-<meta name="keywords" content="面试复习,数据结构和算法,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[数据结构和算法|算法分析]">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;30&#x2F;Data_structure_and_algorithm_algorithm_analysis.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/06/30/Data_structure_and_algorithm_algorithm_analysis.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="1. 算法介绍 1.1. 算法  非形式地说，算法（algorithm）就说任何良定义地计算过程，该过程取某个值或值的集合作为输入，并产生某个值或值的集合作为输出。即算法就是把输入转化为输出的计算步骤的一个序列。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;algorithm&#x2F;algorithmTime.PNG">
-<meta property="og:updated_time" content="2021-06-30T12:42:23.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/algorithm/algorithmTime.PNG">
+<meta property="article:published_time" content="2021-06-30T12:09:23.000Z">
+<meta property="article:modified_time" content="2021-06-30T12:42:23.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="面试复习">
+<meta property="article:tag" content="数据结构和算法">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;algorithm&#x2F;algorithmTime.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/algorithm/algorithmTime.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/06/30/Data_structure_and_algorithm_algorithm_analysis.html">
 
@@ -317,7 +321,7 @@
 <blockquote>
 <p>非形式地说，<strong>算法</strong>（algorithm）就说任何<code>良定义</code>地计算过程，该过程取某个值或值的集合作为<strong>输入</strong>，并产生某个值或值的集合作为<strong>输出</strong>。即算法就是<u>把输入转化为输出的计算步骤的一个序列</u>。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <p>若对每个输入实例算法都以正确的输出<strong>停机</strong>，则称该算法是<strong>正确的</strong>，并称正确的算法<strong>解决了</strong>给定的计算问题。不正确的算法对某些输入实例可能根本<strong>不停机</strong>，也可能以不正确的回答停机。</p>
 <h4 id="数据结构">1.2. 数据结构</h4>
 <blockquote>
@@ -428,7 +432,7 @@ O(g(n))=\left\{f(n): \text { 存在正常量 } c \text { 和 } n_{0}, \text { �
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法介绍"><span class="nav-number">1.</span> <span class="nav-text">1. 算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 数据结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析算法"><span class="nav-number">2.</span> <span class="nav-text">2. 分析算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最坏情况与平均情况分析"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 最坏情况与平均情况分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增长量级"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 增长量级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的增长"><span class="nav-number">3.</span> <span class="nav-text">3. 函数的增长</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#渐近记号"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 渐近记号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#theta记号"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 \(\Theta\)记号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#o记号"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 \(O\)记号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#omega记号"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 \(\Omega\)记号</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1. 算法介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 数据结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 分析算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E4%B8%8E%E5%B9%B3%E5%9D%87%E6%83%85%E5%86%B5%E5%88%86%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 最坏情况与平均情况分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E9%95%BF%E9%87%8F%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 增长量级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%A2%9E%E9%95%BF"><span class="nav-number">3.</span> <span class="nav-text">3. 函数的增长</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%90%E8%BF%91%E8%AE%B0%E5%8F%B7"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 渐近记号</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#theta%E8%AE%B0%E5%8F%B7"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 \(\Theta\)记号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#o%E8%AE%B0%E5%8F%B7"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 \(O\)记号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#omega%E8%AE%B0%E5%8F%B7"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 \(\Omega\)记号</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -469,10 +473,10 @@ O(g(n))=\left\{f(n): \text { 存在正常量 } c \text { 和 } n_{0}, \text { �
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -505,18 +509,18 @@ O(g(n))=\left\{f(n): \text { 存在正常量 } c \text { 和 } n_{0}, \text { �
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -660,9 +664,17 @@ O(g(n))=\left\{f(n): \text { 存在正常量 } c \text { 和 } n_{0}, \text { �
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -680,7 +692,9 @@ O(g(n))=\left\{f(n): \text { 存在正常量 } c \text { 和 } n_{0}, \text { �
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,18 +56,21 @@
   };
 </script>
   <meta name="description" content="前言  分布式计算，距离不是问题。">
-<meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--18 远程部署的RMI">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;20&#x2F;JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  分布式计算，距离不是问题。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;remoteMethod.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;EJB.PNG">
-<meta property="og:updated_time" content="2021-05-20T02:44:05.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/remoteMethod.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/EJB.PNG">
+<meta property="article:published_time" content="2021-05-20T02:44:05.000Z">
+<meta property="article:modified_time" content="2021-05-20T02:44:05.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;remoteMethod.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/remoteMethod.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_18_remote%20deployment_with_RMI.html">
 
@@ -314,7 +317,7 @@
       
         <h3 id="前言">前言</h3>
 <blockquote>
-<p>分布式计算，距离不是问题。 <a id="more"></a></p>
+<p>分布式计算，距离不是问题。 <span id="more"></span></p>
 </blockquote>
 <h3 id="远程过程调用的设计">1. 远程过程调用的设计</h3>
 <p>远程过程调用(<code>Remote Method Invocation, RMI</code>)要建出4种东西：<code>服务器</code>、<code>客户端</code>、<code>服务器辅助设施</code>和<code>客户端辅助设施</code>。</p>
@@ -344,7 +347,7 @@
 <li><p>编写声明<code>RemoteException</code>的无参数构造函数；</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">MyRemoteImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException </span>&#123; &#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>向<code>RMI registry</code> 注册服务。将服务初始化并加入<code>RMI registry</code> ，<code>RMI</code>系统会把<code>stub</code>加到<code>registry</code>中。使用<code>java.rmi.Naming</code>的<code>rebind</code>方法来注册服务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    MyRemote service = <span class="keyword">new</span> MyRemoteImpl();</span><br><span class="line">    <span class="comment">// 帮助服务命名，并向RMI registry注册</span></span><br><span class="line">    Naming.rebind(“Remote Hello”, service);</span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception ex) &#123;...&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    MyRemote service = <span class="keyword">new</span> MyRemoteImpl();</span><br><span class="line">    <span class="comment">// 帮助服务命名，并向RMI registry注册</span></span><br><span class="line">    Naming.rebind(“Remote Hello”, service);</span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception ex) &#123;...&#125; </span><br></pre></td></tr></table></figure></li>
 </ul></li>
 <li><p>用<code>rmic</code>产生<code>stub</code>与<code>skeleton</code>。由<code>JDK</code>附带的<code>rmic</code>工具自动处理。</p>
 <ul>
@@ -365,10 +368,10 @@
 </ol>
 <h4 id="客户端获取stub">1.3 客户端获取<code>stub</code></h4>
 <p>客户端需要获取<code>stub</code>对象，这需要<code>RMI registry</code>，客户端从上面查询得到有相符名称的服务。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyRemote service = (MyRemote) Naming.lookup(<span class="string">"rmi://127.0.0.1/Remote Hello"</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MyRemote service = (MyRemote) Naming.lookup(<span class="string">&quot;rmi://127.0.0.1/Remote Hello&quot;</span>);</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>客户端查询<code>RMI registry</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Naming.lookup(<span class="string">"rmi://127.0.0.1/Remote Hello"</span>);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Naming.lookup(<span class="string">&quot;rmi://127.0.0.1/Remote Hello&quot;</span>);</span><br></pre></td></tr></table></figure></li>
 <li><p><code>RMI registry</code>返回<code>stub</code>对象，<code>RMI</code>会自动将<code>stub</code>解序列化。</p></li>
 <li><p>客户端可以调用<code>stub</code>上的方法</p></li>
 </ul>
@@ -468,7 +471,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程过程调用的设计"><span class="nav-number">2.</span> <span class="nav-text">1. 远程过程调用的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#辅助设施的任务"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 辅助设施的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建远程服务"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 创建远程服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端获取stub"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 客户端获取stub</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#servlets"><span class="nav-number">3.</span> <span class="nav-text">2. Servlets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enterprise-javabeans"><span class="nav-number">4.</span> <span class="nav-text">3. Enterprise JavaBeans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jini"><span class="nav-number">5.</span> <span class="nav-text">4. Jini</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">1. 远程过程调用的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E8%AE%BE%E6%96%BD%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 辅助设施的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 创建远程服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%8E%B7%E5%8F%96stub"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 客户端获取stub</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#servlets"><span class="nav-number">3.</span> <span class="nav-text">2. Servlets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#enterprise-javabeans"><span class="nav-number">4.</span> <span class="nav-text">3. Enterprise JavaBeans</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jini"><span class="nav-number">5.</span> <span class="nav-text">4. Jini</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -509,10 +512,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -545,18 +548,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -700,9 +703,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -720,7 +731,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

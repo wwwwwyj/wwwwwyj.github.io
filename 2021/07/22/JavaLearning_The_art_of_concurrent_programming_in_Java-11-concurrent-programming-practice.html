@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,21 +56,25 @@
   };
 </script>
   <meta name="description" content="前言 并发编程产生的问题和风险可能也会随之而来。">
-<meta name="keywords" content="Learning,Java,Java并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Java并发编程的艺术]--11 Java并发编程实践">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;07&#x2F;22&#x2F;JavaLearning_The_art_of_concurrent_programming_in_Java-11-concurrent-programming-practice.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/07/22/JavaLearning_The_art_of_concurrent_programming_in_Java-11-concurrent-programming-practice.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言 并发编程产生的问题和风险可能也会随之而来。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;MultipleProducePay.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;top.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;top1.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;CPUParam.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;AsynchronousTaskPool.PNG">
-<meta property="og:updated_time" content="2021-07-22T07:12:03.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/MultipleProducePay.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/top.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/top1.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/CPUParam.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/AsynchronousTaskPool.PNG">
+<meta property="article:published_time" content="2021-07-22T07:12:03.000Z">
+<meta property="article:modified_time" content="2021-07-22T07:12:03.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Java并发编程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;Concurrency&#x2F;chapter10&#x2F;MultipleProducePay.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/Concurrency/chapter10/MultipleProducePay.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/07/22/JavaLearning_The_art_of_concurrent_programming_in_Java-11-concurrent-programming-practice.html">
 
@@ -316,7 +320,7 @@
 
       
         <h3 id="前言">前言</h3>
-<p>并发编程产生的问题和风险可能也会随之而来。 <a id="more"></a></p>
+<p>并发编程产生的问题和风险可能也会随之而来。 <span id="more"></span></p>
 <h3 id="生产者和消费者模式">1. 生产者和消费者模式</h3>
 <p>生产者和消费者模式是<strong><u>通过一个容器来解决生产者和消费者的强耦合问题</u></strong>。生产者和消费者彼此之间不直接通信，而是<strong><u>通过阻塞队列来进行通信</u></strong>。</p>
 <ul>
@@ -445,7 +449,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者和消费者模式"><span class="nav-number">2.</span> <span class="nav-text">1. 生产者和消费者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多生产者和多消费者"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 多生产者和多消费者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线上问题定位"><span class="nav-number">3.</span> <span class="nav-text">2. 线上问题定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能测试"><span class="nav-number">4.</span> <span class="nav-text">3. 性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步任务池"><span class="nav-number">5.</span> <span class="nav-text">4. 异步任务池</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">1. 生产者和消费者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E5%A4%9A%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 多生产者和多消费者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.</span> <span class="nav-text">2. 线上问题定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">3. 性能测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E6%B1%A0"><span class="nav-number">5.</span> <span class="nav-text">4. 异步任务池</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -486,10 +490,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -522,18 +526,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -677,9 +681,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -697,7 +709,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

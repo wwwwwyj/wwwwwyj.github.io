@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,22 +56,25 @@
   };
 </script>
   <meta name="description" content="前言 第一章主要介绍课程概览，shell的一些基础知识。">
-<meta name="keywords" content="学习记录,MIT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT 6.NULL(一) Course overview + the shell">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2020&#x2F;05&#x2F;27&#x2F;MIT-6-NULL-one-Course-overview-plus-the-shell.html">
+<meta property="og:url" content="https://wuyunjie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言 第一章主要介绍课程概览，shell的一些基础知识。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_introduction.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_path.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_stream.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_pipe.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_exercise.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_exercise2.png">
-<meta property="og:updated_time" content="2020-06-01T09:29:08.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_introduction.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_path.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_stream.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_pipe.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_exercise2.png">
+<meta property="article:published_time" content="2020-05-27T09:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-01T09:29:08.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="MIT">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;MIT_Learning&#x2F;MIT-6-NULL&#x2F;shell_introduction.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/MIT_Learning/MIT-6-NULL/shell_introduction.png">
 
 <link rel="canonical" href="https://wuyunjie.top/2020/05/27/MIT-6-NULL-one-Course-overview-plus-the-shell.html">
 
@@ -324,7 +327,7 @@
 
       
         <h3 id="前言">前言</h3>
-<p><a href="https://missing-semester-cn.github.io/2020/course-shell/" target="_blank" rel="noopener">第一章</a>主要介绍课程概览，shell的一些基础知识。 <a id="more"></a> 课程分为11个时长一小时的讲座，每次围绕一个特定主题。第一次课程主要介绍了shell的使用，这是计算机的一个对外接口，这次课程介绍的许多工具都要通过shell来操作。</p>
+<p><a target="_blank" rel="noopener" href="https://missing-semester-cn.github.io/2020/course-shell/">第一章</a>主要介绍课程概览，shell的一些基础知识。 <span id="more"></span> 课程分为11个时长一小时的讲座，每次围绕一个特定主题。第一次课程主要介绍了shell的使用，这是计算机的一个对外接口，这次课程介绍的许多工具都要通过shell来操作。</p>
 <h3 id="主题-1-the-shell">主题 1: The Shell</h3>
 <h4 id="shell简介">shell简介</h4>
 <p>图形界面等交互式接口会限制我们对计算机的操作，比如无法在GUI上点击一个不存在的按钮。所以需要用到最根本的文字接口：<strong>Shell</strong>。大部分<strong>Shell</strong>的核心功能都是：<code>它允许你执行程序，输入并获取某种半结构化都输出。</code>课程中使用<code>Bourne Again SHell</code>, 简称 <code>“bash”</code>。</p>
@@ -363,7 +366,7 @@
 <p>对于大多数的类Unix系统，<code>根用户</code>（<code>root</code>用户）是非常特殊的。根用户<strong>几乎不受任何限制</strong>，他可以创建、读取、更新和删除系统中的任何文件。当遇到<code>拒绝访问（permission denied）</code>的错误时，通常是因为必须是根用户才能操作。 &gt; 通常在我们并不会以根用户的身份直接登陆系统，因为这样可能会因为某些错误的操作而破坏系统。取而代之的是我们会在需要的时候使用 <code>sudo</code> 命令。顾名思义，它的作用是可以以 <code>su</code>（<code>super user</code> 或 <code>root</code>的简写）的身份 <strong>do</strong> 一些事情。</p>
 <p>比如有一件事情是必须作为根用户才能做的，那就是<strong>Linux</strong>下向 <code>sysfs</code> 文件写入内容。系统被挂在在 <code>/sys</code> 下，<code>sysfs</code> 文件则暴露了一些内核（kernel）参数。 因此不需要借助任何专用的工具，就可以轻松地在运行期间配置系统内核。</p>
 <p>课程里那个改屏幕亮度的例子没实现，不知道是不是由于虚拟机配置的关系，这里直接把他的内容摘过来：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo find -L /sys/class/backlight -maxdepth 2 -name <span class="string">'*brightness*'</span></span></span><br><span class="line">/sys/class/backlight/thinkpad_screen/brightness</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /sys/class/backlight/thinkpad_screen</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo <span class="built_in">echo</span> 3 &gt; brightness</span></span><br><span class="line">An error occurred while redirecting file 'brightness'</span><br><span class="line">open: Permission denied</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo find -L /sys/class/backlight -maxdepth 2 -name <span class="string">&#x27;*brightness*&#x27;</span></span></span><br><span class="line">/sys/class/backlight/thinkpad_screen/brightness</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /sys/class/backlight/thinkpad_screen</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo <span class="built_in">echo</span> 3 &gt; brightness</span></span><br><span class="line">An error occurred while redirecting file &#x27;brightness&#x27;</span><br><span class="line">open: Permission denied</span><br></pre></td></tr></table></figure>
 <p>尽管用了<code>sudo</code>，但仍然报错了。<code>|</code>、<code>&gt;</code>、和 <code>&lt;</code> 是通过shell执行的，而不是被各个程序单独执行。 <code>echo</code> 等程序并不知道 <code>|</code> 的存在，它们只知道从自己的输入输出流中进行读写。 对于上面这种情况， shell在设置 <code>sudo echo</code> 前尝试打开 <code>brightness</code> 文件并写入，但是系统拒绝了shell的操作因为此时shell不是根用户。可以将上述操作修改为 <code>echo 3 | sudo tee brightness</code>，打开 <code>/sys</code> 文件的是 <code>tee</code> 这个程序，并且该程序以 <code>root</code> 权限在运行，因此操作可以进行。</p>
 <h3 id="课后练习">课后练习</h3>
 <ol type="1">
@@ -448,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题-1-the-shell"><span class="nav-number">2.</span> <span class="nav-text">主题 1: The Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell简介"><span class="nav-number">2.1.</span> <span class="nav-text">shell简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell使用"><span class="nav-number">2.2.</span> <span class="nav-text">shell使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell中的路径"><span class="nav-number">2.3.</span> <span class="nav-text">shell中的路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流和管道"><span class="nav-number">2.4.</span> <span class="nav-text">&quot;流&quot;和&quot;管道&quot;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#流"><span class="nav-number">2.4.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#管道"><span class="nav-number">2.4.2.</span> <span class="nav-text">管道</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#功能全面又强大的工具"><span class="nav-number">2.5.</span> <span class="nav-text">功能全面又强大的工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习"><span class="nav-number">3.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98-1-the-shell"><span class="nav-number">2.</span> <span class="nav-text">主题 1: The Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">shell简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">shell使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">2.3.</span> <span class="nav-text">shell中的路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E5%92%8C%E7%AE%A1%E9%81%93"><span class="nav-number">2.4.</span> <span class="nav-text">&quot;流&quot;和&quot;管道&quot;</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%81"><span class="nav-number">2.4.1.</span> <span class="nav-text">流</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">2.4.2.</span> <span class="nav-text">管道</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%85%A8%E9%9D%A2%E5%8F%88%E5%BC%BA%E5%A4%A7%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">2.5.</span> <span class="nav-text">功能全面又强大的工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -489,10 +492,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -525,18 +528,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -680,9 +683,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -700,7 +711,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

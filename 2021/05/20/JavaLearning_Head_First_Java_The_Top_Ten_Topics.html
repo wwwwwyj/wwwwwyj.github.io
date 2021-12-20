@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,17 +56,20 @@
   };
 </script>
   <meta name="description" content="前言  什么！有完没完啊？这本书到底还要看多久？">
-<meta name="keywords" content="Learning,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Java学习|Head_First_Java]--十大遗珠之憾">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;05&#x2F;20&#x2F;JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="前言  什么！有完没完啊？这本书到底还要看多久？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;AccessLevelsModifiers.PNG">
-<meta property="og:updated_time" content="2021-05-20T05:13:54.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/AccessLevelsModifiers.PNG">
+<meta property="article:published_time" content="2021-05-20T05:13:54.000Z">
+<meta property="article:modified_time" content="2021-05-20T05:13:54.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="Learning">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;HeadFirstJava&#x2F;AccessLevelsModifiers.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/HeadFirstJava/AccessLevelsModifiers.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/05/20/JavaLearning_Head_First_Java_The_Top_Ten_Topics.html">
 
@@ -313,13 +316,13 @@
       
         <h3 id="前言">前言</h3>
 <blockquote>
-<p>什么！有完没完啊？这本书到底还要看多久？ <a id="more"></a></p>
+<p>什么！有完没完啊？这本书到底还要看多久？ <span id="more"></span></p>
 </blockquote>
 <h3 id="枚举又称为枚举类型或enum">1. 枚举(又称为枚举类型或<code>Enum</code>)</h3>
 <p>枚举类型定义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Members &#123; JERRY, BOBBY, PHIL &#125;;</span><br><span class="line"><span class="keyword">public</span> Members selectedBandMember;</span><br><span class="line"></span><br><span class="line"><span class="comment">// later in the code</span></span><br><span class="line"><span class="keyword">if</span> (selectedBandMember == Members.JERRY) &#123;</span><br><span class="line">	<span class="comment">// do JERRY related stuff</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Members</span> </span>&#123; JERRY, BOBBY, PHIL &#125;;</span><br><span class="line"><span class="keyword">public</span> Members selectedBandMember;</span><br><span class="line"></span><br><span class="line"><span class="comment">// later in the code</span></span><br><span class="line"><span class="keyword">if</span> (selectedBandMember == Members.JERRY) &#123;</span><br><span class="line">	<span class="comment">// do JERRY related stuff</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以在<code>enum</code>中加入构造函数、方法、变量和特定常量的内容：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HfjEnum</span> </span>&#123;</span><br><span class="line">	<span class="keyword">enum</span> Names &#123;</span><br><span class="line">        <span class="comment">// 传给下方定义构造函数的参数</span></span><br><span class="line">		JERRY(“lead guitar”) &#123; <span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">							<span class="keyword">return</span> “plaintively”; &#125;&#125;,</span><br><span class="line">		BOBBY(“rhythm guitar”) &#123; <span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">							<span class="keyword">return</span> “hoarsely”; &#125;&#125;,</span><br><span class="line">		PHIL(“bass”);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String instrument;</span><br><span class="line"> 		</span><br><span class="line">        <span class="comment">// enum的构造函数，会对每个被声明的enum值执行一次</span></span><br><span class="line">        Names(String instrument) &#123;</span><br><span class="line">            <span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">getInstrument</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.instrument;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> “occasionally”;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Names n : Names.values()) &#123;</span><br><span class="line">            System.out.print(n);</span><br><span class="line">            System.out.print(“, instrument: “+ n.getInstrument());</span><br><span class="line">            System.out.println(“, sings: “ + n.sings());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HfjEnum</span> </span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">Names</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 传给下方定义构造函数的参数</span></span><br><span class="line">		JERRY(“lead guitar”) &#123; <span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">							<span class="keyword">return</span> “plaintively”; &#125;&#125;,</span><br><span class="line">		BOBBY(“rhythm guitar”) &#123; <span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">							<span class="keyword">return</span> “hoarsely”; &#125;&#125;,</span><br><span class="line">		PHIL(“bass”);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String instrument;</span><br><span class="line"> 		</span><br><span class="line">        <span class="comment">// enum的构造函数，会对每个被声明的enum值执行一次</span></span><br><span class="line">        Names(String instrument) &#123;</span><br><span class="line">            <span class="keyword">this</span>.instrument = instrument;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">getInstrument</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.instrument;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">sings</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> “occasionally”;</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Names n : Names.values()) &#123;</span><br><span class="line">            System.out.print(n);</span><br><span class="line">            System.out.print(“, instrument: “+ n.getInstrument());</span><br><span class="line">            System.out.println(“, sings: “ + n.sings());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="多维数组">2. 多维数组</h3>
 <p>Java中，二维数组实际上是一个<strong><code>数组的数组</code></strong>。</p>
 <h3 id="string-and-stringbufferstringbuilder-methods">3. <code>String</code> and <code>StringBuffer/StringBuilder</code> Methods</h3>
@@ -335,16 +338,16 @@
 <p><code>匿名的内部类</code>，是在需要传入一个实例的地方创建一个类，并把整个类作为参数传进去</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAnon</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		JButton button = <span class="keyword">new</span> JButton(“click”);</span><br><span class="line">		frame.getContentPane().add(button);</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// button.addActionListener(quitListener);</span></span><br><span class="line">		button.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent ev)</span> </span>&#123;</span><br><span class="line">                System.exit(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="连接的调用">6. 连接的调用</h3>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"spring"</span>);</span><br><span class="line">sb = sb.delete(<span class="number">3</span>,<span class="number">6</span>).insert(<span class="number">2</span>,<span class="string">"umme"</span>).deleteCharAt(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">&quot;spring&quot;</span>);</span><br><span class="line">sb = sb.delete(<span class="number">3</span>,<span class="number">6</span>).insert(<span class="number">2</span>,<span class="string">&quot;umme&quot;</span>).deleteCharAt(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <p>第二行程序从左到右执行。如下调用方法可以调用方法又不需要维护一个引用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Foo().go();</span><br></pre></td></tr></table></figure>
 <h3 id="块区域">7. 块区域</h3>
-<p>区段程序代码通常在方法中，以<code>{}</code>字符来区分。在某个块区域中声明的变量，一旦离开块区域，就超出范围，无法再被使用。</p>
+<p>区段程序代码通常在方法中，以<code>&#123;&#125;</code>字符来区分。在某个块区域中声明的变量，一旦离开块区域，就超出范围，无法再被使用。</p>
 <h3 id="断言">8. 断言</h3>
 <p>断言的使用类似<code>println()</code>，执行时未特别设定，被加入到程序中的<code>assert</code>命令会被Java虚拟机忽略。只有打开断言，才会输出。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> (height &gt; <span class="number">0</span>); </span><br><span class="line"><span class="comment">// if true, program continues normally</span></span><br><span class="line"><span class="comment">// if false, throw an AssertionError</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> (height &gt; <span class="number">0</span>); </span><br><span class="line"><span class="comment">// if true, program continues normally</span></span><br><span class="line"><span class="comment">// if false, throw an AssertionError </span></span><br></pre></td></tr></table></figure>
 <p>也可以加入信息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> (height &gt; <span class="number">0</span>) : <span class="string">"height = "</span> + height + <span class="string">" weight = "</span> + weight;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> (height &gt; <span class="number">0</span>) : <span class="string">&quot;height = &quot;</span> + height + <span class="string">&quot; weight = &quot;</span> + weight;</span><br></pre></td></tr></table></figure>
 <h3 id="不变性">9. 不变性</h3>
 <p><code>String</code>的不变性，主要为了安全性和节省空间。比如下面的程序：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s = “<span class="number">0</span>”;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">1</span>; x &lt; <span class="number">10</span>; x++) &#123;</span><br><span class="line">     s = s + x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -427,7 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举又称为枚举类型或enum"><span class="nav-number">2.</span> <span class="nav-text">1. 枚举(又称为枚举类型或Enum)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多维数组"><span class="nav-number">3.</span> <span class="nav-text">2. 多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-and-stringbufferstringbuilder-methods"><span class="nav-number">4.</span> <span class="nav-text">3. String and StringBuffer/StringBuilder Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存取权限和存取修饰符"><span class="nav-number">5.</span> <span class="nav-text">4. 存取权限和存取修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anonymous和static-nested-classes"><span class="nav-number">6.</span> <span class="nav-text">5. Anonymous和Static Nested Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接的调用"><span class="nav-number">7.</span> <span class="nav-text">6. 连接的调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块区域"><span class="nav-number">8.</span> <span class="nav-text">7. 块区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#断言"><span class="nav-number">9.</span> <span class="nav-text">8. 断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不变性"><span class="nav-number">10.</span> <span class="nav-text">9. 不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位操作"><span class="nav-number">11.</span> <span class="nav-text">10. 位操作</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%8F%88%E7%A7%B0%E4%B8%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%E6%88%96enum"><span class="nav-number">2.</span> <span class="nav-text">1. 枚举(又称为枚举类型或Enum)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">2. 多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-and-stringbufferstringbuilder-methods"><span class="nav-number">4.</span> <span class="nav-text">3. String and StringBuffer&#x2F;StringBuilder Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%8F%96%E6%9D%83%E9%99%90%E5%92%8C%E5%AD%98%E5%8F%96%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">4. 存取权限和存取修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#anonymous%E5%92%8Cstatic-nested-classes"><span class="nav-number">6.</span> <span class="nav-text">5. Anonymous和Static Nested Classes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%B0%83%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">6. 连接的调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%97%E5%8C%BA%E5%9F%9F"><span class="nav-number">8.</span> <span class="nav-text">7. 块区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E8%A8%80"><span class="nav-number">9.</span> <span class="nav-text">8. 断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%98%E6%80%A7"><span class="nav-number">10.</span> <span class="nav-text">9. 不变性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">11.</span> <span class="nav-text">10. 位操作</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -468,10 +471,10 @@
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -504,18 +507,18 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -659,9 +662,17 @@
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -679,7 +690,9 @@
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 

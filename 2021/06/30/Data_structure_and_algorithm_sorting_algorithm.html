@@ -4,7 +4,7 @@
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
@@ -56,18 +56,23 @@
   };
 </script>
   <meta name="description" content="1. 排序问题的形式定义 可以将排序问题形式化定义为如下：  输入: \(n\) 个数的一个序列 \(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)。 输出: 输入序列的一个排列 \(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right">
-<meta name="keywords" content="面试复习,数据结构和算法,算法,排序算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[数据结构和算法|各种排序算法原理及实现]">
-<meta property="og:url" content="https:&#x2F;&#x2F;wuyunjie.top&#x2F;2021&#x2F;06&#x2F;30&#x2F;Data_structure_and_algorithm_sorting_algorithm.html">
+<meta property="og:url" content="https://wuyunjie.top/2021/06/30/Data_structure_and_algorithm_sorting_algorithm.html">
 <meta property="og:site_name" content="WuYJ&#39;s Blog">
 <meta property="og:description" content="1. 排序问题的形式定义 可以将排序问题形式化定义为如下：  输入: \(n\) 个数的一个序列 \(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)。 输出: 输入序列的一个排列 \(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;sort&#x2F;insertSortExample.PNG">
-<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;sort&#x2F;insertSortTimeAnalysis.PNG">
-<meta property="og:updated_time" content="2021-06-30T12:11:46.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortExample.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortTimeAnalysis.PNG">
+<meta property="article:published_time" content="2021-06-30T12:11:46.000Z">
+<meta property="article:modified_time" content="2021-06-30T12:11:46.000Z">
+<meta property="article:author" content="wuyunjie">
+<meta property="article:tag" content="面试复习">
+<meta property="article:tag" content="数据结构和算法">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="排序算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wwwwwyj&#x2F;image_repository&#x2F;master&#x2F;img&#x2F;blog&#x2F;JavaLearning&#x2F;java&#x2F;dataStructureAndAlgorithm&#x2F;sort&#x2F;insertSortExample.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wwwwwyj/image_repository/master/img/blog/JavaLearning/java/dataStructureAndAlgorithm/sort/insertSortExample.PNG">
 
 <link rel="canonical" href="https://wuyunjie.top/2021/06/30/Data_structure_and_algorithm_sorting_algorithm.html">
 
@@ -318,12 +323,12 @@
 <p><strong>输入</strong>: <span class="math inline">\(n\)</span> 个数的一个序列 <span class="math inline">\(\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle\)</span>。 <strong>输出</strong>: 输入序列的一个排列 <span class="math inline">\(\left\langle a_{1}^{\prime}, a_{2}^{\prime}, \cdots, a_{n}^{\prime}\right\rangle\)</span>, 满足 <span class="math inline">\(a_{1}^{\prime} \leqslant a_{2}^{\prime} \leqslant \cdots \leqslant a_{n}^{\prime}\)</span> 。</p>
 </blockquote>
 <p>希望排序的数也称为<strong>关键词</strong>。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h3 id="排序算法">2. 排序算法</h3>
 <h4 id="插入排序">2.1 插入排序</h4>
 <h5 id="插入排序算法介绍">2.1.1 插入排序算法介绍</h5>
 <p>对于少量元素的排序，插入排序是一种有效的算法。插入排序的伪代码如下，输入是数组<span class="math inline">\(A[1.. n]\)</span>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">for j = 2 to A.length</span><br><span class="line">	key = A[j]</span><br><span class="line">	// Insert A[j] into the sorted sequence A[1 .. j-1].</span><br><span class="line">	i = j - 1</span><br><span class="line">	while i &gt; 0 and A[i] &gt; key</span><br><span class="line">		A[ i + i ] = A[i]</span><br><span class="line">		i = i - 1</span><br><span class="line">	A[ i + 1 ] = key</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">for j = 2 to A.length</span><br><span class="line">	key = A[j]</span><br><span class="line">	// Insert A[j] into the sorted sequence A[1 .. j-1].</span><br><span class="line">	i = j - 1</span><br><span class="line">	while i &gt; 0 and A[i] &gt; key</span><br><span class="line">		A[ i + i ] = A[i]</span><br><span class="line">		i = i - 1</span><br><span class="line">	A[ i + 1 ] = key</span><br></pre></td></tr></table></figure>
 <h5 id="循环不变式与插入排序的正确性">2.1.2 循环不变式与插入排序的正确性</h5>
 <p>下图式对数组<span class="math inline">\(A=&lt;5, 2, 4, 6, 1, 3&gt;\)</span>的插入排序：</p>
 <figure>
@@ -429,7 +434,7 @@ T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序问题的形式定义"><span class="nav-number">1.</span> <span class="nav-text">1. 排序问题的形式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法"><span class="nav-number">2.</span> <span class="nav-text">2. 排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入排序"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插入排序算法介绍"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 插入排序算法介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环不变式与插入排序的正确性"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 循环不变式与插入排序的正确性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入排序算法的分析"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 插入排序算法的分析</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E9%97%AE%E9%A2%98%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">1. 排序问题的形式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 插入排序算法介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E5%BC%8F%E4%B8%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 循环不变式与插入排序的正确性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E5%88%86%E6%9E%90"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 插入排序算法的分析</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -470,10 +475,10 @@ T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
   </div>
   <div class="links-of-author motion-element">
       <span class="links-of-author-item">
-        <a href="https://github.com/wwwwwyj" title="GitHub → https://github.com/wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <a href="https://github.com/wwwwwyj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wwwwwyj" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http://wuyunjie.top/loving/happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
+        <a href="http://wuyunjie.top/loving/happy-birthday" title="Loving → http:&#x2F;&#x2F;wuyunjie.top&#x2F;loving&#x2F;happy-birthday"><i class="fa fa-fw fa-heartbeat"></i>Loving</a>
       </span>
   </div>
 
@@ -506,18 +511,18 @@ T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">575k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8:38</span>
+    <span title="站点阅读时长">8:43</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v5.4.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
+  <div class="theme-info">主题 – <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.5.0
   </div>
 
         
@@ -661,9 +666,17 @@ T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
 <script src="/js/schemes/muse.js"></script>
+
+
 <script src="/js/next-boot.js"></script>
+
 
 
 
@@ -681,7 +694,9 @@ T(n)=&amp; c_{1} n+c_{2}(n-1)+c_{4}(n-1)+c_{5}\left(\frac{n(n+1)}{2}-1\right) \\
 
 
 
-  <script src="/js/local-search.js"></script>
+  
+<script src="/js/local-search.js"></script>
+
 
 
 
